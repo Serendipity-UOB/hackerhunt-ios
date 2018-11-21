@@ -7,15 +7,27 @@
 //
 
 import UIKit
+import KontaktSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+//        // Get the file path for keys.plist
+//        let filePath = Bundle.main.path(forResource: "Info", ofType: "plist")
+//
+//        // Put the keys in a dictionary
+//        let plist = NSDictionary(contentsOfFile: filePath!)
+//
+//        // Pull the value for the key
+//        let key:String = plist?.object(forKey: "kontakt_io_api_key") as! String
+        
+        // Set API Key
+        Kontakt.setAPIKey("pNqcUiJPjCLoeibtwzmjKkZwoPBPGXYS")
+        
         return true
     }
 
@@ -44,3 +56,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension AppDelegate: KTKBeaconManagerDelegate {
+    
+    func beaconManager(_ manager: KTKBeaconManager, didChangeLocationAuthorizationStatus status: CLAuthorizationStatus) {
+        
+    }
+    
+    func beaconManager(_ manager: KTKBeaconManager, didEnter region: KTKBeaconRegion) {
+        print("Enter region \(region)")
+    }
+    
+    func beaconManager(_ manager: KTKBeaconManager, didExitRegion region: KTKBeaconRegion) {
+        print("Exit region \(region)")
+    }
+    
+    func beaconManager(_ manager: KTKBeaconManager, didRangeBeacons beacons: [CLBeacon], in region: KTKBeaconRegion) {
+        print("Ranged beacons count: \(beacons.count)")
+    }
+}
