@@ -41,5 +41,11 @@
 	</array>
 	<key>kontact_io_api_key</key>
 	<string>pNqcUiJPjCLoeibtwzmjKkZwoPBPGXYS</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>HackerHunt gameplay requires location access </string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>HackerHunt gameplay requires location access </string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>HackerHunt gameplay requires location access </string>
 </dict>
 </plist>
