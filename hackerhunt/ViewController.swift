@@ -16,6 +16,47 @@ class ViewController: UIViewController {
     @IBOutlet weak var infoLbl: UILabel!
     @IBOutlet weak var countLbl: UILabel!
     
+    @IBAction func boopTap(_ sender: Any) {
+        let params: [String: Any] = [
+            "id": 1,
+            "beacons": [
+                [
+                "major": 1,
+                "rssi": 0.4
+                ],
+                [
+                "major": 2,
+                "rssi": 0.6
+                ]
+            ]
+        ];
+        
+        guard let url = URL(string: "http://serendipity-game-controller.herokuapp.com/update") else { return }
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: params, options: []) else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = httpBody
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+            if let response = response {
+                print("response:\n\t\(response)")
+            }
+            
+            if let data = data {
+                // decode string response
+                let body = String(bytes: data, encoding: String.Encoding.utf8)
+                // decode json response
+                // let json = try JSONSerialization.jsonObject(with: data, options: [])
+                
+                print("body:\n\t\(String(describing: body))")
+            }
+        }.resume()
+        
+        return
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +72,7 @@ class ViewController: UIViewController {
         
         switch KTKBeaconManager.locationAuthorizationStatus() {
         case .notDetermined:
+            infoLbl.text = "not determined"
             break
         case .denied, .restricted:
             infoLbl.text = "unauthorised"
@@ -59,7 +101,10 @@ extension ViewController: KTKBeaconManagerDelegate {
     }
     
     func beaconNameFrom(major m: NSNumber) -> String {
-        var majorToName = [ "", "4VSu", "7Wuj", "gHm1", "20LC" ]
+        if (m.intValue > 5) {
+            return "FAIL:\(m)"
+        }
+        var majorToName = [ "", "4VSu", "7Wuj", "gHm1", "", "20LC" ]
         return majorToName[m.intValue]
     }
     
@@ -68,7 +113,7 @@ extension ViewController: KTKBeaconManagerDelegate {
         let sorted = beacons.sorted(by: { $0.major.compare($1.major) == .orderedAscending })
         var text = ""
         for beacon in sorted {
-            text += "beacon: \(beaconNameFrom(major: beacon.major)), rssi: \(beacon.rssi)\nprox: \(proximityFrom(enum: beacon.proximity)), accuracy: \(Double(round(100*beacon.accuracy)/100))\n\n"
+            text += "beacon: \(beaconNameFrom(major: beacon.major)), rssi: \(beacon.rssi)\nprox: \(proximityFrom(enum: beacon.proximity))\n\n"
         }
         countLbl.text = text
     }
