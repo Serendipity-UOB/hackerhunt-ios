@@ -9,61 +9,21 @@
 import UIKit
 import KontaktSDK
 
-class ViewController: UIViewController {
+class StartViewController: UIViewController {
   
     var beaconManager: KTKBeaconManager!
     
-    @IBOutlet weak var infoLbl: UILabel!
-    @IBOutlet weak var countLbl: UILabel!
-    
-    @IBAction func boopTap(_ sender: Any) {
-        let params: [String: Any] = [
-            "id": 1,
-            "beacons": [
-                [
-                "major": 1,
-                "rssi": 0.4
-                ],
-                [
-                "major": 2,
-                "rssi": 0.6
-                ]
-            ]
-        ];
-        
-        guard let url = URL(string: "http://serendipity-game-controller.herokuapp.com/update") else { return }
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: params, options: []) else { return }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = httpBody
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
-            if let response = response {
-                print("response:\n\t\(response)")
-            }
-            
-            if let data = data {
-                // decode string response
-                let body = String(bytes: data, encoding: String.Encoding.utf8)
-                // decode json response
-                // let json = try JSONSerialization.jsonObject(with: data, options: [])
-                
-                print("body:\n\t\(String(describing: body))")
-            }
-        }.resume()
-        
-        return
-    }
+    @IBOutlet weak var titleLogoGif: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        infoLbl.text = "starting"
-        countLbl.text = ""
+
+        titleLogoGif.loadGif(name: "title_logo")
         
-        // Initiate Beacon Manager
+        configureKontakt()
+    }
+    
+    func configureKontakt() {
         beaconManager = KTKBeaconManager(delegate: self)
         
         if (KTKBeaconManager.locationAuthorizationStatus() == .notDetermined) {
@@ -72,13 +32,13 @@ class ViewController: UIViewController {
         
         switch KTKBeaconManager.locationAuthorizationStatus() {
         case .notDetermined:
-            infoLbl.text = "not determined"
+            print("not determined")
             break
         case .denied, .restricted:
-            infoLbl.text = "unauthorised"
+            print("unauthorised")
             break
         case .authorizedWhenInUse, .authorizedAlways:
-            infoLbl.text = ""
+            print("authorised")
             break
         }
         
@@ -90,10 +50,9 @@ class ViewController: UIViewController {
         beaconManager.startMonitoring(for: region)
         beaconManager.startRangingBeacons(in: region)
     }
-    
 }
 
-extension ViewController: KTKBeaconManagerDelegate {
+extension StartViewController: KTKBeaconManagerDelegate {
     
     func proximityFrom(enum p: CLProximity) -> String {
         var proximities = ["unknown", "immediate", "near", "far"]
@@ -115,21 +74,19 @@ extension ViewController: KTKBeaconManagerDelegate {
         for beacon in sorted {
             text += "beacon: \(beaconNameFrom(major: beacon.major)), rssi: \(beacon.rssi)\nprox: \(proximityFrom(enum: beacon.proximity))\n\n"
         }
-        countLbl.text = text
+        print(text)
     }
     
     func beaconManager(_ manager: KTKBeaconManager, didEnter region: KTKBeaconRegion) {
         // Entered range of region
         //   Player is within MVB
         print("Entered beacon range: \(region)")
-        infoLbl.text = "Entered MVB"
     }
     
     func beaconManager(_ manager: KTKBeaconManager, didExitRegion region: KTKBeaconRegion) {
         // Entered range of region
         //   Player has left MVB, notify player and server?
         print("Exited beacon range: \(region)")
-        infoLbl.text = "Not in MVB"
     }
     
     /*

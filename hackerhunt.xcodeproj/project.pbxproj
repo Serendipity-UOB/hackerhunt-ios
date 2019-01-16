@@ -8,15 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		BF584CC021A5A1FD00830823 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CBF21A5A1FD00830823 /* AppDelegate.swift */; };
-		BF584CC221A5A1FD00830823 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CC121A5A1FD00830823 /* ViewController.swift */; };
+		BF584CC221A5A1FD00830823 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CC121A5A1FD00830823 /* StartViewController.swift */; };
 		BF584CC521A5A1FD00830823 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF584CC321A5A1FD00830823 /* Main.storyboard */; };
-		BF584CC721A5A1FE00830823 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF584CC621A5A1FE00830823 /* Assets.xcassets */; };
 		BF584CCA21A5A1FE00830823 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF584CC821A5A1FE00830823 /* LaunchScreen.storyboard */; };
 		BF584CD521A5A1FE00830823 /* hackerhuntTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CD421A5A1FE00830823 /* hackerhuntTests.swift */; };
 		BF584CE021A5A1FE00830823 /* hackerhuntUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CDF21A5A1FE00830823 /* hackerhuntUITests.swift */; };
 		BF584CEE21A5A35E00830823 /* KontaktSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF584CED21A5A35E00830823 /* KontaktSDK.framework */; };
 		BF584CEF21A5A36E00830823 /* KontaktSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF584CED21A5A35E00830823 /* KontaktSDK.framework */; };
 		BF584CF021A5A36E00830823 /* KontaktSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF584CED21A5A35E00830823 /* KontaktSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BF9A7FE521EF6C6F00C30261 /* title_logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = BF9A7FE421EF6C6F00C30261 /* title_logo.gif */; };
+		BF9A7FE921EF6CC100C30261 /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9A7FE821EF6CC100C30261 /* Gif.swift */; };
+		BF9A7FED21EF720C00C30261 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9A7FEC21EF720C00C30261 /* Assets.xcassets */; };
+		BF9A7FEF21EF883500C30261 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9A7FEE21EF883500C30261 /* RegisterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,9 +56,8 @@
 /* Begin PBXFileReference section */
 		BF584CBC21A5A1FD00830823 /* hackerhunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hackerhunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF584CBF21A5A1FD00830823 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BF584CC121A5A1FD00830823 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BF584CC121A5A1FD00830823 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		BF584CC421A5A1FD00830823 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		BF584CC621A5A1FE00830823 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF584CC921A5A1FE00830823 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF584CCB21A5A1FE00830823 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF584CD021A5A1FE00830823 /* hackerhuntTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hackerhuntTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +67,10 @@
 		BF584CDF21A5A1FE00830823 /* hackerhuntUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hackerhuntUITests.swift; sourceTree = "<group>"; };
 		BF584CE121A5A1FE00830823 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF584CED21A5A35E00830823 /* KontaktSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KontaktSDK.framework; path = "kontakt-ios-sdk/KontaktSDK/iOS/KontaktSDK.framework"; sourceTree = "<group>"; };
+		BF9A7FE421EF6C6F00C30261 /* title_logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = title_logo.gif; sourceTree = "<group>"; };
+		BF9A7FE821EF6CC100C30261 /* Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
+		BF9A7FEC21EF720C00C30261 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BF9A7FEE21EF883500C30261 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,12 +124,13 @@
 		BF584CBE21A5A1FD00830823 /* hackerhunt */ = {
 			isa = PBXGroup;
 			children = (
-				BF584CBF21A5A1FD00830823 /* AppDelegate.swift */,
-				BF584CC121A5A1FD00830823 /* ViewController.swift */,
+				BF9A7FF021EF883F00C30261 /* Controller */,
+				BF9A7FF321EF89E800C30261 /* Misc */,
 				BF584CC321A5A1FD00830823 /* Main.storyboard */,
-				BF584CC621A5A1FE00830823 /* Assets.xcassets */,
 				BF584CC821A5A1FE00830823 /* LaunchScreen.storyboard */,
+				BF584CBF21A5A1FD00830823 /* AppDelegate.swift */,
 				BF584CCB21A5A1FE00830823 /* Info.plist */,
+				BF9A7FEC21EF720C00C30261 /* Assets.xcassets */,
 			);
 			path = hackerhunt;
 			sourceTree = "<group>";
@@ -144,6 +151,24 @@
 				BF584CE121A5A1FE00830823 /* Info.plist */,
 			);
 			path = hackerhuntUITests;
+			sourceTree = "<group>";
+		};
+		BF9A7FF021EF883F00C30261 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BF584CC121A5A1FD00830823 /* StartViewController.swift */,
+				BF9A7FEE21EF883500C30261 /* RegisterViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		BF9A7FF321EF89E800C30261 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				BF9A7FE821EF6CC100C30261 /* Gif.swift */,
+				BF9A7FE421EF6C6F00C30261 /* title_logo.gif */,
+			);
+			path = Misc;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,8 +277,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF9A7FE521EF6C6F00C30261 /* title_logo.gif in Resources */,
 				BF584CCA21A5A1FE00830823 /* LaunchScreen.storyboard in Resources */,
-				BF584CC721A5A1FE00830823 /* Assets.xcassets in Resources */,
+				BF9A7FED21EF720C00C30261 /* Assets.xcassets in Resources */,
 				BF584CC521A5A1FD00830823 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,8 +325,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF584CC221A5A1FD00830823 /* ViewController.swift in Sources */,
+				BF584CC221A5A1FD00830823 /* StartViewController.swift in Sources */,
 				BF584CC021A5A1FD00830823 /* AppDelegate.swift in Sources */,
+				BF9A7FE921EF6CC100C30261 /* Gif.swift in Sources */,
+				BF9A7FEF21EF883500C30261 /* RegisterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
