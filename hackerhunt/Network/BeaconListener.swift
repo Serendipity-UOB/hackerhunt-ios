@@ -1,5 +1,5 @@
 //
-//  BeaconController.swift
+//  BeaconListener.swift
 //  hackerhunt
 //
 //  Created by Louis Heath on 21/01/2019.
@@ -8,13 +8,15 @@
 
 import KontaktSDK
 
-class BeaconController: NSObject {
+class BeaconListener: NSObject {
     
     var beaconManager: KTKBeaconManager!
+    var gameState: GameState!
     
-    override init() {
+    init(withState gameState: GameState) {
         super.init()
-        beaconManager = KTKBeaconManager(delegate: self)
+        self.beaconManager = KTKBeaconManager(delegate: self)
+        self.gameState = gameState
     }
     
     func isAuthorised() -> Bool {
@@ -36,9 +38,17 @@ class BeaconController: NSObject {
         beaconManager.startMonitoring(for: region)
         beaconManager.startRangingBeacons(in: region)
     }
+    
+    func stringFrom(beacons: [CLBeacon]) -> String {
+        var text = "beacons: \n"
+        for beacon in beacons {
+            text += "\t\(beacon.major): \(beacon.rssi), \(proximityFrom(enum: beacon.proximity))\n"
+        }
+        return text
+    }
 }
 
-extension BeaconController: KTKBeaconManagerDelegate {
+extension BeaconListener: KTKBeaconManagerDelegate {
     
     func proximityFrom(enum p: CLProximity) -> String {
         var proximities = ["unknown", "immediate", "near", "far"]
@@ -46,30 +56,19 @@ extension BeaconController: KTKBeaconManagerDelegate {
     }
     
     func beaconManager(_ manager: KTKBeaconManager, didRangeBeacons beacons: [CLBeacon], in region: KTKBeaconRegion) {
-        // show a list of beacons and their RSSI
-        let sorted = beacons.sorted(by: { $0.major.compare($1.major) == .orderedAscending })
-        var text = "beacons: "
-        for beacon in sorted {
-            text += "beacon: \(beacon.major), rssi: \(beacon.rssi)\nprox: \(proximityFrom(enum: beacon.proximity))\n\n"
-        }
-        print(text)
+        // update game state
+        let sortedBeacons = beacons.sorted(by: { $0.major.compare($1.major) == .orderedAscending })
+        print(stringFrom(beacons: sortedBeacons))
+        gameState.nearbyBeacons = sortedBeacons
     }
     
     func beaconManager(_ manager: KTKBeaconManager, didEnter region: KTKBeaconRegion) {
-        // Entered range of region
-        //   Player is within MVB
         print("Entered beacon range: \(region)")
     }
     
     func beaconManager(_ manager: KTKBeaconManager, didExitRegion region: KTKBeaconRegion) {
-        // Entered range of region
-        //   Player has left MVB, notify player and server?
         print("Exited beacon range: \(region)")
     }
-    
-    /*
-     These don't seem to get hit. We also don't really need them but leave in for debug
-     */
     
     func beaconManager(_ manager: KTKBeaconManager, didStartMonitoringFor region: KTKBeaconRegion) {
         print("Started monitoring region \"\(region)\"")

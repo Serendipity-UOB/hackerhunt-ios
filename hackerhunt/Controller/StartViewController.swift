@@ -11,7 +11,8 @@ import KontaktSDK
 
 class StartViewController: UIViewController {
   
-    var beaconController: BeaconController!
+    var beaconListener: BeaconListener!
+    var gameState: GameState!
     
     @IBOutlet weak var titleLogoGif: UIImageView!
     @IBOutlet weak var errorMessage: UILabel!
@@ -21,19 +22,26 @@ class StartViewController: UIViewController {
 
         titleLogoGif.loadGif(name: "title_logo")
         
-        if (!beaconController.isAuthorised()) {
-            beaconController.requestAuthorisation()
+        if (!beaconListener.isAuthorised()) {
+            beaconListener.requestAuthorisation()
         }
     }
 
+    /* Transition methods */
+    
     @IBAction func startPressed(_ sender: Any) {
-        if (beaconController.isAuthorised()) {
-            beaconController.startMonitoring()
+        if (beaconListener.isAuthorised()) {
+            beaconListener.startMonitoring()
             self.performSegue(withIdentifier:"transitionToRegister", sender:self);
         } else {
-            beaconController.requestAuthorisation()
+            beaconListener.requestAuthorisation()
             self.errorMessage.text = "Please enable Bluetooth access"
         }
-        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let registerViewController = segue.destination as? RegisterViewController {
+            registerViewController.gameState = gameState
+        }
     }
 }

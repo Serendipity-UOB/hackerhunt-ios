@@ -19,8 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set API Key
         Kontakt.setAPIKey("pNqcUiJPjCLoeibtwzmjKkZwoPBPGXYS")
         
+        let gameState = GameState()
+        let beaconListener = BeaconListener(withState: gameState)
+        
         if let startViewController = window?.rootViewController as? StartViewController {
-            startViewController.beaconController = BeaconController()
+            startViewController.gameState = gameState
+            startViewController.beaconListener = beaconListener
         }
         
         return true

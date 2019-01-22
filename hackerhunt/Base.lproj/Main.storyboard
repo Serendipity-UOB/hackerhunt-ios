@@ -83,13 +83,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Hacker name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h9W-Ng-uks">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test" borderStyle="roundedRect" placeholder="Hacker name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h9W-Ng-uks">
                                 <rect key="frame" x="15" y="249" width="290" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Real name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EVh-Pi-cLY">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test" borderStyle="roundedRect" placeholder="Real name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EVh-Pi-cLY">
                                 <rect key="frame" x="15" y="204" width="290" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
@@ -114,7 +114,7 @@
                                     <action selector="goButtonClicked:" destination="O1B-1s-BhP" eventType="touchUpInside" id="Xxu-Hw-vQ5"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="NFC id" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zxm-38-w5F">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" borderStyle="roundedRect" placeholder="NFC id" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zxm-38-w5F">
                                 <rect key="frame" x="15" y="294" width="290" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
@@ -176,25 +176,37 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome: X" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U6x-My-2Hq">
-                                <rect key="frame" x="117.5" y="230" width="85" height="14"/>
+                                <rect key="frame" x="117.5" y="228" width="85" height="14"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Players in Game: Y" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGV-dv-Db2">
-                                <rect key="frame" x="84" y="294" width="152" height="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Players in Game:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pb-Gg-qjC">
+                                <rect key="frame" x="84" y="292" width="135" height="14"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time until Game: Z" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsd-kS-Bsr">
-                                <rect key="frame" x="84" y="323" width="152" height="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Time until Game:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pmr-bF-I0k">
+                                <rect key="frame" x="84" y="326" width="135" height="14"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lY1-js-gfQ">
-                                <rect key="frame" x="95" y="372" width="130" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGV-dv-Db2">
+                                <rect key="frame" x="227" y="292" width="8.5" height="14"/>
+                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsd-kS-Bsr">
+                                <rect key="frame" x="227" y="327" width="93" height="14"/>
+                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lY1-js-gfQ">
+                                <rect key="frame" x="95" y="366" width="130" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="lY1-js-gfQ" secondAttribute="height" multiplier="13:3" id="AA9-ag-J3Y"/>
@@ -204,25 +216,45 @@
                                 <state key="normal" title="join_game();">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
+                                <state key="disabled" title="waiting..."/>
                                 <connections>
                                     <action selector="joinGameClicked:" destination="9Ag-Hb-iZs" eventType="touchUpInside" id="9fN-Hc-Pvm"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="JOIN_SUCCESS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yjn-PT-gLe">
+                                <rect key="frame" x="89" y="374" width="143" height="14"/>
+                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
-                            <constraint firstItem="Vsd-kS-Bsr" firstAttribute="centerX" secondItem="O1E-AV-t5k" secondAttribute="centerX" id="Glc-Lv-1ho"/>
+                            <constraint firstItem="7pb-Gg-qjC" firstAttribute="bottom" secondItem="O1E-AV-t5k" secondAttribute="bottom" constant="-262" id="1ej-VD-Nqr"/>
+                            <constraint firstItem="7pb-Gg-qjC" firstAttribute="leading" secondItem="O1E-AV-t5k" secondAttribute="leading" constant="84" id="2FU-jT-Usv"/>
+                            <constraint firstItem="HGV-dv-Db2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7pb-Gg-qjC" secondAttribute="trailing" constant="8" symbolic="YES" id="76Y-B1-HjO"/>
+                            <constraint firstItem="Yjn-PT-gLe" firstAttribute="centerX" secondItem="O1E-AV-t5k" secondAttribute="centerX" id="8tG-Bj-OmH"/>
+                            <constraint firstItem="HGV-dv-Db2" firstAttribute="trailing" secondItem="O1E-AV-t5k" secondAttribute="trailing" constant="-84.5" id="GQV-db-m1C"/>
                             <constraint firstItem="lY1-js-gfQ" firstAttribute="centerX" secondItem="O1E-AV-t5k" secondAttribute="centerX" id="HUy-pn-CwK"/>
-                            <constraint firstItem="HGV-dv-Db2" firstAttribute="centerX" secondItem="O1E-AV-t5k" secondAttribute="centerX" id="Mqi-bL-0WZ"/>
-                            <constraint firstItem="Vsd-kS-Bsr" firstAttribute="top" secondItem="HGV-dv-Db2" secondAttribute="bottom" constant="15" id="T4B-Z9-1cD"/>
-                            <constraint firstItem="HGV-dv-Db2" firstAttribute="top" secondItem="O1E-AV-t5k" secondAttribute="centerY" id="fzl-pm-VTQ"/>
-                            <constraint firstItem="U6x-My-2Hq" firstAttribute="bottom" secondItem="HGV-dv-Db2" secondAttribute="top" constant="-50" id="qZQ-H9-T2Z"/>
+                            <constraint firstItem="Pmr-bF-I0k" firstAttribute="bottom" secondItem="O1E-AV-t5k" secondAttribute="bottom" constant="-228" id="QGJ-gy-bOH"/>
+                            <constraint firstItem="Vsd-kS-Bsr" firstAttribute="bottom" secondItem="O1E-AV-t5k" secondAttribute="bottom" constant="-227" id="YBY-iG-8bJ"/>
+                            <constraint firstItem="Yjn-PT-gLe" firstAttribute="centerY" secondItem="lY1-js-gfQ" secondAttribute="centerY" id="jD1-GG-64Q"/>
+                            <constraint firstItem="HGV-dv-Db2" firstAttribute="bottom" secondItem="O1E-AV-t5k" secondAttribute="bottom" constant="-262" id="lpt-wy-rsr"/>
+                            <constraint firstItem="Vsd-kS-Bsr" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="O1E-AV-t5k" secondAttribute="trailing" id="mO8-0i-DuQ"/>
+                            <constraint firstItem="Pmr-bF-I0k" firstAttribute="leading" secondItem="O1E-AV-t5k" secondAttribute="leading" constant="84" id="mwd-DU-CrO"/>
                             <constraint firstItem="U6x-My-2Hq" firstAttribute="centerX" secondItem="O1E-AV-t5k" secondAttribute="centerX" id="s8N-sa-qIO"/>
-                            <constraint firstItem="lY1-js-gfQ" firstAttribute="top" secondItem="Vsd-kS-Bsr" secondAttribute="bottom" constant="35" id="sRI-zJ-XEx"/>
+                            <constraint firstItem="lY1-js-gfQ" firstAttribute="centerY" secondItem="Vsd-kS-Bsr" secondAttribute="bottom" constant="40" id="sRI-zJ-XEx"/>
+                            <constraint firstItem="U6x-My-2Hq" firstAttribute="bottom" secondItem="O1E-AV-t5k" secondAttribute="bottom" constant="-326" id="v0r-hr-zNM"/>
+                            <constraint firstItem="Vsd-kS-Bsr" firstAttribute="leading" secondItem="Pmr-bF-I0k" secondAttribute="trailing" constant="8" id="yTq-uj-ER9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1E-AV-t5k"/>
                     </view>
                     <connections>
+                        <outlet property="joinButton" destination="lY1-js-gfQ" id="aHn-vs-HQ1"/>
+                        <outlet property="joinSuccessLabel" destination="Yjn-PT-gLe" id="xPf-VC-HET"/>
+                        <outlet property="playerCountLabel" destination="HGV-dv-Db2" id="3xR-2p-ikn"/>
+                        <outlet property="timeRemainingLabel" destination="Vsd-kS-Bsr" id="rqd-Vv-3nI"/>
+                        <outlet property="welcomeLabel" destination="U6x-My-2Hq" id="epg-r6-fPg"/>
                         <segue destination="3Hg-En-CAh" kind="show" identifier="transitionToMainGame" id="l7V-EJ-TJR"/>
                     </connections>
                 </viewController>

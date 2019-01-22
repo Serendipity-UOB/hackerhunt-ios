@@ -18,7 +18,10 @@
 		BF584CF021A5A36E00830823 /* KontaktSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF584CED21A5A35E00830823 /* KontaktSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BF5CE1FB21F62ACE0057117A /* JoinGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5CE1FA21F62ACE0057117A /* JoinGameViewController.swift */; };
 		BF5CE1FD21F63D4C0057117A /* MainGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5CE1FC21F63D4C0057117A /* MainGameViewController.swift */; };
-		BF5CE20021F659E20057117A /* BeaconController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5CE1FF21F659E20057117A /* BeaconController.swift */; };
+		BF5CE20021F659E20057117A /* BeaconListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5CE1FF21F659E20057117A /* BeaconListener.swift */; };
+		BF6F9F8821F7AA0000924174 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F9F8721F7AA0000924174 /* GameState.swift */; };
+		BF6F9F8A21F7AED600924174 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F9F8921F7AED600924174 /* Player.swift */; };
+		BF6F9F8F21F7B54000924174 /* ServerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F9F8E21F7B54000924174 /* ServerUtils.swift */; };
 		BF9A7FE521EF6C6F00C30261 /* title_logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = BF9A7FE421EF6C6F00C30261 /* title_logo.gif */; };
 		BF9A7FE921EF6CC100C30261 /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9A7FE821EF6CC100C30261 /* Gif.swift */; };
 		BF9A7FED21EF720C00C30261 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9A7FEC21EF720C00C30261 /* Assets.xcassets */; };
@@ -72,7 +75,10 @@
 		BF584CED21A5A35E00830823 /* KontaktSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KontaktSDK.framework; path = "kontakt-ios-sdk/KontaktSDK/iOS/KontaktSDK.framework"; sourceTree = "<group>"; };
 		BF5CE1FA21F62ACE0057117A /* JoinGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGameViewController.swift; sourceTree = "<group>"; };
 		BF5CE1FC21F63D4C0057117A /* MainGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGameViewController.swift; sourceTree = "<group>"; };
-		BF5CE1FF21F659E20057117A /* BeaconController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconController.swift; sourceTree = "<group>"; };
+		BF5CE1FF21F659E20057117A /* BeaconListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconListener.swift; sourceTree = "<group>"; };
+		BF6F9F8721F7AA0000924174 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		BF6F9F8921F7AED600924174 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		BF6F9F8E21F7B54000924174 /* ServerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerUtils.swift; sourceTree = "<group>"; };
 		BF9A7FE421EF6C6F00C30261 /* title_logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = title_logo.gif; sourceTree = "<group>"; };
 		BF9A7FE821EF6CC100C30261 /* Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
 		BF9A7FEC21EF720C00C30261 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -130,9 +136,10 @@
 		BF584CBE21A5A1FD00830823 /* hackerhunt */ = {
 			isa = PBXGroup;
 			children = (
+				BF5CE1FE21F659BB0057117A /* Model */,
+				BF9A7FF321EF89E800C30261 /* View */,
 				BF9A7FF021EF883F00C30261 /* Controller */,
-				BF5CE1FE21F659BB0057117A /* Beacon */,
-				BF9A7FF321EF89E800C30261 /* Misc */,
+				BF6F9F8D21F7B52E00924174 /* Network */,
 				BF584CC321A5A1FD00830823 /* Main.storyboard */,
 				BF584CC821A5A1FE00830823 /* LaunchScreen.storyboard */,
 				BF584CBF21A5A1FD00830823 /* AppDelegate.swift */,
@@ -160,12 +167,22 @@
 			path = hackerhuntUITests;
 			sourceTree = "<group>";
 		};
-		BF5CE1FE21F659BB0057117A /* Beacon */ = {
+		BF5CE1FE21F659BB0057117A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				BF5CE1FF21F659E20057117A /* BeaconController.swift */,
+				BF6F9F8721F7AA0000924174 /* GameState.swift */,
+				BF6F9F8921F7AED600924174 /* Player.swift */,
 			);
-			path = Beacon;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BF6F9F8D21F7B52E00924174 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				BF5CE1FF21F659E20057117A /* BeaconListener.swift */,
+				BF6F9F8E21F7B54000924174 /* ServerUtils.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		BF9A7FF021EF883F00C30261 /* Controller */ = {
@@ -179,13 +196,13 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		BF9A7FF321EF89E800C30261 /* Misc */ = {
+		BF9A7FF321EF89E800C30261 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				BF9A7FE821EF6CC100C30261 /* Gif.swift */,
 				BF9A7FE421EF6C6F00C30261 /* title_logo.gif */,
 			);
-			path = Misc;
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -342,12 +359,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF5CE20021F659E20057117A /* BeaconController.swift in Sources */,
+				BF5CE20021F659E20057117A /* BeaconListener.swift in Sources */,
 				BF5CE1FB21F62ACE0057117A /* JoinGameViewController.swift in Sources */,
+				BF6F9F8F21F7B54000924174 /* ServerUtils.swift in Sources */,
 				BF584CC221A5A1FD00830823 /* StartViewController.swift in Sources */,
 				BF584CC021A5A1FD00830823 /* AppDelegate.swift in Sources */,
 				BF5CE1FD21F63D4C0057117A /* MainGameViewController.swift in Sources */,
+				BF6F9F8821F7AA0000924174 /* GameState.swift in Sources */,
 				BF9A7FE921EF6CC100C30261 /* Gif.swift in Sources */,
+				BF6F9F8A21F7AED600924174 /* Player.swift in Sources */,
 				BF9A7FEF21EF883500C30261 /* RegisterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

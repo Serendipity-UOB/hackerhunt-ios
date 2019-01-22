@@ -10,6 +10,10 @@ import UIKit
 
 class RegisterViewController: UIViewController, UITextFieldDelegate {
     
+    var gameState: GameState!
+    
+    var inputs : [String: String] = [:]
+    
     @IBOutlet weak var realNameTextField: UITextField!
     @IBOutlet weak var hackerNameTextField: UITextField!
     @IBOutlet weak var nfcIdTextField: UITextField!
@@ -26,27 +30,22 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func goButtonClicked(_ sender: Any) {
-        let userInfo : [String: String] = [
+        self.inputs = [
             "real_name": realNameTextField.text!,
             "hacker_name": hackerNameTextField.text!,
             "nfc_id": nfcIdTextField.text!
         ]
         
-        print("Registering: \(userInfo)");
+        if (!inputsValid()) {
+            return
+        }
         
         goButton.isEnabled = false
         
-        guard let url = URL(string: "http://serendipity-game-controller.herokuapp.com/registerPlayer") else { return }
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: userInfo, options: []) else { return }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = httpBody
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let request : URLRequest = ServerUtils.post(to: "/registerPlayer", with: self.inputs)
 
         // make async request
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
             if let data = data {
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
@@ -55,33 +54,47 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         if let statusCode = bodyDict["status"] as? Int {
                             
                             switch statusCode {
-                            case 200:
+                            case 200, 404:
                                 self.progressToJoinGame()
+                                return
                             case 400:
-                                self.reattemptInput(withMessage: "Hacker name already in use")
-                            case 404:
-                                print("Endpoint not implemented")
-                                self.progressToJoinGame()
+                                self.reattemptInput(with: "Hacker name already in use")
+                                return
                             default:
-                                self.reattemptInput(withMessage: "Server response \(statusCode). Report to base")
+                                self.reattemptInput(with: "Server response \(statusCode). Report to base")
+                                return
                             }
                         }
-                    } else {
-                        self.reattemptInput(withMessage: "JSON parse error. Report to base")
                     }
                 } catch {
-                    self.reattemptInput(withMessage: "Error. Report to base")
+                    self.reattemptInput(with: "Error. Report to base")
+                    return
                 }
-            } else {
-                self.reattemptInput(withMessage: "No server response. Report to base")
             }
+            self.reattemptInput(with: "Error. Report to base") // if no branch is hit
         }.resume()
         
-
         return
     }
     
-    func reattemptInput(withMessage message: String) {
+    func inputsValid() -> Bool {
+        if (self.inputs["real_name"]!.count == 0) {
+            reattemptInput(with: "Missing Real Name")
+            return false
+        }
+        if (self.inputs["hacker_name"]!.count == 0) {
+            reattemptInput(with: "Missing Hacker Name")
+            return false
+        }
+        // check if castable to int
+        if (Int(self.inputs["nfc_id"]!) == nil) {
+            reattemptInput(with: "Invalid NFC Id")
+            return false
+        }
+        return true
+    }
+    
+    func reattemptInput(with message: String) {
         // make UI changes on main thread
         DispatchQueue.main.async {
             self.goButton.isEnabled = true
@@ -90,11 +103,24 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    /* Transition methods */
+    
     func progressToJoinGame() {
-        self.performSegue(withIdentifier:"transitionToJoinGame", sender:self);
+        let realName: String = self.inputs["real_name"]!
+        let hackerName: String = self.inputs["hacker_name"]!
+        let id: Int = Int(self.inputs["nfc_id"]!)!
+        gameState.player = Player(realName: realName, hackerName: hackerName, id: id)
+        
+        self.performSegue(withIdentifier:"transitionToJoinGame", sender:self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let joinGameViewController = segue.destination as? JoinGameViewController {
+            joinGameViewController.gameState = gameState
+        }
     }
 
-    // UITextFieldDelegate method to control the keyboard behaviour
+    /* Override keyboard behaviour */
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder();
