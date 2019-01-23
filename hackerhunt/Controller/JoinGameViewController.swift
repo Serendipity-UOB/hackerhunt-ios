@@ -12,8 +12,9 @@ class JoinGameViewController: UIViewController {
     
     var gameState: GameState!
     
-    var timer = Timer()
-    var timeLeft = 0
+    var countTimer = Timer()
+    var pollTimer = Timer()
+    var timeLeft = -10
     var gameJoined = false
     
     @IBOutlet weak var welcomeLabel: UILabel!
@@ -26,30 +27,78 @@ class JoinGameViewController: UIViewController {
         super.viewDidLoad()
         
         welcomeLabel.text = "Welcome: \(gameState.player!.realName!)"
+        showJoinGameButton()
+        
+        startPollingGameInfo()
+    }
+    
+    @IBAction func joinGameClicked(_ sender: Any) {
         joinButton.isEnabled = false
-        joinSuccessLabel.alpha = 0
+ 
+        let request = ServerUtils.post(to: "/joinGame", with: ["player_id": gameState.player!.id!])
         
-        let request = ServerUtils.get(from: "/gameInfo")
-        
-        // make async request
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let data = data {
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
                     
                     if let bodyDict = bodyJson as? [String: Any] {
+                        
                         if let statusCode = bodyDict["status"] as? Int {
                             
                             if (statusCode == 200 || statusCode == 404) {
-                                // read in start_time and num_players, output to screen
-                                let dummyInfo: [String: String] = [
+                                let dummyHomeBeacon = 1
+                                DispatchQueue.main.async {
+                                    self.gameState.homeBeacon = dummyHomeBeacon
+                                    self.gameJoined = true
+                                    self.hideJoinGameButton()
+                                }
+                                
+                            } else {
+                                DispatchQueue.main.async {
+                                    self.welcomeLabel.text = "Join game failed"
+                                    self.joinButton.isEnabled = true
+                                }
+                            }
+                        }
+                    }
+                } catch {}
+            }
+        }.resume()
+    }
+    
+    func startPollingGameInfo() {
+        DispatchQueue.main.async {
+            self.pollGameInfo()
+            self.pollTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(JoinGameViewController.pollGameInfo), userInfo: nil, repeats: true)
+        }
+    }
+    
+    @objc func pollGameInfo() {
+        let request = ServerUtils.get(from: "/gameInfo")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            if let data = data {
+                do {
+                    let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
+                    
+                    if let bodyDict = bodyJson as? [String: Any] {
+                        
+                        if let statusCode = bodyDict["status"] as? Int {
+                            
+                            if (statusCode == 200 || statusCode == 404) {
+                                // read in start_time and num_players from body, update UI
+                                let dummyInfo: [String: Any] = [
                                     "number_players": "2",
-                                    "start_time": "wow"
+                                    "start_time": 10
                                 ]
                                 DispatchQueue.main.async {
-                                    self.playerCountLabel.text = dummyInfo["number_players"]!
-                                    self.joinButton.isEnabled = true
-                                    self.startTiming(timeLeft: 5)
+                                    self.playerCountLabel.text = String(describing: dummyInfo["number_players"])
+
+                                    if (self.timeLeft < -5) {
+                                        self.startTiming(timeLeft: dummyInfo["start_time"] as! Int)
+                                    }
                                 }
                                 
                             } else {
@@ -61,32 +110,49 @@ class JoinGameViewController: UIViewController {
                     }
                 } catch {}
             }
-
         }.resume()
+        
     }
     
     func startTiming(timeLeft: Int) {
         self.timeLeft = timeLeft
         self.timeRemainingLabel.text = String(timeLeft)
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(JoinGameViewController.decrementTimer), userInfo: nil, repeats: true)
+        self.countTimer.invalidate()
+        self.countTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(JoinGameViewController.decrementTimer), userInfo: nil, repeats: true)
     }
+    
     @objc func decrementTimer() {
         timeLeft -= 1
         if (timeLeft >= 0) {
             timeRemainingLabel.text = String(timeLeft)
         }
         if (timeLeft <= 0 && gameJoined) {
-            timer.invalidate()
-            self.performSegue(withIdentifier:"transitionToMainGame", sender:self);
+            transitionToMainGame()
         }
-        
     }
     
-    @IBAction func joinGameClicked(_ sender: Any) {
-        // POST /joinGame
-        
-        
-        gameJoined = true
+    /* Transition */
+    
+    func transitionToMainGame() {
+        countTimer.invalidate()
+        pollTimer.invalidate()
+        self.performSegue(withIdentifier:"transitionToMainGame", sender:self);
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let mainGameViewController = segue.destination as? MainGameViewController {
+            mainGameViewController.gameState = gameState
+        }
+    }
+    
+    /* UI */
+    
+    func showJoinGameButton() {
+        joinButton.alpha = 1
+        joinSuccessLabel.alpha = 0
+    }
+    
+    func hideJoinGameButton() {
         joinButton.alpha = 0
         joinSuccessLabel.alpha = 1
     }

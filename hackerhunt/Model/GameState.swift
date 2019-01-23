@@ -14,7 +14,7 @@ class GameState {
     var player: Player?
     
     var nearbyBeacons: [CLBeacon]?
-    var homeBeacon: String?
+    var homeBeacon: Int?
 
     var allPlayers: [Player]?
     var currentTarget: Player?
