@@ -47,7 +47,7 @@ class JoinGameViewController: UIViewController {
                         if let statusCode = bodyDict["status"] as? Int {
                             
                             if (statusCode == 200 || statusCode == 404) {
-                                let dummyHomeBeacon = 1
+                                let dummyHomeBeacon = "A"
                                 DispatchQueue.main.async {
                                     self.gameState.homeBeacon = dummyHomeBeacon
                                     self.gameJoined = true
@@ -91,7 +91,7 @@ class JoinGameViewController: UIViewController {
                                 // read in start_time and num_players from body, update UI
                                 let dummyInfo: [String: Any] = [
                                     "number_players": "2",
-                                    "start_time": 10
+                                    "start_time": 5
                                 ]
                                 DispatchQueue.main.async {
                                     self.playerCountLabel.text = dummyInfo["number_players"] as? String

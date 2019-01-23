@@ -87,13 +87,13 @@
                                 <rect key="frame" x="15" y="249" width="290" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test" borderStyle="roundedRect" placeholder="Real name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EVh-Pi-cLY">
                                 <rect key="frame" x="15" y="204" width="290" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" spellCheckingType="no"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ynb-gN-wi9">
                                 <rect key="frame" x="125" y="374" width="70" height="30"/>
@@ -118,7 +118,7 @@
                                 <rect key="frame" x="15" y="294" width="290" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="// create your profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWu-aQ-K2C">
                                 <rect key="frame" x="67.5" y="154" width="185" height="14"/>
@@ -288,6 +288,50 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DmE-du-icI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2259" y="26"/>
+        </scene>
+        <!--Terminal View Controller-->
+        <scene sceneID="Je6-kt-8iq">
+            <objects>
+                <viewController storyboardIdentifier="terminalViewController" id="GIJ-Iw-d8z" customClass="TerminalViewController" customModule="hackerhunt" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="65L-fX-r63">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qt7-zM-83u">
+                                <rect key="frame" x="51.5" y="185.5" width="217" height="197"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Sample text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="AvH-m2-7dS">
+                                        <rect key="frame" x="12.5" y="15" width="192" height="167"/>
+                                        <color key="textColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="13"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <constraints>
+                                    <constraint firstItem="AvH-m2-7dS" firstAttribute="width" secondItem="qt7-zM-83u" secondAttribute="width" constant="-25" id="0PI-0v-0dZ"/>
+                                    <constraint firstItem="AvH-m2-7dS" firstAttribute="height" secondItem="qt7-zM-83u" secondAttribute="height" constant="-30" id="7h2-oW-Mtw"/>
+                                    <constraint firstItem="AvH-m2-7dS" firstAttribute="centerX" secondItem="qt7-zM-83u" secondAttribute="centerX" id="A90-LW-kVV"/>
+                                    <constraint firstAttribute="width" constant="217" id="dPe-xJ-WzH"/>
+                                    <constraint firstItem="AvH-m2-7dS" firstAttribute="centerY" secondItem="qt7-zM-83u" secondAttribute="centerY" id="gGC-KT-FFQ"/>
+                                    <constraint firstAttribute="height" constant="197" id="nXc-Vs-lCj"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="qt7-zM-83u" firstAttribute="centerX" secondItem="65L-fX-r63" secondAttribute="centerX" id="AfY-BI-jEU"/>
+                            <constraint firstItem="qt7-zM-83u" firstAttribute="centerY" secondItem="65L-fX-r63" secondAttribute="centerY" id="rzv-3R-1an"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Gyl-dR-8Nd"/>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="AvH-m2-7dS" id="Rcb-hG-m4z"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ayp-JE-Yew" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2979.375" y="26.408450704225352"/>
         </scene>
     </scenes>
     <resources>

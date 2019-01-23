@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF3ADA9B21F8D2A5003AAB71 /* TerminalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3ADA9A21F8D2A5003AAB71 /* TerminalViewController.swift */; };
 		BF584CC021A5A1FD00830823 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CBF21A5A1FD00830823 /* AppDelegate.swift */; };
 		BF584CC221A5A1FD00830823 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CC121A5A1FD00830823 /* StartViewController.swift */; };
 		BF584CC521A5A1FD00830823 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF584CC321A5A1FD00830823 /* Main.storyboard */; };
@@ -60,6 +61,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BF3ADA9A21F8D2A5003AAB71 /* TerminalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalViewController.swift; sourceTree = "<group>"; };
 		BF584CBC21A5A1FD00830823 /* hackerhunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hackerhunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF584CBF21A5A1FD00830823 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF584CC121A5A1FD00830823 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				BF9A7FEE21EF883500C30261 /* RegisterViewController.swift */,
 				BF5CE1FA21F62ACE0057117A /* JoinGameViewController.swift */,
 				BF5CE1FC21F63D4C0057117A /* MainGameViewController.swift */,
+				BF3ADA9A21F8D2A5003AAB71 /* TerminalViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF3ADA9B21F8D2A5003AAB71 /* TerminalViewController.swift in Sources */,
 				BF5CE20021F659E20057117A /* BeaconListener.swift in Sources */,
 				BF5CE1FB21F62ACE0057117A /* JoinGameViewController.swift in Sources */,
 				BF6F9F8F21F7B54000924174 /* ServerUtils.swift in Sources */,
