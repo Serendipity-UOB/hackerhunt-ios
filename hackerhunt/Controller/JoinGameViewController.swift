@@ -94,7 +94,7 @@ class JoinGameViewController: UIViewController {
                                     "start_time": 10
                                 ]
                                 DispatchQueue.main.async {
-                                    self.playerCountLabel.text = String(describing: dummyInfo["number_players"])
+                                    self.playerCountLabel.text = dummyInfo["number_players"] as? String
 
                                     if (self.timeLeft < -5) {
                                         self.startTiming(timeLeft: dummyInfo["start_time"] as! Int)

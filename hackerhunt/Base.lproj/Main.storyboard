@@ -181,7 +181,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Players in Game:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pb-Gg-qjC">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Players in Game:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pb-Gg-qjC">
                                 <rect key="frame" x="84" y="292" width="135" height="14"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -194,7 +194,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGV-dv-Db2">
-                                <rect key="frame" x="227" y="292" width="8.5" height="14"/>
+                                <rect key="frame" x="227" y="292" width="93" height="14"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -232,12 +232,12 @@
                         <constraints>
                             <constraint firstItem="7pb-Gg-qjC" firstAttribute="bottom" secondItem="O1E-AV-t5k" secondAttribute="bottom" constant="-262" id="1ej-VD-Nqr"/>
                             <constraint firstItem="7pb-Gg-qjC" firstAttribute="leading" secondItem="O1E-AV-t5k" secondAttribute="leading" constant="84" id="2FU-jT-Usv"/>
-                            <constraint firstItem="HGV-dv-Db2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7pb-Gg-qjC" secondAttribute="trailing" constant="8" symbolic="YES" id="76Y-B1-HjO"/>
                             <constraint firstItem="Yjn-PT-gLe" firstAttribute="centerX" secondItem="O1E-AV-t5k" secondAttribute="centerX" id="8tG-Bj-OmH"/>
-                            <constraint firstItem="HGV-dv-Db2" firstAttribute="trailing" secondItem="O1E-AV-t5k" secondAttribute="trailing" constant="-84.5" id="GQV-db-m1C"/>
+                            <constraint firstItem="HGV-dv-Db2" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="O1E-AV-t5k" secondAttribute="trailing" id="GQV-db-m1C"/>
                             <constraint firstItem="lY1-js-gfQ" firstAttribute="centerX" secondItem="O1E-AV-t5k" secondAttribute="centerX" id="HUy-pn-CwK"/>
                             <constraint firstItem="Pmr-bF-I0k" firstAttribute="bottom" secondItem="O1E-AV-t5k" secondAttribute="bottom" constant="-228" id="QGJ-gy-bOH"/>
                             <constraint firstItem="Vsd-kS-Bsr" firstAttribute="bottom" secondItem="O1E-AV-t5k" secondAttribute="bottom" constant="-227" id="YBY-iG-8bJ"/>
+                            <constraint firstItem="HGV-dv-Db2" firstAttribute="leading" secondItem="7pb-Gg-qjC" secondAttribute="trailing" constant="8" id="cVJ-yv-j0n"/>
                             <constraint firstItem="Yjn-PT-gLe" firstAttribute="centerY" secondItem="lY1-js-gfQ" secondAttribute="centerY" id="jD1-GG-64Q"/>
                             <constraint firstItem="HGV-dv-Db2" firstAttribute="bottom" secondItem="O1E-AV-t5k" secondAttribute="bottom" constant="-262" id="lpt-wy-rsr"/>
                             <constraint firstItem="Vsd-kS-Bsr" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="O1E-AV-t5k" secondAttribute="trailing" id="mO8-0i-DuQ"/>
