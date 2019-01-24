@@ -11,6 +11,7 @@ import UIKit
 class TerminalViewController: UIViewController {
     
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var closeButton: UIButton!
     
     var message: String = "default string"
     
@@ -18,6 +19,10 @@ class TerminalViewController: UIViewController {
         super.viewDidLoad()
         
         textView.text = self.message
+    }
+    
+    @IBAction func closeButton(_ sender: Any) {
+        removeAnimate()
     }
     
     /* preset messages */
