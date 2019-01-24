@@ -30,6 +30,8 @@ class TerminalViewController: UIViewController {
         message = "Incoming message...\n\nGood work! Return your equipment to the stand to collect your reward.\n\n- Anon"
     }
     
+    /* animations */
+    
     func showAnimate() {
         self.view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         self.view.alpha = 0.0;
@@ -38,8 +40,6 @@ class TerminalViewController: UIViewController {
             self.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         });
     }
-    
-    /* animations */
     
     func removeAnimate() {
         UIView.animate(withDuration: 0.25, animations: {
