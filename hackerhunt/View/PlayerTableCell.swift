@@ -11,13 +11,13 @@ import UIKit
 class PlayerTableCell: UITableViewCell {
     
     var playerName: String?
+    var playerNearby: Bool = false
     
     var messageView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isSelectable = false
         textView.backgroundColor = UIColor.clear
-        textView.textColor = UIColor.white
         textView.font = UIFont(name: "Courier", size: 14)
         textView.isScrollEnabled = false
         return textView
@@ -26,7 +26,11 @@ class PlayerTableCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.backgroundColor = UIColor(red:0.37, green:0.53, blue:1.00, alpha:1.0) // #5E86FF
+        if (playerNearby) {
+            self.backgroundColor = UIColor(red:0.57, green:0.80, blue:1.00, alpha:1.0) // #91CDFF
+        } else {
+            self.backgroundColor = UIColor(red:0.37, green:0.53, blue:1.00, alpha:1.0) // #5E86FF
+        }
         
         self.addSubview(messageView)
         messageView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true

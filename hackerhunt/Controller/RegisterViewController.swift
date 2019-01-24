@@ -46,32 +46,21 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
 
         // make async request
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let data = data {
-                do {
-                    let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
-                    
-                    if let bodyDict = bodyJson as? [String: Any] {
-                        if let statusCode = bodyDict["status"] as? Int {
-                            
-                            switch statusCode {
-                            case 200, 404:
-                                self.progressToJoinGame()
-                                return
-                            case 400:
-                                self.reattemptInput(with: "Hacker name already in use")
-                                return
-                            default:
-                                self.reattemptInput(with: "Server response \(statusCode). Report to base")
-                                return
-                            }
-                        }
-                    }
-                } catch {
-                    self.reattemptInput(with: "Error. Report to base")
+            if let httpResponse = response as? HTTPURLResponse {
+                let statusCode: Int = httpResponse.statusCode
+                
+                switch statusCode {
+                case 200:
+                    self.progressToJoinGame()
+                    return
+                case 400:
+                    self.reattemptInput(with: "Hacker name already in use")
+                    return
+                default:
+                    self.reattemptInput(with: "Server response \(statusCode). Report to base")
                     return
                 }
             }
-            self.reattemptInput(with: "Error. Report to base") // if no branch is hit
         }.resume()
         
         return

@@ -22,42 +22,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         setupPlayerTable()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-            self.terminalVC.setMessage(homeBeacon: self.gameState.homeBeacon!)
+            self.terminalVC.setMessage(homeBeacon: self.gameState.homeBeacon!.name)
             self.showTerminal()
         })
         
         // startCheckingForHomeBeacon()
-    }
-    
-    func setupPlayerTable() {
-        playerTableView.register(PlayerTableCell.self, forCellReuseIdentifier: "playerTableCell")
-        playerTableView.rowHeight = 50
-        playerTableView.delegate = self
-        playerTableView.dataSource = self
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = playerTableView.dequeueReusableCell(withIdentifier: "playerTableCell") as! PlayerTableCell
-        cell.playerName = gameState!.allPlayers[indexPath.section].realName
-        return cell
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return gameState!.allPlayers.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat(10.0)
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView()
-        view.backgroundColor = UIColor.clear
-        return view
     }
     
     func startCheckingForHomeBeacon() {
@@ -176,5 +145,39 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         terminalVC.willMove(toParent: nil)
         terminalVC.removeFromParent()
         terminalVC.removeAnimate()
+    }
+    
+    /* tableView setup */
+    
+    func setupPlayerTable() {
+        playerTableView.register(PlayerTableCell.self, forCellReuseIdentifier: "playerTableCell")
+        playerTableView.rowHeight = 50
+        playerTableView.delegate = self
+        playerTableView.dataSource = self
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = playerTableView.dequeueReusableCell(withIdentifier: "playerTableCell") as! PlayerTableCell
+        cell.playerName = gameState!.allPlayers[indexPath.section].realName
+        cell.playerNearby = gameState!.allPlayers[indexPath.section].nearby
+        return cell
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return gameState!.allPlayers.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat(10.0)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        return view
     }
 }

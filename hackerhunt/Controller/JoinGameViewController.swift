@@ -6,6 +6,7 @@
 //  Copyright © 2019 Louis Heath. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 class JoinGameViewController: UIViewController {
@@ -38,31 +39,33 @@ class JoinGameViewController: UIViewController {
         let request = ServerUtils.post(to: "/joinGame", with: ["player_id": gameState.player!.id!])
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let data = data {
+            
+            guard let httpResponse = response as? HTTPURLResponse else { return }
+            
+            let statusCode: Int = httpResponse.statusCode
+            
+            if (statusCode == 200) {
+                guard let data = data else { return }
+                
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
                     
-                    if let bodyDict = bodyJson as? [String: Any] {
-                        
-                        if let statusCode = bodyDict["status"] as? Int {
-                            
-                            if (statusCode == 200 || statusCode == 404) {
-                                let dummyHomeBeacon = "A"
-                                DispatchQueue.main.async {
-                                    self.gameState.homeBeacon = dummyHomeBeacon
-                                    self.gameJoined = true
-                                    self.hideJoinGameButton()
-                                }
-                                
-                            } else {
-                                DispatchQueue.main.async {
-                                    self.welcomeLabel.text = "Join game failed"
-                                    self.joinButton.isEnabled = true
-                                }
-                            }
-                        }
+                    guard let bodyDict = bodyJson as? [String: Any] else { return }
+                    
+                    guard let beaconName: String = bodyDict["home_beacon_name"] as? String else { return }
+                    guard let beaconMinor: Int = bodyDict["home_beacon_minor"] as? Int else { return }
+                    
+                    DispatchQueue.main.async {
+                        self.gameState.homeBeacon = HomeBeacon(name: beaconName, minor: beaconMinor)
+                        self.gameJoined = true
+                        self.hideJoinGameButton()
                     }
                 } catch {}
+            } else {
+                DispatchQueue.main.async {
+                    self.welcomeLabel.text = "Join game failed"
+                    self.joinButton.isEnabled = true
+                }
             }
         }.resume()
     }
@@ -79,44 +82,71 @@ class JoinGameViewController: UIViewController {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
-            if let data = data {
+            guard let httpResponse = response as? HTTPURLResponse else { return }
+            
+            let statusCode: Int = httpResponse.statusCode
+            
+            if (statusCode == 200) {
+                guard let data = data else { return }
+                
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
                     
-                    if let bodyDict = bodyJson as? [String: Any] {
-                        
-                        if let statusCode = bodyDict["status"] as? Int {
-                            
-                            if (statusCode == 200 || statusCode == 404) {
-                                // read in start_time and num_players from body, update UI
-                                let dummyInfo: [String: Any] = [
-                                    "number_players": "2",
-                                    "start_time": 5
-                                ]
-                                DispatchQueue.main.async {
-                                    self.playerCountLabel.text = dummyInfo["number_players"] as? String
+                    guard let bodyDict = bodyJson as? [String: Any] else { return }
 
-                                    if (self.timeLeft < -5) {
-                                        self.startTiming(timeLeft: dummyInfo["start_time"] as! Int)
-                                    }
-                                }
-                                
-                            } else {
-                                DispatchQueue.main.async {
-                                    self.welcomeLabel.text = "Error, Report to base"
-                                }
-                            }
+                    guard let startTime: String = bodyDict["start_time"] as? String else { return }
+                    guard let numPlayers: Int = bodyDict["number_players"] as? Int else { return }
+                    
+                    let timeRemaining : Int = self.calculateTimeRemaining(startTime: startTime)
+                    
+                    DispatchQueue.main.async {
+                        self.playerCountLabel.text = "\(numPlayers)"
+                        
+                        if (self.timeLeft < -5) {
+                            self.startTiming(timeLeft: timeRemaining)
                         }
                     }
                 } catch {}
+            } else {
+                DispatchQueue.main.async {
+                    self.welcomeLabel.text = "Error, Report to base"
+                }
             }
+            
         }.resume()
+    }
+    
+    func calculateTimeRemaining(startTime: String) -> Int {
+        let date = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        let seconds = calendar.component(.second, from: date)
+        let currentTotal = Double(seconds + 60 * (minutes + 60 * hour))
         
+        //"21:07:42.494"
+        let startTimeArr = startTime.components(separatedBy: ":")
+        let startHour = Int(startTimeArr[0])
+        let startMinute = Int(startTimeArr[1])
+        let startSecond = Int(Float(startTimeArr[2])!)
+        let startTotal = Double(startSecond + 60 * (startMinute! + 60 * startHour!))
+        
+        let diff : Int = Int(startTotal - currentTotal)
+        
+        return diff
+    }
+    
+    func prettyTimeFrom(seconds: Int) -> String {
+        let secs = seconds % 60
+        let mins = (seconds / 60) % 60
+        let hrs = seconds / 3600
+        
+        return NSString(format: "%0.2d:%0.2d:%0.2d",hrs,mins,secs) as String
     }
     
     func startTiming(timeLeft: Int) {
         self.timeLeft = timeLeft
-        self.timeRemainingLabel.text = String(timeLeft)
+        self.timeRemainingLabel.text = prettyTimeFrom(seconds: timeLeft)
         self.countTimer.invalidate()
         self.countTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(JoinGameViewController.decrementTimer), userInfo: nil, repeats: true)
     }
@@ -124,7 +154,7 @@ class JoinGameViewController: UIViewController {
     @objc func decrementTimer() {
         timeLeft -= 1
         if (timeLeft >= 0) {
-            timeRemainingLabel.text = String(timeLeft)
+            timeRemainingLabel.text = prettyTimeFrom(seconds: timeLeft)
         }
         if (timeLeft <= 0 && gameJoined) {
             transitionToMainGame()

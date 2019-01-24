@@ -14,7 +14,7 @@ class GameState {
     var player: Player?
     
     var nearbyBeacons: [CLBeacon]?
-    var homeBeacon: String?
+    var homeBeacon: HomeBeacon?
 
     var allPlayers = [Player]()
     var currentTarget: Player?
@@ -31,6 +31,7 @@ class GameState {
             Player(realName: "David", hackerName: "Weab", id: 4),
             Player(realName: "Nuha", hackerName: "Nunu", id: 5)
         ]
+        allPlayers[0].nearby = true
     }
     
     func getNearestBeacon() -> String {
