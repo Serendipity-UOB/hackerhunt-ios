@@ -17,15 +17,13 @@ class Player {
     init(hackerName: String, id: Int) {
         self.hackerName = hackerName
         self.id = id
-        self.nearby = false
-        self.intel = 0.0
     }
     
     var realName: String?
     var hackerName: String?
     var id: Int?
     
-    var nearby: Bool?
-    var intel: Float?
+    var nearby: Bool = false
+    var intel: Float = 0.0
     
 }

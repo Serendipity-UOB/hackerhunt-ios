@@ -32,7 +32,7 @@ class JoinGameViewController: UIViewController {
         startPollingGameInfo()
     }
     
-    @IBAction func joinGameClicked(_ sender: Any) {
+    @IBAction func joinGamePressed(_ sender: Any) {
         joinButton.isEnabled = false
  
         let request = ServerUtils.post(to: "/joinGame", with: ["player_id": gameState.player!.id!])

@@ -30,4 +30,20 @@ class GameState {
         return "A"
     }
     
+    func incrementIntelFor(playerOne: Int, playerTwo: Int) {
+        for player in allPlayers! {
+            if (player.id == playerOne || player.id == playerTwo) {
+                player.intel = min(player.intel + 0.2, 1.0)
+            }
+        }
+    }
+    
+    func deleteHalfOfIntel() {
+        for player in allPlayers! {
+            let intel = (player.intel / 2.0)
+            let remainder = intel.truncatingRemainder(dividingBy: 0.2)
+            player.intel = intel - remainder
+        }
+    }
+    
 }

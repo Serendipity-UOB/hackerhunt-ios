@@ -29,7 +29,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         nfcIdTextField.delegate = self
     }
     
-    @IBAction func goButtonClicked(_ sender: Any) {
+    @IBAction func goButtonPressed(_ sender: Any) {
         self.inputs = [
             "real_name": realNameTextField.text!,
             "hacker_name": hackerNameTextField.text!,

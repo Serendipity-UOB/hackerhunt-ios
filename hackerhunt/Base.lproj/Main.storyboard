@@ -111,7 +111,7 @@
                                 </state>
                                 <state key="selected" title="BOOP"/>
                                 <connections>
-                                    <action selector="goButtonClicked:" destination="O1B-1s-BhP" eventType="touchUpInside" id="Xxu-Hw-vQ5"/>
+                                    <action selector="goButtonPressed:" destination="O1B-1s-BhP" eventType="touchUpInside" id="cmI-v9-jfc"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" borderStyle="roundedRect" placeholder="NFC id" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zxm-38-w5F">
@@ -218,7 +218,7 @@
                                 </state>
                                 <state key="disabled" title="waiting..."/>
                                 <connections>
-                                    <action selector="joinGameClicked:" destination="9Ag-Hb-iZs" eventType="touchUpInside" id="9fN-Hc-Pvm"/>
+                                    <action selector="joinGamePressed:" destination="9Ag-Hb-iZs" eventType="touchUpInside" id="ffD-25-eR3"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="JOIN_SUCCESS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yjn-PT-gLe">
