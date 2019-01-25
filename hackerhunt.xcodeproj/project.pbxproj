@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE25F73521FBAF11008FBAF4 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE25F73421FBAF11008FBAF4 /* Time.swift */; };
 		BF3ADA9B21F8D2A5003AAB71 /* TerminalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3ADA9A21F8D2A5003AAB71 /* TerminalViewController.swift */; };
 		BF584CC021A5A1FD00830823 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CBF21A5A1FD00830823 /* AppDelegate.swift */; };
 		BF584CC221A5A1FD00830823 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CC121A5A1FD00830823 /* StartViewController.swift */; };
@@ -64,6 +65,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BE25F73421FBAF11008FBAF4 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		BF3ADA9A21F8D2A5003AAB71 /* TerminalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalViewController.swift; sourceTree = "<group>"; };
 		BF584CBC21A5A1FD00830823 /* hackerhunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hackerhunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF584CBF21A5A1FD00830823 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				BF6F9F8721F7AA0000924174 /* GameState.swift */,
 				BF6F9F8921F7AED600924174 /* Player.swift */,
 				BF9BDD5C21FA7213006A6201 /* HomeBeacon.swift */,
+				BE25F73421FBAF11008FBAF4 /* Time.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				BF9A7FE921EF6CC100C30261 /* Gif.swift in Sources */,
 				BF6F9F8A21F7AED600924174 /* Player.swift in Sources */,
 				BF9BDD5D21FA7213006A6201 /* HomeBeacon.swift in Sources */,
+				BE25F73521FBAF11008FBAF4 /* Time.swift in Sources */,
 				BFFC0CD621FA12C200F71ABB /* LeaderboardViewController.swift in Sources */,
 				BF9A7FEF21EF883500C30261 /* RegisterViewController.swift in Sources */,
 			);

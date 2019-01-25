@@ -98,8 +98,8 @@ class JoinGameViewController: UIViewController {
                     guard let startTime: String = bodyDict["start_time"] as? String else { return }
                     guard let numPlayers: Int = bodyDict["number_players"] as? Int else { return }
                     
-                    let timeRemaining : Int = self.calculateTimeRemaining(startTime: startTime)
-                    self.gameState.endTime = self.calculateEndTime(startTime: startTime)
+                    let timeRemaining : Int = calculateTimeRemaining(startTime: startTime)
+                    self.gameState.endTime = calculateEndTime(startTime: startTime)
                     
                     DispatchQueue.main.async {
                         self.playerCountLabel.text = "\(numPlayers)"
@@ -118,42 +118,7 @@ class JoinGameViewController: UIViewController {
         }.resume()
     }
     
-    func calculateTimeRemaining(startTime: String) -> Int {
-        let date = Date()
-        let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: date)
-        let minutes = calendar.component(.minute, from: date)
-        let seconds = calendar.component(.second, from: date)
-        let currentTotal = Double(seconds + 60 * (minutes + 60 * hour))
-        
-        //"21:07:42.494"
-        let startTimeArr = startTime.components(separatedBy: ":")
-        let startHour = Int(startTimeArr[0])
-        let startMinute = Int(startTimeArr[1])
-        let startSecond = Int(Float(startTimeArr[2])!)
-        let startTotal = Double(startSecond + 60 * (startMinute! + 60 * startHour!))
-        
-        let diff : Int = Int(startTotal - currentTotal)
-        
-        return diff
-    }
-    
-    func prettyTimeFrom(seconds: Int) -> String {
-        let secs = seconds % 60
-        let mins = (seconds / 60) % 60
-        
-        return NSString(format: "%0.2d:%0.2d",mins,secs) as String
-    }
-    
-    func calculateEndTime(startTime: String) -> Int {
-        let startTimeArr = startTime.components(separatedBy: ":")
-        let startHour = Int(startTimeArr[0])
-        let startMinute = Int(startTimeArr[1])
-        let startSecond = Int(Float(startTimeArr[2])!)
-        let startTotal = Double(startSecond + 60 * (startMinute! + 60 * startHour!))
-        
-        return Int(startTotal + 10 * 60)
-    }
+    /* Timing */
     
     func startTiming(timeLeft: Int) {
         self.timeLeft = timeLeft

@@ -212,20 +212,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     /* countdownValue setup */
     
-    func prettyTimeFrom(seconds: Int) -> String {
-        let secs = seconds % 60
-        let mins = (seconds / 60) % 60
-        
-        return NSString(format: "%0.2d:%0.2d",mins,secs) as String
-    }
-    
     func startTiming() {
-        let date = Date()
-        let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: date)
-        let minutes = calendar.component(.minute, from: date)
-        let seconds = calendar.component(.second, from: date)
-        let currentTotal = Int(seconds + 60 * (minutes + 60 * hour))
+        let currentTotal = Int(now())
         self.gameState.countdown = self.gameState.endTime! - currentTotal
         self.countdownTimer.invalidate()
         self.countdownValue.text = prettyTimeFrom(seconds: self.gameState.countdown!)
