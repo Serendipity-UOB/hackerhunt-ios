@@ -183,6 +183,16 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         return view
     }
     
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        // deselect row if it is currently selected
+        if let indexPathForSelectedRow = tableView.indexPathForSelectedRow,
+            indexPathForSelectedRow == indexPath {
+            tableView.deselectRow(at: indexPath, animated: false)
+            return nil
+        }
+        return indexPath
+    }
+    
     /* pointsValue setup */
     
     func updatePointsValue(_ value: Int) {

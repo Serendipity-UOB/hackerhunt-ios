@@ -15,7 +15,7 @@ class PlayerTableCell: UITableViewCell {
     var realName: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.isSelectable = false
+        textView.isUserInteractionEnabled = false
         textView.isScrollEnabled = false
         textView.backgroundColor = UIColor.clear
         textView.font = UIFont(name: "Courier", size: 14)
@@ -25,7 +25,7 @@ class PlayerTableCell: UITableViewCell {
     var hackerName: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.isSelectable = false
+        textView.isUserInteractionEnabled = false
         textView.isScrollEnabled = false
         textView.backgroundColor = UIColor.clear
         textView.textColor = UIColor(red:0.21, green:0.11, blue:0.46, alpha:1.0)
@@ -51,6 +51,8 @@ class PlayerTableCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.selectionStyle = .none // remove silly background
+        
         self.addSubview(realName)
         realName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5).isActive = true
         realName.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -66,13 +68,13 @@ class PlayerTableCell: UITableViewCell {
         self.addSubview(intelBarBackground)
         intelBarBackground.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 7).isActive = true
         intelBarBackground.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -7).isActive = true
-        intelBarBackground.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5).isActive = true
-        intelBarBackground.topAnchor.constraint(equalTo: self.bottomAnchor, constant: -15).isActive = true
+        intelBarBackground.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -7).isActive = true
+        intelBarBackground.topAnchor.constraint(equalTo: self.bottomAnchor, constant: -17).isActive = true
         
         self.addSubview(intelBarForeground)
         intelBarForeground.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 7).isActive = true
-        intelBarForeground.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5).isActive = true
-        intelBarForeground.topAnchor.constraint(equalTo: self.bottomAnchor, constant: -15).isActive = true
+        intelBarForeground.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -7).isActive = true
+        intelBarForeground.topAnchor.constraint(equalTo: self.bottomAnchor, constant: -17).isActive = true
     }
     
     // anything dependent on the player object must be executed here
@@ -85,12 +87,26 @@ class PlayerTableCell: UITableViewCell {
             hackerName.text = player.hackerName
         }
         
+        setDefaultBackgroundColor()
+        
+        intelBarForeground.widthAnchor.constraint(equalTo: intelBarBackground.widthAnchor, multiplier: CGFloat(player.intel)).isActive = true
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        if (selected) {
+            //self.backgroundColor = UIColor.purple
+        } else {
+            setDefaultBackgroundColor()
+        }
+    }
+    
+    func setDefaultBackgroundColor() {
         if (player.nearby) {
             self.backgroundColor = UIColor(red:0.57, green:0.57, blue:0.80, alpha:1.0) // #9191CD
         } else {
             self.backgroundColor = UIColor(red:0.37, green:0.37, blue:0.53, alpha:1.0) // #5E5E86
         }
-        intelBarForeground.widthAnchor.constraint(equalTo: intelBarBackground.widthAnchor, multiplier: CGFloat(player.intel)).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
