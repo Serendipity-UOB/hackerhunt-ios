@@ -11,7 +11,6 @@ import UIKit
 class TerminalViewController: UIViewController {
     
     @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var closeButton: UIButton!
     
     var message: String = "default string"
     
@@ -21,7 +20,7 @@ class TerminalViewController: UIViewController {
         textView.text = self.message
     }
     
-    @IBAction func closeButton(_ sender: Any) {
+    @IBAction func closeButton(_ sender: UITapGestureRecognizer) {
         removeAnimate()
     }
     

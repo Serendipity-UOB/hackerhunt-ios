@@ -436,31 +436,20 @@
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Sample text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="AvH-m2-7dS">
                                         <rect key="frame" x="12.5" y="15" width="192" height="167"/>
+                                        <gestureRecognizers/>
                                         <color key="textColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="13"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ESh-ek-1Au">
-                                        <rect key="frame" x="187" y="0.0" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="ESh-ek-1Au" secondAttribute="height" multiplier="1:1" id="4wS-9X-q6a"/>
-                                            <constraint firstAttribute="width" constant="30" id="E1Q-so-1EM"/>
-                                        </constraints>
-                                        <state key="normal" title="X">
-                                            <color key="titleColor" red="0.58613578680203049" green="0.58613578680203049" blue="0.58613578680203049" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
                                         <connections>
-                                            <action selector="closeButton:" destination="GIJ-Iw-d8z" eventType="touchUpInside" id="cwO-rt-8mj"/>
+                                            <outletCollection property="gestureRecognizers" destination="GLY-Dq-wfo" appends="YES" id="uXZ-gv-mte"/>
                                         </connections>
-                                    </button>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <constraints>
                                     <constraint firstItem="AvH-m2-7dS" firstAttribute="width" secondItem="qt7-zM-83u" secondAttribute="width" constant="-25" id="0PI-0v-0dZ"/>
                                     <constraint firstItem="AvH-m2-7dS" firstAttribute="height" secondItem="qt7-zM-83u" secondAttribute="height" constant="-30" id="7h2-oW-Mtw"/>
                                     <constraint firstItem="AvH-m2-7dS" firstAttribute="centerX" secondItem="qt7-zM-83u" secondAttribute="centerX" id="A90-LW-kVV"/>
-                                    <constraint firstAttribute="trailing" secondItem="ESh-ek-1Au" secondAttribute="trailing" id="Jzb-DV-1bo"/>
-                                    <constraint firstItem="ESh-ek-1Au" firstAttribute="top" secondItem="qt7-zM-83u" secondAttribute="top" id="bt6-UK-5Jc"/>
                                     <constraint firstAttribute="width" constant="217" id="dPe-xJ-WzH"/>
                                     <constraint firstItem="AvH-m2-7dS" firstAttribute="centerY" secondItem="qt7-zM-83u" secondAttribute="centerY" id="gGC-KT-FFQ"/>
                                     <constraint firstAttribute="height" constant="197" id="nXc-Vs-lCj"/>
@@ -475,11 +464,15 @@
                         <viewLayoutGuide key="safeArea" id="Gyl-dR-8Nd"/>
                     </view>
                     <connections>
-                        <outlet property="closeButton" destination="ESh-ek-1Au" id="Qoz-4W-RzN"/>
                         <outlet property="textView" destination="AvH-m2-7dS" id="Rcb-hG-m4z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ayp-JE-Yew" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="GLY-Dq-wfo">
+                    <connections>
+                        <action selector="closeButton:" destination="GIJ-Iw-d8z" id="whJ-WG-RBK"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2257.5" y="708.80281690140851"/>
         </scene>
