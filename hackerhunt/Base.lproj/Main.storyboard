@@ -213,7 +213,7 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="mVo-Ff-lCR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
-                                <state key="normal" title="join_game();">
+                                <state key="normal">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <state key="disabled" title="waiting..."/>
@@ -224,7 +224,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="JOIN_SUCCESS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yjn-PT-gLe">
                                 <rect key="frame" x="89" y="374" width="143" height="14"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -470,7 +470,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ayp-JE-Yew" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="GLY-Dq-wfo">
                     <connections>
-                        <action selector="closeButton:" destination="GIJ-Iw-d8z" id="whJ-WG-RBK"/>
+                        <action selector="closeButton:" destination="GIJ-Iw-d8z" id="kql-iU-9dJ"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

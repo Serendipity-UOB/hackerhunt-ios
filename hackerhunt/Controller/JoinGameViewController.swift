@@ -28,6 +28,7 @@ class JoinGameViewController: UIViewController {
         super.viewDidLoad()
         
         welcomeLabel.text = "Welcome: \(gameState.player!.realName!)"
+        
         showJoinGameButton()
         
         startPollingGameInfo()
@@ -178,12 +179,17 @@ class JoinGameViewController: UIViewController {
     /* UI */
     
     func showJoinGameButton() {
-        joinButton.alpha = 1
-        joinSuccessLabel.alpha = 0
+        DispatchQueue.main.async {
+            self.joinButton.setTitle("join_game();", for: UIControl.State.normal)
+            self.joinButton.alpha = 1
+            self.joinSuccessLabel.alpha = 0
+        }
     }
     
     func hideJoinGameButton() {
-        joinButton.alpha = 0
-        joinSuccessLabel.alpha = 1
+        DispatchQueue.main.async {
+            self.joinButton.alpha = 0
+            self.joinSuccessLabel.alpha = 1
+        }
     }
 }
