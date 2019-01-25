@@ -14,16 +14,18 @@ class Player {
         self.id = id
     }
     
-    init(hackerName: String, id: Int) {
-        self.hackerName = hackerName
-        self.id = id
-    }
-    
-    var realName: String?
-    var hackerName: String?
-    var id: Int?
+    var realName: String
+    var hackerName: String
+    var id: Int
     
     var nearby: Bool = false
     var intel: Float = 0.0
+    
+    func copy() -> Player {
+        let copy = Player(realName: self.realName, hackerName: self.hackerName, id: self.id)
+        copy.nearby = self.nearby
+        copy.intel = self.intel
+        return copy
+    }
     
 }

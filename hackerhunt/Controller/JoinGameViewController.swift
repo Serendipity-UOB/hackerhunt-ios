@@ -27,7 +27,7 @@ class JoinGameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        welcomeLabel.text = "Welcome: \(gameState.player!.realName!)"
+        welcomeLabel.text = "Welcome: \(gameState.player!.realName)"
         
         showJoinGameButton()
         
@@ -37,7 +37,7 @@ class JoinGameViewController: UIViewController {
     @IBAction func joinGamePressed(_ sender: Any) {
         joinButton.isEnabled = false
  
-        let request = ServerUtils.post(to: "/joinGame", with: ["player_id": gameState.player!.id!])
+        let request = ServerUtils.post(to: "/joinGame", with: ["player_id": gameState.player!.id])
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             

@@ -63,11 +63,28 @@ class GameState {
             Player(realName: "Nuha", hackerName: "Nunu", id: 5)
         ]
         newPlayers[0].nearby = true
+        newPlayers[4].nearby = true
         newPlayers[0].intel = 0.2
         newPlayers[2].intel = 0.4
         newPlayers[3].intel = 0.8
         newPlayers[4].intel = 1.0
         self.allPlayers.append(contentsOf: newPlayers)
+        prioritiseNearbyPlayers()
     }
     
+    func prioritiseNearbyPlayers() {
+        var copy = self.allPlayers.map { $0.copy() }
+        
+        for i in 1..<copy.count {
+            var j = i
+            while j > 0 && copy[j - 1].nearby == false && copy[j].nearby == true {
+                let tmp = copy[j]
+                copy[j] = copy[j - 1]
+                copy[j - 1] = tmp
+                j -= 1
+            }
+        }
+        
+        self.allPlayers = copy
+    }
 }
