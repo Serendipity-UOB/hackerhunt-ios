@@ -320,6 +320,9 @@
                                 <state key="normal" title="take_down();">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="takeDownPressed" destination="3Hg-En-CAh" eventType="touchUpInside" id="T4d-zO-myf"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWg-DV-0yZ">
                                 <rect key="frame" x="254" y="27" width="50" height="14"/>
@@ -401,6 +404,8 @@
                     </view>
                     <connections>
                         <outlet property="playerTableView" destination="sqj-v5-pL5" id="KpQ-01-pRB"/>
+                        <outlet property="pointsValue" destination="18u-0k-xiJ" id="voA-G7-X6M"/>
+                        <outlet property="positionValue" destination="2VL-PA-f4Q" id="bRv-PF-fDD"/>
                         <segue destination="p0e-xV-tai" kind="show" identifier="transitionToLeaderboard" id="O2z-yj-48F"/>
                     </connections>
                 </viewController>

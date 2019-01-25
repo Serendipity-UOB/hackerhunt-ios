@@ -12,6 +12,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var gameState: GameState!
     var timer = Timer()
+    @IBOutlet weak var pointsValue: UILabel!
+    @IBOutlet weak var positionValue: UILabel!
     
     @IBOutlet weak var playerTableView: UITableView!
     
@@ -20,6 +22,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         setupPlayerTable()
+        updatePointsValue(0)
+        updatePositionValue(0)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
             self.terminalVC.setMessage(homeBeacon: self.gameState.homeBeacon!.name)
@@ -110,6 +114,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         // detect NFC - get player_id
         // update terminal message to say "SCAN_SUCCESS"
         // takeDown( player_id )
+        updatePointsValue(gameState.points + 1)
+        updatePositionValue(gameState.position + 1)
     }
     
     func takeDown(player: Int) {
@@ -175,5 +181,19 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         let view = UIView()
         view.backgroundColor = UIColor.clear
         return view
+    }
+    
+    /* pointsValue setup */
+    
+    func updatePointsValue(_ value: Int) {
+        gameState.points = value
+        pointsValue.text = String(gameState.points)
+    }
+    
+    /* positionValue setup */
+    
+    func updatePositionValue(_ value: Int) {
+        gameState.position = value
+        positionValue.text = String(gameState.position)
     }
 }

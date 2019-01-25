@@ -19,8 +19,8 @@ class GameState {
     var allPlayers = [Player]()
     var currentTarget: Player?
     
-    var points: Int?
-    var position: Int?
+    var points: Int = 0
+    var position: Int = 1 // everyone starts as first?
     
     init() {
         insertTestData()
