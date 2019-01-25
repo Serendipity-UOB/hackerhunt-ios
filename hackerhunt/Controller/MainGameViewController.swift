@@ -12,8 +12,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var gameState: GameState!
     var timer = Timer()
+    var countdownTimer = Timer()
     @IBOutlet weak var pointsValue: UILabel!
     @IBOutlet weak var positionValue: UILabel!
+    @IBOutlet weak var countdownValue: UILabel!
     
     @IBOutlet weak var playerTableView: UITableView!
     
@@ -24,6 +26,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         setupPlayerTable()
         updatePointsValue(0)
         updatePositionValue(0)
+        startTiming()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
             self.terminalVC.setMessage(homeBeacon: self.gameState.homeBeacon!.name)
@@ -35,7 +38,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func startCheckingForHomeBeacon() {
         timer.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(MainGameViewController.checkForHomeBeacon), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(MainGameViewController.checkForHomeBeacon), userInfo: nil, repeats: true)
     }
     
     @objc func checkForHomeBeacon() {
@@ -54,7 +57,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func startPollingForUpdates() {
         timer.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(MainGameViewController.pollForUpdates), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(MainGameViewController.pollForUpdates), userInfo: nil, repeats: true)
     }
     
     @objc func pollForUpdates() {
@@ -206,4 +209,36 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         gameState.position = value
         positionValue.text = String(gameState.position)
     }
+    
+    /* countdownValue setup */
+    
+    func prettyTimeFrom(seconds: Int) -> String {
+        let secs = seconds % 60
+        let mins = (seconds / 60) % 60
+        
+        return NSString(format: "%0.2d:%0.2d",mins,secs) as String
+    }
+    
+    func startTiming() {
+        let date = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        let seconds = calendar.component(.second, from: date)
+        let currentTotal = Int(seconds + 60 * (minutes + 60 * hour))
+        self.gameState.countdown = self.gameState.endTime! - currentTotal
+        self.countdownTimer.invalidate()
+        self.countdownValue.text = prettyTimeFrom(seconds: self.gameState.countdown!)
+        self.countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(JoinGameViewController.decrementTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func decrementTimer() {
+        self.gameState.countdown! -= 1
+        if (self.gameState.countdown! >= 0) {
+            countdownValue.text = prettyTimeFrom(seconds: self.gameState.countdown!)
+        }
+    }
+    
+    
+    
 }

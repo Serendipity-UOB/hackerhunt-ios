@@ -403,6 +403,7 @@
                         <viewLayoutGuide key="safeArea" id="u3P-xB-QI1"/>
                     </view>
                     <connections>
+                        <outlet property="countdownValue" destination="ZWg-DV-0yZ" id="NDj-LW-hhJ"/>
                         <outlet property="playerTableView" destination="sqj-v5-pL5" id="KpQ-01-pRB"/>
                         <outlet property="pointsValue" destination="18u-0k-xiJ" id="voA-G7-X6M"/>
                         <outlet property="positionValue" destination="2VL-PA-f4Q" id="bRv-PF-fDD"/>

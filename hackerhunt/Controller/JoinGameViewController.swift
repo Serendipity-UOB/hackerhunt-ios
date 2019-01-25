@@ -95,11 +95,12 @@ class JoinGameViewController: UIViewController {
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
 
-                    //guard let startTime: String = bodyDict["start_time"] as? String else { return }
+                    guard let startTime: String = bodyDict["start_time"] as? String else { return }
                     guard let numPlayers: Int = bodyDict["number_players"] as? Int else { return }
                     
-                    //let timeRemaining : Int = self.calculateTimeRemaining(startTime: startTime)
-                    let timeRemaining : Int = 3
+                    let timeRemaining : Int = self.calculateTimeRemaining(startTime: startTime)
+                    self.gameState.endTime = self.calculateEndTime(startTime: startTime)
+                    
                     DispatchQueue.main.async {
                         self.playerCountLabel.text = "\(numPlayers)"
                         
@@ -140,9 +141,18 @@ class JoinGameViewController: UIViewController {
     func prettyTimeFrom(seconds: Int) -> String {
         let secs = seconds % 60
         let mins = (seconds / 60) % 60
-        let hrs = seconds / 3600
         
-        return NSString(format: "%0.2d:%0.2d:%0.2d",hrs,mins,secs) as String
+        return NSString(format: "%0.2d:%0.2d",mins,secs) as String
+    }
+    
+    func calculateEndTime(startTime: String) -> Int {
+        let startTimeArr = startTime.components(separatedBy: ":")
+        let startHour = Int(startTimeArr[0])
+        let startMinute = Int(startTimeArr[1])
+        let startSecond = Int(Float(startTimeArr[2])!)
+        let startTotal = Double(startSecond + 60 * (startMinute! + 60 * startHour!))
+        
+        return Int(startTotal + 10 * 60)
     }
     
     func startTiming(timeLeft: Int) {

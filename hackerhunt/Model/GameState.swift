@@ -22,6 +22,9 @@ class GameState {
     var points: Int = 0
     var position: Int = 1 // everyone starts as first?
     
+    var endTime : Int?
+    var countdown : Int?
+    
     init() {
         insertTestData()
     }
