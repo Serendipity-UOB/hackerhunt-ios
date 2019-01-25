@@ -45,10 +45,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             
             // failure:
             //  display error message on terminal popup
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: {
-                self.hideTerminal()
-            })
         }
     }
     
@@ -151,7 +147,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func setupPlayerTable() {
         playerTableView.register(PlayerTableCell.self, forCellReuseIdentifier: "playerTableCell")
-        playerTableView.rowHeight = 50
+        playerTableView.rowHeight = 45
         playerTableView.delegate = self
         playerTableView.dataSource = self
     }
@@ -159,6 +155,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = playerTableView.dequeueReusableCell(withIdentifier: "playerTableCell") as! PlayerTableCell
         cell.player = gameState!.allPlayers[indexPath.section]
+        cell.layoutSubviews()
         return cell
     }
     

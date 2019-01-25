@@ -27,7 +27,7 @@ class TerminalViewController: UIViewController {
     /* preset messages */
     
     func setMessage(homeBeacon: String) {
-        message = "Incoming message...\n\nGo to Beacon \(homeBeacon) to receive your first target!\n\n- Anon"
+        message = "Incoming message...\n\nGo to beacon \"\(homeBeacon)\" to receive your first target!\n\n- Anon"
     }
     
     func setMessage(gameOver: Bool) {

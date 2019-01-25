@@ -10,61 +10,87 @@ import UIKit
 
 class PlayerTableCell: UITableViewCell {
     
-    var player: Player?
+    var player: Player = Player(realName: "test", hackerName: "test", id: -1)
     
     var realName: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isSelectable = false
+        textView.isScrollEnabled = false
         textView.backgroundColor = UIColor.clear
         textView.font = UIFont(name: "Courier", size: 14)
+        return textView
+    }()
+    
+    var hackerName: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.isSelectable = false
         textView.isScrollEnabled = false
+        textView.backgroundColor = UIColor.clear
+        textView.textColor = UIColor(red:0.21, green:0.11, blue:0.46, alpha:1.0)
+        textView.textAlignment = .right
+        textView.font = UIFont(name: "Courier", size: 14)
         return textView
     }()
     
     var intelBarBackground: UIView = {
-        let textView = UIView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.backgroundColor = UIColor.white
-        return textView
+        let uiView = UIView()
+        uiView.translatesAutoresizingMaskIntoConstraints = false
+        uiView.backgroundColor = UIColor.white
+        return uiView
+    }()
+    
+    var intelBarForeground: UIView = {
+        let uiView = UIView()
+        uiView.translatesAutoresizingMaskIntoConstraints = false
+        uiView.backgroundColor = UIColor(red:0.42, green:0.66, blue:0.31, alpha:1.0)
+        return uiView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        guard let player = self.player else { return }
-        
-        if (player.nearby) {
-            self.backgroundColor = UIColor(red:0.57, green:0.80, blue:1.00, alpha:1.0) // #91CDFF
-        } else {
-            self.backgroundColor = UIColor(red:0.37, green:0.53, blue:1.00, alpha:1.0) // #5E86FF
-        }
-        
         self.addSubview(realName)
-        realName.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        realName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5).isActive = true
         realName.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        realName.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         realName.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        realName.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
+        
+        self.addSubview(hackerName)
+        hackerName.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5).isActive = true
+        hackerName.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        hackerName.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        hackerName.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
         
         self.addSubview(intelBarBackground)
-        intelBarBackground.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        intelBarBackground.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
-        intelBarBackground.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
-        intelBarBackground.topAnchor.constraint(equalTo: self.bottomAnchor, constant: -25).isActive = true
-        intelBarBackground.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        intelBarBackground.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -20).isActive = true
+        intelBarBackground.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 7).isActive = true
+        intelBarBackground.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -7).isActive = true
+        intelBarBackground.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5).isActive = true
+        intelBarBackground.topAnchor.constraint(equalTo: self.bottomAnchor, constant: -15).isActive = true
         
-        if (intelBarBackground.hasAmbiguousLayout) {
-            print("ambiguous")
-        }
+        self.addSubview(intelBarForeground)
+        intelBarForeground.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 7).isActive = true
+        intelBarForeground.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5).isActive = true
+        intelBarForeground.topAnchor.constraint(equalTo: self.bottomAnchor, constant: -15).isActive = true
     }
     
+    // anything dependent on the player object must be executed here
     override func layoutSubviews() {
         super.layoutSubviews()
-        guard let player = self.player else { return }
-        if let playerRealName = player.realName {
-            realName.text = playerRealName
+        
+        realName.text = player.realName
+        
+        if (player.intel == 1.0) {
+            hackerName.text = player.hackerName
         }
+        
+        if (player.nearby) {
+            self.backgroundColor = UIColor(red:0.57, green:0.57, blue:0.80, alpha:1.0) // #9191CD
+        } else {
+            self.backgroundColor = UIColor(red:0.37, green:0.37, blue:0.53, alpha:1.0) // #5E5E86
+        }
+        intelBarForeground.widthAnchor.constraint(equalTo: intelBarBackground.widthAnchor, multiplier: CGFloat(player.intel)).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

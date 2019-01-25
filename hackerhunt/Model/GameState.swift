@@ -23,15 +23,7 @@ class GameState {
     var position: Int?
     
     init() {
-        player = Player(realName: "Louis", hackerName: "King", id: 0)
-        allPlayers = [
-            Player(realName: "Tilly", hackerName: "Matilda", id: 1),
-            Player(realName: "Tom", hackerName: "Brickhead", id: 2),
-            Player(realName: "Jack", hackerName: "JackedJones", id: 3),
-            Player(realName: "David", hackerName: "Weab", id: 4),
-            Player(realName: "Nuha", hackerName: "Nunu", id: 5)
-        ]
-        allPlayers[0].nearby = true
+        insertTestData()
     }
     
     func getNearestBeacon() -> String {
@@ -56,6 +48,23 @@ class GameState {
             let remainder = intel.truncatingRemainder(dividingBy: 0.2)
             player.intel = intel - remainder
         }
+    }
+    
+    func insertTestData() {
+        self.player = Player(realName: "Louis", hackerName: "King", id: 0)
+        let newPlayers = [
+            Player(realName: "Tilly", hackerName: "Matilda", id: 1),
+            Player(realName: "Tom", hackerName: "Brickhead", id: 2),
+            Player(realName: "Jack", hackerName: "JackedJones", id: 3),
+            Player(realName: "David", hackerName: "Weab", id: 4),
+            Player(realName: "Nuha", hackerName: "Nunu", id: 5)
+        ]
+        newPlayers[0].nearby = true
+        newPlayers[0].intel = 0.2
+        newPlayers[2].intel = 0.4
+        newPlayers[3].intel = 0.8
+        newPlayers[4].intel = 1.0
+        self.allPlayers.append(contentsOf: newPlayers)
     }
     
 }
