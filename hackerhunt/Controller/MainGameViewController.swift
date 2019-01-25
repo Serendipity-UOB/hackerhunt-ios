@@ -158,8 +158,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = playerTableView.dequeueReusableCell(withIdentifier: "playerTableCell") as! PlayerTableCell
-        cell.playerName = gameState!.allPlayers[indexPath.section].realName
-        cell.playerNearby = gameState!.allPlayers[indexPath.section].nearby
+        cell.player = gameState!.allPlayers[indexPath.section]
         return cell
     }
     
