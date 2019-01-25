@@ -95,11 +95,11 @@ class JoinGameViewController: UIViewController {
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
 
-                    guard let startTime: String = bodyDict["start_time"] as? String else { return }
+                    //guard let startTime: String = bodyDict["start_time"] as? String else { return }
                     guard let numPlayers: Int = bodyDict["number_players"] as? Int else { return }
                     
-                    let timeRemaining : Int = self.calculateTimeRemaining(startTime: startTime)
-                    
+                    //let timeRemaining : Int = self.calculateTimeRemaining(startTime: startTime)
+                    let timeRemaining : Int = 3
                     DispatchQueue.main.async {
                         self.playerCountLabel.text = "\(numPlayers)"
                         
