@@ -69,10 +69,10 @@ class GameState {
         newPlayers[3].intel = 0.8
         newPlayers[4].intel = 1.0
         self.allPlayers.append(contentsOf: newPlayers)
-        prioritiseNearbyPlayers()
+        self.allPlayers = prioritiseNearbyPlayers()
     }
     
-    func prioritiseNearbyPlayers() {
+    func prioritiseNearbyPlayers() -> [Player] {
         var copy = self.allPlayers.map { $0.copy() }
         
         for i in 1..<copy.count {
@@ -85,6 +85,6 @@ class GameState {
             }
         }
         
-        self.allPlayers = copy
+        return copy
     }
 }

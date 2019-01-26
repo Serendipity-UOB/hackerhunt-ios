@@ -34,6 +34,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         })
         
         // startCheckingForHomeBeacon()
+        
+        enableSwipeForLeaderboard()
     }
     
     func startCheckingForHomeBeacon() {
@@ -227,6 +229,25 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    /* transition */
     
+    func enableSwipeForLeaderboard() {
+        // TODO this will be replaced by gameOver
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(goToLeaderboard))
+        swipeUp.direction = .up
+        self.view.addGestureRecognizer(swipeUp)
+    }
+    
+    @objc func goToLeaderboard(_ sender: UITapGestureRecognizer) {
+        timer.invalidate()
+        countdownTimer.invalidate()
+        self.performSegue(withIdentifier:"transitionToLeaderboard", sender:self);
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let leaderboardViewController = segue.destination as? LeaderboardViewController {
+            leaderboardViewController.gameState = gameState
+        }
+    }
     
 }

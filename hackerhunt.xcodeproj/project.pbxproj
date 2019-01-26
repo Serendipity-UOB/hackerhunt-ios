@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BE25F73521FBAF11008FBAF4 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE25F73421FBAF11008FBAF4 /* Time.swift */; };
+		BF1AE2FD21FC484A00D3F333 /* LeaderboardTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1AE2FC21FC484A00D3F333 /* LeaderboardTableCell.swift */; };
 		BF3ADA9B21F8D2A5003AAB71 /* TerminalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3ADA9A21F8D2A5003AAB71 /* TerminalViewController.swift */; };
 		BF584CC021A5A1FD00830823 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CBF21A5A1FD00830823 /* AppDelegate.swift */; };
 		BF584CC221A5A1FD00830823 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CC121A5A1FD00830823 /* StartViewController.swift */; };
@@ -66,6 +67,7 @@
 
 /* Begin PBXFileReference section */
 		BE25F73421FBAF11008FBAF4 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		BF1AE2FC21FC484A00D3F333 /* LeaderboardTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardTableCell.swift; sourceTree = "<group>"; };
 		BF3ADA9A21F8D2A5003AAB71 /* TerminalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalViewController.swift; sourceTree = "<group>"; };
 		BF584CBC21A5A1FD00830823 /* hackerhunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hackerhunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF584CBF21A5A1FD00830823 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				BF9A7FE821EF6CC100C30261 /* Gif.swift */,
 				BF9A7FE421EF6C6F00C30261 /* title_logo.gif */,
 				BFFC0CD721FA2C1300F71ABB /* PlayerTableCell.swift */,
+				BF1AE2FC21FC484A00D3F333 /* LeaderboardTableCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 			files = (
 				BFFC0CD821FA2C1300F71ABB /* PlayerTableCell.swift in Sources */,
 				BF3ADA9B21F8D2A5003AAB71 /* TerminalViewController.swift in Sources */,
+				BF1AE2FD21FC484A00D3F333 /* LeaderboardTableCell.swift in Sources */,
 				BF5CE20021F659E20057117A /* BeaconListener.swift in Sources */,
 				BF5CE1FB21F62ACE0057117A /* JoinGameViewController.swift in Sources */,
 				BF6F9F8F21F7B54000924174 /* ServerUtils.swift in Sources */,
