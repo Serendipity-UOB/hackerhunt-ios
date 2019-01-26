@@ -16,7 +16,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var realNameTextField: UITextField!
     @IBOutlet weak var hackerNameTextField: UITextField!
-    @IBOutlet weak var nfcIdTextField: UITextField!
     
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var errorMessage: UILabel!
@@ -26,19 +25,19 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         realNameTextField.delegate = self
         hackerNameTextField.delegate = self
-        nfcIdTextField.delegate = self
     }
     
     @IBAction func goButtonPressed(_ sender: Any) {
         self.inputs = [
             "real_name": realNameTextField.text!,
-            "hacker_name": hackerNameTextField.text!,
-            "nfc_id": nfcIdTextField.text!
+            "hacker_name": hackerNameTextField.text!
         ]
         
         if (!inputsValid()) {
             return
         }
+        
+        self.inputs["nfc_id"] = "1" // this needs removing once server changes
         
         goButton.isEnabled = false
         
@@ -73,11 +72,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         }
         if (self.inputs["hacker_name"]!.count == 0) {
             reattemptInput(with: "Missing Hacker Name")
-            return false
-        }
-        // check if castable to int
-        if (Int(self.inputs["nfc_id"]!) == nil) {
-            reattemptInput(with: "Invalid NFC Id")
             return false
         }
         return true

@@ -84,19 +84,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test" borderStyle="roundedRect" placeholder="Hacker name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h9W-Ng-uks">
-                                <rect key="frame" x="15" y="249" width="290" height="30"/>
+                                <rect key="frame" x="15" y="275" width="290" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test" borderStyle="roundedRect" placeholder="Real name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EVh-Pi-cLY">
-                                <rect key="frame" x="15" y="204" width="290" height="30"/>
+                                <rect key="frame" x="15" y="230" width="290" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" spellCheckingType="no"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="// create your profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWu-aQ-K2C">
+                                <rect key="frame" x="67.5" y="180" width="185" height="14"/>
+                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGH-qV-M8Q">
+                                <rect key="frame" x="160" y="202" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ynb-gN-wi9">
-                                <rect key="frame" x="125" y="374" width="70" height="30"/>
+                                <rect key="frame" x="125" y="335" width="70" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ynb-gN-wi9" secondAttribute="height" multiplier="7:3" id="80v-SQ-YjS"/>
@@ -114,43 +126,22 @@
                                     <action selector="goButtonPressed:" destination="O1B-1s-BhP" eventType="touchUpInside" id="cmI-v9-jfc"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" borderStyle="roundedRect" placeholder="NFC id" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zxm-38-w5F">
-                                <rect key="frame" x="15" y="294" width="290" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="// create your profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWu-aQ-K2C">
-                                <rect key="frame" x="67.5" y="154" width="185" height="14"/>
-                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGH-qV-M8Q">
-                                <rect key="frame" x="160" y="176" width="0.0" height="0.0"/>
-                                <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="12"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstItem="h9W-Ng-uks" firstAttribute="centerX" secondItem="uon-hS-tdS" secondAttribute="centerX" id="302-b2-7De"/>
-                            <constraint firstItem="ynb-gN-wi9" firstAttribute="top" secondItem="Zxm-38-w5F" secondAttribute="bottom" constant="50" id="Bsj-he-xUF"/>
-                            <constraint firstItem="Zxm-38-w5F" firstAttribute="top" secondItem="h9W-Ng-uks" secondAttribute="bottom" constant="15" id="DDe-oU-0SC"/>
                             <constraint firstItem="AGH-qV-M8Q" firstAttribute="centerX" secondItem="uon-hS-tdS" secondAttribute="centerX" id="FId-er-yqE"/>
-                            <constraint firstItem="Zxm-38-w5F" firstAttribute="centerX" secondItem="uon-hS-tdS" secondAttribute="centerX" id="Sl2-RP-E5H"/>
+                            <constraint firstItem="gWu-aQ-K2C" firstAttribute="bottom" secondItem="uon-hS-tdS" secondAttribute="centerY" constant="-100" id="IJo-lj-8pm"/>
+                            <constraint firstItem="ynb-gN-wi9" firstAttribute="top" secondItem="h9W-Ng-uks" secondAttribute="bottom" constant="30" id="S1p-KY-HBZ"/>
                             <constraint firstItem="h9W-Ng-uks" firstAttribute="top" secondItem="EVh-Pi-cLY" secondAttribute="bottom" constant="15" id="e3J-jV-ZOD"/>
-                            <constraint firstItem="h9W-Ng-uks" firstAttribute="width" secondItem="Zxm-38-w5F" secondAttribute="width" id="gLP-cG-h1D"/>
+                            <constraint firstItem="h9W-Ng-uks" firstAttribute="width" secondItem="EVh-Pi-cLY" secondAttribute="width" id="gLP-cG-h1D"/>
                             <constraint firstItem="EVh-Pi-cLY" firstAttribute="top" secondItem="gWu-aQ-K2C" secondAttribute="bottom" constant="36" id="hrH-rF-vsb"/>
-                            <constraint firstItem="EVh-Pi-cLY" firstAttribute="width" secondItem="Zxm-38-w5F" secondAttribute="width" id="iPH-i1-IlL"/>
-                            <constraint firstItem="Zxm-38-w5F" firstAttribute="top" secondItem="uon-hS-tdS" secondAttribute="centerY" id="jd9-eV-FWk"/>
                             <constraint firstItem="AGH-qV-M8Q" firstAttribute="top" secondItem="gWu-aQ-K2C" secondAttribute="bottom" constant="8" id="mRD-pb-QH5"/>
                             <constraint firstItem="gWu-aQ-K2C" firstAttribute="centerX" secondItem="uon-hS-tdS" secondAttribute="centerX" id="qrj-om-lQY"/>
                             <constraint firstItem="ynb-gN-wi9" firstAttribute="centerX" secondItem="uon-hS-tdS" secondAttribute="centerX" id="s45-ve-Qsa"/>
                             <constraint firstItem="EVh-Pi-cLY" firstAttribute="centerX" secondItem="uon-hS-tdS" secondAttribute="centerX" id="sPV-jL-ZED"/>
-                            <constraint firstItem="Zxm-38-w5F" firstAttribute="leading" secondItem="uon-hS-tdS" secondAttribute="leading" constant="15" id="udS-L9-xpC"/>
-                            <constraint firstItem="Zxm-38-w5F" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uon-hS-tdS" secondAttribute="trailing" constant="-15" id="yxn-O0-k7o"/>
+                            <constraint firstItem="EVh-Pi-cLY" firstAttribute="leading" secondItem="uon-hS-tdS" secondAttribute="leading" constant="15" id="udS-L9-xpC"/>
+                            <constraint firstItem="EVh-Pi-cLY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uon-hS-tdS" secondAttribute="trailing" constant="-15" id="yxn-O0-k7o"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uon-hS-tdS"/>
                     </view>
@@ -158,7 +149,6 @@
                         <outlet property="errorMessage" destination="AGH-qV-M8Q" id="wg7-mR-1Yq"/>
                         <outlet property="goButton" destination="ynb-gN-wi9" id="31M-vK-ZUq"/>
                         <outlet property="hackerNameTextField" destination="h9W-Ng-uks" id="4us-w4-O5H"/>
-                        <outlet property="nfcIdTextField" destination="Zxm-38-w5F" id="Py1-qm-QjD"/>
                         <outlet property="realNameTextField" destination="EVh-Pi-cLY" id="Wag-jN-bFF"/>
                         <segue destination="9Ag-Hb-iZs" kind="show" identifier="transitionToJoinGame" id="Klg-6d-ZuR"/>
                     </connections>
