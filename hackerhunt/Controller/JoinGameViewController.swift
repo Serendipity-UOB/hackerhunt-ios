@@ -74,7 +74,7 @@ class JoinGameViewController: UIViewController {
     func startPollingGameInfo() {
         DispatchQueue.main.async {
             self.pollGameInfo()
-            self.pollTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(JoinGameViewController.pollGameInfo), userInfo: nil, repeats: true)
+            self.pollTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(JoinGameViewController.pollGameInfo), userInfo: nil, repeats: true)
         }
     }
     
@@ -99,13 +99,14 @@ class JoinGameViewController: UIViewController {
                     guard let numPlayers: Int = bodyDict["number_players"] as? Int else { return }
                     
                     let timeRemaining : Int = calculateTimeRemaining(startTime: startTime)
-                    self.gameState.endTime = calculateEndTime(startTime: startTime)
+                    
                     
                     DispatchQueue.main.async {
                         self.playerCountLabel.text = "\(numPlayers)"
                         
                         if (self.timeLeft < -5) {
                             self.startTiming(timeLeft: timeRemaining)
+                            self.gameState.endTime = calculateEndTime(startTime: startTime)
                         }
                     }
                 } catch {}
