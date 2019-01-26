@@ -50,6 +50,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 
                 switch statusCode {
                 case 200:
+                    // need to get player_id from response
+                    self.inputs["player_id"] = "1"
                     self.progressToJoinGame()
                     return
                 case 400:
@@ -91,7 +93,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     func progressToJoinGame() {
         let realName: String = self.inputs["real_name"]!
         let hackerName: String = self.inputs["hacker_name"]!
-        let id: Int = Int(self.inputs["nfc_id"]!)!
+        let id: Int = Int(self.inputs["player_id"]!)!
         gameState.player = Player(realName: realName, hackerName: hackerName, id: id)
         
         self.performSegue(withIdentifier:"transitionToJoinGame", sender:self)

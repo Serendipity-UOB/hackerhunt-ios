@@ -84,13 +84,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test" borderStyle="roundedRect" placeholder="Hacker name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h9W-Ng-uks">
-                                <rect key="frame" x="15" y="275" width="290" height="30"/>
+                                <rect key="frame" x="20" y="275" width="280" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test" borderStyle="roundedRect" placeholder="Real name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EVh-Pi-cLY">
-                                <rect key="frame" x="15" y="230" width="290" height="30"/>
+                                <rect key="frame" x="20" y="230" width="280" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" spellCheckingType="no"/>
@@ -140,8 +140,8 @@
                             <constraint firstItem="gWu-aQ-K2C" firstAttribute="centerX" secondItem="uon-hS-tdS" secondAttribute="centerX" id="qrj-om-lQY"/>
                             <constraint firstItem="ynb-gN-wi9" firstAttribute="centerX" secondItem="uon-hS-tdS" secondAttribute="centerX" id="s45-ve-Qsa"/>
                             <constraint firstItem="EVh-Pi-cLY" firstAttribute="centerX" secondItem="uon-hS-tdS" secondAttribute="centerX" id="sPV-jL-ZED"/>
-                            <constraint firstItem="EVh-Pi-cLY" firstAttribute="leading" secondItem="uon-hS-tdS" secondAttribute="leading" constant="15" id="udS-L9-xpC"/>
-                            <constraint firstItem="EVh-Pi-cLY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uon-hS-tdS" secondAttribute="trailing" constant="-15" id="yxn-O0-k7o"/>
+                            <constraint firstItem="EVh-Pi-cLY" firstAttribute="leading" secondItem="uon-hS-tdS" secondAttribute="leading" constant="20" id="udS-L9-xpC"/>
+                            <constraint firstItem="EVh-Pi-cLY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uon-hS-tdS" secondAttribute="trailing" constant="-20" id="yxn-O0-k7o"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uon-hS-tdS"/>
                     </view>

@@ -26,14 +26,14 @@ class GameState {
     var countdown : Int?
     
     init() {
-        insertTestData()
+//        insertTestData()
     }
     
     func getNearestBeacon() -> String {
-        if (nearbyBeacons!.count >= 1) {
+        /*if (nearbyBeacons!.count >= 1) {
             // return nearbyBeacons[0].name ??
             return "A"
-        }
+        }*/
         return "A"
     }
     

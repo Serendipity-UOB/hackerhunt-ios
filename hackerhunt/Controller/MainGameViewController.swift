@@ -22,34 +22,70 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupPlayerTable()
         updatePointsValue(0)
         updatePositionValue(0)
         startTiming()
+        setupPlayerTable()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
             self.terminalVC.setMessage(homeBeacon: self.gameState.homeBeacon!.name)
             self.showTerminal()
         })
         
-        // startCheckingForHomeBeacon()
+        startCheckingForHomeBeacon()
         
         enableSwipeForLeaderboard()
     }
     
     func startCheckingForHomeBeacon() {
         timer.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(MainGameViewController.checkForHomeBeacon), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(MainGameViewController.checkForHomeBeacon), userInfo: nil, repeats: true)
     }
     
     @objc func checkForHomeBeacon() {
-        if (self.gameState.getNearestBeacon() == "A") {
-            // GET /startInfo
+        if (self.gameState.getNearestBeacon() == "A") { // needs to be changed to homeBeacon
+            print("beacon found")
             
-            // success: { all_players[{id, real_name, hacker_name}] }
-            //  get all_players and put in gameState
-            //  populate UITableView with players
-            //  startPollingForUpdates()
+            
+            let request = ServerUtils.get(from: "/startInfo")
+            
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                guard let httpResponse = response as? HTTPURLResponse else { return }
+                
+                let statusCode: Int = httpResponse.statusCode
+                
+                if (statusCode == 200) {
+                    
+                    
+                    guard let data = data else { return }
+                    
+                    do {
+                        
+                        let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
+                        
+                        guard let allPlayers = bodyJson as? [String:[Any]] else { return }
+                        guard let listAllPlayers = allPlayers["all_players"] as? [[String: Any]] else { return }
+                        // add players but yourself to allPlayers
+                        
+                        for player in listAllPlayers {
+                            let hackerName: String = player["hackerName"] as! String
+                            if (hackerName != self.gameState.player?.hackerName) {
+                                let realName: String = player["realName"] as! String
+                                let id: Int = player["id"] as! Int
+                                self.gameState.allPlayers.append(Player(realName: realName, hackerName: hackerName, id: id))
+                            }
+                        }
+                        DispatchQueue.main.async {
+                            self.playerTableView.reloadData()
+                        }
+                        
+                        self.startPollingForUpdates()
+                        
+                    } catch {}
+                    
+                }
+                
+            }.resume()
             
             // failure:
             //  display error message on terminal popup
@@ -62,6 +98,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func pollForUpdates() {
+        print("polling for updates")
         // check for game over
         //  gameOver()
         
