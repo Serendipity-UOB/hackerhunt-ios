@@ -83,13 +83,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test" borderStyle="roundedRect" placeholder="Hacker name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h9W-Ng-uks">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Hacker name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h9W-Ng-uks">
                                 <rect key="frame" x="20" y="275" width="280" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" spellCheckingType="no"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test" borderStyle="roundedRect" placeholder="Real name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EVh-Pi-cLY">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Real name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EVh-Pi-cLY">
                                 <rect key="frame" x="20" y="230" width="280" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
@@ -148,8 +148,8 @@
                     <connections>
                         <outlet property="errorMessage" destination="AGH-qV-M8Q" id="wg7-mR-1Yq"/>
                         <outlet property="goButton" destination="ynb-gN-wi9" id="31M-vK-ZUq"/>
-                        <outlet property="hackerNameTextField" destination="h9W-Ng-uks" id="4us-w4-O5H"/>
-                        <outlet property="realNameTextField" destination="EVh-Pi-cLY" id="Wag-jN-bFF"/>
+                        <outlet property="hackerNameTextField" destination="h9W-Ng-uks" id="bGt-ZT-A1m"/>
+                        <outlet property="realNameTextField" destination="EVh-Pi-cLY" id="GD9-hb-2v0"/>
                         <segue destination="9Ag-Hb-iZs" kind="show" identifier="transitionToJoinGame" id="Klg-6d-ZuR"/>
                     </connections>
                 </viewController>

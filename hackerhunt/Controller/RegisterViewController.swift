@@ -95,8 +95,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         let hackerName: String = self.inputs["hacker_name"]!
         let id: Int = Int(self.inputs["player_id"]!)!
         gameState.player = Player(realName: realName, hackerName: hackerName, id: id)
-        
-        self.performSegue(withIdentifier:"transitionToJoinGame", sender:self)
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier:"transitionToJoinGame", sender:self)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
