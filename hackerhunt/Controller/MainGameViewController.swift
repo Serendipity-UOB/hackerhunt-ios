@@ -34,7 +34,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         
         startCheckingForHomeBeacon()
         
-        enableSwipeForLeaderboard()
     }
     
     func startCheckingForHomeBeacon() {
@@ -65,8 +64,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         
                         guard let allPlayers = bodyJson as? [String:[Any]] else { return }
                         guard let listAllPlayers = allPlayers["all_players"] as? [[String: Any]] else { return }
-                        // add players but yourself to allPlayers
                         
+                        // add players but yourself to allPlayers
                         for player in listAllPlayers {
                             let hackerName: String = player["hackerName"] as! String
                             if (hackerName != self.gameState.player?.hackerName) {
@@ -75,18 +74,18 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                                 self.gameState.allPlayers.append(Player(realName: realName, hackerName: hackerName, id: id))
                             }
                         }
+                        // load players into table view
                         DispatchQueue.main.async {
                             self.playerTableView.reloadData()
+                            self.startPollingForUpdates()
                         }
                         
-                        self.startPollingForUpdates()
                         
                     } catch {}
                     
                 }
                 
             }.resume()
-            
             // failure:
             //  display error message on terminal popup
         }
@@ -98,10 +97,15 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func pollForUpdates() {
-        print("polling for updates")
-        // check for game over
-        //  gameOver()
-        
+        if (isGameOver()) {
+            print("Game over")
+            enableSwipeForLeaderboard()
+            gameOver()
+        }
+        else {
+            print("polling for updates")
+        }
+
         // POST /playerUpdate { player_id, beacons[{beacon_minor, rssi}] }
         
         // success: { nearby_players[], state{[points], position}, [update[]] }
@@ -169,6 +173,15 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         //  display TAKEDOWN_FAILURE terminal message, tap to close
     }
     
+    func isGameOver() -> Bool {
+        if (self.gameState.countdown! <= 0) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
     func gameOver() {
         // GET /endInfo
         
@@ -176,6 +189,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         
         // segue to leaderboard page
     }
+    
+    /* Terminal View */
     
     func showTerminal() {
         self.addChild(terminalVC)
@@ -267,11 +282,14 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     /* transition */
     
+    
     func enableSwipeForLeaderboard() {
         // TODO this will be replaced by gameOver
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(goToLeaderboard))
         swipeUp.direction = .up
-        self.view.addGestureRecognizer(swipeUp)
+        self.playerTableView.isScrollEnabled = false
+        self.playerTableView.addGestureRecognizer(swipeUp)
+//        self.view.addGestureRecognizer(swipeUp)
     }
     
     @objc func goToLeaderboard(_ sender: UITapGestureRecognizer) {

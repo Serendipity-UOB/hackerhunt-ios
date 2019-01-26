@@ -46,8 +46,8 @@ func calculateTimeRemaining(startTime: String) -> Int {
 }
 
 func calculateEndTime(startTime: String) -> Int {
-    let startTotal = Int(stringToDouble(time: startTime))
-    let minutes = 10
+    let startTotal = stringToDouble(time: startTime)
+    let minutes = 10.0
     
-    return Int(startTotal + minutes * 60)
+    return Int(startTotal + minutes * 60.0)
 }
