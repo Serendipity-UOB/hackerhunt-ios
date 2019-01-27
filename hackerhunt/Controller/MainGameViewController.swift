@@ -46,7 +46,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         if (self.gameState.getNearestBeacon() == "A") { // needs to be changed to homeBeacon
             print("beacon found")
             
-            
             let request = ServerUtils.get(from: "/startInfo")
             
             URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -83,7 +82,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                             self.startPollingForUpdates()
                         }
                         
-                        
+                        // request first target
+                        self.requestNewTarget()
+
                     } catch {}
                     
                 }
@@ -91,6 +92,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             }.resume()
             // failure:
             //  display error message on terminal popup
+            
         }
     }
     
@@ -136,7 +138,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.handleTakenDown(takenDown)
                         self.handleNearbyPlayers(nearbyPlayers)
                         self.handlePoints(points)
-                        self.handleRequestNewTarget(1)
+                        self.handleRequestNewTarget(requestNewTarget)
                         self.handlePosition(position)
                         
                         DispatchQueue.main.async {
