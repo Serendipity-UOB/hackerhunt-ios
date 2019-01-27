@@ -151,11 +151,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             
         }
         
-        //  process new information
-        //  updates:
-        //   "taken_down":  deleteHalfOfIntel(), show terminal message. tap to close message
-        //   "req_new_target":  clear target in gameState, show terminal message, requestNewTarget()
-        
         // failure:
         //  ignore? or count failures and alert after x amount
     }
@@ -171,7 +166,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func handlePoints(_ points: Int) {
-        
+        updatePointsValue(points)
     }
     
     func handleRequestNewTarget(_ requestNewTarget: Int) {
@@ -181,7 +176,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func handlePosition(_ position: Int) {
-        
+        updatePositionValue(position)
     }
     
     func createBeaconList() -> [[String:Any]] {
@@ -330,14 +325,18 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func updatePointsValue(_ value: Int) {
         gameState.points = value
-        pointsValue.text = String(gameState.points)
+        DispatchQueue.main.async {
+            self.pointsValue.text = String(self.gameState.points)
+        }
     }
     
     /* positionValue setup */
     
     func updatePositionValue(_ value: Int) {
         gameState.position = value
-        positionValue.text = String(gameState.position)
+        DispatchQueue.main.async {
+            self.positionValue.text = String(self.gameState.position)
+        }
     }
     
     /* countdownValue setup */
