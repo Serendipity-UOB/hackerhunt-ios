@@ -12,6 +12,8 @@ class PlayerTableCell: UITableViewCell {
     
     var player: Player = Player(realName: "test", hackerName: "test", id: -1)
     
+    var constraint: NSLayoutConstraint?
+    
     var realName: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -72,6 +74,7 @@ class PlayerTableCell: UITableViewCell {
         intelBarBackground.topAnchor.constraint(equalTo: self.bottomAnchor, constant: -17).isActive = true
         
         self.addSubview(intelBarForeground)
+        intelBarForeground.setNeedsLayout()
         intelBarForeground.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 7).isActive = true
         intelBarForeground.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -7).isActive = true
         intelBarForeground.topAnchor.constraint(equalTo: self.bottomAnchor, constant: -17).isActive = true
@@ -89,7 +92,15 @@ class PlayerTableCell: UITableViewCell {
         
         setDefaultBackgroundColor()
         
-        intelBarForeground.widthAnchor.constraint(equalTo: intelBarBackground.widthAnchor, multiplier: CGFloat(player.intel)).isActive = true
+        if (constraint != nil) {
+            NSLayoutConstraint.deactivate([constraint!])
+        }
+        
+        let width = NSLayoutConstraint(item: self.intelBarForeground, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.intelBarBackground, attribute: NSLayoutConstraint.Attribute.width, multiplier: CGFloat(player.intel), constant: 1)
+        
+        NSLayoutConstraint.activate([width])
+        
+        constraint = width
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

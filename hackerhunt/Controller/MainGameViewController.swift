@@ -71,7 +71,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                             if (hackerName != self.gameState.player?.hackerName) {
                                 let realName: String = player["realName"] as! String
                                 let id: Int = player["id"] as! Int
-                                self.gameState.allPlayers.append(Player(realName: realName, hackerName: hackerName, id: id))
+                                let player: Player = Player(realName: realName, hackerName: hackerName, id: id)
+                                player.intel = 0.8
+                                self.gameState.allPlayers.append(player)
                             }
                         }
                         // load players into table view
@@ -104,11 +106,51 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         else {
             print("polling for updates")
+            
+            var data: [String:Any] = [:]
+            data["player_id"] = self.gameState.player?.id
+            data["beacons"] = createBeaconList()
+            
+            let request = ServerUtils.post(to: "/playerUpdate", with: data)
+            
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                
+                guard let httpResponse = response as? HTTPURLResponse else { return }
+                
+                let statusCode: Int = httpResponse.statusCode
+                
+                if (statusCode == 200) {
+                    guard let data = data else { return }
+                    
+                    do {
+                        let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
+                        
+                        guard let bodyDict = bodyJson as? [String: Any] else { return }
+                        
+                        guard let takenDown: Int = bodyDict["taken_down"] as? Int else { return }
+                        guard let nearbyPlayers: [Int] = bodyDict["nearby_players"] as? [Int] else { return }
+                        guard let points: Int = bodyDict["points"] as? Int else { return }
+                        guard let requestNewTarget: Int = bodyDict["req_new_target"] as? Int else { return }
+                        guard let position: Int = bodyDict["position"] as? Int else { return }
+                        self.handleTakenDown(takenDown)
+                        self.handleNearbyPlayers(nearbyPlayers)
+                        self.handlePoints(points)
+                        self.handleRequestNewTarget(requestNewTarget)
+                        self.handlePosition(position)
+                        
+                        DispatchQueue.main.async {
+                            self.playerTableView.reloadData()
+                        }
+                        
+                        
+                    } catch {}
+                }
+                
+                
+            }.resume()
+            
         }
-
-        // POST /playerUpdate { player_id, beacons[{beacon_minor, rssi}] }
         
-        // success: { nearby_players[], state{[points], position}, [update[]] }
         //  process new information
         //  updates:
         //   "taken_down":  deleteHalfOfIntel(), show terminal message. tap to close message
@@ -116,6 +158,41 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         
         // failure:
         //  ignore? or count failures and alert after x amount
+    }
+    
+    func handleTakenDown(_ takenDown: Int) {
+        if (takenDown == 1) {
+            self.gameState.deleteHalfOfIntel()
+        }
+    }
+    
+    func handleNearbyPlayers(_ nearbyPlayers: [Int]) {
+        
+    }
+    
+    func handlePoints(_ points: Int) {
+        
+    }
+    
+    func handleRequestNewTarget(_ requestNewTarget: Int) {
+        if (requestNewTarget == 1) {
+            print("requestNewTarget")
+        }
+    }
+    
+    func handlePosition(_ position: Int) {
+        
+    }
+    
+    func createBeaconList() -> [[String:Any]] {
+        var beacons_list : [[String:Any]] = []
+        for beacon in self.gameState!.nearbyBeacons! {
+            var temp: [String:Any] = [:]
+            temp["beacon_minor"] = beacon.minor
+            temp["rssi"] = beacon.rssi
+            beacons_list.append(temp)
+        }
+        return beacons_list
     }
     
     func requestNewTarget() {
