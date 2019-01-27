@@ -87,4 +87,13 @@ class GameState {
         
         return copy
     }
+    
+    func getPlayerById(_ id: Int) -> Player? {
+        for p in self.allPlayers {
+            if (p.id == id) {
+                return p
+            }
+        }
+        return nil
+    }
 }

@@ -37,7 +37,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        self.inputs["nfc_id"] = "1" // this needs removing once server changes
+        self.inputs["nfc_id"] = "6" // this needs removing once server changes
         
         goButton.isEnabled = false
         
@@ -51,7 +51,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 switch statusCode {
                 case 200:
                     // need to get player_id from response
-                    self.inputs["player_id"] = "1"
+                    self.inputs["player_id"] = "6"
                     self.progressToJoinGame()
                     return
                 case 400:

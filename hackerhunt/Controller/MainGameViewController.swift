@@ -17,6 +17,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var positionValue: UILabel!
     @IBOutlet weak var countdownValue: UILabel!
     @IBOutlet weak var playerTableView: UITableView!
+    @IBOutlet weak var targetName: UILabel!
     
     var terminalVC : TerminalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "terminalViewController") as! TerminalViewController
     
@@ -135,7 +136,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.handleTakenDown(takenDown)
                         self.handleNearbyPlayers(nearbyPlayers)
                         self.handlePoints(points)
-                        self.handleRequestNewTarget(requestNewTarget)
+                        self.handleRequestNewTarget(1)
                         self.handlePosition(position)
                         
                         DispatchQueue.main.async {
@@ -162,7 +163,12 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func handleNearbyPlayers(_ nearbyPlayers: [Int]) {
-        
+        for p in self.gameState.allPlayers {
+            if nearbyPlayers.contains(p.id) {
+                p.nearby = true
+            }
+        }
+        self.gameState.allPlayers = self.gameState.prioritiseNearbyPlayers()
     }
     
     func handlePoints(_ points: Int) {
@@ -171,7 +177,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func handleRequestNewTarget(_ requestNewTarget: Int) {
         if (requestNewTarget == 1) {
-            print("requestNewTarget")
+            DispatchQueue.main.async {
+                self.requestNewTarget()
+            }
+            
         }
     }
     
@@ -191,6 +200,37 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func requestNewTarget() {
+        
+        var data: [String:Int] = [:]
+        data["player_id"] = self.gameState.player?.id
+        
+        let request = ServerUtils.post(to: "/newTarget", with: data)
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            guard let httpResponse = response as? HTTPURLResponse else { return }
+            
+            let statusCode: Int = httpResponse.statusCode
+            
+            if (statusCode == 200) {
+                guard let responsedata = data else { return }
+                
+                do {
+                    let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
+                    
+                    guard let bodyDict = bodyJson as? [String: Any] else { return }
+                    guard let newTarget = bodyDict["target_player_id"] as? Int else { return }
+                    self.gameState.currentTarget = self.gameState.getPlayerById(newTarget)
+                    
+                    DispatchQueue.main.async {
+                        self.targetName.text = self.gameState.currentTarget?.hackerName
+                    }
+                    
+                } catch {}
+            }
+            
+        }.resume()
+        
         // POST /newTarget { player_id }
         
         // success: { target_player_id }

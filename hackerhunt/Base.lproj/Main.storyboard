@@ -349,7 +349,7 @@
                                 <color key="backgroundColor" red="0.1788358092" green="0.18022242190000001" blue="0.25674799079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <sections/>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="JackedJones" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oe2-Q3-ZPx">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oe2-Q3-ZPx">
                                 <rect key="frame" x="83" y="49" width="227" height="14"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -399,6 +399,7 @@
                         <outlet property="playerTableView" destination="sqj-v5-pL5" id="KpQ-01-pRB"/>
                         <outlet property="pointsValue" destination="18u-0k-xiJ" id="voA-G7-X6M"/>
                         <outlet property="positionValue" destination="2VL-PA-f4Q" id="bRv-PF-fDD"/>
+                        <outlet property="targetName" destination="Oe2-Q3-ZPx" id="EYK-1m-dz7"/>
                         <segue destination="p0e-xV-tai" kind="show" identifier="transitionToLeaderboard" id="O2z-yj-48F"/>
                     </connections>
                 </viewController>
