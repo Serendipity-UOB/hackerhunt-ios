@@ -39,7 +39,7 @@ class GameState {
     
     func incrementIntelFor(playerOne: Int, playerTwo: Int) {
         for player in allPlayers {
-            if (player.id == playerOne || player.id == playerTwo) {
+            if (player.id == playerOne || (player.id == playerTwo) && (playerTwo != 0)) {
                 player.intel = min(player.intel + 0.2, 1.0)
             }
         }

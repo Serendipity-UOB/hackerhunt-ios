@@ -73,7 +73,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                                 let realName: String = player["realName"] as! String
                                 let id: Int = player["id"] as! Int
                                 let player: Player = Player(realName: realName, hackerName: hackerName, id: id)
-                                player.intel = 0.8
+                                player.intel = 0.6
                                 self.gameState.allPlayers.append(player)
                             }
                         }
@@ -258,10 +258,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func doExchange() {
-        // send request
+        // create data
+        let interacteeId = self.selectedCell!.section
         var data: [String:Any] = [:]
         data["interacter_id"] = self.gameState.player!.id
-        data["interactee_id"] = self.selectedCell!.section
+        data["interactee_id"] = interacteeId
         
         var contacts: [Int] = []
         for p in self.gameState.allPlayers {
@@ -270,10 +271,45 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
         data["contacts"] = contacts
-        print(data)
+        
+        // send request
+        exchangeRequest(data: data, interactee: interacteeId)
         
         // wait for completion
         // increment primary and secondary intel
+        // turn off variable
+        self.exchange = false
+    }
+    
+    func exchangeRequest(data: [String:Any], interactee: Int) {
+        let request = ServerUtils.post(to: "/exchange", with: data)
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let httpResponse = response as? HTTPURLResponse else { return }
+            
+            let statusCode: Int = httpResponse.statusCode
+            
+            switch statusCode {
+            case 200:
+                guard let responsedata = data else { return }
+                
+                do {
+                    let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
+                    
+                    guard let bodyDict = bodyJson as? [String: Any] else { return }
+                    guard let secondaryId = bodyDict["secondary_id"] as? Int else { return }
+                    self.gameState.incrementIntelFor(playerOne: interactee, playerTwo: secondaryId)
+                    
+                    DispatchQueue.main.async {
+                        self.playerTableView.reloadData()
+                    }
+                    
+                } catch {}
+            default:
+                print("something's gone wrong")
+            }
+            
+        }.resume()
     }
     
     
@@ -374,7 +410,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedCell = indexPath
-        print(selectedCell!.section)
         if (exchange) {
             doExchange()
         }
