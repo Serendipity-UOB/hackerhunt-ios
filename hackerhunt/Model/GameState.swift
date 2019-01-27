@@ -84,7 +84,7 @@ class GameState {
                 j -= 1
             }
         }
-        
+
         return copy
     }
     

@@ -13,6 +13,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     var gameState: GameState!
     var timer = Timer()
     var countdownTimer = Timer()
+    var selectedCell: IndexPath?
+    var exchange: Bool = false
     @IBOutlet weak var pointsValue: UILabel!
     @IBOutlet weak var positionValue: UILabel!
     @IBOutlet weak var countdownValue: UILabel!
@@ -44,7 +46,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @objc func checkForHomeBeacon() {
         if (self.gameState.getNearestBeacon() == "A") { // needs to be changed to homeBeacon
-            print("beacon found")
             
             let request = ServerUtils.get(from: "/startInfo")
             
@@ -233,10 +234,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             
         }.resume()
         
-        // POST /newTarget { player_id }
-        
-        // success: { target_player_id }
-        //  update gameState
         //  wait until player has gone to homeBeacon
         //  close terminal message
         
@@ -245,27 +242,40 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @IBAction func exchangePressed() {
-        // show terminal message
-        //  player has option to close terminal message
-        // detect NFC - get player_id
-        // update terminal message to say "SCAN_SUCCESS"
-        // mutualExchangeWith( player_id )
+        print("exchanging")
+        // stretch button
+        // hide not nearby
+        for p in self.gameState.allPlayers {
+            if (!p.nearby) {
+                p.hide = true
+            }
+        }
+        DispatchQueue.main.async {
+            self.playerTableView.reloadData()
+        }
+        
+        self.exchange = true
     }
     
-    func mutualExchangeWith(player: Int, attemptNumber: Int) {
-        if (attemptNumber > 10) {
-            // show error on terminal popup, tap to close
-            return
+    func doExchange() {
+        // send request
+        var data: [String:Any] = [:]
+        data["interacter_id"] = self.gameState.player!.id
+        data["interactee_id"] = self.selectedCell!.section
+        
+        var contacts: [Int] = []
+        for p in self.gameState.allPlayers {
+            if (p.intel > 0.0) {
+                contacts.append(p.id)
+            }
         }
-        // POST /exchange { interacter_id, interactee_id }
+        data["contacts"] = contacts
+        print(data)
         
-        // 200 success: { secondary_id }
-        //  gameState.incrementIntelFor(playerOne: interactee_id, playerTwo: secondary_id )
-        //  show success message, tap to close
-        
-        // 100 continue || error:
-        //  every 2 seconds: mutualExchangeWith(player, attemptNumber + 1)
+        // wait for completion
+        // increment primary and secondary intel
     }
+    
     
     @IBAction func takeDownPressed() {
         // show terminal message
@@ -273,8 +283,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         // detect NFC - get player_id
         // update terminal message to say "SCAN_SUCCESS"
         // takeDown( player_id )
-        updatePointsValue(gameState.points + 1)
-        updatePositionValue(gameState.position + 1)
+
     }
     
     func takeDown(player: Int) {
@@ -361,6 +370,14 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             return nil
         }
         return indexPath
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedCell = indexPath
+        print(selectedCell!.section)
+        if (exchange) {
+            doExchange()
+        }
     }
     
     /* pointsValue setup */

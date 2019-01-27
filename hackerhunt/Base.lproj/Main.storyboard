@@ -299,6 +299,9 @@
                                 <state key="normal" title="exchange();">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="exchangePressed" destination="3Hg-En-CAh" eventType="touchUpInside" id="TwV-Pt-GeO"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wtw-dM-ftk">
                                 <rect key="frame" x="165" y="508" width="145" height="50"/>

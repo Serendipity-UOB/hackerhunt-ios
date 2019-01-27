@@ -106,16 +106,21 @@ class PlayerTableCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if (selected) {
-            //self.backgroundColor = UIColor.purple
+            self.alpha = 0.8
         } else {
             setDefaultBackgroundColor()
         }
     }
+
     
     func setDefaultBackgroundColor() {
         if (player.nearby) {
             self.backgroundColor = UIColor(red:0.57, green:0.57, blue:0.80, alpha:1.0) // #9191CD
-        } else {
+        }
+        else if (player.hide) {
+            self.alpha = 0.25
+        }
+        else {
             self.backgroundColor = UIColor(red:0.37, green:0.37, blue:0.53, alpha:1.0) // #5E5E86
         }
     }
