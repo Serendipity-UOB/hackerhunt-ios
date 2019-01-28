@@ -36,7 +36,7 @@ class LeaderboardViewController: UIViewController, UITableViewDataSource, UITabl
         let cell = leaderboardTable.dequeueReusableCell(withIdentifier: "leaderboardTableCell") as! LeaderBoardTableCell
         cell.position = indexPath.section + 1
         cell.name = gameState!.allPlayers[indexPath.section].realName
-        cell.score = dummyScores[indexPath.section]
+        cell.score = gameState!.allPlayers[indexPath.section].score
         cell.layoutSubviews()
         return cell
     }

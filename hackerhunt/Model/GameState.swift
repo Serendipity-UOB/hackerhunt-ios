@@ -13,7 +13,7 @@ class GameState {
     
     var player: Player?
     
-    var nearbyBeacons: [CLBeacon]?
+    var nearbyBeacons: [CLBeacon] = []
     var homeBeacon: HomeBeacon?
 
     var allPlayers = [Player]()
@@ -99,7 +99,7 @@ class GameState {
     
     func createBeaconList() -> [[String:Any]] {
         var beacons_list : [[String:Any]] = []
-        for beacon in nearbyBeacons! {
+        for beacon in nearbyBeacons {
             var temp: [String:Any] = [:]
             temp["beacon_minor"] = beacon.minor
             temp["rssi"] = beacon.rssi
@@ -129,5 +129,27 @@ class GameState {
         for p in allPlayers {
             p.hide = false
         }
+    }
+    
+    func assignScores(scoreList: [[String: Any]]) {
+        for player in scoreList {
+            let realName = player["realName"] as! String
+            if (realName != self.player!.realName) {
+                var p = getPlayerByRealName(realName: realName)
+                p!.score = player["kills"] as! Int
+            }
+            else {
+                self.player!.score = player["kills"] as! Int
+            }
+        }
+    }
+    
+    func getPlayerByRealName(realName: String) -> Player? {
+        for p in self.allPlayers {
+            if (p.realName == realName) {
+                return p
+            }
+        }
+        return nil
     }
 }

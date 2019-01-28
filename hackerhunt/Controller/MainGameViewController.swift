@@ -379,6 +379,32 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // MARK: endInfo
     func gameOver() {
+        
+        let request = ServerUtils.get(from: "/endInfo")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let httpResponse = response as? HTTPURLResponse else { return }
+            
+            let statusCode: Int = httpResponse.statusCode
+            print(statusCode)
+            
+            if (statusCode == 200) {
+                guard let responsedata = data else { return }
+                print("here")
+                do {
+                    let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
+
+                    guard let bodyDict = bodyJson as? [[String: Any]] else { return }
+//                    print(bodyDict)
+                    // get scores out
+                    self.gameState.assignScores(scoreList: bodyDict)
+                    
+                } catch {}
+                
+            }
+            
+        }.resume()
+        
         // GET /endInfo
         
         // response { leaderboard[{player_id, player_name, score}] }
@@ -476,6 +502,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func enableSwipeForLeaderboard() {
         // TODO this will be replaced by gameOver
+        timer.invalidate()
+        countdownTimer.invalidate()
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(goToLeaderboard))
         swipeUp.direction = .up
         self.playerTableView.isScrollEnabled = false
@@ -484,13 +512,14 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func goToLeaderboard(_ sender: UITapGestureRecognizer) {
-        timer.invalidate()
-        countdownTimer.invalidate()
-        self.performSegue(withIdentifier:"transitionToLeaderboard", sender:self);
+        self.performSegue(withIdentifier:"transitionToLeaderboard", sender:self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let leaderboardViewController = segue.destination as? LeaderboardViewController {
+            self.gameState.player!.score = self.gameState.points
+            self.gameState.allPlayers.append(self.gameState.player!) // add yourself to list of players for leaderboard
+            self.gameState.allPlayers.sort(by: { $0.score > $1.score })
             leaderboardViewController.gameState = gameState
         }
     }

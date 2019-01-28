@@ -21,6 +21,7 @@ class Player {
     var hide: Bool = false
     var nearby: Bool = false
     var intel: Float = 0.0
+    var score: Int = 0
     
     
     func copy() -> Player {
