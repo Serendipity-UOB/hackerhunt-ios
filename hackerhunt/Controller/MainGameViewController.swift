@@ -76,9 +76,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         
                         // add players but yourself to allPlayers
                         for player in listAllPlayers {
-                            let hackerName: String = player["hackerName"] as! String
+                            let hackerName: String = player["hacker_name"] as! String
                             if (hackerName != self.gameState.player?.hackerName) {
-                                let realName: String = player["realName"] as! String
+                                let realName: String = player["real_name"] as! String
                                 let id: Int = player["id"] as! Int
                                 let player: Player = Player(realName: realName, hackerName: hackerName, id: id)
                                 player.intel = 0.6
@@ -216,7 +216,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         let request = ServerUtils.post(to: "/newTarget", with: data)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
+        
             guard let httpResponse = response as? HTTPURLResponse else { return }
             
             let statusCode: Int = httpResponse.statusCode

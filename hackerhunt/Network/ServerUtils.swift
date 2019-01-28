@@ -10,9 +10,17 @@ import Foundation
 
 class ServerUtils {
     
+    static let testing : Bool = false
+    
     static func post(to url: String, with json: [String: Any]) -> URLRequest {
+        var newUrl: String
+        if (testing == true) {
+            newUrl = url + "Test"
+        } else {
+            newUrl = url
+        }
         
-        let urlObj = URL(string: "http://serendipity-game-controller.herokuapp.com"+url)
+        let urlObj = URL(string: "http://serendipity-game-controller.herokuapp.com"+newUrl)
         let httpBody = try? JSONSerialization.data(withJSONObject: json, options: [])
         
         var request = URLRequest(url: urlObj!)
@@ -24,8 +32,14 @@ class ServerUtils {
     }
     
     static func get(from url: String) -> URLRequest {
+        var newUrl: String
+        if (testing == true) {
+            newUrl = url + "Test"
+        } else {
+            newUrl = url
+        }
         
-        let urlObj = URL(string: "http://serendipity-game-controller.herokuapp.com"+url)
+        let urlObj = URL(string: "http://serendipity-game-controller.herokuapp.com"+newUrl)
         
         var request = URLRequest(url: urlObj!)
         request.httpMethod = "GET"

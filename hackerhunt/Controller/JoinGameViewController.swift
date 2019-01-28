@@ -98,15 +98,20 @@ class JoinGameViewController: UIViewController {
                     guard let startTime: String = bodyDict["start_time"] as? String else { return }
                     guard let numPlayers: Int = bodyDict["number_players"] as? Int else { return }
                     
-                    let timeRemaining : Int = calculateTimeRemaining(startTime: startTime)
-                    
-                    
                     DispatchQueue.main.async {
                         self.playerCountLabel.text = "\(numPlayers)"
                         
-                        if (self.timeLeft < -5) {
-                            self.startTiming(timeLeft: timeRemaining)
-                            self.gameState.endTime = calculateEndTime(startTime: startTime)
+                        if (startTime != "00:00") {
+                            self.gameIsScheduled()
+                            
+                            if (self.timeLeft < -5) {
+                                let timeRemaining : Int = calculateTimeRemaining(startTime: startTime)
+                                
+                                self.startTiming(timeLeft: timeRemaining)
+                                self.gameState.endTime = calculateEndTime(startTime: startTime)
+                            }
+                        } else {
+                            self.noGameIsScheduled()
                         }
                     }
                 } catch {}
@@ -167,5 +172,16 @@ class JoinGameViewController: UIViewController {
             self.joinButton.alpha = 0
             self.joinSuccessLabel.alpha = 1
         }
+    }
+    
+    func noGameIsScheduled() {
+        self.timeRemainingLabel.text = "-"
+        self.joinButton.isEnabled = false
+        self.joinButton.setTitle("no game", for: UIControl.State.disabled)
+    }
+    
+    func gameIsScheduled() {
+        self.joinButton.isEnabled = true
+        self.joinButton.setTitle("waiting...", for: UIControl.State.disabled)
     }
 }

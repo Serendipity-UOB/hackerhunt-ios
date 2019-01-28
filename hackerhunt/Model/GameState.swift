@@ -135,7 +135,7 @@ class GameState {
         for player in scoreList {
             let realName = player["realName"] as! String
             if (realName != self.player!.realName) {
-                var p = getPlayerByRealName(realName: realName)
+                let p = getPlayerByRealName(realName: realName)
                 p!.score = player["kills"] as! Int
             }
             else {
