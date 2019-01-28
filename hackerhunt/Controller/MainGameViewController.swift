@@ -390,7 +390,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             
             if (statusCode == 200) {
                 guard let responsedata = data else { return }
-                print("here")
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
 

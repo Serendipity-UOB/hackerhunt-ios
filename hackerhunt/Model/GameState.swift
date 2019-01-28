@@ -133,13 +133,13 @@ class GameState {
     
     func assignScores(scoreList: [[String: Any]]) {
         for player in scoreList {
-            let realName = player["realName"] as! String
-            if (realName != self.player!.realName) {
-                let p = getPlayerByRealName(realName: realName)
-                p!.score = player["kills"] as! Int
+            let id = player["player_id"] as! Int
+            if (id != self.player!.id) {
+                let p = getPlayerById(id)
+                p!.score = player["score"] as! Int
             }
             else {
-                self.player!.score = player["kills"] as! Int
+                self.player!.score = player["score"] as! Int
             }
         }
     }
