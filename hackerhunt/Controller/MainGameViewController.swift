@@ -10,6 +10,7 @@ import UIKit
 
 class MainGameViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    // MARK: attributes
     var gameState: GameState!
     var timer = Timer()
     var countdownTimer = Timer()
@@ -26,10 +27,13 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updatePointsValue(0)
-        updatePositionValue(0)
+        handlePoints(0)
         startTiming()
         setupPlayerTable()
+        
+        DispatchQueue.main.async {
+            self.positionValue.text = "-"
+        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
             self.terminalVC.setMessage(homeBeacon: self.gameState.homeBeacon!.name)
@@ -39,6 +43,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         startCheckingForHomeBeacon()
         
     }
+    
+    // MARK: startInfo
     
     func startCheckingForHomeBeacon() {
         timer.invalidate()
@@ -98,13 +104,15 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    // MARK: playerUpdate
+    
     func startPollingForUpdates() {
         timer.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(MainGameViewController.pollForUpdates), userInfo: nil, repeats: true)
     }
     
     @objc func pollForUpdates() {
-        if (isGameOver()) {
+        if (self.gameState.isGameOver()) {
             print("Game over")
             enableSwipeForLeaderboard()
             gameOver()
@@ -114,7 +122,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             
             var data: [String:Any] = [:]
             data["player_id"] = self.gameState.player?.id
-            data["beacons"] = createBeaconList()
+            data["beacons"] = self.gameState.createBeaconList()
             
             let request = ServerUtils.post(to: "/playerUpdate", with: data)
             
@@ -176,7 +184,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func handlePoints(_ points: Int) {
-        updatePointsValue(points)
+        gameState.points = points
+        DispatchQueue.main.async {
+            self.pointsValue.text = String(self.gameState.points)
+        }
     }
     
     func handleRequestNewTarget(_ requestNewTarget: Int) {
@@ -189,20 +200,13 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func handlePosition(_ position: Int) {
-        updatePositionValue(position)
-    }
-    
-    func createBeaconList() -> [[String:Any]] {
-        var beacons_list : [[String:Any]] = []
-        for beacon in self.gameState!.nearbyBeacons! {
-            var temp: [String:Any] = [:]
-            temp["beacon_minor"] = beacon.minor
-            temp["rssi"] = beacon.rssi
-            beacons_list.append(temp)
+        gameState.position = position
+        DispatchQueue.main.async {
+            self.positionValue.text = String(self.gameState.position)
         }
-        return beacons_list
     }
     
+    // MARK: newTarget
     func requestNewTarget() {
         
         var data: [String:Int] = [:]
@@ -242,6 +246,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         //  try again x amount of times
     }
     
+    // MARK: exchange
     @IBAction func exchangePressed() {
         print("exchanging")
         // stretch button
@@ -303,6 +308,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     guard let secondaryId = bodyDict["secondary_id"] as? Int else { return }
                     self.gameState.incrementIntelFor(playerOne: interactee, playerTwo: secondaryId)
                     
+                    for p in self.gameState.allPlayers {
+                            p.hide = false
+                    }
+                    
                     DispatchQueue.main.async {
                         self.playerTableView.reloadData()
                     }
@@ -328,7 +337,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         }.resume()
     }
     
-    
+    // MARK: takeDown
     @IBAction func takeDownPressed() {
         // show terminal message
         //  player has option to close terminal message
@@ -348,15 +357,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         //  display TAKEDOWN_FAILURE terminal message, tap to close
     }
     
-    func isGameOver() -> Bool {
-        if (self.gameState.countdown! <= 0) {
-            return true
-        }
-        else {
-            return false
-        }
-    }
-    
+    // MARK: endInfo
     func gameOver() {
         // GET /endInfo
         
@@ -365,7 +366,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         // segue to leaderboard page
     }
     
-    /* Terminal View */
+    // MARK: Terminal View
     
     func showTerminal() {
         self.addChild(terminalVC)
@@ -380,7 +381,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         terminalVC.removeAnimate()
     }
     
-    /* tableView setup */
+    // MARK: TableView
     
     func setupPlayerTable() {
         playerTableView.register(PlayerTableCell.self, forCellReuseIdentifier: "playerTableCell")
@@ -431,25 +432,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    /* pointsValue setup */
-    
-    func updatePointsValue(_ value: Int) {
-        gameState.points = value
-        DispatchQueue.main.async {
-            self.pointsValue.text = String(self.gameState.points)
-        }
-    }
-    
-    /* positionValue setup */
-    
-    func updatePositionValue(_ value: Int) {
-        gameState.position = value
-        DispatchQueue.main.async {
-            self.positionValue.text = String(self.gameState.position)
-        }
-    }
-    
-    /* countdownValue setup */
+    // MARK: countdown
     
     func startTiming() {
         let currentTotal = Int(now())
@@ -466,8 +449,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    /* transition */
-    
+    // MARK: leaderboard
     
     func enableSwipeForLeaderboard() {
         // TODO this will be replaced by gameOver
@@ -475,7 +457,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         swipeUp.direction = .up
         self.playerTableView.isScrollEnabled = false
         self.playerTableView.addGestureRecognizer(swipeUp)
-//        self.view.addGestureRecognizer(swipeUp)
+        
     }
     
     @objc func goToLeaderboard(_ sender: UITapGestureRecognizer) {

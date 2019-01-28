@@ -96,4 +96,24 @@ class GameState {
         }
         return nil
     }
+    
+    func createBeaconList() -> [[String:Any]] {
+        var beacons_list : [[String:Any]] = []
+        for beacon in nearbyBeacons! {
+            var temp: [String:Any] = [:]
+            temp["beacon_minor"] = beacon.minor
+            temp["rssi"] = beacon.rssi
+            beacons_list.append(temp)
+        }
+        return beacons_list
+    }
+    
+    func isGameOver() -> Bool {
+        if (countdown! <= 0) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
 }
