@@ -13,6 +13,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     var gameState: GameState!
     var timer = Timer()
     var countdownTimer = Timer()
+    var exchangeTimer = Timer()
     var selectedCell: IndexPath?
     var exchange: Bool = false
     @IBOutlet weak var pointsValue: UILabel!
@@ -273,15 +274,16 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         data["contacts"] = contacts
         
         // send request
-        exchangeRequest(data: data, interactee: interacteeId)
-        
-        // wait for completion
-        // increment primary and secondary intel
-        // turn off variable
-        self.exchange = false
+        exchangeTimer.invalidate()
+        exchangeTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainGameViewController.exchangeRequest), userInfo: data, repeats: true)
+        // fire the first time to prevent waiting
+        exchangeTimer.fire()
     }
     
-    func exchangeRequest(data: [String:Any], interactee: Int) {
+    @objc func exchangeRequest() {
+        let data: [String:Any] = exchangeTimer.userInfo as! [String:Any]
+        let interactee: Int = data["interactee_id"] as! Int
+        
         let request = ServerUtils.post(to: "/exchange", with: data)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -294,6 +296,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 guard let responsedata = data else { return }
                 
                 do {
+                    self.exchangeTimer.invalidate()
                     let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
@@ -303,10 +306,23 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     DispatchQueue.main.async {
                         self.playerTableView.reloadData()
                     }
+                    self.exchange = false
                     
                 } catch {}
+                return
+            case 201:
+                // exchange created, start polling
+                return
+            case 202:
+                // keep polling
+                return
+            case 400:
+                // exchange failed
+                self.exchangeTimer.invalidate()
+                return
             default:
                 print("something's gone wrong")
+                return
             }
             
         }.resume()
