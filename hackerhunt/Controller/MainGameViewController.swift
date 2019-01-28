@@ -17,6 +17,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     var exchangeTimer = Timer()
     var selectedCell: IndexPath?
     var exchange: Bool = false
+    var takedown: Bool = false
     @IBOutlet weak var pointsValue: UILabel!
     @IBOutlet weak var positionValue: UILabel!
     @IBOutlet weak var countdownValue: UILabel!
@@ -251,11 +252,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         print("exchanging")
         // stretch button
         // hide not nearby
-        for p in self.gameState.allPlayers {
-            if (!p.nearby) {
-                p.hide = true
-            }
-        }
+        
+        self.gameState.hideFarAway()
+        
         DispatchQueue.main.async {
             self.playerTableView.reloadData()
         }
@@ -308,9 +307,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     guard let secondaryId = bodyDict["secondary_id"] as? Int else { return }
                     self.gameState.incrementIntelFor(playerOne: interactee, playerTwo: secondaryId)
                     
-                    for p in self.gameState.allPlayers {
-                            p.hide = false
-                    }
+                    self.gameState.unhideAll()
                     
                     DispatchQueue.main.async {
                         self.playerTableView.reloadData()
@@ -341,18 +338,41 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBAction func takeDownPressed() {
         // show terminal message
         //  player has option to close terminal message
-        // detect NFC - get player_id
-        // update terminal message to say "SCAN_SUCCESS"
-        // takeDown( player_id )
-
+        self.gameState.hideFarAway()
+        
+        DispatchQueue.main.async {
+            self.playerTableView.reloadData()
+        }
+        
+        self.takedown = true
+        
     }
     
-    func takeDown(player: Int) {
-        // POST /takeDown { player_id, target_id }
+    func takeDown(target: Int) {
+        // create data
+        var data: [String: Int] = [:]
+        data["player_id"] = self.gameState.player!.id
+        data["target_id"] = target
         
-        // 200 success:
-        //  update message for success, requestNewTarget()
+        let request = ServerUtils.post(to: "/takeDown", with: data)
         
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let httpResponse = response as? HTTPURLResponse else { return }
+            
+            let statusCode: Int = httpResponse.statusCode
+            
+            if (statusCode == 200) {
+                self.gameState.unhideAll()
+                
+                DispatchQueue.main.async {
+                    self.playerTableView.reloadData()
+                }
+                
+                self.takedown = false
+                // Send player back to beacon for new target
+                
+            }
+        }.resume()
         // 400 failure:
         //  display TAKEDOWN_FAILURE terminal message, tap to close
     }
@@ -429,6 +449,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         self.selectedCell = indexPath
         if (exchange) {
             doExchange()
+        }
+        else if (takedown) {
+            takeDown(target: self.selectedCell!.section)
         }
     }
     

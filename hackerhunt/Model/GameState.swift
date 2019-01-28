@@ -116,4 +116,18 @@ class GameState {
             return false
         }
     }
+    
+    func hideFarAway() {
+        for p in allPlayers {
+            if (!p.nearby) {
+                p.hide = true
+            }
+        }
+    }
+    
+    func unhideAll() {
+        for p in allPlayers {
+            p.hide = false
+        }
+    }
 }
