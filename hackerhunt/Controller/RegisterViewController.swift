@@ -37,8 +37,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        self.inputs["nfc_id"] = "6" // this needs removing once server changes
-        
         goButton.isEnabled = false
         
         let request : URLRequest = ServerUtils.post(to: "/registerPlayer", with: self.inputs)
@@ -51,8 +49,15 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 switch statusCode {
                 case 200:
                     // need to get player_id from response
-                    self.inputs["player_id"] = "6"
-                    self.progressToJoinGame()
+                    guard let data = data else { return }
+                    do {
+                        let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
+                        
+                        guard let allPlayers = bodyJson as? [String:Any] else { return }
+                        guard let playerId = allPlayers["player_id"] as? String else { return }
+                        self.inputs["player_id"] = playerId
+                        self.progressToJoinGame()
+                    } catch {}
                     return
                 case 400:
                     self.reattemptInput(with: "Hacker name already in use")
