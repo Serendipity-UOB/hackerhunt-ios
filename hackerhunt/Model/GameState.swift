@@ -26,15 +26,15 @@ class GameState {
     var countdown : Int?
     
     init() {
-//        insertTestData()
+
     }
     
-    func getNearestBeacon() -> String {
+    func getNearestBeaconMinor() -> Int {
         /*if (nearbyBeacons!.count >= 1) {
             // return nearbyBeacons[0].name ??
             return "A"
         }*/
-        return "A"
+        return 0
     }
     
     func incrementIntelFor(playerOne: Int, playerTwo: Int) {
@@ -137,8 +137,7 @@ class GameState {
             if (id != self.player!.id) {
                 let p = getPlayerById(id)
                 p!.score = player["score"] as! Int
-            }
-            else {
+            } else {
                 self.player!.score = player["score"] as! Int
             }
         }
@@ -151,5 +150,21 @@ class GameState {
             }
         }
         return nil
+    }
+    
+    func initialisePlayerList(allPlayers: [[String: Any]]) {
+        // add players but yourself to allPlayers
+        for player in allPlayers {
+            let hackerName: String = player["hacker_name"] as! String
+            if (hackerName != self.player!.hackerName) {
+                let realName: String = player["real_name"] as! String
+                let id: Int = player["id"] as! Int
+                let player: Player = Player(realName: realName, hackerName: hackerName, id: id)
+                if (ServerUtils.testing) {
+                    player.intel = 0.6
+                }
+                self.allPlayers.append(player)
+            }
+        }
     }
 }

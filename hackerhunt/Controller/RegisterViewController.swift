@@ -33,7 +33,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             "hacker_name": hackerNameTextField.text!
         ]
         
-        if (!inputsValid()) {
+        if (!validInputs()) {
             return
         }
         
@@ -72,7 +72,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         return
     }
     
-    func inputsValid() -> Bool {
+    func validInputs() -> Bool {
         if (self.inputs["real_name"]!.count == 0) {
             reattemptInput(with: "Missing Real Name")
             return false

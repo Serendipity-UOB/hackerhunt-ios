@@ -13,7 +13,7 @@ class JoinGameViewController: UIViewController {
     
     var gameState: GameState!
     
-    var countTimer = Timer()
+    var startTimer = Timer()
     var pollTimer = Timer()
     var timeLeft = -10
     var gameJoined = false
@@ -117,7 +117,7 @@ class JoinGameViewController: UIViewController {
                 } catch {}
             } else {
                 DispatchQueue.main.async {
-                    self.welcomeLabel.text = "Error, Report to base"
+                    self.welcomeLabel.text = "Error retrieving game info"
                 }
             }
             
@@ -129,8 +129,8 @@ class JoinGameViewController: UIViewController {
     func startTiming(timeLeft: Int) {
         self.timeLeft = timeLeft
         self.timeRemainingLabel.text = prettyTimeFrom(seconds: timeLeft)
-        self.countTimer.invalidate()
-        self.countTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(JoinGameViewController.decrementTimer), userInfo: nil, repeats: true)
+        self.startTimer.invalidate()
+        self.startTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(JoinGameViewController.decrementTimer), userInfo: nil, repeats: true)
     }
     
     @objc func decrementTimer() {
@@ -146,7 +146,7 @@ class JoinGameViewController: UIViewController {
     /* Transition */
     
     func transitionToMainGame() {
-        countTimer.invalidate()
+        startTimer.invalidate()
         pollTimer.invalidate()
         self.performSegue(withIdentifier:"transitionToMainGame", sender:self);
     }

@@ -28,24 +28,23 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        handlePoints(0)
-        startTiming()
+        
+        setCurrentPoints(0)
+        startGameOverCountdown()
         setupPlayerTable()
         
-        DispatchQueue.main.async {
-            self.positionValue.text = "-"
-        }
-        
+        letTheChallengeBegin()
+    }
+    
+    // MARK: startInfo
+    
+    func letTheChallengeBegin() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
             self.terminalVC.setMessage(homeBeacon: self.gameState.homeBeacon!.name)
             self.showTerminal()
         })
-        
         startCheckingForHomeBeacon()
-        
     }
-    
-    // MARK: startInfo
     
     func startCheckingForHomeBeacon() {
         timer.invalidate()
@@ -53,7 +52,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func checkForHomeBeacon() {
-        if (self.gameState.getNearestBeacon() == "A") { // needs to be changed to homeBeacon
+        print("nearest beacon: \(self.gameState.getNearestBeaconMinor())")
+        print("home beacon: \(gameState.homeBeacon!.minor)")
+        if (self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.minor) {
             
             let request = ServerUtils.get(from: "/startInfo")
             
@@ -61,30 +62,18 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 guard let httpResponse = response as? HTTPURLResponse else { return }
                 
                 let statusCode: Int = httpResponse.statusCode
-                
                 if (statusCode == 200) {
-                    
                     
                     guard let data = data else { return }
                     
                     do {
-                        
                         let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
                         
                         guard let allPlayers = bodyJson as? [String:[Any]] else { return }
-                        guard let listAllPlayers = allPlayers["all_players"] as? [[String: Any]] else { return }
+                        guard let allPlayersList = allPlayers["all_players"] as? [[String: Any]] else { return }
                         
-                        // add players but yourself to allPlayers
-                        for player in listAllPlayers {
-                            let hackerName: String = player["hacker_name"] as! String
-                            if (hackerName != self.gameState.player?.hackerName) {
-                                let realName: String = player["real_name"] as! String
-                                let id: Int = player["id"] as! Int
-                                let player: Player = Player(realName: realName, hackerName: hackerName, id: id)
-                                player.intel = 0.6
-                                self.gameState.allPlayers.append(player)
-                            }
-                        }
+                        self.gameState.initialisePlayerList(allPlayers: allPlayersList)
+                        
                         // load players into table view
                         DispatchQueue.main.async {
                             self.playerTableView.reloadData()
@@ -148,7 +137,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         guard let position: Int = bodyDict["position"] as? Int else { return }
                         self.handleTakenDown(takenDown)
                         self.handleNearbyPlayers(nearbyPlayers)
-                        self.handlePoints(points)
+                        self.setCurrentPoints(points)
                         self.handleRequestNewTarget(requestNewTarget)
                         self.handlePosition(position)
                         
@@ -184,7 +173,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         self.gameState.allPlayers = self.gameState.prioritiseNearbyPlayers()
     }
     
-    func handlePoints(_ points: Int) {
+    func setCurrentPoints(_ points: Int) {
         gameState.points = points
         DispatchQueue.main.async {
             self.pointsValue.text = String(self.gameState.points)
@@ -482,7 +471,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // MARK: countdown
     
-    func startTiming() {
+    func startGameOverCountdown() {
         let currentTotal = Int(now())
         self.gameState.countdown = self.gameState.endTime! - currentTotal
         self.countdownTimer.invalidate()
