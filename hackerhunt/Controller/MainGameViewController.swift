@@ -252,7 +252,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         DispatchQueue.main.async {
             self.playerTableView.reloadData()
         }
-        
         self.exchange = true
     }
     
@@ -261,7 +260,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         let interacteeId = self.selectedCell!.section
         var data: [String:Any] = [:]
         data["interacter_id"] = self.gameState.player!.id
-        data["interactee_id"] = interacteeId
+        data["interactee_id"] = self.gameState.allPlayers[interacteeId].id
         
         var contacts: [Int] = []
         for p in self.gameState.allPlayers {
@@ -380,7 +379,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             guard let httpResponse = response as? HTTPURLResponse else { return }
             
             let statusCode: Int = httpResponse.statusCode
-            print(statusCode)
             
             if (statusCode == 200) {
                 guard let responsedata = data else { return }
