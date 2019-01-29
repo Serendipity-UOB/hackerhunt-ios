@@ -167,4 +167,13 @@ class GameState {
             }
         }
     }
+    
+    func playerIsNearby(_ id: Int) -> Bool {
+        let player = getPlayerById(id)
+        if let player = player {
+            return player.nearby
+        } else {
+            return false
+        }
+    }
 }
