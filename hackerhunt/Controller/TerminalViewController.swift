@@ -13,6 +13,7 @@ class TerminalViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     
     var message: String = "default string"
+    var tapToCloseEnabled = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,17 +21,25 @@ class TerminalViewController: UIViewController {
         textView.text = self.message
     }
     
-    @IBAction func closeButton(_ sender: UITapGestureRecognizer) {
-        removeAnimate()
-    }
+    @IBAction func tapToClose(_ sender: UITapGestureRecognizer) {
+        if (tapToCloseEnabled) {
+            removeAnimate()
+        }    }
     
     /* preset messages */
     
+    func setMessage(tapToClose: Bool, message: String) {
+        self.tapToCloseEnabled = tapToClose
+        self.message = message
+    }
+    
     func setMessage(homeBeacon: String) {
+        tapToCloseEnabled = false
         message = "Incoming message...\n\nGo to beacon \"\(homeBeacon)\" to receive your first target!\n\n- Anon"
     }
     
     func setMessage(gameOver: Bool) {
+        tapToCloseEnabled = false
         message = "Incoming message...\n\nGood work! Return your equipment to the stand to collect your reward.\n\n- Anon"
     }
     

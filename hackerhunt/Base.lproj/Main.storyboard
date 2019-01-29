@@ -514,7 +514,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ayp-JE-Yew" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="GLY-Dq-wfo">
                     <connections>
-                        <action selector="closeButton:" destination="GIJ-Iw-d8z" id="kql-iU-9dJ"/>
+                        <action selector="tapToClose:" destination="GIJ-Iw-d8z" id="huk-Ae-vkM"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

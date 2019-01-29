@@ -43,55 +43,60 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             self.terminalVC.setMessage(homeBeacon: self.gameState.homeBeacon!.name)
             self.showTerminal()
         })
-        startCheckingForHomeBeacon()
+        startCheckingForHomeBeacon(withCallback: getStartInfo)
     }
     
-    func startCheckingForHomeBeacon() {
+    func startCheckingForHomeBeacon(withCallback callback: @escaping () -> Void) {
         timer.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(MainGameViewController.checkForHomeBeacon), userInfo: nil, repeats: true)
+        checkForHomeBeacon(optionalCallback: callback)
+        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(MainGameViewController.checkForHomeBeacon), userInfo: callback, repeats: true)
     }
     
-    @objc func checkForHomeBeacon() {
-        print("nearest beacon: \(self.gameState.getNearestBeaconMinor())")
-        print("home beacon: \(gameState.homeBeacon!.minor)")
+    @objc func checkForHomeBeacon(optionalCallback: (() -> Void)?) {
         if (self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.minor) {
+            if let callback = optionalCallback {
+                callback()
+            } else {
+                // we can't pass params to a selector, so we put it in userInfo
+                let callback = timer.userInfo as! (() -> Void)
+                callback()
+            }
+        }
+    }
+    
+    func getStartInfo() -> Void {
+        let request = ServerUtils.get(from: "/startInfo")
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let httpResponse = response as? HTTPURLResponse else { return }
             
-            let request = ServerUtils.get(from: "/startInfo")
-            
-            URLSession.shared.dataTask(with: request) { (data, response, error) in
-                guard let httpResponse = response as? HTTPURLResponse else { return }
+            let statusCode: Int = httpResponse.statusCode
+            if (statusCode == 200) {
                 
-                let statusCode: Int = httpResponse.statusCode
-                if (statusCode == 200) {
+                guard let data = data else { return }
+                
+                do {
+                    let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
                     
-                    guard let data = data else { return }
+                    guard let allPlayers = bodyJson as? [String:[Any]] else { return }
+                    guard let allPlayersList = allPlayers["all_players"] as? [[String: Any]] else { return }
                     
-                    do {
-                        let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
-                        
-                        guard let allPlayers = bodyJson as? [String:[Any]] else { return }
-                        guard let allPlayersList = allPlayers["all_players"] as? [[String: Any]] else { return }
-                        
+                    DispatchQueue.main.async {
                         self.gameState.initialisePlayerList(allPlayers: allPlayersList)
                         
-                        // load players into table view
-                        DispatchQueue.main.async {
-                            self.playerTableView.reloadData()
-                            self.startPollingForUpdates()
-                        }
+                        self.playerTableView.reloadData()
                         
-                        // request first target
+                        self.startPollingForUpdates()
+                        
                         self.requestNewTarget()
-
-                    } catch {}
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: self.hideTerminal)
                     
-                }
-                
+                } catch {}
+            } else {
+                print("/startInfo failed")
+                // do something
+            }
             }.resume()
-            // failure:
-            //  display error message on terminal popup
-            
-        }
     }
     
     // MARK: playerUpdate
