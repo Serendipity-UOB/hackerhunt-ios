@@ -251,16 +251,19 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func doExchange() {
         // create data
-        let interacteeId = self.selectedCell!.section
+        let interacteeIndex = self.selectedCell!.section
+        let interacteeId = self.gameState.allPlayers[interacteeIndex].id
+        
         
         if (gameState.playerIsNearby(interacteeId)) {
             let contacts: [Int] = self.gameState.allPlayers.filter({ $0.intel > 0.0 }).map({ return $0.id })
             
             let data: [String:Any] = [
                 "interacter_id": self.gameState.player!.id,
-                "interactee_id": self.gameState.allPlayers[interacteeId].id,
+                "interactee_id": interacteeId,
                 "contacts": contacts
             ]
+            
             
             // send request
             exchangeTimer.invalidate()
@@ -294,6 +297,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
                     guard let secondaryId = bodyDict["secondary_id"] as? Int else { return }
+                    
                     
                     self.gameState.incrementIntelFor(playerOne: interactee, playerTwo: secondaryId)
                     self.gameState.unhideAll()
