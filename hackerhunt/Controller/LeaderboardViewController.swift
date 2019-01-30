@@ -16,9 +16,15 @@ class LeaderboardViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBOutlet weak var leaderboardTable: UITableView!
     
+    var terminalVC : TerminalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "terminalViewController") as! TerminalViewController
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeaderboardTable()
+        DispatchQueue.main.async {
+            self.terminalVC.setMessage(tapToClose: true, message: "GAME OVER\n\nGood work, tap for the final leaderboard")
+            self.showTerminal()
+        }
     }
     @IBAction func exitPressed(_ sender: Any) {
     }
@@ -57,5 +63,13 @@ class LeaderboardViewController: UIViewController, UITableViewDataSource, UITabl
         let view = UIView()
         view.backgroundColor = UIColor.clear
         return view
+    }
+    
+    func showTerminal() {
+        self.addChild(terminalVC)
+        self.view.addSubview(terminalVC.view)
+        terminalVC.didMove(toParent: self)
+        terminalVC.showAnimate()
+        terminalVC.isShowing = true
     }
 }

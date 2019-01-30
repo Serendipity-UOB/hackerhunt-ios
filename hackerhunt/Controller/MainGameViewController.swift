@@ -59,13 +59,13 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func checkForHomeBeacon() {
-        if (self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.minor) {
+        if (/*self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.minor*/true) {
             let callback = homeBeaconTimer.userInfo as! (() -> Void)
             callback()
             print("here")
             
             
-            let wait = (ServerUtils.testing) ? 4.0 : 0.0
+            let wait = (ServerUtils.testing) ? 1.0 : 0.0
             DispatchQueue.main.asyncAfter(deadline: .now() + wait, execute: self.hideTerminal)
             homeBeaconTimer.invalidate()
         }
@@ -425,7 +425,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // MARK: endInfo
     func gameOver() {
-        enableSwipeForLeaderboard()
+        updatesTimer.invalidate()
+        countdownTimer.invalidate()
         
         let request = ServerUtils.get(from: "/endInfo")
         
@@ -434,7 +435,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             
             let statusCode: Int = httpResponse.statusCode
             
-            
             if (statusCode == 200) {
                 guard let responsedata = data else { return }
                 do {
@@ -442,13 +442,12 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     guard let bodyDict = bodyJson as? [String:[[String: Any]]] else { return }
                     // get scores out
                     self.gameState.assignScores(scoreList: bodyDict["leaderboard"]!)
+//                    self.enableSwipeForLeaderboard()
+                    self.goToLeaderboardAuto()
                     
                 } catch {}
-                
             }
-            
         }.resume()
-
     }
     
     // MARK: Terminal View
@@ -549,18 +548,22 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // MARK: leaderboard
     
-    func enableSwipeForLeaderboard() {
+    func enableSwipeForLeaderboard() { // this isn't used anymore as it didn't match the MVP specification
         // TODO this will be replaced by gameOver
-        updatesTimer.invalidate()
-        countdownTimer.invalidate()
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(goToLeaderboard))
         swipeUp.direction = .up
-        self.playerTableView.isScrollEnabled = false
-        self.playerTableView.addGestureRecognizer(swipeUp)
+        DispatchQueue.main.async {
+            self.playerTableView.isScrollEnabled = false
+            self.playerTableView.addGestureRecognizer(swipeUp)
+        }
         
     }
     
     @objc func goToLeaderboard(_ sender: UITapGestureRecognizer) {
+        self.performSegue(withIdentifier:"transitionToLeaderboard", sender:self)
+    }
+    
+    func goToLeaderboardAuto() {
         self.performSegue(withIdentifier:"transitionToLeaderboard", sender:self)
     }
     
