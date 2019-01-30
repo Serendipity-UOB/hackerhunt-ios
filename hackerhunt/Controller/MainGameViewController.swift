@@ -171,8 +171,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         if (takenDown == 1) {
             self.gameState.deleteHalfOfIntel()
             DispatchQueue.main.async {
-                self.terminalVC.setMessage(tapToClose: true, message: "SECURITY_FAILURE\n\nYour identity has been compromised. \n\nLose 50% of intel")
+                self.terminalVC.setMessage(tapToClose: false, message: "SECURITY_FAILURE\n\nYour identity has been compromised. \n\nLose 50% of intel\n\nReturn to Beacon \"\(self.terminalVC.homeBeacon)\" to heal")
                 self.showTerminal()
+                self.startCheckingForHomeBeacon(withCallback: { return })
             }
         }
     }
@@ -351,6 +352,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             case 400:
                 print("status code " + String(statusCode))
                 self.exchangeTimer.invalidate()
+                self.exchange = false
                 DispatchQueue.main.async {
                     print("failing")
                     self.terminalVC.setMessage(tapToClose: true, message: "EXCHANGE_FAIL\n\nHandshake incomplete")
@@ -609,6 +611,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let leaderboardViewController = segue.destination as? LeaderboardViewController {
+            self.updatesTimer.invalidate()
+            self.countdownTimer.invalidate()
+            self.exchangeTimer.invalidate()
+            self.homeBeaconTimer.invalidate()
             self.gameState.player!.score = self.gameState.points
             self.gameState.allPlayers.append(self.gameState.player!) // add yourself to list of players for leaderboard
             self.gameState.allPlayers.sort(by: { $0.score > $1.score })
