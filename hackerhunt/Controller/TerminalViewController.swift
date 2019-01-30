@@ -17,11 +17,11 @@ class TerminalViewController: UIViewController {
     var homeBeacon = "A"
     var isShowing = false
     
-    /*override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         textView.text = self.message
-    }*/
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

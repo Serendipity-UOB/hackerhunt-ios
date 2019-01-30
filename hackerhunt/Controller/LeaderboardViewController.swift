@@ -72,4 +72,18 @@ class LeaderboardViewController: UIViewController, UITableViewDataSource, UITabl
         terminalVC.showAnimate()
         terminalVC.isShowing = true
     }
+    
+    @IBAction func exitGame() {
+        self.performSegue(withIdentifier:"transitionToStart", sender:self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let startViewController = segue.destination as? StartViewController {
+            let gameState = GameState()
+            let beaconListener = BeaconListener(withState: gameState)
+            
+            startViewController.gameState = gameState
+            startViewController.beaconListener = beaconListener
+        }
+    }
 }

@@ -59,6 +59,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func checkForHomeBeacon() {
+        print("\(self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.minor)")
         if (self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.minor) {
             let callback = homeBeaconTimer.userInfo as! (() -> Void)
             callback()
@@ -614,5 +615,4 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             leaderboardViewController.gameState = gameState
         }
     }
-    
 }

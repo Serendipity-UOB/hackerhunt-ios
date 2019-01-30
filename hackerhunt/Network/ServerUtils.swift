@@ -10,7 +10,7 @@ import Foundation
 
 class ServerUtils {
     
-    static let testing : Bool = true
+    static let testing : Bool = false
     
     static func post(to url: String, with json: [String: Any]) -> URLRequest {
         var newUrl: String
