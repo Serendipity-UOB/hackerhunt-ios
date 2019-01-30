@@ -59,7 +59,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func checkForHomeBeacon() {
-        if (/*self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.minor*/true) {
+        if (self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.minor) {
             let callback = homeBeaconTimer.userInfo as! (() -> Void)
             callback()
             print("here")
@@ -398,13 +398,27 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.gameState.unhideAll()
                 
                 DispatchQueue.main.async {
+                    self.terminalVC.setMessage(tapToClose: false, message: "TAKEDOWN_SUCCESS\n\nReturn to Beacon \"\(self.terminalVC.homeBeacon)\" for a new target")
+                    self.terminalVC.viewWillAppear(false)
                     self.playerTableView.reloadData()
+                    self.startCheckingForHomeBeacon(withCallback: self.requestNewTarget)
                 }
                 
                 self.takedown = false
                 // Send player back to beacon for new target
             }
+            else {
+                guard let responsedata = data else { return }
+                do {
+                    let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
+                    guard let bodyDict = bodyJson as? [String:Any] else { return }
+                    print(bodyDict)
+                    
+                    
+                } catch {}
+            }
         }.resume()
+        
         // 400 failure:
         //  display TAKEDOWN_FAILURE terminal message, tap to close
     }
@@ -508,6 +522,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             doExchange()
         }
         else if (takedown) {
+            DispatchQueue.main.async {
+                self.terminalVC.setMessage(tapToClose: false, message: "TAKEDOWN_INIT\n\nExecuting attack...")
+                self.showTerminal()
+            }
             takeDown(target: self.selectedCell!.section)
         }
     }

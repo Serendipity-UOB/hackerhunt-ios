@@ -39,7 +39,13 @@ class GameState {
                 return beacon.minor.intValue
             }
         }
-        return -1
+        if (nearbyBeacons.count > 0) {
+            return nearbyBeacons[0].minor.intValue
+        }
+        else {
+            return 0
+        }
+        
     }
     
     func incrementIntelFor(playerOne: Int, playerTwo: Int) {

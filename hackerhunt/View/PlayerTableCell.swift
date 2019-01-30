@@ -89,6 +89,9 @@ class PlayerTableCell: UITableViewCell {
         if (player.intel == 1.0) {
             hackerName.text = player.hackerName
         }
+        else {
+            hackerName.text = ""
+        }
         
         setDefaultBackgroundColor()
         
