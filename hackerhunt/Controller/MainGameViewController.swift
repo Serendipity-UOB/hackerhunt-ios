@@ -378,6 +378,45 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func takeDown(target: Int) {
+        // attempt to takedown far away person
+        if (self.gameState.allPlayers[target].nearby == false) {
+            DispatchQueue.main.async {
+                self.gameState.unhideAll()
+                self.playerTableView.reloadData()
+                self.terminalVC.setMessage(tapToClose: true, message: "TAKEDOWN_FAILURE\n\nGet closer to your target")
+                self.showTerminal()
+                self.takedown = false
+            }
+            return
+        }
+        // attempt to takedown with insufficient intel
+        if (self.gameState.allPlayers[target].intel < 1.0) {
+            DispatchQueue.main.async {
+                self.gameState.unhideAll()
+                self.playerTableView.reloadData()
+                self.terminalVC.setMessage(tapToClose: true, message: "TAKEDOWN_FAILURE\n\nInsufficient intel")
+                self.showTerminal()
+                self.takedown = false
+            }
+            return
+        }
+        // attempt to take down wrong person
+        if (self.gameState.allPlayers[target].hackerName != self.gameState.currentTarget!.hackerName) {
+            DispatchQueue.main.async {
+                self.gameState.unhideAll()
+                self.playerTableView.reloadData()
+                self.terminalVC.setMessage(tapToClose: true, message: "TAKEDOWN_FAILURE\n\nNot your target")
+                self.showTerminal()
+                self.takedown = false
+            }
+            return
+        }
+
+        DispatchQueue.main.async {
+            self.terminalVC.setMessage(tapToClose: true, message: "TAKEDOWN_INIT\n\nExecuting attack...")
+            self.showTerminal()
+        }
+        
         // create data
         var data: [String: Int] = [:]
         data["player_id"] = self.gameState.player!.id
@@ -521,10 +560,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             doExchange()
         }
         else if (takedown) {
-            DispatchQueue.main.async {
-                self.terminalVC.setMessage(tapToClose: false, message: "TAKEDOWN_INIT\n\nExecuting attack...")
-                self.showTerminal()
-            }
             takeDown(target: self.selectedCell!.section)
         }
     }
