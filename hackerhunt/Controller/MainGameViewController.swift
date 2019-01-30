@@ -247,10 +247,14 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: exchange
     @IBAction func exchangePressed() {
         print("exchange btn pressed")
+        self.exchange = !self.exchange
         // animate button
-        
-        self.gameState.hideFarAway()
-        self.exchange = true
+        if (self.exchange) {
+            self.gameState.hideFarAway()
+        }
+        else {
+            self.gameState.unhideAll()
+        }
         
         DispatchQueue.main.async {
             self.playerTableView.reloadData()
@@ -359,13 +363,17 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         // show terminal message
         //  player has option to close terminal message
         print("takedown pressed")
-        self.gameState.hideFarAway()
+        self.takedown = !self.takedown
+        if (takedown) {
+            self.gameState.hideFarAway()
+        }
+        else {
+            self.gameState.unhideAll()
+        }
         
         DispatchQueue.main.async {
             self.playerTableView.reloadData()
         }
-        
-        self.takedown = true
         
     }
     
