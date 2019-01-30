@@ -22,7 +22,7 @@ class LeaderboardViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         setupLeaderboardTable()
         DispatchQueue.main.async {
-            self.terminalVC.setMessage(tapToClose: true, message: "GAME OVER\n\nGood work, tap for the final leaderboard")
+            self.terminalVC.setMessage(gameOver: 1)
             self.showTerminal()
         }
     }

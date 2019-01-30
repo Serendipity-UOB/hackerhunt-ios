@@ -59,7 +59,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func checkForHomeBeacon() {
-        if (/*self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.minor*/true) {
+        if (self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.minor) {
             let callback = homeBeaconTimer.userInfo as! (() -> Void)
             callback()
             print("here")
@@ -169,6 +169,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     func handleTakenDown(_ takenDown: Int) {
         if (takenDown == 1) {
             self.gameState.deleteHalfOfIntel()
+            DispatchQueue.main.async {
+                self.terminalVC.setMessage(tapToClose: true, message: "SECURITY_FAILURE\n\nYour identity has been compromised. \n\nLose 50% of intel")
+                self.showTerminal()
+            }
         }
     }
     

@@ -53,7 +53,7 @@ class TerminalViewController: UIViewController {
     }
     
     func setMessage(gameOver: Any) {
-        tapToCloseEnabled = false
+        tapToCloseEnabled = true
         message = "Incoming message...\n\nGood work! Return your equipment to the stand to collect your reward.\n\n- Anon"
     }
     
