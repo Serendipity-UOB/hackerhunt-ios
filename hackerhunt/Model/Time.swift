@@ -47,9 +47,9 @@ func calculateTimeRemaining(startTime: String) -> Int {
 
 func calculateEndTime(startTime: String) -> Int {
     let startTotal = stringToDouble(time: startTime)
-    var gameLength : Double
+    var gameLength : Double // seconds
     if (ServerUtils.testing) {
-        gameLength = 30
+        gameLength = 4
     } else {
         gameLength = 600
     }

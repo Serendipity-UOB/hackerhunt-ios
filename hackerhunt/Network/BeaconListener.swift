@@ -42,7 +42,7 @@ class BeaconListener: NSObject {
     func stringFrom(beacons: [CLBeacon]) -> String {
         var text = "beacons: \n"
         for beacon in beacons {
-            text += "\t\(beacon.major): \(beacon.rssi), \(proximityFrom(enum: beacon.proximity))\n"
+            text += "\t\(beacon.minor): \(beacon.rssi), \(proximityFrom(enum: beacon.proximity))\n"
         }
         return text
     }
@@ -57,10 +57,11 @@ extension BeaconListener: KTKBeaconManagerDelegate {
     
     func beaconManager(_ manager: KTKBeaconManager, didRangeBeacons beacons: [CLBeacon], in region: KTKBeaconRegion) {
         // update game state
-        let sortedBeacons = beacons.sorted(by: { $0.major.compare($1.major) == .orderedAscending })
-        //print(stringFrom(beacons: sortedBeacons))
+        let sortedBeacons = beacons.sorted(by: { $0.rssi > $1.rssi })
+        print(stringFrom(beacons: sortedBeacons))
         gameState.nearbyBeacons = sortedBeacons
     }
+
     
     func beaconManager(_ manager: KTKBeaconManager, didEnter region: KTKBeaconRegion) {
         print("Entered beacon range: \(region.identifier)")

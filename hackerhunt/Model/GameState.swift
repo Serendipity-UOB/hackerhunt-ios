@@ -34,7 +34,12 @@ class GameState {
             // return nearbyBeacons[0].name ??
             return "A"
         }*/
-        return 0
+        for beacon in nearbyBeacons {
+            if (beacon.rssi != 0) {
+                return beacon.minor.intValue
+            }
+        }
+        return nearbyBeacons[0].minor.intValue
     }
     
     func incrementIntelFor(playerOne: Int, playerTwo: Int) {
@@ -94,16 +99,19 @@ class GameState {
                 return p
             }
         }
+        print("no player found")
         return nil
     }
     
     func createBeaconList() -> [[String:Any]] {
         var beacons_list : [[String:Any]] = []
         for beacon in nearbyBeacons {
-            var temp: [String:Any] = [:]
-            temp["beacon_minor"] = beacon.minor
-            temp["rssi"] = beacon.rssi
-            beacons_list.append(temp)
+            if (beacon.rssi != 0) {
+                var temp: [String:Any] = [:]
+                temp["beacon_minor"] = beacon.minor
+                temp["rssi"] = beacon.rssi
+                beacons_list.append(temp)
+            }
         }
         return beacons_list
     }

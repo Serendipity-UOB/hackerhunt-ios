@@ -15,9 +15,16 @@ class TerminalViewController: UIViewController {
     var message: String = "default string"
     var tapToCloseEnabled = true
     var homeBeacon = "A"
+    var isShowing = false
     
-    override func viewDidLoad() {
+    /*override func viewDidLoad() {
         super.viewDidLoad()
+        
+        textView.text = self.message
+    }*/
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         textView.text = self.message
     }

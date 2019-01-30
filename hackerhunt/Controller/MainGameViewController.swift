@@ -21,6 +21,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     var selectedCell: IndexPath?
     var exchange: Bool = false
     var takedown: Bool = false
+    var exchangeMessage: Bool = false
     
     @IBOutlet weak var pointsValue: UILabel!
     @IBOutlet weak var positionValue: UILabel!
@@ -47,8 +48,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             self.terminalVC.homeBeacon = self.gameState.homeBeacon!.name
             self.terminalVC.setMessage(gameStart: 1)
             self.showTerminal()
+            self.startCheckingForHomeBeacon(withCallback: self.getStartInfo)
         })
-        startCheckingForHomeBeacon(withCallback: getStartInfo)
+
     }
     
     func startCheckingForHomeBeacon(withCallback callback: @escaping () -> Void) {
@@ -57,13 +59,15 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func checkForHomeBeacon() {
-        if (self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.minor) {
+        if (/*self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.minor*/true) {
             let callback = homeBeaconTimer.userInfo as! (() -> Void)
             callback()
-            homeBeaconTimer.invalidate()
+            print("here")
+            
             
             let wait = (ServerUtils.testing) ? 4.0 : 0.0
             DispatchQueue.main.asyncAfter(deadline: .now() + wait, execute: self.hideTerminal)
+            homeBeaconTimer.invalidate()
         }
     }
     
@@ -104,11 +108,15 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func startPollingForUpdates() {
         updatesTimer.invalidate()
-        updatesTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(MainGameViewController.pollForUpdates), userInfo: nil, repeats: true)
+        updatesTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainGameViewController.pollForUpdates), userInfo: nil, repeats: true)
         updatesTimer.fire()
     }
     
     @objc func pollForUpdates() {
+        print("polling for updates")
+        do {
+            print(self.gameState.getNearestBeaconMinor())
+        } catch {}
         if (self.gameState.isGameOver()) {
             print("game over")
             gameOver()
@@ -256,14 +264,18 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         
         
         if (gameState.playerIsNearby(interacteeId)) {
-            let contacts: [Int] = self.gameState.allPlayers.filter({ $0.intel > 0.0 }).map({ return $0.id })
+            let contactIds: [Int] = self.gameState.allPlayers.filter({ $0.intel > 0.0 }).map({ return $0.id })
+            
+            var validContacts: [[String: Int]] = []
+            for c in contactIds {
+                validContacts.append(["contact_id" : c])
+            }
             
             let data: [String:Any] = [
                 "interacter_id": self.gameState.player!.id,
                 "interactee_id": interacteeId,
-                "contacts": contacts
+                "contact_ids": validContacts
             ]
-            
             
             // send request
             exchangeTimer.invalidate()
@@ -280,7 +292,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     @objc func exchangeRequest() {
         let data: [String:Any] = exchangeTimer.userInfo as! [String:Any]
         let interactee: Int = data["interactee_id"] as! Int
-        
         let request = ServerUtils.post(to: "/exchange", with: data)
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse else { return }
@@ -290,7 +301,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             switch statusCode {
             case 200:
                 guard let responsedata = data else { return }
-                
+                print("status code 200")
                 do {
                     self.exchangeTimer.invalidate()
                     let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
@@ -303,20 +314,37 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.gameState.unhideAll()
                     self.exchange = false
                     
+                    
                     DispatchQueue.main.async {
                         self.playerTableView.reloadData()
-                        
                         self.terminalVC.setMessage(tapToClose: true, message: "EXCHANGE_SUCCESS\n\nIntel gained")
+                        if (self.exchangeMessage) { // don't do showTerminal if it's already up
+                            self.terminalVC.viewWillAppear(false)
+                        }
+                        else {
+                           self.showTerminal()
+                        }
+                        self.exchangeMessage = false
                     }
                 } catch {}
             case 201, 202:
-                DispatchQueue.main.async {
-                    self.terminalVC.setMessage(tapToClose: false, message: "EXCHANGE_REQUESTED\n\nWaiting for handshake")
+                print("status code " + String(statusCode))
+                if (!self.exchangeMessage) { // don't do show terminal if it's already up
+                    DispatchQueue.main.async {
+                        print("popping up")
+                        self.exchangeMessage = true
+                        self.terminalVC.setMessage(tapToClose: false, message: "EXCHANGE_REQUESTED\n\nWaiting for handshake")
+                        self.showTerminal()
+                    }
                 }
             case 400:
+                print("status code " + String(statusCode))
                 self.exchangeTimer.invalidate()
                 DispatchQueue.main.async {
+                    print("failing")
                     self.terminalVC.setMessage(tapToClose: true, message: "EXCHANGE_FAIL\n\nHandshake incomplete")
+                    self.terminalVC.viewWillAppear(false)
+                    self.exchangeMessage = false
                 }
             default:
                 print("/exchange unexpected \(statusCode)")
@@ -328,6 +356,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBAction func takeDownPressed() {
         // show terminal message
         //  player has option to close terminal message
+        print("takedown pressed")
         self.gameState.hideFarAway()
         
         DispatchQueue.main.async {
@@ -344,12 +373,16 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         data["player_id"] = self.gameState.player!.id
         data["target_id"] = target
         
+        print("taking down sent")
+        
         let request = ServerUtils.post(to: "/takeDown", with: data)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse else { return }
             
             let statusCode: Int = httpResponse.statusCode
+            
+            print("taken down status code " + String(statusCode))
             
             if (statusCode == 200) {
                 self.gameState.unhideAll()
@@ -360,7 +393,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 
                 self.takedown = false
                 // Send player back to beacon for new target
-                
             }
         }.resume()
         // 400 failure:
@@ -378,42 +410,38 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             
             let statusCode: Int = httpResponse.statusCode
             
+            
             if (statusCode == 200) {
                 guard let responsedata = data else { return }
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
-
-                    guard let bodyDict = bodyJson as? [[String: Any]] else { return }
-//                    print(bodyDict)
+                    guard let bodyDict = bodyJson as? [String:[[String: Any]]] else { return }
                     // get scores out
-                    self.gameState.assignScores(scoreList: bodyDict)
+                    self.gameState.assignScores(scoreList: bodyDict["leaderboard"]!)
                     
                 } catch {}
                 
             }
             
         }.resume()
-        
-        // GET /endInfo
-        
-        // response { leaderboard[{player_id, player_name, score}] }
-        
-        // segue to leaderboard page
+
     }
     
     // MARK: Terminal View
     
     func showTerminal() {
-        self.addChild(terminalVC)
-        self.view.addSubview(terminalVC.view)
-        terminalVC.didMove(toParent: self)
-        terminalVC.showAnimate()
+            self.addChild(terminalVC)
+            self.view.addSubview(terminalVC.view)
+            terminalVC.didMove(toParent: self)
+            terminalVC.showAnimate()
+            terminalVC.isShowing = true
     }
     
     func hideTerminal() {
         terminalVC.willMove(toParent: nil)
         terminalVC.removeFromParent()
         terminalVC.removeAnimate()
+        terminalVC.isShowing = false
     }
     
     // MARK: TableView
