@@ -291,6 +291,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @objc func exchangeRequest() {
         let data: [String:Any] = exchangeTimer.userInfo as! [String:Any]
+        print(data)
         let interactee: Int = data["interactee_id"] as! Int
         let request = ServerUtils.post(to: "/exchange", with: data)
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -309,6 +310,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
                     guard let secondaryId = bodyDict["secondary_id"] as? Int else { return }
                     
+                    print("secondaryId " + String(secondaryId))
                     
                     self.gameState.incrementIntelFor(playerOne: interactee, playerTwo: secondaryId)
                     self.gameState.unhideAll()
@@ -371,9 +373,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         // create data
         var data: [String: Int] = [:]
         data["player_id"] = self.gameState.player!.id
-        data["target_id"] = target
-        
+        data["target_id"] = self.gameState.allPlayers[target].id
         print("taking down sent")
+        print(data)
         
         let request = ServerUtils.post(to: "/takeDown", with: data)
         
