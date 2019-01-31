@@ -60,7 +60,8 @@ class GameState {
         for player in allPlayers {
             let intel = (player.intel / 2.0)
             let remainder = intel.truncatingRemainder(dividingBy: 0.2)
-            player.intel = intel - remainder
+            let rounded = round(remainder * 10)/10
+            player.intel = intel - rounded
         }
     }
     

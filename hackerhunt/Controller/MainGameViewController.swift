@@ -29,6 +29,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var playerTableView: UITableView!
     @IBOutlet weak var targetName: UILabel!
     
+    @IBOutlet weak var exchangeBtn: UIButton!
+    @IBOutlet weak var takeDownBtn: UIButton!
+    @IBOutlet weak var exchangeBtnWidth: NSLayoutConstraint!
+    @IBOutlet weak var takeDownBtnWidth: NSLayoutConstraint!
+    
     var terminalVC : TerminalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "terminalViewController") as! TerminalViewController
     
     override func viewDidLoad() {
@@ -47,6 +52,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
             self.terminalVC.homeBeacon = self.gameState.homeBeacon!.name
             self.terminalVC.setMessage(gameStart: 1)
+            self.terminalVC.tapToCloseEnabled = ServerUtils.testing
             self.showTerminal()
             self.startCheckingForHomeBeacon(withCallback: self.getStartInfo)
         })
@@ -115,9 +121,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @objc func pollForUpdates() {
         print("polling for updates")
-        do {
-            print(self.gameState.getNearestBeaconMinor())
-        } catch {}
         if (self.gameState.isGameOver()) {
             print("game over")
             gameOver()
@@ -257,9 +260,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         // animate button
         if (self.exchange) {
             self.gameState.hideFarAway()
-        }
-        else {
+            expandExchangeButton()
+        } else {
             self.gameState.unhideAll()
+            contractExchangeButton()
         }
         
         DispatchQueue.main.async {
@@ -325,6 +329,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.gameState.incrementIntelFor(playerOne: interactee, playerTwo: secondaryId)
                     self.gameState.unhideAll()
                     self.exchange = false
+                    self.contractExchangeButton()
                     
                     
                     DispatchQueue.main.async {
@@ -352,9 +357,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             case 400:
                 print("status code " + String(statusCode))
                 self.exchangeTimer.invalidate()
-                self.exchange = false
                 DispatchQueue.main.async {
                     print("failing")
+                    self.exchange = false
+                    self.contractExchangeButton()
+                    
                     self.terminalVC.setMessage(tapToClose: true, message: "EXCHANGE_FAIL\n\nHandshake incomplete")
                     self.terminalVC.viewWillAppear(false)
                     self.exchangeMessage = false
@@ -373,9 +380,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         self.takedown = !self.takedown
         if (takedown) {
             self.gameState.hideFarAway()
-        }
-        else {
+            expandTakeDownButton()
+        } else {
             self.gameState.unhideAll()
+            contractTakeDownButton()
         }
         
         DispatchQueue.main.async {
@@ -393,6 +401,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.terminalVC.setMessage(tapToClose: true, message: "TAKEDOWN_FAILURE\n\nGet closer to your target")
                 self.showTerminal()
                 self.takedown = false
+                self.contractTakeDownButton()
             }
             return
         }
@@ -404,6 +413,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.terminalVC.setMessage(tapToClose: true, message: "TAKEDOWN_FAILURE\n\nInsufficient intel")
                 self.showTerminal()
                 self.takedown = false
+                self.contractTakeDownButton()
             }
             return
         }
@@ -415,6 +425,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.terminalVC.setMessage(tapToClose: true, message: "TAKEDOWN_FAILURE\n\nNot your target")
                 self.showTerminal()
                 self.takedown = false
+                self.contractTakeDownButton()
             }
             return
         }
@@ -448,9 +459,12 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.terminalVC.viewWillAppear(false)
                     self.playerTableView.reloadData()
                     self.startCheckingForHomeBeacon(withCallback: self.requestNewTarget)
+                    
+                    self.takedown = false
+                    self.contractTakeDownButton()
                 }
                 
-                self.takedown = false
+                
                 // Send player back to beacon for new target
             }
             else {
@@ -620,5 +634,40 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             self.gameState.allPlayers.sort(by: { $0.score > $1.score })
             leaderboardViewController.gameState = gameState
         }
+    }
+    
+    // MARK: animations
+    
+    func expandExchangeButton() {
+        takeDownBtn.isEnabled = false
+        UIView.animate(withDuration: 0.25, animations: {
+            // these constants are the offset - i.e. relative to the  
+            self.exchangeBtnWidth.constant = self.view.frame.width / 2 - 20
+            self.takeDownBtnWidth.constant = -1 * self.view.frame.width / 2
+        })
+    }
+    
+    func contractExchangeButton() {
+        takeDownBtn.isEnabled = true
+        UIView.animate(withDuration: 0.25, animations: {
+            self.exchangeBtnWidth.constant = -15
+            self.takeDownBtnWidth.constant = -15
+        })
+    }
+    
+    func expandTakeDownButton() {
+        exchangeBtn.isEnabled = false
+        UIView.animate(withDuration: 0.25, animations: {
+            self.takeDownBtnWidth.constant = self.view.frame.width / 2 - 20
+            self.exchangeBtn.alpha = 0
+        })
+    }
+    
+    func contractTakeDownButton() {
+        exchangeBtn.isEnabled = true
+        UIView.animate(withDuration: 0.25, animations: {
+            self.takeDownBtnWidth.constant = -15
+            self.exchangeBtn.alpha = 1
+        })
     }
 }

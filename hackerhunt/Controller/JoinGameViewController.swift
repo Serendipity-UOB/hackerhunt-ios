@@ -27,7 +27,7 @@ class JoinGameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        welcomeLabel.text = "Welcome: \(gameState.player!.realName)"
+        welcomeLabel.text = "Testing mode: \(gameState.player!.realName)"
         
         showJoinGameButton()
         
