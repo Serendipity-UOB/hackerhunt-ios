@@ -11,10 +11,10 @@ import Foundation
 class HomeBeacon {
     
     var name: String
-    var minor: Int
+    var major: Int
     
-    init(name: String, minor: Int) {
+    init(name: String, major: Int) {
         self.name = name
-        self.minor = minor
+        self.major = major
     }
 }

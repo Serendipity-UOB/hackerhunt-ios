@@ -49,7 +49,7 @@ class TerminalViewController: UIViewController {
     
     func setMessage(requestNewTarget: Any) {
         tapToCloseEnabled = false
-        message = "Too slow!\n\nSomeone took down your target\n\nGo back to Beacon \"\(homeBeacon)\" for a new one"
+        message = "Too slow!\n\nSomeone took down your target\n\nGo back to \(homeBeacon) for a new one"
     }
     
     func setMessage(gameOver: Any) {

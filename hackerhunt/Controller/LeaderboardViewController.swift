@@ -26,8 +26,6 @@ class LeaderboardViewController: UIViewController, UITableViewDataSource, UITabl
             self.showTerminal()
         }
     }
-    @IBAction func exitPressed(_ sender: Any) {
-    }
     
     /* tableView setup */
     
@@ -41,8 +39,9 @@ class LeaderboardViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = leaderboardTable.dequeueReusableCell(withIdentifier: "leaderboardTableCell") as! LeaderBoardTableCell
         cell.position = indexPath.section + 1
-        cell.name = gameState!.allPlayers[indexPath.section].realName
-        cell.score = gameState!.allPlayers[indexPath.section].score
+        cell.name = gameState.allPlayers[indexPath.section].realName
+        cell.score = gameState.allPlayers[indexPath.section].score
+        cell.isCurrentPlayer = (gameState.allPlayers[indexPath.section].id == gameState.player!.id)
         cell.layoutSubviews()
         return cell
     }

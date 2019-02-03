@@ -54,10 +54,10 @@ class JoinGameViewController: UIViewController {
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
                     
                     guard let beaconName: String = bodyDict["home_beacon_name"] as? String else { return }
-                    guard let beaconMinor: Int = bodyDict["home_beacon_minor"] as? Int else { return }
+                    guard let beaconMajor: Int = bodyDict["home_beacon_major"] as? Int else { return }
                     
                     DispatchQueue.main.async {
-                        self.gameState.homeBeacon = HomeBeacon(name: beaconName, minor: beaconMinor)
+                        self.gameState.homeBeacon = HomeBeacon(name: beaconName, major: beaconMajor)
                         self.gameJoined = true
                         self.hideJoinGameButton()
                     }
@@ -86,7 +86,7 @@ class JoinGameViewController: UIViewController {
             guard let httpResponse = response as? HTTPURLResponse else { return }
             
             let statusCode: Int = httpResponse.statusCode
-            
+
             if (statusCode == 200) {
                 guard let data = data else { return }
                 
@@ -100,21 +100,19 @@ class JoinGameViewController: UIViewController {
                     
                     DispatchQueue.main.async {
                         self.playerCountLabel.text = "\(numPlayers)"
+                        self.gameIsScheduled()
                         
-                        if (startTime != "00:00") {
-                            self.gameIsScheduled()
+                        if (self.timeLeft < -5) {
+                            let timeRemaining : Int = calculateTimeRemaining(startTime: startTime)
                             
-                            if (self.timeLeft < -5) {
-                                let timeRemaining : Int = calculateTimeRemaining(startTime: startTime)
-                                
-                                self.startTiming(timeLeft: timeRemaining)
-                                self.gameState.endTime = calculateEndTime(startTime: startTime)
-                            }
-                        } else {
-                            self.noGameIsScheduled()
+                            self.startTiming(timeLeft: timeRemaining)
+                            self.gameState.endTime = calculateEndTime(startTime: startTime)
                         }
                     }
                 } catch {}
+            } else if (statusCode == 204) {
+                self.noGameIsScheduled()
+                
             } else {
                 DispatchQueue.main.async {
                     self.welcomeLabel.text = "Error retrieving game info"

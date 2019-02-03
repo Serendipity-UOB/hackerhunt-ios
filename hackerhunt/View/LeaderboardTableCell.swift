@@ -13,6 +13,7 @@ class LeaderBoardTableCell: UITableViewCell {
     var position: Int = 0
     var name: String = "test"
     var score: Int = 0
+    var isCurrentPlayer: Bool = false
     
     var posView: UITextView = {
         let textView = UITextView()
@@ -77,6 +78,12 @@ class LeaderBoardTableCell: UITableViewCell {
         posView.text = "#\(position)"
         nameView.text = name
         scoreView.text = "\(score)"
+        
+        if (isCurrentPlayer) {
+            posView.textColor = UIColor.white
+            nameView.textColor = UIColor.white
+            scoreView.textColor = UIColor.white
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -27,6 +27,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var positionValue: UILabel!
     @IBOutlet weak var countdownValue: UILabel!
     @IBOutlet weak var playerTableView: UITableView!
+    @IBOutlet weak var playerName: UILabel!
     @IBOutlet weak var targetName: UILabel!
     
     @IBOutlet weak var exchangeBtn: UIButton!
@@ -42,6 +43,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         setCurrentPoints(0)
         startGameOverCountdown()
         setupPlayerTable()
+        playerName.text = gameState.player!.realName
         
         letTheChallengeBegin()
     }
@@ -56,7 +58,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             self.showTerminal()
             self.startCheckingForHomeBeacon(withCallback: self.getStartInfo)
         })
-
     }
     
     func startCheckingForHomeBeacon(withCallback callback: @escaping () -> Void) {
@@ -65,12 +66,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func checkForHomeBeacon() {
-        print("\(self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.minor)")
-        if (self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.minor) {
+        print("\(self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.major)")
+        if (self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.major) {
             let callback = homeBeaconTimer.userInfo as! (() -> Void)
             callback()
-            print("here")
-            
             
             let wait = (ServerUtils.testing) ? 1.0 : 0.0
             DispatchQueue.main.asyncAfter(deadline: .now() + wait, execute: self.hideTerminal)
@@ -644,11 +643,13 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             // these constants are the offset - i.e. relative to the  
             self.exchangeBtnWidth.constant = self.view.frame.width / 2 - 20
             self.takeDownBtnWidth.constant = -1 * self.view.frame.width / 2
+            self.exchangeBtn.setTitle("cancel(EXCHANGE);", for: .normal)
         })
     }
     
     func contractExchangeButton() {
         takeDownBtn.isEnabled = true
+        self.exchangeBtn.setTitle("exchange();", for: .normal)
         UIView.animate(withDuration: 0.25, animations: {
             self.exchangeBtnWidth.constant = -15
             self.takeDownBtnWidth.constant = -15
@@ -660,11 +661,13 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         UIView.animate(withDuration: 0.25, animations: {
             self.takeDownBtnWidth.constant = self.view.frame.width / 2 - 20
             self.exchangeBtn.alpha = 0
+            self.takeDownBtn.setTitle("cancel(TAKEDOWN);", for: .normal)
         })
     }
     
     func contractTakeDownButton() {
         exchangeBtn.isEnabled = true
+        self.takeDownBtn.setTitle("take_down();", for: .normal)
         UIView.animate(withDuration: 0.25, animations: {
             self.takeDownBtnWidth.constant = -15
             self.exchangeBtn.alpha = 1
