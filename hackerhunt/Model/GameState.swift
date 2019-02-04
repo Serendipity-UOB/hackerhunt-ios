@@ -106,7 +106,7 @@ class GameState {
                 return p
             }
         }
-        print("no player found")
+        print("Failed to find player with id \(id)\n")
         return nil
     }
     
@@ -155,7 +155,12 @@ class GameState {
                 let p = getPlayerById(id)
                 p!.score = player["score"] as! Int
             } else {
-                self.player!.score = player["score"] as! Int
+                // TODO score didn't exist here ?
+                if let score : Int = player["score"] as? Int {
+                    self.player!.score = score
+                } else {
+                    print("player \(id) score not found\n")
+                }
             }
         }
     }

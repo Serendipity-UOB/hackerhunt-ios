@@ -64,18 +64,18 @@ extension BeaconListener: KTKBeaconManagerDelegate {
 
     
     func beaconManager(_ manager: KTKBeaconManager, didEnter region: KTKBeaconRegion) {
-        print("Entered beacon range: \(region.identifier)")
+        print("Entered beacon range: \(region.identifier)\n")
     }
     
     func beaconManager(_ manager: KTKBeaconManager, didExitRegion region: KTKBeaconRegion) {
-        print("Exited beacon range: \(region.identifier)")
+        print("Exited beacon range: \(region.identifier)\n")
     }
     
     func beaconManager(_ manager: KTKBeaconManager, didStartMonitoringFor region: KTKBeaconRegion) {
-        print("Started monitoring region \"\(region.identifier)\"")
+        print("Started monitoring region \"\(region.identifier)\"\n")
     }
     
     func beaconManager(_ manager: KTKBeaconManager, monitoringDidFailFor region: KTKBeaconRegion?, withError error: Error?) {
-        print("Failed to monitor region \"\(String(describing: region?.identifier))\"")
+        print("Failed to monitor region \"\(String(describing: region?.identifier))\"\n")
     }
 }

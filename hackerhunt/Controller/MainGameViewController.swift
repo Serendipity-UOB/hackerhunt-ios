@@ -66,7 +66,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func checkForHomeBeacon() {
-        print("\(self.gameState.getNearestBeaconMajor() == gameState.homeBeacon!.major)")
+        print("At home beacon?\t\(self.gameState.getNearestBeaconMajor() == gameState.homeBeacon!.major)\n")
         if (self.gameState.getNearestBeaconMajor() == gameState.homeBeacon!.major) {
             let callback = homeBeaconTimer.userInfo as! (() -> Void)
             callback()
@@ -119,17 +119,17 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func pollForUpdates() {
-        print("polling for updates")
-        print(gameState.getNearestBeaconMajor())
+        print("Nearest major: \(gameState.getNearestBeaconMajor())\n")
         if (self.gameState.isGameOver()) {
-            print("game over")
+            print("game over\n")
             gameOver()
             
         } else {
             let data: [String:Any] = [
-                "player_id": self.gameState.player?.id as Any,
+                "player_id": self.gameState.player!.id as Int,
                 "beacons": self.gameState.createBeaconList()
             ]
+            print("Polling for updates with data:\n\t\(data)\n")
             
             let request = ServerUtils.post(to: "/playerUpdate", with: data)
             
@@ -305,7 +305,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @objc func exchangeRequest() {
         let data: [String:Any] = exchangeTimer.userInfo as! [String:Any]
-        print(data)
+        print("Exchanging with data:\n\t\(data)\n")
         let interactee: Int = data["interactee_id"] as! Int
         let request = ServerUtils.post(to: "/exchange", with: data)
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -434,11 +434,12 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         
         // create data
-        var data: [String: Int] = [:]
-        data["player_id"] = self.gameState.player!.id
-        data["target_id"] = self.gameState.allPlayers[target].id
+        let data: [String: Int] = [
+            "player_id": self.gameState.player!.id,
+            "target_id": self.gameState.allPlayers[target].id
+        ]
         print("taking down sent")
-        print(data)
+        print("taking down with data:\n\t\(data)\n")
         
         let request = ServerUtils.post(to: "/takeDown", with: data)
         
