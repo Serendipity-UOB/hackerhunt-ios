@@ -42,7 +42,7 @@ class BeaconListener: NSObject {
     func stringFrom(beacons: [CLBeacon]) -> String {
         var text = "beacons: \n"
         for beacon in beacons {
-            text += "\t\(beacon.minor): \(beacon.rssi), \(proximityFrom(enum: beacon.proximity))\n"
+            text += "\t\(beacon.major) \(beacon.minor): \(beacon.rssi), \(proximityFrom(enum: beacon.proximity))\n"
         }
         return text
     }

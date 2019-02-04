@@ -29,18 +29,18 @@ class GameState {
 
     }
     
-    func getNearestBeaconMinor() -> Int {
+    func getNearestBeaconMajor() -> Int {
         /*if (nearbyBeacons!.count >= 1) {
             // return nearbyBeacons[0].name ??
             return "A"
         }*/
         for beacon in nearbyBeacons {
             if (beacon.rssi != 0) {
-                return beacon.minor.intValue
+                return beacon.major.intValue
             }
         }
         if (nearbyBeacons.count > 0) {
-            return nearbyBeacons[0].minor.intValue
+            return nearbyBeacons[0].major.intValue
         }
         else {
             return 0

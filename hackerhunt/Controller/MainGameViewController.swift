@@ -66,8 +66,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func checkForHomeBeacon() {
-        print("\(self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.major)")
-        if (self.gameState.getNearestBeaconMinor() == gameState.homeBeacon!.major) {
+        print("\(self.gameState.getNearestBeaconMajor() == gameState.homeBeacon!.major)")
+        if (self.gameState.getNearestBeaconMajor() == gameState.homeBeacon!.major) {
             let callback = homeBeaconTimer.userInfo as! (() -> Void)
             callback()
             
@@ -120,6 +120,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @objc func pollForUpdates() {
         print("polling for updates")
+        print(gameState.getNearestBeaconMajor())
         if (self.gameState.isGameOver()) {
             print("game over")
             gameOver()
@@ -328,16 +329,14 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.gameState.incrementIntelFor(playerOne: interactee, playerTwo: secondaryId)
                     self.gameState.unhideAll()
                     self.exchange = false
-                    self.contractExchangeButton()
-                    
                     
                     DispatchQueue.main.async {
+                        self.contractExchangeButton()
                         self.playerTableView.reloadData()
                         self.terminalVC.setMessage(tapToClose: true, message: "EXCHANGE_SUCCESS\n\nIntel gained")
                         if (self.exchangeMessage) { // don't do showTerminal if it's already up
                             self.terminalVC.viewWillAppear(false)
-                        }
-                        else {
+                        } else {
                            self.showTerminal()
                         }
                         self.exchangeMessage = false
