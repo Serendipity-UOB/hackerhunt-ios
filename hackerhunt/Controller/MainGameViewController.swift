@@ -68,10 +68,13 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     @objc func checkForHomeBeacon() {
         print("At home beacon?\t\(self.gameState.getNearestBeaconMajor() == gameState.homeBeacon!.major)\n")
         if (self.gameState.getNearestBeaconMajor() == gameState.homeBeacon!.major) {
-            let callback = homeBeaconTimer.userInfo as! (() -> Void)
+            guard let callback = homeBeaconTimer.userInfo as! (() -> Void)? else {
+                print("no callback to use at home beacon")
+                return
+            }
             callback()
             
-            let wait = (ServerUtils.testing) ? 1.0 : 0.0
+            let wait = 3.0
             DispatchQueue.main.asyncAfter(deadline: .now() + wait, execute: self.hideTerminal)
             homeBeaconTimer.invalidate()
         }
@@ -129,7 +132,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 "player_id": self.gameState.player!.id as Int,
                 "beacons": self.gameState.createBeaconList()
             ]
-            print("Polling for updates with data:\n\t\(data)\n")
+            //print("Polling for updates with data:\n\t\(data)\n")
             
             let request = ServerUtils.post(to: "/playerUpdate", with: data)
             
@@ -305,18 +308,17 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @objc func exchangeRequest() {
         let data: [String:Any] = exchangeTimer.userInfo as! [String:Any]
-        print("Exchanging with data:\n\t\(data)\n")
+        //print("Exchanging with data:\n\t\(data)\n")
         let interactee: Int = data["interactee_id"] as! Int
         let request = ServerUtils.post(to: "/exchange", with: data)
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse else { return }
             
             let statusCode: Int = httpResponse.statusCode
-            
+            print("exchange code " + String(statusCode))
             switch statusCode {
             case 200:
                 guard let responsedata = data else { return }
-                print("status code 200")
                 do {
                     self.exchangeTimer.invalidate()
                     let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
@@ -335,28 +337,28 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.playerTableView.reloadData()
                         self.terminalVC.setMessage(tapToClose: true, message: "EXCHANGE_SUCCESS\n\nIntel gained")
                         if (self.exchangeMessage) { // don't do showTerminal if it's already up
+                            print("updating terminal text")
                             self.terminalVC.viewWillAppear(false)
                         } else {
-                           self.showTerminal()
+                            print("showing terminal")
+                            self.showTerminal()
                         }
                         self.exchangeMessage = false
                     }
                 } catch {}
             case 201, 202:
-                print("status code " + String(statusCode))
                 if (!self.exchangeMessage) { // don't do show terminal if it's already up
                     DispatchQueue.main.async {
-                        print("popping up")
+                        print("showing terminal")
                         self.exchangeMessage = true
                         self.terminalVC.setMessage(tapToClose: false, message: "EXCHANGE_REQUESTED\n\nWaiting for handshake")
                         self.showTerminal()
                     }
                 }
             case 400:
-                print("status code " + String(statusCode))
                 self.exchangeTimer.invalidate()
                 DispatchQueue.main.async {
-                    print("failing")
+                    print("exchange failed")
                     self.exchange = false
                     self.contractExchangeButton()
                     

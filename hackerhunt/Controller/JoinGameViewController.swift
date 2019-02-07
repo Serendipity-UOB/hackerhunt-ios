@@ -94,17 +94,16 @@ class JoinGameViewController: UIViewController {
                     let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
-
                     guard let startTime: String = bodyDict["start_time"] as? String else { return }
                     guard let numPlayers: Int = bodyDict["number_players"] as? Int else { return }
+                    
+                    let timeRemaining : Int = calculateTimeRemaining(startTime: startTime)
                     
                     DispatchQueue.main.async {
                         self.playerCountLabel.text = "\(numPlayers)"
                         self.gameIsScheduled()
                         
-                        if (self.timeLeft < -5) {
-                            let timeRemaining : Int = calculateTimeRemaining(startTime: startTime)
-                            
+                        if (self.timeLeft < 0 && timeRemaining > 0) {
                             self.startTiming(timeLeft: timeRemaining)
                             self.gameState.endTime = calculateEndTime(startTime: startTime)
                         }
