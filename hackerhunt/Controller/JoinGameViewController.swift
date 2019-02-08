@@ -142,7 +142,7 @@ class JoinGameViewController: UIViewController {
         }
         if (timeRemaining <= 0) {
             self.gameStartTime = -1
-            
+            self.startTimer.invalidate()
             if (gameJoined) {
                 transitionToMainGame()
             }

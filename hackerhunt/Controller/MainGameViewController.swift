@@ -93,11 +93,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                             return
                         }
                         callback()
-                        let wait = 3.0
-                        DispatchQueue.main.asyncAfter(deadline: .now() + wait, execute: self.hideTerminal)
+                        
+                        self.terminalVC.setTapToClose(true)
                         self.homeBeaconTimer.invalidate()
                     }
-                    
                 } catch {}
             }
         }.resume()
@@ -206,7 +205,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         if (takenDown == 1) {
             self.gameState.deleteHalfOfIntel()
             DispatchQueue.main.async {
-                self.terminalVC.setMessage(takenDown:  true)
+                self.terminalVC.setMessage(takenDown: true)
                 self.showTerminal()
                 self.startCheckingForHomeBeacon(withCallback: { return })
             }
@@ -531,13 +530,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         terminalVC.didMove(toParent: self)
         terminalVC.showAnimate()
         terminalVC.isShowing = true
-    }
-    
-    func hideTerminal() {
-        terminalVC.willMove(toParent: nil)
-        terminalVC.removeFromParent()
-        terminalVC.removeAnimate()
-        terminalVC.isShowing = false
     }
     
     // MARK: TableView

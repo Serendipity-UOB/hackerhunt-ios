@@ -13,25 +13,36 @@ class TerminalViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     
     var message: String = "default string"
-    var tapToCloseEnabled = true
     var homeBeacon = "A"
     var isShowing = false
+    var tapToClose: Bool = true
+    
+    @IBOutlet weak var tapToCloseLbl: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tapToCloseLbl.alpha = (tapToClose) ? 1 : 0
         textView.text = self.message
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        tapToCloseLbl.alpha = (tapToClose) ? 1 : 0
         textView.text = self.message
     }
     
     @IBAction func tapToClose(_ sender: UITapGestureRecognizer) {
-        if (tapToCloseEnabled) {
+        if (tapToClose) {
             removeAnimate()
+        }
+    }
+    
+    func setTapToClose(_ tapToClose: Bool) {
+        self.tapToClose = tapToClose
+        if let tapToCloseLbl = tapToCloseLbl {
+            tapToCloseLbl.alpha = (tapToClose) ? 1 : 0
         }
     }
     
@@ -42,27 +53,28 @@ class TerminalViewController: UIViewController {
     /* preset messages */
     
     func setMessage(message: String, tapToClose: Bool) {
-        self.tapToCloseEnabled = tapToClose
+        self.setTapToClose(tapToClose)
         self.message = message
     }
     
     func setMessage(gameStart: Any, tapToClose: Bool = false) {
-        tapToCloseEnabled = tapToClose
-        message = "Incoming message...\n\nGo to beacon \"\(homeBeacon)\" to receive your first target!\n\n- Anon"
+        self.setTapToClose(tapToClose)
+        self.message = "Incoming message...\n\nGo to beacon \"\(homeBeacon)\" to receive your first target!\n\n- Anon"
     }
     
     func setMessage(requestNewTarget: Any) {
-        tapToCloseEnabled = false
-        message = "Too slow!\n\nSomeone took down your target\n\nGo back to \(homeBeacon) for a new one"
+        self.setTapToClose(false)
+        self.message = "Too slow!\n\nSomeone took down your target\n\nGo back to \(homeBeacon) for a new one"
     }
     
     func setMessage(gameOver: Any) {
-        tapToCloseEnabled = true
-        message = "Incoming message...\n\nGood work! Return your equipment to the stand to collect your reward.\n\n- Anon"
+        self.setTapToClose(true)
+        self.message = "Incoming message...\n\nGood work! Return your equipment to the stand to collect your reward.\n\n- Anon"
     }
     
     func setMessage(takenDown: Any) {
-        message = "SECURITY_FAILURE\n\nYour identity has been compromised. \n\nLose 50% of intel\n\nReturn to Beacon \"\(homeBeacon)\" to heal"
+        self.setTapToClose(false)
+        self.message = "SECURITY_FAILURE\n\nYour identity has been compromised. \n\nLose 50% of intel\n\nReturn to Beacon \"\(homeBeacon)\" to heal"
     }
     
     /* animations */
