@@ -35,15 +35,19 @@ class TerminalViewController: UIViewController {
         }
     }
     
+    func setHomeBeacon(homeBeaconName: String) {
+        self.homeBeacon = homeBeaconName
+    }
+    
     /* preset messages */
     
-    func setMessage(tapToClose: Bool, message: String) {
+    func setMessage(message: String, tapToClose: Bool) {
         self.tapToCloseEnabled = tapToClose
         self.message = message
     }
     
-    func setMessage(gameStart: Any) {
-        tapToCloseEnabled = false
+    func setMessage(gameStart: Any, tapToClose: Bool = false) {
+        tapToCloseEnabled = tapToClose
         message = "Incoming message...\n\nGo to beacon \"\(homeBeacon)\" to receive your first target!\n\n- Anon"
     }
     
@@ -55,6 +59,10 @@ class TerminalViewController: UIViewController {
     func setMessage(gameOver: Any) {
         tapToCloseEnabled = true
         message = "Incoming message...\n\nGood work! Return your equipment to the stand to collect your reward.\n\n- Anon"
+    }
+    
+    func setMessage(takenDown: Any) {
+        message = "SECURITY_FAILURE\n\nYour identity has been compromised. \n\nLose 50% of intel\n\nReturn to Beacon \"\(homeBeacon)\" to heal"
     }
     
     /* animations */

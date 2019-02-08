@@ -196,4 +196,10 @@ class GameState {
             return false
         }
     }
+    
+    func prepareLeaderboard() {
+        self.player!.score = self.points
+        self.allPlayers.append(self.player!)
+        self.allPlayers.sort(by: { $0.score > $1.score })
+    }
 }
