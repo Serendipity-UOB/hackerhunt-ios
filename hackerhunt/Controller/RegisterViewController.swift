@@ -59,6 +59,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         self.progressToJoinGame()
                     } catch {}
                     return
+                case 204:
+                    self.reattemptInput(with: "No game available")
                 case 400:
                     self.reattemptInput(with: "Hacker name already in use")
                     return

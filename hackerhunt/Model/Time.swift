@@ -51,7 +51,7 @@ func calculateEndTime(startTime: String) -> Int {
     if (ServerUtils.testing) {
         gameLength = 20
     } else {
-        gameLength = 180
+        gameLength = 60 * 3
     }
     
     return Int(startTotal + gameLength)
