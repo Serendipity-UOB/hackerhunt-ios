@@ -66,21 +66,47 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func checkForHomeBeacon() {
-        print("At home beacon?\t\(self.gameState.getNearestBeaconMajor() == gameState.homeBeacon!.major)\n")
-        if (self.gameState.getNearestBeaconMajor() == gameState.homeBeacon!.major) {
-            guard let callback = homeBeaconTimer.userInfo as! (() -> Void)? else {
-                print("no callback to use at home beacon")
-                return
-            }
-            callback()
+        let data: [String:Any] = [
+            "player_id": self.gameState.player!.id as Int,
+            "beacons": self.gameState.createBeaconList()
+        ]
+        
+        let request = ServerUtils.post(to: "/atHomeBeacon", with: data)
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
             
-            let wait = 3.0
-            DispatchQueue.main.asyncAfter(deadline: .now() + wait, execute: self.hideTerminal)
-            homeBeaconTimer.invalidate()
-        }
+            guard let httpResponse = response as? HTTPURLResponse else { return }
+            
+            let statusCode: Int = httpResponse.statusCode
+            
+            if (statusCode == 200) {
+                
+                guard let data = data else { return }
+                
+                do {
+                    let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
+                    guard let body = bodyJson as? [String:Any] else { return }
+                    guard let home = body["home"] as? Bool else { return }
+                    if (home) {
+                        guard let callback = self.homeBeaconTimer.userInfo as! (() -> Void)? else {
+                            print("no callback to use at home beacon")
+                            return
+                        }
+                        callback()
+                        let wait = 3.0
+                        DispatchQueue.main.asyncAfter(deadline: .now() + wait, execute: self.hideTerminal)
+                        self.homeBeaconTimer.invalidate()
+                    }
+                    
+                } catch {}
+                
+            }
+        }.resume()
+        
     }
     
     func getStartInfo() -> Void {
+        print("start info")
         let request = ServerUtils.get(from: "/startInfo")
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse else { return }

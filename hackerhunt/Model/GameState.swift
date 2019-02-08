@@ -113,14 +113,12 @@ class GameState {
     func createBeaconList() -> [[String:Any]] {
         var beacons_list : [[String:Any]] = []
         for beacon in nearbyBeacons {
-            if (beacon.rssi != 0) {
                 let temp: [String:Any] = [
                     "beacon_minor": beacon.minor,
                     "beacon_major": beacon.major,
                     "rssi": beacon.rssi
                 ]
                 beacons_list.append(temp)
-            }
         }
         return beacons_list
     }
