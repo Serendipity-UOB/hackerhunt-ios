@@ -599,17 +599,15 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: countdown
     
     func startGameOverCountdown() {
-        let currentTotal = Int(now())
-        self.gameState.countdown = self.gameState.endTime! - currentTotal
         self.countdownTimer.invalidate()
-        self.countdownValue.text = prettyTimeFrom(seconds: self.gameState.countdown!)
-        self.countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(JoinGameViewController.decrementTimer), userInfo: nil, repeats: true)
+        self.countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainGameViewController.updateGameTimer), userInfo: nil, repeats: true)
+        self.countdownTimer.fire()
     }
     
-    @objc func decrementTimer() {
-        self.gameState.countdown! -= 1
-        if (self.gameState.countdown! >= 0) {
-            countdownValue.text = prettyTimeFrom(seconds: self.gameState.countdown!)
+    @objc func updateGameTimer() {
+        let timeRemaining = self.gameState.endTime! - Int(now())
+        if (timeRemaining >= 0) {
+            countdownValue.text = prettyTimeFrom(seconds: timeRemaining)
         }
     }
     

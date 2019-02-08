@@ -26,7 +26,7 @@ func now() -> Double {
     return currentTotal
 }
 
-func stringToDouble(time: String) -> Double {
+func timeStringToDouble(time: String) -> Double {
     //"21:07:42.494"
     let timeArr = time.components(separatedBy: ":")
     let hour = Int(timeArr[0])
@@ -39,14 +39,14 @@ func stringToDouble(time: String) -> Double {
 
 func calculateTimeRemaining(startTime: String) -> Int {
     let currentTotal = now()
-    let startTotal = stringToDouble(time: startTime)
+    let startTotal = timeStringToDouble(time: startTime)
     let diff : Int = Int(startTotal - currentTotal)
     
     return diff
 }
 
 func calculateEndTime(startTime: String) -> Int {
-    let startTotal = stringToDouble(time: startTime)
+    let startTotal = timeStringToDouble(time: startTime)
     var gameLength : Double // seconds
     if (ServerUtils.testing) {
         gameLength = 20
