@@ -79,6 +79,7 @@ class JoinGameViewController: UIViewController {
         DispatchQueue.main.async {
             self.pollGameInfo()
             self.pollTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(JoinGameViewController.pollGameInfo), userInfo: nil, repeats: true)
+            self.pollTimer.fire()
         }
     }
     
@@ -86,6 +87,10 @@ class JoinGameViewController: UIViewController {
         let request = ServerUtils.get(from: "/gameInfo")
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            if (!self.pollTimer.isValid) {
+                return // game is beginning, don't consider next game
+            }
             
             guard let httpResponse = response as? HTTPURLResponse else { return }
             
@@ -131,7 +136,7 @@ class JoinGameViewController: UIViewController {
     
     func startTiming() {
         self.startTimer.invalidate()
-        self.startTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(JoinGameViewController.updateGameTimer), userInfo: nil, repeats: true)
+        self.startTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(JoinGameViewController.updateGameTimer), userInfo: nil, repeats: true)
         self.startTimer.fire()
     }
     
@@ -141,18 +146,17 @@ class JoinGameViewController: UIViewController {
             timeRemainingLabel.text = prettyTimeFrom(seconds: Int(timeRemaining))
         }
         if (timeRemaining <= 0) {
-            self.gameStartTime = -1
-            self.startTimer.invalidate()
             if (gameJoined) {
                 transitionToMainGame()
             }
+            self.gameStartTime = -1
+            self.startTimer.invalidate()
         }
     }
     
     /* Transition */
     
     func transitionToMainGame() {
-        startTimer.invalidate()
         pollTimer.invalidate()
         self.performSegue(withIdentifier:"transitionToMainGame", sender:self);
     }
