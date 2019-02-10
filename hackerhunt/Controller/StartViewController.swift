@@ -30,12 +30,16 @@ class StartViewController: UIViewController {
     /* Transition methods */
     
     @IBAction func startPressed(_ sender: Any) {
-        if (beaconListener.isAuthorised()) {
+        if (beaconListener.isAuthorised() && beaconListener.isOn()) {
             beaconListener.startMonitoring()
             self.performSegue(withIdentifier:"transitionToRegister", sender:self);
         } else {
-            beaconListener.requestAuthorisation()
-            self.errorMessage.text = "Please enable Bluetooth access"
+            if (!beaconListener.isAuthorised()) {
+                beaconListener.requestAuthorisation()
+            }
+            else if (!beaconListener.isOn()) {
+                beaconListener.requestBluetoothOn()
+            }
         }
     }
     

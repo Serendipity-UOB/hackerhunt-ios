@@ -12,11 +12,49 @@ class BeaconListener: NSObject {
     
     var beaconManager: KTKBeaconManager!
     var gameState: GameState!
+    var manager: CBCentralManager!
+    var bluetoothTimer = Timer()
     
     init(withState gameState: GameState) {
         super.init()
         self.beaconManager = KTKBeaconManager(delegate: self)
         self.gameState = gameState
+        let opts = [CBCentralManagerOptionShowPowerAlertKey: true]
+        self.manager = CBCentralManager(delegate: self, queue: nil, options: opts)
+        
+    }
+    
+    func isOn() -> Bool {
+        return self.manager.state == .poweredOn
+    }
+    
+    func requestBluetoothOn() {
+        let alertController = UIAlertController(title: "hackerhunt", message: "Please enable Bluetooth", preferredStyle: .alert)
+        
+        let action1 = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction) in
+            self.bluetoothTimer.invalidate()
+            self.bluetoothTimer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.checkBluetooth), userInfo: nil, repeats: true)
+        }
+        alertController.addAction(action1)
+        
+        if var topController = UIApplication.shared.keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            
+            // topController should now be your topmost view controller
+            topController.present(alertController, animated: true, completion: nil)
+        }
+        
+    }
+    
+    @objc func checkBluetooth() {
+        if (isOn()) {
+            bluetoothTimer.invalidate()
+        }
+        else {
+            requestBluetoothOn()
+        }
     }
     
     func isAuthorised() -> Bool {
@@ -78,4 +116,15 @@ extension BeaconListener: KTKBeaconManagerDelegate {
     func beaconManager(_ manager: KTKBeaconManager, monitoringDidFailFor region: KTKBeaconRegion?, withError error: Error?) {
         print("Failed to monitor region \"\(String(describing: region?.identifier))\"\n")
     }
+}
+
+extension BeaconListener: CBCentralManagerDelegate {
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        if (central.state == .poweredOff) {
+            requestBluetoothOn()
+            
+        }
+    }
+    
+    
 }
