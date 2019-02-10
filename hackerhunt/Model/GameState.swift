@@ -23,17 +23,10 @@ class GameState {
     var position: Int = 1 // everyone starts as first?
     
     var endTime : Int?
-    var countdown : Int?
     
-    init() {
-
-    }
+    init() {}
     
     func getNearestBeaconMajor() -> Int {
-        /*if (nearbyBeacons!.count >= 1) {
-            // return nearbyBeacons[0].name ??
-            return "A"
-        }*/
         for beacon in nearbyBeacons {
             if (beacon.rssi != 0) {
                 return beacon.major.intValue
@@ -41,11 +34,9 @@ class GameState {
         }
         if (nearbyBeacons.count > 0) {
             return nearbyBeacons[0].major.intValue
-        }
-        else {
+        } else {
             return 0
         }
-        
     }
     
     func incrementIntelFor(playerOne: Int, playerTwo: Int) {
@@ -124,10 +115,9 @@ class GameState {
     }
     
     func isGameOver() -> Bool {
-        if (countdown! <= 0) {
+        if (endTime! - Int(now()) <= 0) {
             return true
-        }
-        else {
+        } else {
             return false
         }
     }
@@ -195,5 +185,11 @@ class GameState {
         } else {
             return false
         }
+    }
+    
+    func prepareLeaderboard() {
+        self.player!.score = self.points
+        self.allPlayers.append(self.player!)
+        self.allPlayers.sort(by: { $0.score > $1.score })
     }
 }

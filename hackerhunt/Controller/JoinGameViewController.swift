@@ -15,7 +15,7 @@ class JoinGameViewController: UIViewController {
     
     var startTimer = Timer()
     var pollTimer = Timer()
-    var timeLeft = -10
+    var gameStartTime: Double = -1
     var gameJoined = false
     
     @IBOutlet weak var welcomeLabel: UILabel!
@@ -35,6 +35,10 @@ class JoinGameViewController: UIViewController {
     }
     
     @IBAction func joinGamePressed(_ sender: Any) {
+        if (gameStartTime == -1) {
+            return
+        }
+        
         joinButton.isEnabled = false
  
         let request = ServerUtils.post(to: "/joinGame", with: ["player_id": gameState.player!.id])
@@ -75,6 +79,7 @@ class JoinGameViewController: UIViewController {
         DispatchQueue.main.async {
             self.pollGameInfo()
             self.pollTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(JoinGameViewController.pollGameInfo), userInfo: nil, repeats: true)
+            self.pollTimer.fire()
         }
     }
     
@@ -82,6 +87,10 @@ class JoinGameViewController: UIViewController {
         let request = ServerUtils.get(from: "/gameInfo")
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            if (!self.pollTimer.isValid) {
+                return // game is beginning, don't consider next game
+            }
             
             guard let httpResponse = response as? HTTPURLResponse else { return }
             
@@ -97,15 +106,17 @@ class JoinGameViewController: UIViewController {
                     guard let startTime: String = bodyDict["start_time"] as? String else { return }
                     guard let numPlayers: Int = bodyDict["number_players"] as? Int else { return }
                     
-                    let timeRemaining : Int = calculateTimeRemaining(startTime: startTime)
+                    let startTimeDouble : Double = timeStringToDouble(time: startTime)
                     
                     DispatchQueue.main.async {
                         self.playerCountLabel.text = "\(numPlayers)"
                         self.gameIsScheduled()
                         
-                        if (self.timeLeft < 0 && timeRemaining > 0) {
-                            self.startTiming(timeLeft: timeRemaining)
+                        // if no game yet scheduled or server has scheduled a new game
+                        if (self.gameStartTime == -1 || (startTimeDouble != self.gameStartTime && !ServerUtils.testing)) {
+                            self.gameStartTime = startTimeDouble
                             self.gameState.endTime = calculateEndTime(startTime: startTime)
+                            self.startTiming()
                         }
                     }
                 } catch {}
@@ -123,27 +134,29 @@ class JoinGameViewController: UIViewController {
     
     /* Timing */
     
-    func startTiming(timeLeft: Int) {
-        self.timeLeft = timeLeft
-        self.timeRemainingLabel.text = prettyTimeFrom(seconds: timeLeft)
+    func startTiming() {
         self.startTimer.invalidate()
-        self.startTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(JoinGameViewController.decrementTimer), userInfo: nil, repeats: true)
+        self.startTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(JoinGameViewController.updateGameTimer), userInfo: nil, repeats: true)
+        self.startTimer.fire()
     }
     
-    @objc func decrementTimer() {
-        timeLeft -= 1
-        if (timeLeft >= 0) {
-            timeRemainingLabel.text = prettyTimeFrom(seconds: timeLeft)
+    @objc func updateGameTimer() {
+        let timeRemaining = self.gameStartTime - now()
+        if (timeRemaining >= 0) {
+            timeRemainingLabel.text = prettyTimeFrom(seconds: Int(timeRemaining))
         }
-        if (timeLeft <= 0 && gameJoined) {
-            transitionToMainGame()
+        if (timeRemaining <= 0) {
+            if (gameJoined) {
+                transitionToMainGame()
+            }
+            self.gameStartTime = -1
+            self.startTimer.invalidate()
         }
     }
     
     /* Transition */
     
     func transitionToMainGame() {
-        startTimer.invalidate()
         pollTimer.invalidate()
         self.performSegue(withIdentifier:"transitionToMainGame", sender:self);
     }
