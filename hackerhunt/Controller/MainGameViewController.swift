@@ -73,6 +73,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
+            if (!self.homeBeaconTimer.isValid) {
+                return;
+            }
+            
             guard let httpResponse = response as? HTTPURLResponse else { return }
             
             let statusCode: Int = httpResponse.statusCode
@@ -94,8 +98,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         }
                         callback()
                         
-                        self.terminalVC.setTapToClose(true)
                         self.homeBeaconTimer.invalidate()
+                        DispatchQueue.main.async {
+                            self.terminalVC.setTapToClose(true)
+                        }
                     }
                 } catch {}
             }

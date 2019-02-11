@@ -10,17 +10,21 @@ import UIKit
 
 class TerminalViewController: UIViewController {
     
+    @IBOutlet weak var terminalSubView: UIView!
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var tapToCloseLbl: UITextView!
     
     var message: String = "default string"
     var homeBeacon = "A"
     var isShowing = false
     var tapToClose: Bool = true
     
-    @IBOutlet weak var tapToCloseLbl: UITextView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        terminalSubView.isUserInteractionEnabled = false
+        textView.isUserInteractionEnabled = false
+        tapToCloseLbl.isUserInteractionEnabled = false
         
         tapToCloseLbl.alpha = (tapToClose) ? 1 : 0
         textView.text = self.message
@@ -35,7 +39,9 @@ class TerminalViewController: UIViewController {
     
     @IBAction func tapToClose(_ sender: UITapGestureRecognizer) {
         if (tapToClose) {
-            removeAnimate()
+            DispatchQueue.main.async {
+                self.removeAnimate()
+            }
         }
     }
     

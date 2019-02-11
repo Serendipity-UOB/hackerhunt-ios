@@ -538,7 +538,8 @@
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="tapToCloseLbl" destination="29u-N1-0YC" id="vuQ-BU-8rC"/>
+                        <outlet property="tapToCloseLbl" destination="29u-N1-0YC" id="R1I-eu-98p"/>
+                        <outlet property="terminalSubView" destination="qt7-zM-83u" id="f9K-iL-GoI"/>
                         <outlet property="textView" destination="AvH-m2-7dS" id="Rcb-hG-m4z"/>
                     </connections>
                 </viewController>

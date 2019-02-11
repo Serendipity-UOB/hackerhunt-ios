@@ -121,8 +121,9 @@ class JoinGameViewController: UIViewController {
                     }
                 } catch {}
             } else if (statusCode == 204) {
-                self.noGameIsScheduled()
-                
+                DispatchQueue.main.async {
+                    self.noGameIsScheduled()
+                }
             } else {
                 DispatchQueue.main.async {
                     self.welcomeLabel.text = "Error retrieving game info"
