@@ -25,7 +25,7 @@ class BeaconListener: NSObject {
     }
     
     func isOn() -> Bool {
-        return self.manager.state == .poweredOn
+        return self.manager.state == .poweredOn || ServerUtils.testing // true if either in testing mode or is actually on
     }
     
     func requestBluetoothOn() {
@@ -120,7 +120,7 @@ extension BeaconListener: KTKBeaconManagerDelegate {
 
 extension BeaconListener: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        if (central.state == .poweredOff) {
+        if (central.state == .poweredOff && ServerUtils.testing == false) {
             requestBluetoothOn()
             
         }

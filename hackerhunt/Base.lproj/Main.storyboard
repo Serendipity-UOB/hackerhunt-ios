@@ -84,31 +84,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Hacker name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h9W-Ng-uks">
-                                <rect key="frame" x="20" y="278" width="280" height="30"/>
+                                <rect key="frame" x="20" y="271" width="280" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Real name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EVh-Pi-cLY">
-                                <rect key="frame" x="20" y="233" width="280" height="30"/>
+                                <rect key="frame" x="20" y="226" width="280" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" spellCheckingType="no"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="// create your profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWu-aQ-K2C">
-                                <rect key="frame" x="54.5" y="197" width="211.5" height="16"/>
+                                <rect key="frame" x="54.5" y="190" width="211.5" height="16"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGH-qV-M8Q">
-                                <rect key="frame" x="160" y="333" width="0.0" height="0.0"/>
+                                <rect key="frame" x="160" y="326" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="12"/>
                                 <color key="textColor" red="0.80801171064376831" green="0.31483080983161926" blue="0.31795245409011841" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ynb-gN-wi9">
-                                <rect key="frame" x="122.5" y="368" width="75" height="32"/>
+                                <rect key="frame" x="122.5" y="361" width="75" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ynb-gN-wi9" secondAttribute="height" multiplier="7:3" id="80v-SQ-YjS"/>
@@ -131,7 +131,7 @@
                         <constraints>
                             <constraint firstItem="h9W-Ng-uks" firstAttribute="centerX" secondItem="uon-hS-tdS" secondAttribute="centerX" id="302-b2-7De"/>
                             <constraint firstItem="AGH-qV-M8Q" firstAttribute="centerX" secondItem="uon-hS-tdS" secondAttribute="centerX" id="FId-er-yqE"/>
-                            <constraint firstItem="gWu-aQ-K2C" firstAttribute="bottom" secondItem="uon-hS-tdS" secondAttribute="centerY" constant="-81" id="IJo-lj-8pm"/>
+                            <constraint firstItem="gWu-aQ-K2C" firstAttribute="bottom" secondItem="uon-hS-tdS" secondAttribute="centerY" multiplier="0.7" id="IJo-lj-8pm"/>
                             <constraint firstItem="ynb-gN-wi9" firstAttribute="top" secondItem="h9W-Ng-uks" secondAttribute="bottom" constant="60" id="S1p-KY-HBZ"/>
                             <constraint firstItem="h9W-Ng-uks" firstAttribute="top" secondItem="EVh-Pi-cLY" secondAttribute="bottom" constant="15" id="e3J-jV-ZOD"/>
                             <constraint firstItem="h9W-Ng-uks" firstAttribute="width" secondItem="EVh-Pi-cLY" secondAttribute="width" id="gLP-cG-h1D"/>
@@ -166,31 +166,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome: X" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U6x-My-2Hq">
-                                <rect key="frame" x="112" y="199" width="96.5" height="16"/>
+                                <rect key="frame" x="112" y="178" width="96.5" height="16"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Players in Game:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pb-Gg-qjC">
-                                <rect key="frame" x="60" y="255" width="154" height="16"/>
+                                <rect key="frame" x="60" y="234" width="154" height="16"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Time until Game:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pmr-bF-I0k">
-                                <rect key="frame" x="60" y="289" width="154" height="16"/>
+                                <rect key="frame" x="60" y="260" width="154" height="16"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGV-dv-Db2">
-                                <rect key="frame" x="222" y="255" width="98" height="16"/>
+                                <rect key="frame" x="222" y="234" width="98" height="16"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsd-kS-Bsr">
-                                <rect key="frame" x="222" y="289" width="98" height="16"/>
+                                <rect key="frame" x="222" y="260" width="98" height="16"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -220,21 +220,21 @@
                         </subviews>
                         <color key="backgroundColor" red="0.1788358092" green="0.18022242190000001" blue="0.25674799079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="7pb-Gg-qjC" firstAttribute="bottom" secondItem="O1E-AV-t5k" secondAttribute="bottom" constant="-297" id="1ej-VD-Nqr"/>
+                            <constraint firstItem="7pb-Gg-qjC" firstAttribute="top" secondItem="U6x-My-2Hq" secondAttribute="bottom" constant="40" id="1ej-VD-Nqr"/>
                             <constraint firstItem="7pb-Gg-qjC" firstAttribute="leading" secondItem="O1E-AV-t5k" secondAttribute="leading" constant="60" id="2FU-jT-Usv"/>
                             <constraint firstItem="Yjn-PT-gLe" firstAttribute="centerX" secondItem="O1E-AV-t5k" secondAttribute="centerX" id="8tG-Bj-OmH"/>
                             <constraint firstItem="HGV-dv-Db2" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="O1E-AV-t5k" secondAttribute="trailing" id="GQV-db-m1C"/>
                             <constraint firstItem="lY1-js-gfQ" firstAttribute="centerX" secondItem="O1E-AV-t5k" secondAttribute="centerX" id="HUy-pn-CwK"/>
-                            <constraint firstItem="Pmr-bF-I0k" firstAttribute="bottom" secondItem="O1E-AV-t5k" secondAttribute="bottom" constant="-263" id="QGJ-gy-bOH"/>
-                            <constraint firstItem="Vsd-kS-Bsr" firstAttribute="bottom" secondItem="O1E-AV-t5k" secondAttribute="bottom" constant="-263" id="YBY-iG-8bJ"/>
+                            <constraint firstItem="Pmr-bF-I0k" firstAttribute="top" secondItem="7pb-Gg-qjC" secondAttribute="bottom" constant="10" id="QGJ-gy-bOH"/>
+                            <constraint firstItem="Vsd-kS-Bsr" firstAttribute="bottom" secondItem="Pmr-bF-I0k" secondAttribute="bottom" id="YBY-iG-8bJ"/>
                             <constraint firstItem="HGV-dv-Db2" firstAttribute="leading" secondItem="7pb-Gg-qjC" secondAttribute="trailing" constant="8" id="cVJ-yv-j0n"/>
                             <constraint firstItem="Yjn-PT-gLe" firstAttribute="centerY" secondItem="lY1-js-gfQ" secondAttribute="centerY" id="jD1-GG-64Q"/>
-                            <constraint firstItem="HGV-dv-Db2" firstAttribute="bottom" secondItem="O1E-AV-t5k" secondAttribute="bottom" constant="-297" id="lpt-wy-rsr"/>
+                            <constraint firstItem="HGV-dv-Db2" firstAttribute="bottom" secondItem="7pb-Gg-qjC" secondAttribute="bottom" id="lpt-wy-rsr"/>
                             <constraint firstItem="Vsd-kS-Bsr" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="O1E-AV-t5k" secondAttribute="trailing" id="mO8-0i-DuQ"/>
                             <constraint firstItem="Pmr-bF-I0k" firstAttribute="leading" secondItem="O1E-AV-t5k" secondAttribute="leading" constant="60" id="mwd-DU-CrO"/>
                             <constraint firstItem="U6x-My-2Hq" firstAttribute="centerX" secondItem="O1E-AV-t5k" secondAttribute="centerX" id="s8N-sa-qIO"/>
-                            <constraint firstItem="lY1-js-gfQ" firstAttribute="centerY" secondItem="Vsd-kS-Bsr" secondAttribute="bottom" constant="48" id="sRI-zJ-XEx"/>
-                            <constraint firstItem="U6x-My-2Hq" firstAttribute="bottom" secondItem="O1E-AV-t5k" secondAttribute="bottom" constant="-353" id="v0r-hr-zNM"/>
+                            <constraint firstItem="lY1-js-gfQ" firstAttribute="centerY" secondItem="Pmr-bF-I0k" secondAttribute="bottom" constant="77" id="sRI-zJ-XEx"/>
+                            <constraint firstItem="U6x-My-2Hq" firstAttribute="bottom" secondItem="O1E-AV-t5k" secondAttribute="centerY" constant="-100" id="v0r-hr-zNM"/>
                             <constraint firstItem="Vsd-kS-Bsr" firstAttribute="leading" secondItem="Pmr-bF-I0k" secondAttribute="trailing" constant="8" id="yTq-uj-ER9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1E-AV-t5k"/>
