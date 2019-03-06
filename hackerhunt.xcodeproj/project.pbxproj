@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BE25F73521FBAF11008FBAF4 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE25F73421FBAF11008FBAF4 /* Time.swift */; };
+		BEC559EB223051D200097A03 /* ShareTech-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEC559EA223051D200097A03 /* ShareTech-Regular.ttf */; };
 		BF1AE2FD21FC484A00D3F333 /* LeaderboardTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1AE2FC21FC484A00D3F333 /* LeaderboardTableCell.swift */; };
 		BF3ADA9B21F8D2A5003AAB71 /* TerminalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3ADA9A21F8D2A5003AAB71 /* TerminalViewController.swift */; };
 		BF584CC021A5A1FD00830823 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CBF21A5A1FD00830823 /* AppDelegate.swift */; };
@@ -67,6 +68,7 @@
 
 /* Begin PBXFileReference section */
 		BE25F73421FBAF11008FBAF4 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		BEC559EA223051D200097A03 /* ShareTech-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ShareTech-Regular.ttf"; path = "../../../Google Drive/University/Serendipity/Documentation/UI Assets/Fonts/ShareTech-Regular.ttf"; sourceTree = "<group>"; };
 		BF1AE2FC21FC484A00D3F333 /* LeaderboardTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardTableCell.swift; sourceTree = "<group>"; };
 		BF3ADA9A21F8D2A5003AAB71 /* TerminalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalViewController.swift; sourceTree = "<group>"; };
 		BF584CBC21A5A1FD00830823 /* hackerhunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hackerhunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,6 +159,7 @@
 				BF584CBF21A5A1FD00830823 /* AppDelegate.swift */,
 				BF584CCB21A5A1FE00830823 /* Info.plist */,
 				BF9A7FEC21EF720C00C30261 /* Assets.xcassets */,
+				BEC559EA223051D200097A03 /* ShareTech-Regular.ttf */,
 			);
 			path = hackerhunt;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 			files = (
 				BF9A7FE521EF6C6F00C30261 /* title_logo.gif in Resources */,
 				BF584CCA21A5A1FE00830823 /* LaunchScreen.storyboard in Resources */,
+				BEC559EB223051D200097A03 /* ShareTech-Regular.ttf in Resources */,
 				BF9A7FED21EF720C00C30261 /* Assets.xcassets in Resources */,
 				BF584CC521A5A1FD00830823 /* Main.storyboard in Resources */,
 			);

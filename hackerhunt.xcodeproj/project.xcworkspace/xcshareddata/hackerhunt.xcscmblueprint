@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B0581860DA330A12DE12AFDE478A958FC71A6398",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "B0581860DA330A12DE12AFDE478A958FC71A6398" : 9223372036854775807,
+    "53B99CFFB878EC488CFEF59FD0C17CE1CEDDC83B" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "A92D1624-4F76-4A53-A7D6-BE5CE0AA4596",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "B0581860DA330A12DE12AFDE478A958FC71A6398" : "hackerhunt-ios\/",
+    "53B99CFFB878EC488CFEF59FD0C17CE1CEDDC83B" : "hackerhunt-ios\/kontakt-ios-sdk\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "hackerhunt",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "hackerhunt.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/kontaktio\/kontakt-ios-sdk.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "53B99CFFB878EC488CFEF59FD0C17CE1CEDDC83B"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Serendipity-UOB\/hackerhunt-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B0581860DA330A12DE12AFDE478A958FC71A6398"
+    }
+  ]
+}
