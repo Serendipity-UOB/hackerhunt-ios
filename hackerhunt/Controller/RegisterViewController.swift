@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuartzCore
 
 class RegisterViewController: UIViewController, UITextFieldDelegate {
     
@@ -22,6 +23,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        realNameTextField.layer.borderWidth = 1
+        realNameTextField.layer.borderColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0).cgColor
+        hackerNameTextField.layer.borderWidth = 1
+        hackerNameTextField.layer.borderColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0).cgColor
         
         realNameTextField.delegate = self
         hackerNameTextField.delegate = self
@@ -90,7 +96,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         // make UI changes on main thread
         DispatchQueue.main.async {
             self.goButton.isEnabled = true
-            self.goButton.setTitle("go();", for: .normal)
+            self.goButton.setTitle("Create profile", for: .normal)
             self.errorMessage.text = message
         }
     }
