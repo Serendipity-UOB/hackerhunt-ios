@@ -1,0 +1,35 @@
+{
+  "images" : [
+    {
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 54,
+          "height" : 16
+        },
+        "cap-insets" : {
+          "bottom" : 30,
+          "top" : 33,
+          "right" : 35,
+          "left" : 26
+        }
+      },
+      "idiom" : "universal",
+      "filename" : "notif-box.png",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

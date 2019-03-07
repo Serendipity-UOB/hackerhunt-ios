@@ -4,7 +4,8 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string></string>
+		<string>ShareTechMono-Regular.tff</string>
+		<string>ShareTech-Regular.ttf</string>
 	</array>
 	<key>main-font</key>
 	<string>ShareTech-Regular.ttf</string>

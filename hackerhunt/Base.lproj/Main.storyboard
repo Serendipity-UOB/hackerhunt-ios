@@ -13,6 +13,9 @@
         <array key="ShareTech-Regular.ttf">
             <string>ShareTech-Regular</string>
         </array>
+        <array key="ShareTechMono-Regular.ttf">
+            <string>ShareTechMono-Regular</string>
+        </array>
     </customFonts>
     <scenes>
         <!--Start View Controller-->
@@ -23,57 +26,65 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="title_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Xhv-hf-VHE">
-                                <rect key="frame" x="0.0" y="255.5" width="375" height="88"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="Xhv-hf-VHE" secondAttribute="height" multiplier="64:15" id="U7f-aM-WVA"/>
-                                </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Os8-VN-LKt">
-                                <rect key="frame" x="0.0" y="255.5" width="375" height="88"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6j9-mF-RoC">
-                                <rect key="frame" x="187.5" y="343.5" width="0.0" height="0.0"/>
+                                <rect key="frame" x="187.5" y="344" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JoR-2S-lKr">
-                                <rect key="frame" x="37" y="484" width="300" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JoR-2S-lKr">
+                                <rect key="frame" x="92.5" y="506" width="190" height="41"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="JoR-2S-lKr" secondAttribute="height" multiplier="4:1" id="1qr-5M-9GL"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="SKc-4U-e3w"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="gZh-mf-Khx"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="190" id="Jwh-fj-4zB"/>
+                                    <constraint firstAttribute="height" constant="41" id="nbo-zE-7Ky"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="20"/>
-                                <state key="normal" title="Start" backgroundImage="start_button">
+                                <state key="normal" title="Start" backgroundImage="start-button">
                                     <color key="titleColor" red="0.71372549019607845" green="0.91764705882352937" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="startPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HwD-BG-Hbo"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="title_screen" translatesAutoresizingMaskIntoConstraints="NO" id="Xhv-hf-VHE">
+                                <rect key="frame" x="5" y="101" width="365" height="365"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Xhv-hf-VHE" secondAttribute="height" multiplier="1:1" id="xyq-m4-c3m"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mtB-Il-17F">
+                                <rect key="frame" x="5" y="101" width="365" height="365"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spy Exposé" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8t-sA-ekb">
+                                <rect key="frame" x="79.5" y="261" width="216" height="45.5"/>
+                                <fontDescription key="fontDescription" name="ShareTechMono-Regular" family="Share Tech Mono" pointSize="40"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
-                            <constraint firstItem="JoR-2S-lKr" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="5FL-KA-xon"/>
-                            <constraint firstItem="Xhv-hf-VHE" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="6tj-Cp-Ki2"/>
-                            <constraint firstItem="Os8-VN-LKt" firstAttribute="height" secondItem="Xhv-hf-VHE" secondAttribute="height" id="993-XL-IUc"/>
-                            <constraint firstItem="Os8-VN-LKt" firstAttribute="centerX" secondItem="Xhv-hf-VHE" secondAttribute="centerX" id="D5g-CX-hgP"/>
-                            <constraint firstItem="6j9-mF-RoC" firstAttribute="top" secondItem="Os8-VN-LKt" secondAttribute="bottom" id="F4y-FM-huy"/>
-                            <constraint firstItem="Os8-VN-LKt" firstAttribute="width" secondItem="Xhv-hf-VHE" secondAttribute="width" id="TB1-fn-qmc"/>
-                            <constraint firstItem="Xhv-hf-VHE" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="TM0-4w-Tfc"/>
-                            <constraint firstItem="Os8-VN-LKt" firstAttribute="centerY" secondItem="Xhv-hf-VHE" secondAttribute="centerY" id="UfP-cN-o8V"/>
+                            <constraint firstItem="Xhv-hf-VHE" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-5" id="1q6-0E-Imj"/>
+                            <constraint firstItem="mtB-Il-17F" firstAttribute="leading" secondItem="Xhv-hf-VHE" secondAttribute="leading" id="ADd-ZW-cFX"/>
+                            <constraint firstItem="h8t-sA-ekb" firstAttribute="centerX" secondItem="Xhv-hf-VHE" secondAttribute="centerX" id="DS6-AH-RcL"/>
+                            <constraint firstItem="mtB-Il-17F" firstAttribute="bottom" secondItem="Xhv-hf-VHE" secondAttribute="bottom" id="K6q-UK-SD8"/>
+                            <constraint firstItem="mtB-Il-17F" firstAttribute="trailing" secondItem="Xhv-hf-VHE" secondAttribute="trailing" id="Kos-Jd-aej"/>
+                            <constraint firstItem="h8t-sA-ekb" firstAttribute="centerY" secondItem="Xhv-hf-VHE" secondAttribute="centerY" id="Mbr-UI-sPv"/>
+                            <constraint firstItem="Xhv-hf-VHE" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="-60" id="Msb-wu-llD"/>
+                            <constraint firstItem="mtB-Il-17F" firstAttribute="width" secondItem="mtB-Il-17F" secondAttribute="height" multiplier="1:1" id="WvB-Bv-ew4"/>
+                            <constraint firstItem="mtB-Il-17F" firstAttribute="top" secondItem="Xhv-hf-VHE" secondAttribute="top" id="XXh-F6-YwP"/>
+                            <constraint firstItem="Xhv-hf-VHE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="YUG-HB-7wn"/>
+                            <constraint firstItem="JoR-2S-lKr" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="cOX-g4-v0l"/>
+                            <constraint firstAttribute="bottom" secondItem="6j9-mF-RoC" secondAttribute="bottom" constant="323" id="hAl-2p-8w2"/>
                             <constraint firstItem="6j9-mF-RoC" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="koY-MS-Bgo"/>
-                            <constraint firstItem="JoR-2S-lKr" firstAttribute="top" secondItem="Xhv-hf-VHE" secondAttribute="bottom" constant="150" id="q5V-pC-5u4"/>
-                            <constraint firstItem="Xhv-hf-VHE" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="vEf-AI-vfM"/>
+                            <constraint firstItem="JoR-2S-lKr" firstAttribute="top" secondItem="Xhv-hf-VHE" secondAttribute="bottom" constant="40" id="yjG-Yb-A0P"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="errorMessage" destination="6j9-mF-RoC" id="Bax-pG-1zY"/>
-                        <outlet property="titleLogoGif" destination="Os8-VN-LKt" id="lfw-Ga-13r"/>
+                        <outlet property="titleLogoGif" destination="mtB-Il-17F" id="BOi-rc-KyH"/>
                         <segue destination="O1B-1s-BhP" kind="show" identifier="transitionToRegister" id="JlR-uf-d8r"/>
                     </connections>
                 </viewController>
@@ -560,7 +571,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="start_button" width="28" height="27.5"/>
-        <image name="title_logo" width="553" height="159"/>
+        <image name="start-button" width="57" height="39"/>
+        <image name="title_screen" width="317" height="309"/>
     </resources>
 </document>

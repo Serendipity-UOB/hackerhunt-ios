@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		BE25F73521FBAF11008FBAF4 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE25F73421FBAF11008FBAF4 /* Time.swift */; };
-		BEC559EB223051D200097A03 /* ShareTech-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEC559EA223051D200097A03 /* ShareTech-Regular.ttf */; };
 		BF1AE2FD21FC484A00D3F333 /* LeaderboardTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1AE2FC21FC484A00D3F333 /* LeaderboardTableCell.swift */; };
+		BF1FE5672231339000017A54 /* ShareTech-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE5652231338F00017A54 /* ShareTech-Regular.ttf */; };
+		BF1FE5682231339000017A54 /* ShareTechMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE5662231339000017A54 /* ShareTechMono-Regular.ttf */; };
+		BF1FE56B223133A600017A54 /* globe.gif in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE569223133A600017A54 /* globe.gif */; };
+		BF1FE56C223133A600017A54 /* title_screen.gif in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE56A223133A600017A54 /* title_screen.gif */; };
 		BF3ADA9B21F8D2A5003AAB71 /* TerminalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3ADA9A21F8D2A5003AAB71 /* TerminalViewController.swift */; };
 		BF584CC021A5A1FD00830823 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CBF21A5A1FD00830823 /* AppDelegate.swift */; };
 		BF584CC221A5A1FD00830823 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CC121A5A1FD00830823 /* StartViewController.swift */; };
@@ -26,7 +29,6 @@
 		BF6F9F8821F7AA0000924174 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F9F8721F7AA0000924174 /* GameState.swift */; };
 		BF6F9F8A21F7AED600924174 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F9F8921F7AED600924174 /* Player.swift */; };
 		BF6F9F8F21F7B54000924174 /* ServerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F9F8E21F7B54000924174 /* ServerUtils.swift */; };
-		BF9A7FE521EF6C6F00C30261 /* title_logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = BF9A7FE421EF6C6F00C30261 /* title_logo.gif */; };
 		BF9A7FE921EF6CC100C30261 /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9A7FE821EF6CC100C30261 /* Gif.swift */; };
 		BF9A7FED21EF720C00C30261 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9A7FEC21EF720C00C30261 /* Assets.xcassets */; };
 		BF9A7FEF21EF883500C30261 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9A7FEE21EF883500C30261 /* RegisterViewController.swift */; };
@@ -68,8 +70,11 @@
 
 /* Begin PBXFileReference section */
 		BE25F73421FBAF11008FBAF4 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
-		BEC559EA223051D200097A03 /* ShareTech-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ShareTech-Regular.ttf"; path = "../../../Google Drive/University/Serendipity/Documentation/UI Assets/Fonts/ShareTech-Regular.ttf"; sourceTree = "<group>"; };
 		BF1AE2FC21FC484A00D3F333 /* LeaderboardTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardTableCell.swift; sourceTree = "<group>"; };
+		BF1FE5652231338F00017A54 /* ShareTech-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ShareTech-Regular.ttf"; sourceTree = "<group>"; };
+		BF1FE5662231339000017A54 /* ShareTechMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ShareTechMono-Regular.ttf"; sourceTree = "<group>"; };
+		BF1FE569223133A600017A54 /* globe.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = globe.gif; sourceTree = "<group>"; };
+		BF1FE56A223133A600017A54 /* title_screen.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = title_screen.gif; sourceTree = "<group>"; };
 		BF3ADA9A21F8D2A5003AAB71 /* TerminalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalViewController.swift; sourceTree = "<group>"; };
 		BF584CBC21A5A1FD00830823 /* hackerhunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hackerhunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF584CBF21A5A1FD00830823 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,7 +95,6 @@
 		BF6F9F8721F7AA0000924174 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		BF6F9F8921F7AED600924174 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		BF6F9F8E21F7B54000924174 /* ServerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerUtils.swift; sourceTree = "<group>"; };
-		BF9A7FE421EF6C6F00C30261 /* title_logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = title_logo.gif; sourceTree = "<group>"; };
 		BF9A7FE821EF6CC100C30261 /* Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
 		BF9A7FEC21EF720C00C30261 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF9A7FEE21EF883500C30261 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -159,7 +163,6 @@
 				BF584CBF21A5A1FD00830823 /* AppDelegate.swift */,
 				BF584CCB21A5A1FE00830823 /* Info.plist */,
 				BF9A7FEC21EF720C00C30261 /* Assets.xcassets */,
-				BEC559EA223051D200097A03 /* ShareTech-Regular.ttf */,
 			);
 			path = hackerhunt;
 			sourceTree = "<group>";
@@ -218,8 +221,11 @@
 		BF9A7FF321EF89E800C30261 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BF1FE5652231338F00017A54 /* ShareTech-Regular.ttf */,
+				BF1FE5662231339000017A54 /* ShareTechMono-Regular.ttf */,
 				BF9A7FE821EF6CC100C30261 /* Gif.swift */,
-				BF9A7FE421EF6C6F00C30261 /* title_logo.gif */,
+				BF1FE569223133A600017A54 /* globe.gif */,
+				BF1FE56A223133A600017A54 /* title_screen.gif */,
 				BFFC0CD721FA2C1300F71ABB /* PlayerTableCell.swift */,
 				BF1AE2FC21FC484A00D3F333 /* LeaderboardTableCell.swift */,
 			);
@@ -335,9 +341,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF9A7FE521EF6C6F00C30261 /* title_logo.gif in Resources */,
 				BF584CCA21A5A1FE00830823 /* LaunchScreen.storyboard in Resources */,
-				BEC559EB223051D200097A03 /* ShareTech-Regular.ttf in Resources */,
+				BF1FE5682231339000017A54 /* ShareTechMono-Regular.ttf in Resources */,
+				BF1FE56B223133A600017A54 /* globe.gif in Resources */,
+				BF1FE5672231339000017A54 /* ShareTech-Regular.ttf in Resources */,
+				BF1FE56C223133A600017A54 /* title_screen.gif in Resources */,
 				BF9A7FED21EF720C00C30261 /* Assets.xcassets in Resources */,
 				BF584CC521A5A1FD00830823 /* Main.storyboard in Resources */,
 			);

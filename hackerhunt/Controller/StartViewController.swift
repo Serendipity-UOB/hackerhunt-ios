@@ -20,7 +20,7 @@ class StartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        titleLogoGif.loadGif(name: "title_logo")
+        titleLogoGif.loadGif(name: "title_screen")
         
         if (!beaconListener.isAuthorised()) {
             beaconListener.requestAuthorisation()
