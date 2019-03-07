@@ -23,9 +23,12 @@ class JoinGameViewController: UIViewController {
     @IBOutlet weak var timeRemainingLabel: UILabel!
     @IBOutlet weak var joinButton: UIButton!
     @IBOutlet weak var joinSuccessLabel: UILabel!
+    @IBOutlet weak var globeGif: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        globeGif.loadGif(name: "globe")
         
         welcomeLabel.text = (ServerUtils.testing) ? "Testing mode: \(gameState.player!.realName)" : "Welcome: \(gameState.player!.realName)"
         
@@ -172,7 +175,7 @@ class JoinGameViewController: UIViewController {
     
     func showJoinGameButton() {
         DispatchQueue.main.async {
-            self.joinButton.setTitle("join_game();", for: UIControl.State.normal)
+            self.joinButton.setTitle("Join game", for: UIControl.State.normal)
             self.joinButton.alpha = 1
             self.joinSuccessLabel.alpha = 0
         }
@@ -188,7 +191,7 @@ class JoinGameViewController: UIViewController {
     func noGameIsScheduled() {
         self.timeRemainingLabel.text = "-"
         self.joinButton.isEnabled = false
-        self.joinButton.setTitle("no game", for: UIControl.State.disabled)
+        self.joinButton.setTitle("No game", for: UIControl.State.disabled)
     }
     
     func gameIsScheduled() {

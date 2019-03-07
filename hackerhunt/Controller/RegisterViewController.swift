@@ -16,7 +16,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     var inputs : [String: String] = [:]
     
     @IBOutlet weak var realNameTextField: UITextField!
-    @IBOutlet weak var hackerNameTextField: UITextField!
+    @IBOutlet weak var codeNameTextField: UITextField!
     
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var errorMessage: UILabel!
@@ -26,17 +26,17 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         
         realNameTextField.layer.borderWidth = 1
         realNameTextField.layer.borderColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0).cgColor
-        hackerNameTextField.layer.borderWidth = 1
-        hackerNameTextField.layer.borderColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0).cgColor
+        codeNameTextField.layer.borderWidth = 1
+        codeNameTextField.layer.borderColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0).cgColor
         
         realNameTextField.delegate = self
-        hackerNameTextField.delegate = self
+        codeNameTextField.delegate = self
     }
     
     @IBAction func goButtonPressed(_ sender: Any) {
         self.inputs = [
             "real_name": realNameTextField.text!,
-            "hacker_name": hackerNameTextField.text!
+            "code_name": codeNameTextField.text!
         ]
         
         if (!validInputs()) {
@@ -68,7 +68,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 case 204:
                     self.reattemptInput(with: "No game available")
                 case 400:
-                    self.reattemptInput(with: "Hacker name already in use")
+                    self.reattemptInput(with: "Codename already in use")
                     return
                 default:
                     self.reattemptInput(with: "Server response \(statusCode). Report to base")
@@ -85,8 +85,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             reattemptInput(with: "Missing Real Name")
             return false
         }
-        if (self.inputs["hacker_name"]!.count == 0) {
-            reattemptInput(with: "Missing Hacker Name")
+        if (self.inputs["code_name"]!.count == 0) {
+            reattemptInput(with: "Missing Code Name")
             return false
         }
         return true
@@ -105,9 +105,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     func progressToJoinGame() {
         let realName: String = self.inputs["real_name"]!
-        let hackerName: String = self.inputs["hacker_name"]!
+        let codeName: String = self.inputs["code_name"]!
         let id: Int = Int(self.inputs["player_id"]!)!
-        gameState.player = Player(realName: realName, hackerName: hackerName, id: id)
+        gameState.player = Player(realName: realName, codeName: codeName, id: id)
         DispatchQueue.main.async {
             self.performSegue(withIdentifier:"transitionToJoinGame", sender:self)
         }

@@ -10,7 +10,7 @@ import UIKit
 
 class PlayerTableCell: UITableViewCell {
     
-    var player: Player = Player(realName: "test", hackerName: "test", id: -1)
+    var player: Player = Player(realName: "test", codeName: "test", id: -1)
     
     var constraint: NSLayoutConstraint?
     
@@ -24,7 +24,7 @@ class PlayerTableCell: UITableViewCell {
         return textView
     }()
     
-    var hackerName: UITextView = {
+    var codeName: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isUserInteractionEnabled = false
@@ -61,11 +61,11 @@ class PlayerTableCell: UITableViewCell {
         realName.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         realName.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
         
-        self.addSubview(hackerName)
-        hackerName.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5).isActive = true
-        hackerName.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        hackerName.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        hackerName.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
+        self.addSubview(codeName)
+        codeName.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5).isActive = true
+        codeName.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        codeName.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        codeName.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
         
         self.addSubview(intelBarBackground)
         intelBarBackground.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 7).isActive = true
@@ -87,10 +87,10 @@ class PlayerTableCell: UITableViewCell {
         realName.text = player.realName
         
         if (player.intel == 1.0) {
-            hackerName.text = player.hackerName
+            codeName.text = player.codeName
         }
         else {
-            hackerName.text = ""
+            codeName.text = ""
         }
         
         setDefaultBackgroundColor()

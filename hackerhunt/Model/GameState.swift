@@ -57,13 +57,13 @@ class GameState {
     }
     
     func insertTestData() {
-        self.player = Player(realName: "Louis", hackerName: "King", id: 0)
+        self.player = Player(realName: "Louis", codeName: "King", id: 0)
         let newPlayers = [
-            Player(realName: "Tilly", hackerName: "Matilda", id: 1),
-            Player(realName: "Tom", hackerName: "Brickhead", id: 2),
-            Player(realName: "Jack", hackerName: "JackedJones", id: 3),
-            Player(realName: "David", hackerName: "Weab", id: 4),
-            Player(realName: "Nuha", hackerName: "Nunu", id: 5)
+            Player(realName: "Tilly", codeName: "Matilda", id: 1),
+            Player(realName: "Tom", codeName: "Brickhead", id: 2),
+            Player(realName: "Jack", codeName: "JackedJones", id: 3),
+            Player(realName: "David", codeName: "Weab", id: 4),
+            Player(realName: "Nuha", codeName: "Nunu", id: 5)
         ]
         newPlayers[0].nearby = true
         newPlayers[4].nearby = true
@@ -165,11 +165,11 @@ class GameState {
     func initialisePlayerList(allPlayers: [[String: Any]]) {
         // add players but yourself to allPlayers
         for player in allPlayers {
-            let hackerName: String = player["hacker_name"] as! String
-            if (hackerName != self.player!.hackerName) {
+            let codeName: String = player["code_name"] as! String
+            if (codeName != self.player!.codeName) {
                 let realName: String = player["real_name"] as! String
                 let id: Int = player["id"] as! Int
-                let player: Player = Player(realName: realName, hackerName: hackerName, id: id)
+                let player: Player = Player(realName: realName, codeName: codeName, id: id)
                 if (ServerUtils.testing) {
                     player.intel = 0.6
                 }

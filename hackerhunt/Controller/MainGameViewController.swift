@@ -281,7 +281,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     DispatchQueue.main.async {
                         self.gameState.currentTarget = self.gameState.getPlayerById(newTarget)
                         
-                        self.targetName.text = self.gameState.currentTarget?.hackerName
+                        self.targetName.text = self.gameState.currentTarget?.codeName
                     }
                     
                 } catch {}
@@ -447,7 +447,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             return
         }
         // attempt to take down wrong person
-        if (self.gameState.allPlayers[target].hackerName != self.gameState.currentTarget!.hackerName) {
+        if (self.gameState.allPlayers[target].codeName != self.gameState.currentTarget!.codeName) {
             DispatchQueue.main.async {
                 self.gameState.unhideAll()
                 self.playerTableView.reloadData()

@@ -8,14 +8,14 @@
 
 class Player {
     
-    init(realName: String, hackerName: String, id: Int) {
+    init(realName: String, codeName: String, id: Int) {
         self.realName = realName
-        self.hackerName = hackerName
+        self.codeName = codeName
         self.id = id
     }
     
     var realName: String
-    var hackerName: String
+    var codeName: String
     var id: Int
     
     var hide: Bool = false
@@ -25,7 +25,7 @@ class Player {
     
     
     func copy() -> Player {
-        let copy = Player(realName: self.realName, hackerName: self.hackerName, id: self.id)
+        let copy = Player(realName: self.realName, codeName: self.codeName, id: self.id)
         copy.nearby = self.nearby
         copy.intel = self.intel
         copy.hide = self.hide
