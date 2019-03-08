@@ -169,7 +169,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 guard let httpResponse = response as? HTTPURLResponse else { return }
                 
                 let statusCode: Int = httpResponse.statusCode
-                
                 if (statusCode == 200) {
                     
                     guard let data = data else { return }
@@ -178,11 +177,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
                         
                         guard let bodyDict = bodyJson as? [String: Any] else { return }
-                        
                         // TODO: tidy this away
-                        guard let takenDown: Int = bodyDict["taken_down"] as? Int else { return }
+                        guard let takenDown: Int = bodyDict["exposed"] as? Int else { return }
                         guard let nearbyPlayers: [Int] = bodyDict["nearby_players"] as? [Int] else { return }
-                        guard let points: Int = bodyDict["points"] as? Int else { return }
+                        guard let points: Int = bodyDict["reputation"] as? Int else { return }
                         guard let requestNewTarget: Int = bodyDict["req_new_target"] as? Int else { return }
                         guard let position: Int = bodyDict["position"] as? Int else { return }
                         guard let gameOver: Int = bodyDict["game_over"] as? Int else { return }
@@ -232,7 +230,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     func setCurrentPoints(_ points: Int) {
         gameState.points = points
         DispatchQueue.main.async {
-            self.pointsValue.text = String(self.gameState.points)
+            self.pointsValue.text = String(self.gameState.points) + " rep /"
         }
     }
     
@@ -249,7 +247,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     func handlePosition(_ position: Int) {
         gameState.position = position
         DispatchQueue.main.async {
-            self.positionValue.text = String(self.gameState.position)
+            self.positionValue.text = "#" + String(self.gameState.position) + " / "
         }
     }
     
@@ -281,7 +279,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     DispatchQueue.main.async {
                         self.gameState.currentTarget = self.gameState.getPlayerById(newTarget)
                         
-                        self.targetName.text = self.gameState.currentTarget?.codeName
+//                        self.targetName.text = self.gameState.currentTarget?.codeName
                     }
                     
                 } catch {}
@@ -605,7 +603,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     @objc func updateGameTimer() {
         let timeRemaining = self.gameState.endTime! - Int(now())
         if (timeRemaining >= 0) {
-            countdownValue.text = prettyTimeFrom(seconds: timeRemaining)
+//            countdownValue.text = prettyTimeFrom(seconds: timeRemaining)
         }
     }
     
