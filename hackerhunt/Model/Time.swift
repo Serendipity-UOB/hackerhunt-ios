@@ -12,7 +12,7 @@ func prettyTimeFrom(seconds: Int) -> String {
     let secs = seconds % 60
     let mins = (seconds / 60) % 60
     
-    return NSString(format: "%0.2d:%0.2d",mins,secs) as String
+    return NSString(format: "%0.1d:%0.2d",mins,secs) as String
 }
 
 func now() -> Double {

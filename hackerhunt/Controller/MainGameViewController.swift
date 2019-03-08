@@ -603,7 +603,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     @objc func updateGameTimer() {
         let timeRemaining = self.gameState.endTime! - Int(now())
         if (timeRemaining >= 0) {
-//            countdownValue.text = prettyTimeFrom(seconds: timeRemaining)
+            countdownValue.text = prettyTimeFrom(seconds: timeRemaining)
         }
     }
     
