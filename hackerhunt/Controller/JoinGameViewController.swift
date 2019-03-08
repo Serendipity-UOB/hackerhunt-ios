@@ -18,12 +18,25 @@ class JoinGameViewController: UIViewController {
     var gameStartTime: Double = -1
     var gameJoined = false
     
+    @IBOutlet weak var timeRemainingTitleLabel: UILabel!
+    @IBOutlet weak var playerCountTitleLabel: UILabel!
     @IBOutlet weak var welcomeLabel: UILabel!
     @IBOutlet weak var playerCountLabel: UILabel!
     @IBOutlet weak var timeRemainingLabel: UILabel!
     @IBOutlet weak var joinButton: UIButton!
     @IBOutlet weak var joinSuccessLabel: UILabel!
     @IBOutlet weak var globeGif: UIImageView!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let modelName = UIDevice.modelName
+        if (modelName == "iPhone SE") {
+            playerCountTitleLabel.font = playerCountTitleLabel.font.withSize(16)
+            timeRemainingTitleLabel.font = timeRemainingTitleLabel.font.withSize(16)
+        }
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -34,6 +34,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func goButtonPressed(_ sender: Any) {
+        view.endEditing(true)
         self.inputs = [
             "real_name": realNameTextField.text!,
             "code_name": codeNameTextField.text!
@@ -122,7 +123,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     /* Override keyboard behaviour */
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder();
-        return true;
+        textField.resignFirstResponder()
+        return true
     }
 }
