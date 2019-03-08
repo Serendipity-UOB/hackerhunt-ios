@@ -279,7 +279,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     DispatchQueue.main.async {
                         self.gameState.currentTarget = self.gameState.getPlayerById(newTarget)
                         
-//                        self.targetName.text = self.gameState.currentTarget?.codeName
+                        self.targetName.text = self.gameState.currentTarget?.codeName
                     }
                     
                 } catch {}
