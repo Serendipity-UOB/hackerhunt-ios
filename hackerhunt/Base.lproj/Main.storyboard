@@ -230,43 +230,43 @@
                                 <rect key="frame" x="16" y="349" width="343" height="285"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Welcome, agent Jack Jones." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U6x-My-2Hq">
-                                <rect key="frame" x="79.5" y="389" width="216" height="23"/>
+                                <rect key="frame" x="79.5" y="391.5" width="216" height="23"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="20"/>
                                 <color key="textColor" red="0.71533477310000004" green="0.9165197611" blue="0.99102431540000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Players in game:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pb-Gg-qjC">
-                                <rect key="frame" x="40.5" y="432" width="117" height="20.5"/>
+                                <rect key="frame" x="54" y="449" width="117" height="21"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="18"/>
                                 <color key="textColor" red="0.71533477310000004" green="0.9165197611" blue="0.99102431540000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Time to next game:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pmr-bF-I0k">
-                                <rect key="frame" x="197.5" y="432" width="136" height="20.5"/>
+                                <rect key="frame" x="194.5" y="449" width="136" height="21"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="18"/>
                                 <color key="textColor" red="0.71533477310000004" green="0.9165197611" blue="0.99102431540000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGV-dv-Db2">
-                                <rect key="frame" x="40.5" y="458.5" width="117" height="56.5"/>
+                                <rect key="frame" x="54" y="478" width="117" height="56.5"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="50"/>
                                 <color key="textColor" red="0.71533477310000004" green="0.9165197611" blue="0.99102431540000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4:32" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsd-kS-Bsr">
-                                <rect key="frame" x="197.5" y="458.5" width="136" height="56.5"/>
+                                <rect key="frame" x="194.5" y="478" width="136" height="56.5"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="50"/>
                                 <color key="textColor" red="0.71533477310000004" green="0.9165197611" blue="0.99102431540000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game joined" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yjn-PT-gLe">
-                                <rect key="frame" x="134" y="544" width="107" height="25"/>
+                                <rect key="frame" x="134" y="567.5" width="107" height="25"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="22"/>
                                 <color key="textColor" red="0.71533477310000004" green="0.9165197611" blue="0.99102431540000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lY1-js-gfQ">
-                                <rect key="frame" x="84.5" y="533.5" width="206" height="45.5"/>
+                                <rect key="frame" x="84.5" y="557" width="206" height="46"/>
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="lY1-js-gfQ" secondAttribute="width" multiplier="10:45" id="Uht-op-dsz"/>
                                 </constraints>
@@ -289,7 +289,6 @@
                         <constraints>
                             <constraint firstItem="O1E-AV-t5k" firstAttribute="trailing" secondItem="Uno-PS-GEs" secondAttribute="trailing" constant="16" id="5CN-9x-3gs"/>
                             <constraint firstItem="lY1-js-gfQ" firstAttribute="centerX" secondItem="gqb-cd-VqH" secondAttribute="centerX" id="7zu-3f-Y4h"/>
-                            <constraint firstItem="Pmr-bF-I0k" firstAttribute="leading" secondItem="gqb-cd-VqH" secondAttribute="centerX" constant="10" id="A7I-zd-uOJ"/>
                             <constraint firstItem="7pb-Gg-qjC" firstAttribute="top" secondItem="Pmr-bF-I0k" secondAttribute="top" id="DDm-8V-dJP"/>
                             <constraint firstItem="O1E-AV-t5k" firstAttribute="bottom" secondItem="Uno-PS-GEs" secondAttribute="bottom" constant="33" id="DZq-rx-jJ3"/>
                             <constraint firstItem="Yjn-PT-gLe" firstAttribute="centerX" secondItem="gqb-cd-VqH" secondAttribute="centerX" id="EPv-18-OIB"/>
@@ -299,18 +298,19 @@
                             <constraint firstItem="HGV-dv-Db2" firstAttribute="height" secondItem="Vsd-kS-Bsr" secondAttribute="height" id="O8H-8s-L13"/>
                             <constraint firstItem="Vsd-kS-Bsr" firstAttribute="width" secondItem="Pmr-bF-I0k" secondAttribute="width" id="P8P-I0-aLO"/>
                             <constraint firstItem="Uno-PS-GEs" firstAttribute="leading" secondItem="O1E-AV-t5k" secondAttribute="leading" constant="16" id="PhO-WG-00q"/>
-                            <constraint firstItem="lY1-js-gfQ" firstAttribute="top" secondItem="HGV-dv-Db2" secondAttribute="bottom" constant="18.5" id="PlI-y3-UeL"/>
                             <constraint firstItem="Yjn-PT-gLe" firstAttribute="centerY" secondItem="lY1-js-gfQ" secondAttribute="centerY" id="SPK-WA-WID"/>
                             <constraint firstItem="HGV-dv-Db2" firstAttribute="width" secondItem="7pb-Gg-qjC" secondAttribute="width" id="V65-fo-1wm"/>
-                            <constraint firstItem="Vsd-kS-Bsr" firstAttribute="top" secondItem="Pmr-bF-I0k" secondAttribute="bottom" constant="6" id="VJf-0S-lKP"/>
+                            <constraint firstItem="lY1-js-gfQ" firstAttribute="centerY" secondItem="Uno-PS-GEs" secondAttribute="centerY" multiplier="1.18" id="Vei-od-bRN"/>
                             <constraint firstItem="U6x-My-2Hq" firstAttribute="centerX" secondItem="O1E-AV-t5k" secondAttribute="centerX" id="XvL-2U-Ele"/>
+                            <constraint firstItem="Uno-PS-GEs" firstAttribute="centerY" secondItem="U6x-My-2Hq" secondAttribute="centerY" multiplier="1.22" id="aeo-OQ-QDA"/>
+                            <constraint firstItem="Uno-PS-GEs" firstAttribute="centerY" secondItem="7pb-Gg-qjC" secondAttribute="centerY" multiplier="1.07" id="bCc-9b-qP9"/>
+                            <constraint firstItem="HGV-dv-Db2" firstAttribute="centerY" secondItem="Uno-PS-GEs" secondAttribute="centerY" multiplier="1.03" id="cJ6-z6-Jpz"/>
+                            <constraint firstItem="Pmr-bF-I0k" firstAttribute="centerX" secondItem="Uno-PS-GEs" secondAttribute="centerX" multiplier="1.4" id="h6O-Mp-3Pq"/>
                             <constraint firstItem="HGV-dv-Db2" firstAttribute="top" secondItem="Vsd-kS-Bsr" secondAttribute="top" id="iLm-f5-5mc"/>
                             <constraint firstItem="HGV-dv-Db2" firstAttribute="centerX" secondItem="7pb-Gg-qjC" secondAttribute="centerX" id="iNi-WO-Vhe"/>
-                            <constraint firstItem="7pb-Gg-qjC" firstAttribute="trailing" secondItem="Pmr-bF-I0k" secondAttribute="leading" constant="-40" id="iyk-N8-HQt"/>
                             <constraint firstItem="p8p-0h-MNx" firstAttribute="width" secondItem="p8p-0h-MNx" secondAttribute="height" multiplier="1:1" id="l4n-Wk-7Y7"/>
-                            <constraint firstItem="U6x-My-2Hq" firstAttribute="top" secondItem="Uno-PS-GEs" secondAttribute="top" constant="40" id="nED-Qr-KFr"/>
                             <constraint firstItem="p8p-0h-MNx" firstAttribute="top" secondItem="O1E-AV-t5k" secondAttribute="top" constant="8" id="rHr-aq-lMD"/>
-                            <constraint firstItem="Pmr-bF-I0k" firstAttribute="top" secondItem="U6x-My-2Hq" secondAttribute="bottom" constant="20" id="rXR-eH-Det"/>
+                            <constraint firstItem="7pb-Gg-qjC" firstAttribute="centerX" secondItem="Uno-PS-GEs" secondAttribute="centerX" multiplier="0.6" id="rng-T5-bLJ"/>
                             <constraint firstItem="Uno-PS-GEs" firstAttribute="top" secondItem="p8p-0h-MNx" secondAttribute="bottom" constant="24" id="ufK-cC-Lfy"/>
                             <constraint firstItem="Vsd-kS-Bsr" firstAttribute="centerX" secondItem="Pmr-bF-I0k" secondAttribute="centerX" id="vHG-Xt-jlZ"/>
                         </constraints>
@@ -562,14 +562,14 @@
             <objects>
                 <viewController storyboardIdentifier="terminalViewController" id="GIJ-Iw-d8z" customClass="TerminalViewController" customModule="hackerhunt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="65L-fX-r63">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qt7-zM-83u">
-                                <rect key="frame" x="79" y="223.5" width="217" height="220"/>
+                                <rect key="frame" x="79" y="296" width="217" height="220"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Sample text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="AvH-m2-7dS">
-                                        <rect key="frame" x="12.5" y="15" width="192" height="160"/>
+                                        <rect key="frame" x="12.666666666666671" y="15" width="192" height="160"/>
                                         <gestureRecognizers/>
                                         <color key="textColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="15"/>
@@ -627,9 +627,9 @@
     <resources>
         <image name="background_grid" width="26" height="26"/>
         <image name="fancy_popup" width="128" height="115"/>
-        <image name="start-button" width="57.5" height="39.5"/>
-        <image name="target_status_bar_border" width="57" height="39.5"/>
-        <image name="time_status_bar_border" width="57" height="39.5"/>
+        <image name="start-button" width="57" height="39"/>
+        <image name="target_status_bar_border" width="57" height="39"/>
+        <image name="time_status_bar_border" width="57" height="39"/>
         <image name="title_screen" width="317" height="309"/>
         <image name="valor" width="920" height="911"/>
     </resources>
