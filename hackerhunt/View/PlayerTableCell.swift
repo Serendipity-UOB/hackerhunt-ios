@@ -12,7 +12,11 @@ class PlayerTableCell: UITableViewCell {
     
     var player: Player = Player(realName: "test", codeName: "test", id: -1)
     
-    var constraint: NSLayoutConstraint?
+    var backgroundImage: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "player_card"))
+        imageView.contentMode = UIView.ContentMode.scaleAspectFill
+        return imageView
+    }()
     
     var realName: UITextView = {
         let textView = UITextView()
@@ -20,10 +24,11 @@ class PlayerTableCell: UITableViewCell {
         textView.isUserInteractionEnabled = false
         textView.isScrollEnabled = false
         textView.backgroundColor = UIColor.clear
-        textView.font = UIFont(name: "Courier", size: 14)
+        textView.font = UIFont(name: "ShareTech-Regular", size: 14)
+        textView.textColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0)
         return textView
     }()
-    
+
     var codeName: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -32,60 +37,51 @@ class PlayerTableCell: UITableViewCell {
         textView.backgroundColor = UIColor.clear
         textView.textColor = UIColor(red:0.21, green:0.11, blue:0.46, alpha:1.0)
         textView.textAlignment = .right
-        textView.font = UIFont(name: "Courier", size: 14)
+        textView.font = UIFont(name: "ShareTech-Regular", size: 14)
         return textView
     }()
     
-    var intelBarBackground: UIView = {
-        let uiView = UIView()
-        uiView.translatesAutoresizingMaskIntoConstraints = false
-        uiView.backgroundColor = UIColor.white
-        return uiView
-    }()
-    
-    var intelBarForeground: UIView = {
-        let uiView = UIView()
-        uiView.translatesAutoresizingMaskIntoConstraints = false
-        uiView.backgroundColor = UIColor(red:0.42, green:0.66, blue:0.31, alpha:1.0)
-        return uiView
+    var evidenceCircle: CAShapeLayer = {
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.strokeColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0).cgColor
+        shapeLayer.lineWidth = 2
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        return shapeLayer
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.selectionStyle = .none // remove silly background
+        self.backgroundColor = UIColor.clear
+        self.selectionStyle = .none
+        
+        self.addSubview(backgroundImage)
+        backgroundImage.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        backgroundImage.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        backgroundImage.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        backgroundImage.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
         self.addSubview(realName)
         realName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5).isActive = true
         realName.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        realName.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        realName.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5).isActive = true
         realName.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
-        
+
         self.addSubview(codeName)
-        codeName.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5).isActive = true
-        codeName.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        codeName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5).isActive = true
         codeName.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        realName.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5).isActive = true
         codeName.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
         
-        self.addSubview(intelBarBackground)
-        intelBarBackground.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 7).isActive = true
-        intelBarBackground.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -7).isActive = true
-        intelBarBackground.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -7).isActive = true
-        intelBarBackground.topAnchor.constraint(equalTo: self.bottomAnchor, constant: -17).isActive = true
-        
-        self.addSubview(intelBarForeground)
-        intelBarForeground.setNeedsLayout()
-        intelBarForeground.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 7).isActive = true
-        intelBarForeground.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -7).isActive = true
-        intelBarForeground.topAnchor.constraint(equalTo: self.bottomAnchor, constant: -17).isActive = true
+        self.layer.addSublayer(evidenceCircle)
     }
     
     // anything dependent on the player object must be executed here
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         realName.text = player.realName
-        
+
         if (player.intel == 1.0) {
             codeName.text = player.codeName
         }
@@ -95,17 +91,17 @@ class PlayerTableCell: UITableViewCell {
         
         setDefaultBackgroundColor()
         
-        if (constraint != nil) {
-            NSLayoutConstraint.deactivate([constraint!])
-        }
-        
-        let width = NSLayoutConstraint(item: self.intelBarForeground, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.intelBarBackground, attribute: NSLayoutConstraint.Attribute.width, multiplier: CGFloat(player.intel), constant: 1)
-        
-        NSLayoutConstraint.activate([width])
-        
-        constraint = width
+        drawEvidenceBar()
     }
     
+    func drawEvidenceBar() {
+        let center = self.center
+        let startAngle = -0.5 * CGFloat.pi
+        let endAngle = 2 * CGFloat.pi * CGFloat(player.intel) - 0.5 * CGFloat.pi
+        let circularPath = UIBezierPath(arcCenter: center, radius: 10, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+        self.evidenceCircle.path = circularPath.cgPath
+    }
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if (selected) {
@@ -115,17 +111,19 @@ class PlayerTableCell: UITableViewCell {
         }
     }
 
-    
+
     func setDefaultBackgroundColor() {
         if (player.nearby) {
-            self.backgroundColor = UIColor(red:0.57, green:0.57, blue:0.80, alpha:1.0) // #9191CD
+            backgroundImage.image = UIImage(named: "player_card")
         }
         else if (player.hide) {
             self.alpha = 0.25
         }
         else {
-            self.backgroundColor = UIColor(red:0.37, green:0.37, blue:0.53, alpha:1.0) // #5E5E86
+            backgroundImage.image = UIImage(named: "player_card_far")
         }
+//        backgroundImage.bounds = self.bounds
+//        backgroundImage.frame = self.frame
     }
     
     required init?(coder aDecoder: NSCoder) {
