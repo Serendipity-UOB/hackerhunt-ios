@@ -10,31 +10,31 @@ import UIKit
 
 class TerminalViewController: UIViewController {
     
-    @IBOutlet weak var terminalSubView: UIView!
-    @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var tapToCloseLbl: UITextView!
+    @IBOutlet weak var alertBackgroundImage: UIImageView!
+    @IBOutlet weak var alertTitleLabel: UILabel!
+    @IBOutlet weak var missionDetails: UITextView!
     
     var message: String = "default string"
+    var titleMessage: String = "default title"
     var homeBeacon = "A"
     var isShowing = false
     var tapToClose: Bool = true
     
+    var gameStartRatio: CGFloat = 3.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        missionDetails.isUserInteractionEnabled = false
         
-        terminalSubView.isUserInteractionEnabled = false
-        textView.isUserInteractionEnabled = false
-        tapToCloseLbl.isUserInteractionEnabled = false
-        
-        tapToCloseLbl.alpha = (tapToClose) ? 1 : 0
-        textView.text = self.message
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.alertBackgroundImage.image = UIImage(named: "neutral_full_pop_up")
+        self.setMessage(gameStart: "")
+        self.alertTitleLabel.text = self.titleMessage
+        self.missionDetails.text = self.message
         
-        tapToCloseLbl.alpha = (tapToClose) ? 1 : 0
-        textView.text = self.message
     }
     
     @IBAction func tapToClose(_ sender: UITapGestureRecognizer) {
@@ -47,9 +47,9 @@ class TerminalViewController: UIViewController {
     
     func setTapToClose(_ tapToClose: Bool) {
         self.tapToClose = tapToClose
-        if let tapToCloseLbl = tapToCloseLbl {
-            tapToCloseLbl.alpha = (tapToClose) ? 1 : 0
-        }
+//        if let tapToCloseLbl = tapToCloseLbl {
+//            tapToCloseLbl.alpha = (tapToClose) ? 1 : 0
+//        }
     }
     
     func setHomeBeacon(homeBeaconName: String) {
@@ -65,7 +65,8 @@ class TerminalViewController: UIViewController {
     
     func setMessage(gameStart: Any, tapToClose: Bool = false) {
         self.setTapToClose(tapToClose)
-        self.message = "Incoming message...\n\nGo to beacon \"\(homeBeacon)\" to receive your first target!\n\n- Anon"
+        self.titleMessage = "GAME START"
+        self.message = "Welcome, Agent. \nGo to game zone \(homeBeacon) for your first target."
     }
     
     func setMessage(requestNewTarget: Any) {
@@ -105,4 +106,13 @@ class TerminalViewController: UIViewController {
             }
         });
     }
+}
+
+extension NSLayoutConstraint {
+    func constraintWithMultiplier(_ multiplier: CGFloat) -> NSLayoutConstraint {
+        return NSLayoutConstraint(item: self.firstItem!, attribute: self.firstAttribute, relatedBy: self.relation, toItem: self.secondItem, attribute: self.secondAttribute, multiplier: multiplier, constant: self.constant)
+    }
+    //        let constraint = self.alertBackgroundImageRatio.constraintWithMultiplier(gameStartRatio)
+    //        self.alertBackgroundImage.removeConstraint(alertBackgroundImageRatio)
+    //        self.alertBackgroundImage.addConstraint(constraint)
 }
