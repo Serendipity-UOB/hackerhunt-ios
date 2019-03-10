@@ -72,12 +72,10 @@ class JoinGameViewController: UIViewController {
                     let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
-                    
-                    guard let beaconName: String = bodyDict["home_beacon_name"] as? String else { return }
-                    guard let beaconMajor: Int = bodyDict["home_beacon_major"] as? Int else { return }
+                    guard let homeZoneName: String = bodyDict["home_zone_name"] as? String else { return }
                     
                     DispatchQueue.main.async {
-                        self.gameState.homeBeacon = HomeBeacon(name: beaconName, major: beaconMajor)
+                        self.gameState.homeBeacon = homeZoneName
                         self.gameJoined = true
                         self.hideJoinGameButton()
                     }

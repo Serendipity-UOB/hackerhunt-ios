@@ -52,7 +52,7 @@ class PlayerTableCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = UIColor.white
         self.selectionStyle = .none
         
         self.addSubview(backgroundImage)
@@ -60,6 +60,9 @@ class PlayerTableCell: UITableViewCell {
         backgroundImage.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         backgroundImage.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         backgroundImage.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        
+        backgroundImage.frame.size.width = UIScreen.main.bounds.width - 20
+        backgroundImage.frame.size.height = 45
         
         self.addSubview(realName)
         realName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5).isActive = true
@@ -122,8 +125,6 @@ class PlayerTableCell: UITableViewCell {
         else {
             backgroundImage.image = UIImage(named: "player_card_far")
         }
-//        backgroundImage.bounds = self.bounds
-//        backgroundImage.frame = self.frame
     }
     
     required init?(coder aDecoder: NSCoder) {

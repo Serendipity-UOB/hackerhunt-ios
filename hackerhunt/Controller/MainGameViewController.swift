@@ -51,7 +51,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func letTheChallengeBegin() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-            self.terminalVC.setHomeBeacon(homeBeaconName: self.gameState.homeBeacon!.name)
+            self.terminalVC.setHomeBeacon(homeBeaconName: self.gameState.homeBeacon!)
             self.terminalVC.setMessage(gameStart: true, tapToClose: ServerUtils.testing)
             self.showTerminal()
             self.startCheckingForHomeBeacon(withCallback: self.getStartInfo)
@@ -110,7 +110,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func getStartInfo() -> Void {
         print("Getting start info\n")
-        let request = ServerUtils.get(from: "/startInfo")
+        let data: [String:Any] = [
+            "player_id": self.gameState.player!.id as Int
+        ]
+        let request = ServerUtils.post(to: "/startInfo", with: data)
+        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse else { return }
             
@@ -561,7 +565,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat(5.0)
+        return CGFloat(10.0)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
