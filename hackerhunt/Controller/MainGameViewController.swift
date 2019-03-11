@@ -182,7 +182,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         
                         guard let bodyDict = bodyJson as? [String: Any] else { return }
                         // TODO: tidy this away
-                        guard let takenDown: Int = bodyDict["exposed"] as? Int else { return }
+                        guard let takenDown: Int = bodyDict["exposed_by"] as? Int else { return }
                         guard let nearbyPlayers: [Int] = bodyDict["nearby_players"] as? [Int] else { return }
                         guard let points: Int = bodyDict["reputation"] as? Int else { return }
                         guard let requestNewTarget: Int = bodyDict["req_new_target"] as? Int else { return }
@@ -194,7 +194,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.handleRequestNewTarget(requestNewTarget)
                         self.handlePosition(position)
 //                        self.updatesTimer.invalidate()
-                        
                         if (gameOver == 1) {
                             self.gameOver()
                         }
@@ -211,10 +210,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func handleTakenDown(_ takenDown: Int) {
-        if (takenDown == 1) {
+        if (takenDown != 0) {
             self.gameState.deleteHalfOfIntel()
             DispatchQueue.main.async {
-                self.terminalVC.setMessage(takenDown: true)
+                self.terminalVC.setMessage(takenDown: true, exposedBy: self.gameState.getPlayerById(takenDown)!.realName)
                 self.showTerminal()
                 self.startCheckingForHomeBeacon(withCallback: { return })
             }
@@ -485,16 +484,25 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             print("taken down status code " + String(statusCode))
             
             if (statusCode == 200) {
-                DispatchQueue.main.async {
-                    self.terminalVC.setMessage(message: "TAKEDOWN_SUCCESS\n\nReturn to Beacon \"\(self.terminalVC.homeBeacon)\" for a new target", tapToClose: false)
-                    self.terminalVC.viewWillAppear(false)
-                    self.playerTableView.reloadData()
-                    self.startCheckingForHomeBeacon(withCallback: self.requestNewTarget)
+                
+                guard let responseData = data else { return }
+                do {
                     
-                    self.gameState.unhideAll()
-                    self.takedown = false
-                    self.contractTakeDownButton()
-                }
+                    let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
+                    
+                    guard let bodyDict = bodyJson as? [String: Any] else { return }
+                    guard let reputation = bodyDict["reputation"] as? Int else { return }
+
+                    DispatchQueue.main.async {
+                        self.terminalVC.setMessage(successfulExpose: true, reputation: reputation)
+                        self.showTerminal()
+                        self.playerTableView.reloadData()
+                        self.startCheckingForHomeBeacon(withCallback: self.requestNewTarget)
+                        self.gameState.unhideAll()
+                        self.takedown = false
+                        self.contractTakeDownButton()
+                    }
+                } catch {}
             } else {
                 print("take down failed\n\(String(describing: response))")
             }
