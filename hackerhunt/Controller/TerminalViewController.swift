@@ -25,7 +25,7 @@ class TerminalViewController: UIViewController {
     var newMissionDetailsRatio: CGFloat = 1.0
     var titleColour: UIColor!
     
-    var ratios: [String: CGFloat] = ["game_start":3.0, "exposed":1.8, "request_target":1.8]
+    var ratios: [String: CGFloat] = ["game_start":3.0, "exposed":1.5, "request_target":1.8, "expose_success":2.0]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,12 +80,20 @@ class TerminalViewController: UIViewController {
         self.message = "Incoming message...\n\nGood work! Return your equipment to the stand to collect your reward.\n\n- Anon"
     }
     
-    func setMessage(takenDown: Any) {
+    func setMessage(takenDown: Any, exposedBy: String) {
         self.newMissionDetailsRatio = ratios["exposed"]!
         self.titleColour = UIColor(red:0.83, green:0.11, blue:0.02, alpha:1.0)
         self.titleMessage = "SECURITY BREACH"
         self.backgroundImage = UIImage(named: "bad_full_pop_up")
-        self.message = "Your mission has been Exposed by Louis, you have lost 50% of your gathered Evidence.\n\nReturn to \(homeBeacon), Agent."
+        self.message = "Your mission has been Exposed by \(exposedBy), you have lost 50% of your gathered Evidence.\n\nReturn to \(homeBeacon), Agent."
+    }
+    
+    func setMessage(successfulExpose: Any, reputation: Int) {
+        self.newMissionDetailsRatio = ratios["expose_success"]!
+        self.titleColour = UIColor(red:0.28, green:0.75, blue:0.18, alpha:1.0)
+        self.titleMessage = "EXPOSE SUCCESS"
+        self.backgroundImage = UIImage(named: "good_full_pop_up")
+        self.message = "Good work, agent. Return to \(homeBeacon) for your next target.\n\nReward: \(reputation) reputation"
     }
     
     /* animations */
