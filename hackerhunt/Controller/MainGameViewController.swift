@@ -17,10 +17,12 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     var countdownTimer = Timer()
     var exchangeTimer = Timer()
     var homeBeaconTimer = Timer()
+    var missionTimer = Timer()
     
     var exchange: Bool = false
     var takedown: Bool = false
     var exchangeMessage: Bool = false
+    var onMission: Bool = false
     
     @IBOutlet weak var pointsValue: UILabel!
     @IBOutlet weak var positionValue: UILabel!
@@ -212,11 +214,16 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                             print("game_over missing")
                             return
                         }
+                        guard let missionDescription: String = bodyDict["mission_description"] as? String else {
+                            print("mission_description missing")
+                            return
+                        }
                         self.handleTakenDown(takenDown)
                         self.handleNearbyPlayers(nearbyPlayers)
                         self.setCurrentPoints(points)
                         self.handleRequestNewTarget(requestNewTarget)
                         self.handlePosition(position)
+                        self.handleMission(missionDescription)
 //                        self.updatesTimer.invalidate()
                         if (gameOver == 1) {
                             self.gameOver()
@@ -230,6 +237,14 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     print("/playerUpdate failed")
                 }
             }.resume()
+        }
+    }
+    
+    func handleMission(_ missionDescription: String) {
+        if (missionDescription != "" && !onMission) {
+            self.onMission = true
+            self.terminalVC.setMessage(newMission: missionDescription)
+            self.showTerminal()
         }
     }
     
@@ -277,6 +292,47 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         DispatchQueue.main.async {
             self.positionValue.text = "#" + String(self.gameState.position) + " / "
         }
+    }
+    
+    // MARK: mission
+    func startMissionUpdates() {
+        self.missionTimer.invalidate()
+        missionTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainGameViewController.missionUpdates), userInfo: nil, repeats: true)
+    }
+    
+    @objc func missionUpdates() {
+        let data: [String:Int] = [
+            "player_id": (self.gameState.player?.id)!
+        ]
+        
+        let request = ServerUtils.post(to: "/missionUpdate", with: data)
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            guard let httpResponse = response as? HTTPURLResponse else { return }
+            
+            let statusCode: Int = httpResponse.statusCode
+            
+            switch statusCode {
+            case 200:
+                guard let responsedata = data else { return }
+                do {
+                    let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
+                    
+                    guard let bodyDict = bodyJson as? [String: Any] else { return }
+                    guard let evidence = bodyDict["evidence"] as? [Int: Int] else { return }
+                    
+                } catch {}
+//            case 204:
+//            case 206:
+//            case 400:
+            default:
+                print("mission updated received clienterror")
+                
+            }
+            
+            }.resume()
+        
     }
     
     // MARK: newTarget
