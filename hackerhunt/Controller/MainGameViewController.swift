@@ -254,9 +254,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func handleMission(_ missionDescription: String) {
         if (missionDescription != "" && !onMission) {
+            DispatchQueue.main.async {
+                self.terminalVC.setMessage(newMission: missionDescription)
+                self.showTerminal()
+            }
             self.onMission = true
-            self.terminalVC.setMessage(newMission: missionDescription)
-            self.showTerminal()
         }
     }
     
