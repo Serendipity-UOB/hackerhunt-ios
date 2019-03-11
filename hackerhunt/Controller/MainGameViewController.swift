@@ -193,6 +193,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.setCurrentPoints(points)
                         self.handleRequestNewTarget(requestNewTarget)
                         self.handlePosition(position)
+//                        self.updatesTimer.invalidate()
                         
                         if (gameOver == 1) {
                             self.gameOver()
