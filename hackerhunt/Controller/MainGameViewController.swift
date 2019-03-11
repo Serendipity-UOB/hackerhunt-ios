@@ -116,6 +116,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         let data: [String:Any] = [
             "player_id": self.gameState.player!.id as Int
         ]
+        
         let request = ServerUtils.post(to: "/startInfo", with: data)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -130,9 +131,20 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
                     
-                    guard let allPlayers = bodyJson as? [String:[Any]] else { return }
-                    guard let allPlayersList = allPlayers["all_players"] as? [[String: Any]] else {
+                    guard let bodyDict = bodyJson as? [String:Any] else {
+                        print("allPlayers dict parse failed")
+                        return
+                    }
+                    
+                    guard let allPlayersString = bodyDict["all_players"] as? String else {
                         print("all_players missing")
+                        return
+                    }
+                    
+                    let allPlayersJson = try JSONSerialization.jsonObject(with: allPlayersString.data(using: .utf8)!, options: [])
+                    
+                    guard let allPlayersList = allPlayersJson as? [[String:Any]] else {
+                        print("all_players cast to list of dicts failed")
                         return
                     }
                     

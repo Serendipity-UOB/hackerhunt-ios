@@ -94,7 +94,7 @@ class PlayerTableCell: UITableViewCell {
             codeName.text = player.codeName
         }
         else {
-            codeName.text = ""
+            codeName.text = "test"
         }
         
         setDefaultBackgroundColor()
