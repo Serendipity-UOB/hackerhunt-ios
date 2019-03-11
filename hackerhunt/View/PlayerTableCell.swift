@@ -14,7 +14,7 @@ class PlayerTableCell: UITableViewCell {
     
     var backgroundImage: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "player_card"))
-        imageView.contentMode = UIView.ContentMode.scaleAspectFill
+        imageView.contentMode = UIView.ContentMode.scaleToFill
         return imageView
     }()
     
@@ -44,7 +44,15 @@ class PlayerTableCell: UITableViewCell {
     var evidenceCircle: CAShapeLayer = {
         let shapeLayer = CAShapeLayer()
         shapeLayer.strokeColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0).cgColor
-        shapeLayer.lineWidth = 2
+        shapeLayer.lineWidth = 1
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        return shapeLayer
+    }()
+    
+    var evidenceCircleBg: CAShapeLayer = {
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.strokeColor = UIColor(red:0.02, green:0.20, blue:0.31, alpha:1.0).cgColor
+        shapeLayer.lineWidth = 1
         shapeLayer.fillColor = UIColor.clear.cgColor
         return shapeLayer
     }()
@@ -52,14 +60,10 @@ class PlayerTableCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.clear
         self.selectionStyle = .none
         
         self.addSubview(backgroundImage)
-        backgroundImage.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        backgroundImage.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        backgroundImage.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        backgroundImage.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
         backgroundImage.frame.size.width = UIScreen.main.bounds.width - 20
         backgroundImage.frame.size.height = 45
@@ -76,6 +80,7 @@ class PlayerTableCell: UITableViewCell {
         realName.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5).isActive = true
         codeName.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
         
+        self.layer.addSublayer(evidenceCircleBg)
         self.layer.addSublayer(evidenceCircle)
     }
     
@@ -98,11 +103,16 @@ class PlayerTableCell: UITableViewCell {
     }
     
     func drawEvidenceBar() {
-        let center = self.center
+        let center = CGPoint(x: backgroundImage.frame.origin.x + backgroundImage.frame.size.width - 23, y: backgroundImage.frame.origin.y + backgroundImage.frame.size.height * 0.5)
+        let radius = CGFloat(14)
         let startAngle = -0.5 * CGFloat.pi
         let endAngle = 2 * CGFloat.pi * CGFloat(player.intel) - 0.5 * CGFloat.pi
-        let circularPath = UIBezierPath(arcCenter: center, radius: 10, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-        self.evidenceCircle.path = circularPath.cgPath
+        
+        // draw background
+        self.evidenceCircleBg.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: endAngle, endAngle: startAngle, clockwise: true).cgPath
+        
+        // draw foreground
+        self.evidenceCircle.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true).cgPath
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -118,12 +128,16 @@ class PlayerTableCell: UITableViewCell {
     func setDefaultBackgroundColor() {
         if (player.nearby) {
             backgroundImage.image = UIImage(named: "player_card")
+            evidenceCircle.strokeColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0).cgColor
+            evidenceCircleBg.strokeColor = UIColor(red:0.02, green:0.20, blue:0.31, alpha:1.0).cgColor
         }
         else if (player.hide) {
             self.alpha = 0.25
         }
         else {
             backgroundImage.image = UIImage(named: "player_card_far")
+            evidenceCircle.strokeColor = UIColor(red:0.69, green:0.67, blue:0.67, alpha:1.0).cgColor
+            evidenceCircleBg.strokeColor = UIColor(red:0.02, green:0.10, blue:0.17, alpha:1.0).cgColor
         }
     }
     

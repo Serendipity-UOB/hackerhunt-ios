@@ -72,7 +72,10 @@ class JoinGameViewController: UIViewController {
                     let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
-                    guard let homeZoneName: String = bodyDict["home_zone_name"] as? String else { return }
+                    guard let homeZoneName: String = bodyDict["home_zone_name"] as? String else {
+                        print("home_zone_name missing")
+                        return
+                    }
                     
                     DispatchQueue.main.async {
                         self.gameState.homeBeacon = homeZoneName
@@ -117,8 +120,14 @@ class JoinGameViewController: UIViewController {
                     let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
-                    guard let startTime: String = bodyDict["start_time"] as? String else { return }
-                    guard let numPlayers: Int = bodyDict["number_players"] as? Int else { return }
+                    guard let startTime: String = bodyDict["start_time"] as? String else {
+                        print("start_time missing")
+                        return
+                    }
+                    guard let numPlayers: Int = bodyDict["number_players"] as? Int else {
+                        print("number_players missing")
+                        return
+                    }
                     
                     let startTimeDouble : Double = timeStringToDouble(time: startTime)
                     

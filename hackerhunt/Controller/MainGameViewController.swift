@@ -89,7 +89,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
                     
                     guard let body = bodyJson as? [String:Any] else { return }
-                    guard let home = body["home"] as? Bool else { return }
+                    guard let home = body["home"] as? Bool else {
+                        print("home missing")
+                        return
+                    }
                     
                     if (home) {
                         guard let callback = self.homeBeaconTimer.userInfo as! (() -> Void)? else {
@@ -119,7 +122,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             guard let httpResponse = response as? HTTPURLResponse else { return }
             
             let statusCode: Int = httpResponse.statusCode
-            
+
             if (statusCode == 200) {
                 
                 guard let data = data else { return }
@@ -128,7 +131,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
                     
                     guard let allPlayers = bodyJson as? [String:[Any]] else { return }
-                    guard let allPlayersList = allPlayers["all_players"] as? [[String: Any]] else { return }
+                    guard let allPlayersList = allPlayers["all_players"] as? [[String: Any]] else {
+                        print("all_players missing")
+                        return
+                    }
                     
                     DispatchQueue.main.async {
                         self.gameState.initialisePlayerList(allPlayers: allPlayersList)
@@ -182,12 +188,30 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         
                         guard let bodyDict = bodyJson as? [String: Any] else { return }
                         // TODO: tidy this away
-                        guard let takenDown: Int = bodyDict["exposed_by"] as? Int else { return }
-                        guard let nearbyPlayers: [Int] = bodyDict["nearby_players"] as? [Int] else { return }
-                        guard let points: Int = bodyDict["reputation"] as? Int else { return }
-                        guard let requestNewTarget: Int = bodyDict["req_new_target"] as? Int else { return }
-                        guard let position: Int = bodyDict["position"] as? Int else { return }
-                        guard let gameOver: Int = bodyDict["game_over"] as? Int else { return }
+                        guard let takenDown: Int = bodyDict["exposed_by"] as? Int else {
+                            print("exposed_by missing")
+                            return
+                        }
+                        guard let nearbyPlayers: [Int] = bodyDict["nearby_players"] as? [Int] else {
+                            print("nearbyPlayers missing")
+                            return
+                        }
+                        guard let points: Int = bodyDict["reputation"] as? Int else {
+                            print("reputation missing")
+                            return
+                        }
+                        guard let requestNewTarget: Int = bodyDict["req_new_target"] as? Int else {
+                            print("req_new_target missing")
+                            return
+                        }
+                        guard let position: Int = bodyDict["position"] as? Int else {
+                            print("position missing")
+                            return
+                        }
+                        guard let gameOver: Int = bodyDict["game_over"] as? Int else {
+                            print("game_over missing")
+                            return
+                        }
                         self.handleTakenDown(takenDown)
                         self.handleNearbyPlayers(nearbyPlayers)
                         self.setCurrentPoints(points)
@@ -278,7 +302,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
-                    guard let newTarget = bodyDict["target_player_id"] as? Int else { return }
+                    guard let newTarget = bodyDict["target_player_id"] as? Int else {
+                        print("target_player_id missing")
+                        return
+                    }
                     
                     DispatchQueue.main.async {
                         self.gameState.currentTarget = self.gameState.getPlayerById(newTarget)
@@ -359,7 +386,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
-                    guard let secondaryId = bodyDict["secondary_id"] as? Int else { return }
+                    guard let secondaryId = bodyDict["secondary_id"] as? Int else {
+                        print("secondary_id missing")
+                        return
+                    }
                     
                     self.gameState.incrementIntelFor(playerOne: interactee, playerTwo: secondaryId)
                     self.gameState.unhideAll()
@@ -531,8 +561,12 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
                     guard let bodyDict = bodyJson as? [String:[[String: Any]]] else { return }
+                    guard let leaderboard : [[String: Any]] = bodyDict["leaderboard"] else {
+                        print("leaderboard missing")
+                        return
+                    }
                     
-                    self.gameState.assignScores(scoreList: bodyDict["leaderboard"]!)
+                    self.gameState.assignScores(scoreList: leaderboard)
                     self.goToLeaderboard()
                 } catch {}
             }
