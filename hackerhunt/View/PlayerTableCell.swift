@@ -41,6 +41,12 @@ class PlayerTableCell: UITableViewCell {
         return textView
     }()
     
+    var playerCardDivider: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "player_card_divider"))
+        imageView.contentMode = UIView.ContentMode.scaleToFill
+        return imageView
+    }()
+    
     var evidenceCircle: CAShapeLayer = {
         let shapeLayer = CAShapeLayer()
         shapeLayer.strokeColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0).cgColor
@@ -64,20 +70,24 @@ class PlayerTableCell: UITableViewCell {
         self.selectionStyle = .none
         
         self.addSubview(backgroundImage)
-        
         backgroundImage.frame.size.width = UIScreen.main.bounds.width - 20
-        backgroundImage.frame.size.height = 45
+        backgroundImage.frame.size.height = 50
+        
+        self.addSubview(playerCardDivider)
+        playerCardDivider.frame.size.width = UIScreen.main.bounds.width - 60
+        playerCardDivider.frame.size.height = 2
+        playerCardDivider.frame.origin.y = self.frame.origin.y + self.frame.size.height * 0.45
         
         self.addSubview(realName)
         realName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5).isActive = true
-        realName.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        realName.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5).isActive = true
+        realName.topAnchor.constraint(equalTo: self.topAnchor, constant: -4).isActive = true
+        realName.bottomAnchor.constraint(equalTo: self.topAnchor, constant: 20).isActive = true
         realName.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
 
         self.addSubview(codeName)
         codeName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5).isActive = true
+        codeName.topAnchor.constraint(equalTo: realName.bottomAnchor).isActive = true
         codeName.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        realName.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5).isActive = true
         codeName.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
         
         self.layer.addSublayer(evidenceCircleBg)
