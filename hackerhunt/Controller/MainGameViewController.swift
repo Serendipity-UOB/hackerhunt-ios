@@ -257,6 +257,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             DispatchQueue.main.async {
                 self.terminalVC.setMessage(newMission: missionDescription)
                 self.showTerminal()
+                self.startMissionUpdates()
             }
             self.onMission = true
         }
@@ -329,12 +330,25 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             
             switch statusCode {
             case 200:
+                self.missionTimer.invalidate()
                 guard let responsedata = data else { return }
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
-                    guard let evidence = bodyDict["evidence"] as? [Int: Int] else { return }
+                    guard let evidence = bodyDict["evidence"] as? [[String: Int]] else { return }
+                    
+                    var rewards : [String] = []
+                    for element in evidence {
+                        rewards.append((self.gameState.getPlayerById(element["player_id"]!)?.realName)!)
+                        self.gameState.incrementEvidence(player: element["player_id"]!, evidence: element["amount"]!)
+                    }
+                    DispatchQueue.main.async {
+                        self.playerTableView.reloadData()
+                        self.terminalVC.setMessage(missionSuccess: true, rewards: rewards, missionBeacon: "placeholder")
+                        self.showTerminal()
+                    }
+                    
                     
                 } catch {}
 //            case 204:

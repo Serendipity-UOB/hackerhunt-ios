@@ -23,6 +23,7 @@ class GameState {
     var position: Int = 1 // everyone starts as first?
     
     var endTime : Int?
+    var missionBeacon: String = ""
     
     init() {}
     
@@ -37,6 +38,16 @@ class GameState {
         } else {
             return 0
         }
+    }
+    
+    func incrementEvidence(player: Int, evidence: Int) {
+        for p in allPlayers {
+            if (p.id == player) {
+                p.intel = min(p.intel + Float(evidence), 100)
+                break
+            }
+        }
+        
     }
     
     func incrementIntelFor(playerOne: Int, playerTwo: Int) {

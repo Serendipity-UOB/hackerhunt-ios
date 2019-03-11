@@ -25,7 +25,7 @@ class TerminalViewController: UIViewController {
     var newMissionDetailsRatio: CGFloat = 1.0
     var titleColour: UIColor!
     
-    var ratios: [String: CGFloat] = ["game_start":3.0, "exposed":1.5, "request_target":1.8, "expose_success":2.0, "mission":1.5]
+    var ratios: [String: CGFloat] = ["game_start":3.0, "exposed":1.5, "request_target":1.8, "expose_success":2.0, "mission":2, "mission_success":3.0]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,6 +102,20 @@ class TerminalViewController: UIViewController {
         self.titleMessage = "MISSION UPDATE"
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
         self.message = newMission
+    }
+    
+    func setMessage(missionSuccess: Any, rewards: [String], missionBeacon: String) {
+        self.newMissionDetailsRatio = ratios["mission_success"]!
+        self.titleColour = UIColor(red:0.28, green:0.75, blue:0.18, alpha:1.0)
+        self.titleMessage = "MISSION SUCCESS"
+        self.backgroundImage = UIImage(named: "good_full_pop_up")
+        self.message = "You recovered evidence on "
+        for name in rewards {
+            self.message += (name + " and ")
+        }
+        self.message.removeLast(4)
+        self.message += "'s activities at \(missionBeacon)"
+        
     }
     
     /* animations */
