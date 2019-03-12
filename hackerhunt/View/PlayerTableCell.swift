@@ -124,8 +124,11 @@ class PlayerTableCell: UITableViewCell {
             codeName.alpha = 1
             percentagePositionConstraint.constant = -9
         }
-        else {
+        else if (player.intel >= 10.0){
             percentagePositionConstraint.constant = -12
+        }
+        else {
+            percentagePositionConstraint.constant = -15
         }
         
         setDefaultBackgroundColor()
@@ -140,7 +143,7 @@ class PlayerTableCell: UITableViewCell {
         let endAngle = 2 * CGFloat.pi * CGFloat(player.intel/100.0) - 0.5 * CGFloat.pi
         
         // draw background
-        self.evidenceCircleBg.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: endAngle, endAngle: startAngle, clockwise: true).cgPath
+        self.evidenceCircleBg.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0.0, endAngle: 2 * CGFloat.pi, clockwise: true).cgPath
         
         // draw foreground
         self.evidenceCircle.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true).cgPath
