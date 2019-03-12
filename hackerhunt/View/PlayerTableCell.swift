@@ -27,7 +27,6 @@ class PlayerTableCell: UITableViewCell {
         textView.backgroundColor = UIColor.clear
         textView.font = UIFont(name: "ShareTech-Regular", size: 16)
         textView.textColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0)
-//        textView.backgroundColor = UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7)
         textView.textContainer.lineFragmentPadding = 0
         return textView
     }()
@@ -37,10 +36,8 @@ class PlayerTableCell: UITableViewCell {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isUserInteractionEnabled = false
         textView.isScrollEnabled = false
-//        textView.backgroundColor = UIColor.clear
         textView.textColor = UIColor(red:1.0, green:1.0, blue:1.0, alpha:1.0)
         textView.font = UIFont(name: "ShareTech-Regular", size: 16)
-//        textView.backgroundColor = UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7)
         textView.alpha = 0
         textView.textContainerInset = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0)
         return textView
@@ -66,6 +63,19 @@ class PlayerTableCell: UITableViewCell {
         shapeLayer.lineWidth = 1
         shapeLayer.fillColor = UIColor.clear.cgColor
         return shapeLayer
+    }()
+    
+    var evidencePercent: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.isUserInteractionEnabled = false
+        textView.isScrollEnabled = false
+        textView.textColor = UIColor(red:1.0, green:1.0, blue:1.0, alpha:1.0)
+        textView.font = UIFont(name: "ShareTechMono-Regular", size: 15)
+        textView.backgroundColor = UIColor.clear
+        textView.alpha = 1
+        textView.textContainerInset = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0)
+        return textView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -94,6 +104,10 @@ class PlayerTableCell: UITableViewCell {
         
         self.layer.addSublayer(evidenceCircleBg)
         self.layer.addSublayer(evidenceCircle)
+        
+        self.addSubview(evidencePercent)
+        evidencePercent.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
+        evidencePercent.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -9).isActive = true
     }
     
     // anything dependent on the player object must be executed here
@@ -101,14 +115,14 @@ class PlayerTableCell: UITableViewCell {
         super.layoutSubviews()
 
         realName.text = player.realName
-        print(player.intel)
+        evidencePercent.text = String(format: "%.f%%", player.intel)
         if (player.intel == 100.0) {
             codeName.text = player.codeName
             codeName.backgroundColor = (isTarget) ? UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7) : UIColor(red:0.00, green:0.65, blue:0.93, alpha:0.54)
             codeName.alpha = 1
         }
         else {
-            codeName.text = "CookingKing"
+            
         }
         
         setDefaultBackgroundColor()
@@ -117,8 +131,8 @@ class PlayerTableCell: UITableViewCell {
     }
     
     func drawEvidenceBar() {
-        let center = CGPoint(x: backgroundImage.frame.origin.x + backgroundImage.frame.size.width - 23, y: backgroundImage.frame.origin.y + backgroundImage.frame.size.height * 0.5)
-        let radius = CGFloat(16)
+        let center = CGPoint(x: backgroundImage.frame.origin.x + backgroundImage.frame.size.width - 30, y: backgroundImage.frame.origin.y + backgroundImage.frame.size.height * 0.5)
+        let radius = CGFloat(21)
         let startAngle = -0.5 * CGFloat.pi
         let endAngle = 2 * CGFloat.pi * CGFloat(player.intel/100.0) - 0.5 * CGFloat.pi
         
