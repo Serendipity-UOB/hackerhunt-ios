@@ -236,7 +236,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.handleRequestNewTarget(requestNewTarget)
                         self.handlePosition(position)
                         self.handleMission(missionDescription)
-//                        self.updatesTimer.invalidate()
+                        self.updatesTimer.invalidate()
                         if (gameOver == 1) {
                             self.gameOver()
                         }
@@ -336,24 +336,50 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
-                    guard let evidence = bodyDict["evidence"] as? [[String: Int]] else { return }
+                    guard let evidence = bodyDict["evidence"] as? [[String: Int]] else {
+                        print("no evidence in mission success")
+                        return
+                    }
+                    guard let description = bodyDict["success_description"] as? String else {
+                        print("no description in mission success")
+                        return
+                    }
                     
-                    var rewards : [String] = []
                     for element in evidence {
-                        rewards.append((self.gameState.getPlayerById(element["player_id"]!)?.realName)!)
                         self.gameState.incrementEvidence(player: element["player_id"]!, evidence: element["amount"]!)
                     }
                     DispatchQueue.main.async {
                         self.playerTableView.reloadData()
-                        self.terminalVC.setMessage(missionSuccess: true, rewards: rewards, missionBeacon: "placeholder")
+                        self.terminalVC.setMessage(missionSuccess: true, missionString: description)
                         self.showTerminal()
                     }
                     
                     
                 } catch {}
-//            case 204:
-//            case 206:
-//            case 400:
+            case 204:
+                self.missionTimer.invalidate()
+                guard let responsedata = data else { return }
+                do {
+                    let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
+                    
+                    guard let bodyDict = bodyJson as? [String: Any] else { return }
+                    guard let description = bodyDict["failure_description"] as? String else {
+                        print("no description in mission success")
+                        return
+                    }
+
+                    DispatchQueue.main.async {
+                        self.playerTableView.reloadData()
+                        self.terminalVC.setMessage(missionFailure: true, missionString: description)
+                        self.showTerminal()
+                    }
+                    
+                    
+                } catch {}
+            case 206:
+                print("time remaining for missions not yet implemented")
+            case 400:
+                print("mission something went wrong from client")
             default:
                 print("mission updated received clienterror")
                 
