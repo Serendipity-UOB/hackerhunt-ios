@@ -16,14 +16,14 @@ class LeaderboardViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBOutlet weak var leaderboardTable: UITableView!
     
-    var terminalVC : TerminalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "terminalViewController") as! TerminalViewController
+    var alertVC : AlertViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "alertViewController") as! AlertViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeaderboardTable()
         DispatchQueue.main.async {
-            self.terminalVC.setMessage(gameOver: 1)
-            self.showTerminal()
+            self.alertVC.setMessage(gameOver: 1)
+            self.showAlert()
         }
     }
     
@@ -64,12 +64,12 @@ class LeaderboardViewController: UIViewController, UITableViewDataSource, UITabl
         return view
     }
     
-    func showTerminal() {
-        self.addChild(terminalVC)
-        self.view.addSubview(terminalVC.view)
-        terminalVC.didMove(toParent: self)
-        terminalVC.showAnimate()
-        terminalVC.isShowing = true
+    func showAlert() {
+        self.addChild(alertVC)
+        self.view.addSubview(alertVC.view)
+        alertVC.didMove(toParent: self)
+        alertVC.showAnimate()
+        alertVC.isShowing = true
     }
     
     @IBAction func exitGame() {

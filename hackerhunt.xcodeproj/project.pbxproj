@@ -19,7 +19,7 @@
 		BF1FE5682231339000017A54 /* ShareTechMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE5662231339000017A54 /* ShareTechMono-Regular.ttf */; };
 		BF1FE56B223133A600017A54 /* globe.gif in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE569223133A600017A54 /* globe.gif */; };
 		BF1FE56C223133A600017A54 /* title_screen.gif in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE56A223133A600017A54 /* title_screen.gif */; };
-		BF3ADA9B21F8D2A5003AAB71 /* TerminalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3ADA9A21F8D2A5003AAB71 /* TerminalViewController.swift */; };
+		BF3ADA9B21F8D2A5003AAB71 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3ADA9A21F8D2A5003AAB71 /* AlertViewController.swift */; };
 		BF584CC021A5A1FD00830823 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CBF21A5A1FD00830823 /* AppDelegate.swift */; };
 		BF584CC221A5A1FD00830823 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CC121A5A1FD00830823 /* StartViewController.swift */; };
 		BF584CC521A5A1FD00830823 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF584CC321A5A1FD00830823 /* Main.storyboard */; };
@@ -86,7 +86,7 @@
 		BF1FE5662231339000017A54 /* ShareTechMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ShareTechMono-Regular.ttf"; sourceTree = "<group>"; };
 		BF1FE569223133A600017A54 /* globe.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = globe.gif; sourceTree = "<group>"; };
 		BF1FE56A223133A600017A54 /* title_screen.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = title_screen.gif; sourceTree = "<group>"; };
-		BF3ADA9A21F8D2A5003AAB71 /* TerminalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalViewController.swift; sourceTree = "<group>"; };
+		BF3ADA9A21F8D2A5003AAB71 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		BF584CBC21A5A1FD00830823 /* hackerhunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hackerhunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF584CBF21A5A1FD00830823 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF584CC121A5A1FD00830823 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
@@ -234,7 +234,7 @@
 				BF584CC121A5A1FD00830823 /* StartViewController.swift */,
 				BF9A7FEE21EF883500C30261 /* RegisterViewController.swift */,
 				BF5CE1FA21F62ACE0057117A /* JoinGameViewController.swift */,
-				BF3ADA9A21F8D2A5003AAB71 /* TerminalViewController.swift */,
+				BF3ADA9A21F8D2A5003AAB71 /* AlertViewController.swift */,
 				BFFC0CD521FA12C200F71ABB /* LeaderboardViewController.swift */,
 				BE90B3112237C3460083F5DC /* MainGameController */,
 			);
@@ -416,7 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFFC0CD821FA2C1300F71ABB /* PlayerTableCell.swift in Sources */,
-				BF3ADA9B21F8D2A5003AAB71 /* TerminalViewController.swift in Sources */,
+				BF3ADA9B21F8D2A5003AAB71 /* AlertViewController.swift in Sources */,
 				BF1AE2FD21FC484A00D3F333 /* LeaderboardTableCell.swift in Sources */,
 				BE90B3152237C5680083F5DC /* MissionController.swift in Sources */,
 				BF5CE20021F659E20057117A /* BeaconListener.swift in Sources */,

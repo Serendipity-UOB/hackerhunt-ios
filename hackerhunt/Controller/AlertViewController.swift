@@ -1,5 +1,5 @@
 //
-//  TerminalViewController.swift
+//  AlertViewController.swift
 //  hackerhunt
 //
 //  Created by Louis Heath on 23/01/2019.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-class TerminalViewController: UIViewController {
+class AlertViewController: UIViewController {
     
     @IBOutlet weak var alertBackgroundImage: UIImageView!
     @IBOutlet weak var alertTitleLabel: UILabel!
-    @IBOutlet weak var missionDetails: UITextView!
-    @IBOutlet var missionDetailsRatio: NSLayoutConstraint!
+    @IBOutlet weak var alertMessage: UITextView!
+    @IBOutlet var alertSizeRatio: NSLayoutConstraint!
     @IBOutlet weak var tapLabel: UILabel!
     
     var message: String = "default string"
@@ -27,9 +27,11 @@ class TerminalViewController: UIViewController {
     
     var ratios: [String: CGFloat] = ["game_start":3.0, "exposed":1.5, "request_target":1.8, "expose_success":2.0, "mission":2, "mission_success":3.0, "mission_failure":2.5]
     
+    var titleColours: [String: UIColor] = ["neutral":UIColor(red:0.00, green:0.79, blue:0.85, alpha:1.0), "bad":UIColor(red:0.83, green:0.11, blue:0.02, alpha:1.0), "good":UIColor(red:0.28, green:0.75, blue:0.18, alpha:1.0)]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        missionDetails.isUserInteractionEnabled = false
+        alertMessage.isUserInteractionEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,9 +61,14 @@ class TerminalViewController: UIViewController {
         self.message = message
     }
     
+    func setMessage(gameOver: Any) {
+        self.setTapToClose(true)
+        self.message = "Incoming message...\n\nGood work! Return your equipment to the stand to collect your reward.\n\n- Anon"
+    }
+    
     func setMessage(gameStart: Any, tapToClose: Bool = false) {
         self.newMissionDetailsRatio = ratios["game_start"]!
-        self.titleColour = UIColor(red:0.00, green:0.79, blue:0.85, alpha:1.0)
+        self.titleColour = titleColours["neutral"]!
         self.titleMessage = "GAME START"
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
         self.message = "Welcome, Agent. \nGo to game zone \(homeBeacon) for your first target."
@@ -69,20 +76,15 @@ class TerminalViewController: UIViewController {
     
     func setMessage(requestNewTarget: Any) {
         self.newMissionDetailsRatio = ratios["request_target"]!
-        self.titleColour = UIColor(red:0.00, green:0.79, blue:0.85, alpha:1.0)
+        self.titleColour = titleColours["neutral"]!
         self.titleMessage = "TOO SLOW"
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
         self.message = "Your target was Exposed by another agent.\n\nReturn to \(homeBeacon) to be assigned a new target."
     }
     
-    func setMessage(gameOver: Any) {
-        self.setTapToClose(true)
-        self.message = "Incoming message...\n\nGood work! Return your equipment to the stand to collect your reward.\n\n- Anon"
-    }
-    
     func setMessage(takenDown: Any, exposedBy: String) {
         self.newMissionDetailsRatio = ratios["exposed"]!
-        self.titleColour = UIColor(red:0.83, green:0.11, blue:0.02, alpha:1.0)
+        self.titleColour = titleColours["bad"]!
         self.titleMessage = "SECURITY BREACH"
         self.backgroundImage = UIImage(named: "bad_full_pop_up")
         self.message = "Your mission has been Exposed by \(exposedBy), you have lost 50% of your gathered Evidence.\n\nReturn to \(homeBeacon), Agent."
@@ -90,7 +92,7 @@ class TerminalViewController: UIViewController {
     
     func setMessage(successfulExpose: Any, reputation: Int) {
         self.newMissionDetailsRatio = ratios["expose_success"]!
-        self.titleColour = UIColor(red:0.28, green:0.75, blue:0.18, alpha:1.0)
+        self.titleColour = titleColours["good"]!
         self.titleMessage = "EXPOSE SUCCESS"
         self.backgroundImage = UIImage(named: "good_full_pop_up")
         self.message = "Good work, agent. Return to \(homeBeacon) for your next target.\n\nReward: \(reputation) reputation"
@@ -98,7 +100,7 @@ class TerminalViewController: UIViewController {
     
     func setMessage(newMission: String) {
         self.newMissionDetailsRatio = ratios["mission"]!
-        self.titleColour = UIColor(red:0.00, green:0.79, blue:0.85, alpha:1.0)
+        self.titleColour = titleColours["neutral"]!
         self.titleMessage = "MISSION UPDATE"
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
         self.message = newMission
@@ -106,7 +108,7 @@ class TerminalViewController: UIViewController {
     
     func setMessage(missionSuccess: Any, missionString: String) {
         self.newMissionDetailsRatio = ratios["mission_success"]!
-        self.titleColour = UIColor(red:0.28, green:0.75, blue:0.18, alpha:1.0)
+        self.titleColour = titleColours["good"]
         self.titleMessage = "MISSION SUCCESS"
         self.backgroundImage = UIImage(named: "good_full_pop_up")
         self.message = missionString
@@ -114,7 +116,7 @@ class TerminalViewController: UIViewController {
     
     func setMessage(missionFailure: Any, missionString: String) {
         self.newMissionDetailsRatio = ratios["mission_failure"]!
-        self.titleColour = UIColor(red:0.83, green:0.11, blue:0.02, alpha:1.0)
+        self.titleColour = titleColours["bad"]!
         self.titleMessage = "MISSION FAILED"
         self.backgroundImage = UIImage(named: "bad_full_pop_up")
         self.message = missionString
@@ -123,11 +125,11 @@ class TerminalViewController: UIViewController {
     /* animations */
     
     func showAnimate() {
-        let ratio = self.missionDetailsRatio.constraintWithMultiplier(self.newMissionDetailsRatio)
-        self.missionDetails.removeConstraint(self.missionDetailsRatio)
-        self.missionDetails.addConstraint(ratio)
+        let ratio = self.alertSizeRatio.constraintWithMultiplier(self.newMissionDetailsRatio)
+        self.alertMessage.removeConstraint(self.alertSizeRatio)
+        self.alertMessage.addConstraint(ratio)
         self.alertTitleLabel.text = self.titleMessage
-        self.missionDetails.text = self.message
+        self.alertMessage.text = self.message
         self.alertBackgroundImage.image = self.backgroundImage
         self.alertTitleLabel.textColor = self.titleColour
         self.tapLabel.alpha = (self.tapToClose) ? 1 : 0

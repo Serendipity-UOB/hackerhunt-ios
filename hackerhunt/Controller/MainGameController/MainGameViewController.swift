@@ -36,7 +36,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var exchangeBtnWidth: NSLayoutConstraint!
     @IBOutlet weak var takeDownBtnWidth: NSLayoutConstraint!
     
-    var terminalVC : TerminalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "terminalViewController") as! TerminalViewController
+    var alertVC : AlertViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "alertViewController") as! AlertViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,9 +51,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func letTheChallengeBegin() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-            self.terminalVC.setHomeBeacon(homeBeaconName: self.gameState.homeBeacon!)
-            self.terminalVC.setMessage(gameStart: true, tapToClose: ServerUtils.testing)
-            self.showTerminal()
+            self.alertVC.setHomeBeacon(homeBeaconName: self.gameState.homeBeacon!)
+            self.alertVC.setMessage(gameStart: true, tapToClose: ServerUtils.testing)
+            self.showAlert()
             self.startCheckingForHomeBeacon(withCallback: self.getStartInfo)
         })
     }
@@ -103,7 +103,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         
                         self.homeBeaconTimer.invalidate()
                         DispatchQueue.main.async {
-                            self.terminalVC.setTapToClose(true)
+                            self.alertVC.setTapToClose(true)
                         }
                     }
                 } catch {}
@@ -232,7 +232,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.handleRequestNewTarget(requestNewTarget)
                         self.handlePosition(position)
                         self.handleMission(missionDescription)
-                        self.updatesTimer.invalidate()
+                        if (ServerUtils.testing) {
+                            self.updatesTimer.invalidate()
+                        }
                         if (gameOver == 1) {
                             self.gameOver()
                         }
@@ -251,8 +253,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     func handleMission(_ missionDescription: String) {
         if (missionDescription != "" && !onMission) {
             DispatchQueue.main.async {
-                self.terminalVC.setMessage(newMission: missionDescription)
-                self.showTerminal()
+                self.alertVC.setMessage(newMission: missionDescription)
+                self.showAlert()
                 self.startMissionUpdates()
             }
             self.onMission = true
@@ -263,8 +265,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         if (takenDown != 0) {
             self.gameState.deleteHalfOfIntel()
             DispatchQueue.main.async {
-                self.terminalVC.setMessage(takenDown: true, exposedBy: self.gameState.getPlayerById(takenDown)!.realName)
-                self.showTerminal()
+                self.alertVC.setMessage(takenDown: true, exposedBy: self.gameState.getPlayerById(takenDown)!.realName)
+                self.showAlert()
                 self.startCheckingForHomeBeacon(withCallback: { return })
             }
         }
@@ -291,8 +293,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     func handleRequestNewTarget(_ requestNewTarget: Int) {
         if (requestNewTarget == 1) {
             DispatchQueue.main.async {
-                self.terminalVC.setMessage(requestNewTarget: true)
-                self.showTerminal()
+                self.alertVC.setMessage(requestNewTarget: true)
+                self.showAlert()
                 self.startCheckingForHomeBeacon(withCallback: self.requestNewTarget)
             }
         }
@@ -342,7 +344,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 } catch {}
             } else {
                 DispatchQueue.main.async {
-                    self.terminalVC.message = "Couldn't retrieve new target"
+                    self.alertVC.message = "Couldn't retrieve new target"
                 }
             }
         }.resume()

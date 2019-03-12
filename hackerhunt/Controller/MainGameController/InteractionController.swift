@@ -32,7 +32,7 @@ extension MainGameViewController {
             exchangeTimer.fire()
         } else {
             DispatchQueue.main.async {
-                self.terminalVC.setMessage(message: "EXCHANGE_FAIL\n\nPlayer not nearby", tapToClose: true)
+                self.alertVC.setMessage(message: "EXCHANGE_FAIL\n\nPlayer not nearby", tapToClose: true)
             }
         }
     }
@@ -70,24 +70,24 @@ extension MainGameViewController {
                     DispatchQueue.main.async {
                         self.contractExchangeButton()
                         self.playerTableView.reloadData()
-                        self.terminalVC.setMessage(message: "EXCHANGE_SUCCESS\n\nIntel gained", tapToClose: true)
-                        if (self.exchangeMessage) { // don't do showTerminal if it's already up
-                            print("updating terminal text")
-                            self.terminalVC.viewWillAppear(false)
+                        self.alertVC.setMessage(message: "EXCHANGE_SUCCESS\n\nIntel gained", tapToClose: true)
+                        if (self.exchangeMessage) { // don't do showAlert if it's already up
+                            print("updating alert text")
+                            self.alertVC.viewWillAppear(false)
                         } else {
-                            print("showing terminal")
-                            self.showTerminal()
+                            print("showing alert")
+                            self.showAlert()
                         }
                         self.exchangeMessage = false
                     }
                 } catch {}
             case 201, 202:
-                if (!self.exchangeMessage) { // don't do show terminal if it's already up
+                if (!self.exchangeMessage) { // don't do show alert if it's already up
                     DispatchQueue.main.async {
-                        print("showing terminal")
+                        print("showing alert")
                         self.exchangeMessage = true
-                        self.terminalVC.setMessage(message: "EXCHANGE_REQUESTED\n\nWaiting for handshake", tapToClose: false)
-                        self.showTerminal()
+                        self.alertVC.setMessage(message: "EXCHANGE_REQUESTED\n\nWaiting for handshake", tapToClose: false)
+                        self.showAlert()
                     }
                 }
             case 400:
@@ -97,8 +97,8 @@ extension MainGameViewController {
                     self.exchange = false
                     self.contractExchangeButton()
                     
-                    self.terminalVC.setMessage(message: "EXCHANGE_FAIL\n\nHandshake incomplete", tapToClose: true)
-                    self.terminalVC.viewWillAppear(false)
+                    self.alertVC.setMessage(message: "EXCHANGE_FAIL\n\nHandshake incomplete", tapToClose: true)
+                    self.alertVC.viewWillAppear(false)
                     self.exchangeMessage = false
                 }
             default:
@@ -115,8 +115,8 @@ extension MainGameViewController {
             DispatchQueue.main.async {
                 self.gameState.unhideAll()
                 self.playerTableView.reloadData()
-                self.terminalVC.setMessage(message: "TAKEDOWN_FAILURE\n\nGet closer to your target", tapToClose: true)
-                self.showTerminal()
+                self.alertVC.setMessage(message: "TAKEDOWN_FAILURE\n\nGet closer to your target", tapToClose: true)
+                self.showAlert()
                 self.takedown = false
                 self.contractTakeDownButton()
             }
@@ -127,8 +127,8 @@ extension MainGameViewController {
             DispatchQueue.main.async {
                 self.gameState.unhideAll()
                 self.playerTableView.reloadData()
-                self.terminalVC.setMessage(message: "TAKEDOWN_FAILURE\n\nInsufficient intel", tapToClose: true)
-                self.showTerminal()
+                self.alertVC.setMessage(message: "TAKEDOWN_FAILURE\n\nInsufficient intel", tapToClose: true)
+                self.showAlert()
                 self.takedown = false
                 self.contractTakeDownButton()
             }
@@ -139,8 +139,8 @@ extension MainGameViewController {
             DispatchQueue.main.async {
                 self.gameState.unhideAll()
                 self.playerTableView.reloadData()
-                self.terminalVC.setMessage(message: "TAKEDOWN_FAILURE\n\nNot your target", tapToClose: true)
-                self.showTerminal()
+                self.alertVC.setMessage(message: "TAKEDOWN_FAILURE\n\nNot your target", tapToClose: true)
+                self.showAlert()
                 self.takedown = false
                 self.contractTakeDownButton()
             }
@@ -148,8 +148,8 @@ extension MainGameViewController {
         }
         
         DispatchQueue.main.async {
-            self.terminalVC.setMessage(message: "TAKEDOWN_INIT\n\nExecuting attack...", tapToClose: true)
-            self.showTerminal()
+            self.alertVC.setMessage(message: "TAKEDOWN_INIT\n\nExecuting attack...", tapToClose: true)
+            self.showAlert()
         }
         
         // create data
@@ -180,8 +180,8 @@ extension MainGameViewController {
                     guard let reputation = bodyDict["reputation"] as? Int else { return }
                     
                     DispatchQueue.main.async {
-                        self.terminalVC.setMessage(successfulExpose: true, reputation: reputation)
-                        self.showTerminal()
+                        self.alertVC.setMessage(successfulExpose: true, reputation: reputation)
+                        self.showAlert()
                         self.playerTableView.reloadData()
                         self.startCheckingForHomeBeacon(withCallback: self.requestNewTarget)
                         self.gameState.unhideAll()

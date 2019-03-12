@@ -26,14 +26,14 @@ extension MainGameViewController {
         }
     }
     
-    // MARK: Terminal Animations
+    // MARK: Alert Animations
     
-    func showTerminal() {
-        self.addChild(terminalVC)
-        self.view.addSubview(terminalVC.view)
-        terminalVC.didMove(toParent: self)
-        terminalVC.showAnimate()
-        terminalVC.isShowing = true
+    func showAlert() {
+        self.addChild(alertVC)
+        self.view.addSubview(alertVC.view)
+        alertVC.didMove(toParent: self)
+        alertVC.showAnimate()
+        alertVC.isShowing = true
     }
     
     

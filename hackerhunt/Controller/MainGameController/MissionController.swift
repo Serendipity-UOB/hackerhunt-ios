@@ -50,8 +50,8 @@ extension MainGameViewController {
                     }
                     DispatchQueue.main.async {
                         self.playerTableView.reloadData()
-                        self.terminalVC.setMessage(missionSuccess: true, missionString: description)
-                        self.showTerminal()
+                        self.alertVC.setMessage(missionSuccess: true, missionString: description)
+                        self.showAlert()
                     }
                     
                     
@@ -70,8 +70,8 @@ extension MainGameViewController {
                     
                     DispatchQueue.main.async {
                         self.playerTableView.reloadData()
-                        self.terminalVC.setMessage(missionFailure: true, missionString: description)
-                        self.showTerminal()
+                        self.alertVC.setMessage(missionFailure: true, missionString: description)
+                        self.showAlert()
                     }
                     
                     
