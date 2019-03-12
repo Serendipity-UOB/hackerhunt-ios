@@ -24,8 +24,10 @@ class PlayerTableCell: UITableViewCell {
         textView.isUserInteractionEnabled = false
         textView.isScrollEnabled = false
         textView.backgroundColor = UIColor.clear
-        textView.font = UIFont(name: "ShareTech-Regular", size: 14)
+        textView.font = UIFont(name: "ShareTech-Regular", size: 16)
         textView.textColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0)
+//        textView.backgroundColor = UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7)
+        textView.textContainer.lineFragmentPadding = 0
         return textView
     }()
 
@@ -34,10 +36,11 @@ class PlayerTableCell: UITableViewCell {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isUserInteractionEnabled = false
         textView.isScrollEnabled = false
-        textView.backgroundColor = UIColor.clear
+//        textView.backgroundColor = UIColor.clear
         textView.textColor = UIColor(red:0.21, green:0.11, blue:0.46, alpha:1.0)
-        textView.textAlignment = .right
-        textView.font = UIFont(name: "ShareTech-Regular", size: 14)
+        textView.font = UIFont(name: "ShareTech-Regular", size: 16)
+        textView.backgroundColor = UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7)
+        textView.textContainerInset = UIEdgeInsets.zero
         return textView
     }()
     
@@ -71,24 +74,21 @@ class PlayerTableCell: UITableViewCell {
         
         self.addSubview(backgroundImage)
         backgroundImage.frame.size.width = UIScreen.main.bounds.width - 20
-        backgroundImage.frame.size.height = 50
+        backgroundImage.frame.size.height = 60
         
         self.addSubview(playerCardDivider)
         playerCardDivider.frame.size.width = UIScreen.main.bounds.width - 60
         playerCardDivider.frame.size.height = 2
-        playerCardDivider.frame.origin.y = self.frame.origin.y + self.frame.size.height * 0.45
+        playerCardDivider.frame.origin.y = self.frame.origin.y + self.frame.size.height * 0.6
         
         self.addSubview(realName)
-        realName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5).isActive = true
+        realName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         realName.topAnchor.constraint(equalTo: self.topAnchor, constant: -4).isActive = true
-        realName.bottomAnchor.constraint(equalTo: self.topAnchor, constant: 20).isActive = true
-        realName.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
+        realName.bottomAnchor.constraint(equalTo: self.playerCardDivider.topAnchor, constant: 0).isActive = true
 
         self.addSubview(codeName)
-        codeName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5).isActive = true
-        codeName.topAnchor.constraint(equalTo: realName.bottomAnchor).isActive = true
-        codeName.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        codeName.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
+        codeName.leftAnchor.constraint(equalTo: self.realName.leftAnchor, constant: 0).isActive = true
+        codeName.topAnchor.constraint(equalTo: playerCardDivider.bottomAnchor, constant: 5).isActive = true
         
         self.layer.addSublayer(evidenceCircleBg)
         self.layer.addSublayer(evidenceCircle)
@@ -155,3 +155,4 @@ class PlayerTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+

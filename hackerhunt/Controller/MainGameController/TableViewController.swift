@@ -13,7 +13,7 @@ extension MainGameViewController {
     
     func setupPlayerTable() {
         playerTableView.register(PlayerTableCell.self, forCellReuseIdentifier: "playerTableCell")
-        playerTableView.rowHeight = 50
+        playerTableView.rowHeight = 60
         playerTableView.delegate = self
         playerTableView.dataSource = self
     }
