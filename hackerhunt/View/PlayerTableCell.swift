@@ -12,6 +12,7 @@ class PlayerTableCell: UITableViewCell {
     
     var player: Player = Player(realName: "test", codeName: "test", id: -1)
     var isTarget: Bool = false
+    var percentagePositionConstraint: NSLayoutConstraint!
     
     var backgroundImage: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "player_card"))
@@ -107,7 +108,8 @@ class PlayerTableCell: UITableViewCell {
         
         self.addSubview(evidencePercent)
         evidencePercent.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
-        evidencePercent.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -9).isActive = true
+        percentagePositionConstraint = NSLayoutConstraint.init(item: evidencePercent, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: -9)
+        NSLayoutConstraint.activate([percentagePositionConstraint])
     }
     
     // anything dependent on the player object must be executed here
@@ -120,9 +122,10 @@ class PlayerTableCell: UITableViewCell {
             codeName.text = player.codeName
             codeName.backgroundColor = (isTarget) ? UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7) : UIColor(red:0.00, green:0.65, blue:0.93, alpha:0.54)
             codeName.alpha = 1
+            percentagePositionConstraint.constant = -9
         }
         else {
-            
+            percentagePositionConstraint.constant = -12
         }
         
         setDefaultBackgroundColor()
