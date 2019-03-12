@@ -339,13 +339,13 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.gameState.currentTarget = self.gameState.getPlayerById(newTarget)
                         
                         self.targetName.text = self.gameState.currentTarget?.codeName
+                        self.playerTableView.reloadData()
                     }
                     
                 } catch {}
-            } else {
-                DispatchQueue.main.async {
-                    self.alertVC.message = "Couldn't retrieve new target"
-                }
+            }
+            else {
+                print("couldn't retrieve new target")
             }
         }.resume()
     }

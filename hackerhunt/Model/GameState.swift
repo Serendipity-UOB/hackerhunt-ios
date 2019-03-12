@@ -182,7 +182,7 @@ class GameState {
                 let id: Int = player["id"] as! Int
                 let player: Player = Player(realName: realName, codeName: codeName, id: id)
                 if (ServerUtils.testing) {
-                    player.intel = 0.6
+                    player.intel = 90.0
                 }
                 self.allPlayers.append(player)
             }

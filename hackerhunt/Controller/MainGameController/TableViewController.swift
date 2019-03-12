@@ -21,6 +21,7 @@ extension MainGameViewController {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = playerTableView.dequeueReusableCell(withIdentifier: "playerTableCell") as! PlayerTableCell
         cell.player = gameState!.allPlayers[indexPath.section]
+        cell.isTarget = (gameState!.currentTarget?.codeName == cell.player.codeName)
         cell.layoutSubviews()
         return cell
     }

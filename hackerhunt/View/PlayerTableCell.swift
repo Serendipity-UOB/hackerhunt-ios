@@ -11,6 +11,7 @@ import UIKit
 class PlayerTableCell: UITableViewCell {
     
     var player: Player = Player(realName: "test", codeName: "test", id: -1)
+    var isTarget: Bool = false
     
     var backgroundImage: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "player_card"))
@@ -39,7 +40,8 @@ class PlayerTableCell: UITableViewCell {
 //        textView.backgroundColor = UIColor.clear
         textView.textColor = UIColor(red:1.0, green:1.0, blue:1.0, alpha:1.0)
         textView.font = UIFont(name: "ShareTech-Regular", size: 16)
-        textView.backgroundColor = UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7)
+//        textView.backgroundColor = UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7)
+        textView.alpha = 0
         textView.textContainerInset = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0)
         return textView
     }()
@@ -99,9 +101,11 @@ class PlayerTableCell: UITableViewCell {
         super.layoutSubviews()
 
         realName.text = player.realName
-
-        if (player.intel == 1.0) {
+        print(player.intel)
+        if (player.intel == 100.0) {
             codeName.text = player.codeName
+            codeName.backgroundColor = (isTarget) ? UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7) : UIColor(red:0.00, green:0.65, blue:0.93, alpha:0.54)
+            codeName.alpha = 1
         }
         else {
             codeName.text = "CookingKing"
@@ -116,7 +120,7 @@ class PlayerTableCell: UITableViewCell {
         let center = CGPoint(x: backgroundImage.frame.origin.x + backgroundImage.frame.size.width - 23, y: backgroundImage.frame.origin.y + backgroundImage.frame.size.height * 0.5)
         let radius = CGFloat(16)
         let startAngle = -0.5 * CGFloat.pi
-        let endAngle = 2 * CGFloat.pi * CGFloat(player.intel) - 0.5 * CGFloat.pi
+        let endAngle = 2 * CGFloat.pi * CGFloat(player.intel/100.0) - 0.5 * CGFloat.pi
         
         // draw background
         self.evidenceCircleBg.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: endAngle, endAngle: startAngle, clockwise: true).cgPath
