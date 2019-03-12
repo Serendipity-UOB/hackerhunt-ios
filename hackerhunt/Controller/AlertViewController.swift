@@ -25,7 +25,7 @@ class AlertViewController: UIViewController {
     var newMissionDetailsRatio: CGFloat = 1.0
     var titleColour: UIColor!
     
-    var ratios: [String: CGFloat] = ["game_start":3.0, "exposed":1.5, "request_target":1.8, "expose_success":2.0, "mission":2, "mission_success":3.0, "mission_failure":2.5]
+    var ratios: [String: CGFloat] = ["game_start":3.0, "exposed":1.5, "request_target":1.8, "expose_success":2.0, "mission":2, "mission_success":2.0, "mission_failure":2.5]
     
     var titleColours: [String: UIColor] = ["neutral":UIColor(red:0.00, green:0.79, blue:0.85, alpha:1.0), "bad":UIColor(red:0.83, green:0.11, blue:0.02, alpha:1.0), "good":UIColor(red:0.28, green:0.75, blue:0.18, alpha:1.0)]
     
@@ -125,9 +125,9 @@ class AlertViewController: UIViewController {
     /* animations */
     
     func showAnimate() {
-        let ratio = self.alertSizeRatio.constraintWithMultiplier(self.newMissionDetailsRatio)
-        self.alertMessage.removeConstraint(self.alertSizeRatio)
-        self.alertMessage.addConstraint(ratio)
+        self.alertSizeRatio = self.alertSizeRatio.constraintWithMultiplier(self.newMissionDetailsRatio)
+//        self.alertMessage.removeConstraint(self.alertSizeRatio)
+//        self.alertMessage.addConstraint(ratio)
         self.alertTitleLabel.text = self.titleMessage
         self.alertMessage.text = self.message
         self.alertBackgroundImage.image = self.backgroundImage
@@ -156,6 +156,9 @@ class AlertViewController: UIViewController {
 
 extension NSLayoutConstraint {
     func constraintWithMultiplier(_ multiplier: CGFloat) -> NSLayoutConstraint {
-        return NSLayoutConstraint(item: self.firstItem!, attribute: self.firstAttribute, relatedBy: self.relation, toItem: self.secondItem, attribute: self.secondAttribute, multiplier: multiplier, constant: self.constant)
+        NSLayoutConstraint.deactivate([self])
+        let newConstraint = NSLayoutConstraint(item: self.firstItem!, attribute: self.firstAttribute, relatedBy: self.relation, toItem: self.secondItem, attribute: self.secondAttribute, multiplier: multiplier, constant: self.constant)
+        NSLayoutConstraint.activate([newConstraint])
+        return newConstraint
     }
 }
