@@ -37,10 +37,10 @@ class PlayerTableCell: UITableViewCell {
         textView.isUserInteractionEnabled = false
         textView.isScrollEnabled = false
 //        textView.backgroundColor = UIColor.clear
-        textView.textColor = UIColor(red:0.21, green:0.11, blue:0.46, alpha:1.0)
+        textView.textColor = UIColor(red:1.0, green:1.0, blue:1.0, alpha:1.0)
         textView.font = UIFont(name: "ShareTech-Regular", size: 16)
         textView.backgroundColor = UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7)
-        textView.textContainerInset = UIEdgeInsets.zero
+        textView.textContainerInset = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0)
         return textView
     }()
     
@@ -74,7 +74,7 @@ class PlayerTableCell: UITableViewCell {
         
         self.addSubview(backgroundImage)
         backgroundImage.frame.size.width = UIScreen.main.bounds.width - 20
-        backgroundImage.frame.size.height = 60
+        backgroundImage.frame.size.height = 65
         
         self.addSubview(playerCardDivider)
         playerCardDivider.frame.size.width = UIScreen.main.bounds.width - 60
@@ -88,7 +88,7 @@ class PlayerTableCell: UITableViewCell {
 
         self.addSubview(codeName)
         codeName.leftAnchor.constraint(equalTo: self.realName.leftAnchor, constant: 0).isActive = true
-        codeName.topAnchor.constraint(equalTo: playerCardDivider.bottomAnchor, constant: 5).isActive = true
+        codeName.topAnchor.constraint(equalTo: playerCardDivider.bottomAnchor, constant: 7).isActive = true
         
         self.layer.addSublayer(evidenceCircleBg)
         self.layer.addSublayer(evidenceCircle)
@@ -104,7 +104,7 @@ class PlayerTableCell: UITableViewCell {
             codeName.text = player.codeName
         }
         else {
-            codeName.text = "test"
+            codeName.text = "CookingKing"
         }
         
         setDefaultBackgroundColor()
@@ -114,7 +114,7 @@ class PlayerTableCell: UITableViewCell {
     
     func drawEvidenceBar() {
         let center = CGPoint(x: backgroundImage.frame.origin.x + backgroundImage.frame.size.width - 23, y: backgroundImage.frame.origin.y + backgroundImage.frame.size.height * 0.5)
-        let radius = CGFloat(14)
+        let radius = CGFloat(16)
         let startAngle = -0.5 * CGFloat.pi
         let endAngle = 2 * CGFloat.pi * CGFloat(player.intel) - 0.5 * CGFloat.pi
         
