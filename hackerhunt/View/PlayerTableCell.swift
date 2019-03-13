@@ -10,6 +10,8 @@ import UIKit
 
 class PlayerTableCell: UITableViewCell {
     
+    let cellHeight: CGFloat = 65
+    
     var player: Player = Player(realName: "test", codeName: "test", id: -1)
     var isTarget: Bool = false
     var percentagePositionConstraint: NSLayoutConstraint!
@@ -86,6 +88,40 @@ class PlayerTableCell: UITableViewCell {
         return textView
     }()
     
+    var exchangeBtn: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(named: "exchange_button"), for: .normal)
+        button.setTitle("Exchange", for: .normal)
+        button.titleLabel?.font = UIFont(name: "ShareTechMono-Regular", size: 15)
+        button.isHidden = true
+        button.addTarget(self, action: #selector(testButtonAction), for: .touchUpInside)
+        return button
+    }()
+    
+    var interceptBtn: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(named: "intercept_button"), for: .normal)
+        button.setTitle("Intercept", for: .normal)
+        button.titleLabel?.font = UIFont(name: "ShareTechMono-Regular", size: 15)
+        button.isHidden = true
+        button.addTarget(self, action: #selector(testButtonAction), for: .touchUpInside)
+        return button
+    }()
+    
+    var exposeBtn: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(named: "expose_button"), for: .normal)
+        button.setTitle("Expose", for: .normal)
+        button.titleLabel?.font = UIFont(name: "ShareTechMono-Regular", size: 15)
+        button.isHidden = true
+        button.addTarget(self, action: #selector(testButtonAction), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func testButtonAction(sender: UIButton!) {
+        print("button tapped \(player.realName)")
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -94,7 +130,7 @@ class PlayerTableCell: UITableViewCell {
         
         self.addSubview(backgroundImage)
         backgroundImage.frame.size.width = UIScreen.main.bounds.width - 20
-        backgroundImage.frame.size.height = 65
+        backgroundImage.frame.size.height = cellHeight
         
         self.addSubview(playerCardDivider)
         playerCardDivider.frame.size.width = UIScreen.main.bounds.width - 60
@@ -120,9 +156,29 @@ class PlayerTableCell: UITableViewCell {
         
         self.addSubview(greyOutView)
         greyOutView.frame.size.width = UIScreen.main.bounds.width - 20
-        greyOutView.frame.size.height = 66
+        greyOutView.frame.size.height = cellHeight + 1
         greyOutView.frame.origin.x = UIScreen.main.bounds.origin.x
         greyOutView.frame.origin.y = UIScreen.main.bounds.origin.y
+        
+        let buttonWidth = (UIScreen.main.bounds.width - 20 - 10) / 3
+        
+        self.addSubview(exchangeBtn)
+        exchangeBtn.frame.size.width = buttonWidth
+        exchangeBtn.frame.size.height = cellHeight - 10
+        exchangeBtn.frame.origin.x = UIScreen.main.bounds.origin.x
+        exchangeBtn.frame.origin.y = UIScreen.main.bounds.origin.y + cellHeight + 4
+        
+        self.addSubview(interceptBtn)
+        interceptBtn.frame.size.width = buttonWidth
+        interceptBtn.frame.size.height = cellHeight - 10
+        interceptBtn.frame.origin.x = UIScreen.main.bounds.origin.x + buttonWidth + 5
+        interceptBtn.frame.origin.y = UIScreen.main.bounds.origin.y + cellHeight + 4
+        
+        self.addSubview(exposeBtn)
+        exposeBtn.frame.size.width = buttonWidth
+        exposeBtn.frame.size.height = cellHeight - 10
+        exposeBtn.frame.origin.x = UIScreen.main.bounds.origin.x + 2 * (buttonWidth + 5)
+        exposeBtn.frame.origin.y = UIScreen.main.bounds.origin.y + cellHeight + 4
     }
     
     // anything dependent on the player object must be executed here
@@ -172,6 +228,18 @@ class PlayerTableCell: UITableViewCell {
             backgroundImage.image = UIImage(named: "player_card_far")
             evidenceCircle.strokeColor = UIColor(red:0.69, green:0.67, blue:0.67, alpha:1.0).cgColor
             evidenceCircleBg.strokeColor = UIColor(red:0.02, green:0.10, blue:0.17, alpha:1.0).cgColor
+        }
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        if selected {
+            self.exchangeBtn.isHidden = false
+            self.interceptBtn.isHidden = false
+            self.exposeBtn.isHidden = false
+        } else {
+            self.exchangeBtn.isHidden = true
+            self.interceptBtn.isHidden = true
+            self.exposeBtn.isHidden = true
         }
     }
     
