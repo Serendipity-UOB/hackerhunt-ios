@@ -45,17 +45,37 @@ extension MainGameViewController {
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        // deselect row if it is currently selected
+        // if a selected row already exists, and it is also the row newly selected
         if let indexPathForSelectedRow = tableView.indexPathForSelectedRow,
             indexPathForSelectedRow == indexPath {
             tableView.deselectRow(at: indexPath, animated: false)
+            unhideAllCells()
             return nil
+        } else {
+            let shownCell = playerTableView.cellForRow(at: indexPath) as! PlayerTableCell
+            if shownCell.isHidden() {
+                return nil
+            }
+            hideAllCells()
+            shownCell.unhide()
         }
-        
-        // if cell is greyed out, i.e. 'exchange' or 'takedown' are true
-        //  then un-greyout these cells, and disable exchange/takedown
-        
         return indexPath
+    }
+    
+    func unhideAllCells() {
+        greyOutView.alpha = 0
+        for i in 0..<gameState.allPlayers.count {
+            let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+            cell.unhide()
+        }
+    }
+    
+    func hideAllCells() {
+        greyOutView.alpha = 0.8
+        for i in 0..<gameState!.allPlayers.count {
+            let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+            cell.hide()
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

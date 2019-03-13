@@ -133,20 +133,6 @@ class GameState {
         }
     }
     
-    func hideFarAway() {
-        for p in allPlayers {
-            if (!p.nearby) {
-                p.hide = true
-            }
-        }
-    }
-    
-    func unhideAll() {
-        for p in allPlayers {
-            p.hide = false
-        }
-    }
-    
     func assignScores(scoreList: [[String: Any]]) {
         for player in scoreList {
             let id = player["player_id"] as! Int

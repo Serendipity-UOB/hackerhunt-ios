@@ -30,6 +30,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var playerTableView: UITableView!
     @IBOutlet weak var playerName: UILabel!
     @IBOutlet weak var targetName: UILabel!
+    @IBOutlet weak var greyOutView: UIView!
     
     @IBOutlet weak var exchangeBtn: UIButton!
     @IBOutlet weak var takeDownBtn: UIButton!
@@ -356,10 +357,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         self.exchange = !self.exchange
         
         if (self.exchange) {
-            self.gameState.hideFarAway()
+            //hide stuff thats now gone
             expandExchangeButton()
         } else {
-            self.gameState.unhideAll()
+            //self.gameState.unhideAll()
             contractExchangeButton()
         }
         
@@ -374,10 +375,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         self.takedown = !self.takedown
         
         if (takedown) {
-            self.gameState.hideFarAway()
+            //hide stuff thats now gone
             expandTakeDownButton()
         } else {
-            self.gameState.unhideAll()
+            //self.gameState.unhideAll()
             contractTakeDownButton()
         }
         

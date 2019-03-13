@@ -14,6 +14,13 @@ class PlayerTableCell: UITableViewCell {
     var isTarget: Bool = false
     var percentagePositionConstraint: NSLayoutConstraint!
     
+    var greyOutView: UIView = {
+        let view = UIView()
+        view.alpha = 0
+        view.backgroundColor = UIColor(red:0, green:0, blue:0, alpha: 1.0)
+        return view
+    }()
+    
     var backgroundImage: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "player_card"))
         imageView.contentMode = UIView.ContentMode.scaleToFill
@@ -110,12 +117,18 @@ class PlayerTableCell: UITableViewCell {
         evidencePercent.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
         percentagePositionConstraint = NSLayoutConstraint.init(item: evidencePercent, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: -9)
         NSLayoutConstraint.activate([percentagePositionConstraint])
+        
+        self.addSubview(greyOutView)
+        greyOutView.frame.size.width = UIScreen.main.bounds.width - 20
+        greyOutView.frame.size.height = 66
+        greyOutView.frame.origin.x = UIScreen.main.bounds.origin.x
+        greyOutView.frame.origin.y = UIScreen.main.bounds.origin.y
     }
     
     // anything dependent on the player object must be executed here
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        
         realName.text = player.realName
         evidencePercent.text = String(format: "%.f%%", player.intel)
         if (player.intel == 100.0) {
@@ -149,30 +162,29 @@ class PlayerTableCell: UITableViewCell {
         self.evidenceCircle.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true).cgPath
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        if (selected) {
-            self.alpha = 0.8
-        } else {
-            setDefaultBackgroundColor()
-        }
-    }
-
-
     func setDefaultBackgroundColor() {
         if (player.nearby) {
             backgroundImage.image = UIImage(named: "player_card")
             evidenceCircle.strokeColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0).cgColor
             evidenceCircleBg.strokeColor = UIColor(red:0.02, green:0.20, blue:0.31, alpha:1.0).cgColor
         }
-        else if (player.hide) {
-            self.alpha = 0.25
-        }
         else {
             backgroundImage.image = UIImage(named: "player_card_far")
             evidenceCircle.strokeColor = UIColor(red:0.69, green:0.67, blue:0.67, alpha:1.0).cgColor
             evidenceCircleBg.strokeColor = UIColor(red:0.02, green:0.10, blue:0.17, alpha:1.0).cgColor
         }
+    }
+    
+    func hide() {
+        self.greyOutView.alpha = 0.8
+    }
+    
+    func unhide() {
+        self.greyOutView.alpha = 0
+    }
+    
+    func isHidden() -> Bool {
+        return self.greyOutView.alpha != 0
     }
     
     required init?(coder aDecoder: NSCoder) {

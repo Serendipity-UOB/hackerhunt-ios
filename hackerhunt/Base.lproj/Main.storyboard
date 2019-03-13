@@ -378,19 +378,14 @@
                                     <action selector="takeDownPressed" destination="3Hg-En-CAh" eventType="touchUpInside" id="T4d-zO-myf"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sqj-v5-pL5">
-                                <rect key="frame" x="10" y="110" width="355" height="489"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <sections/>
-                            </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Agent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZPA-h3-iFp">
-                                <rect key="frame" x="10" y="30" width="53" height="23"/>
+                                <rect key="frame" x="10" y="30" width="45.5" height="23"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="20"/>
                                 <color key="textColor" red="0.62352941176470589" green="0.77254901960784317" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tom Walker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kac-tA-fLz">
-                                <rect key="frame" x="71" y="30" width="104.5" height="23"/>
+                                <rect key="frame" x="63.5" y="30" width="88" height="23"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="20"/>
                                 <color key="textColor" red="0.62352941179999999" green="0.7725490196" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -403,13 +398,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- rep /" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QxZ-bJ-Tl5">
-                                <rect key="frame" x="278.5" y="30" width="54.5" height="23"/>
+                                <rect key="frame" x="280.5" y="30" width="52.5" height="23"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.65098039215686276" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#3 / " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GpY-pt-DPL">
-                                <rect key="frame" x="237" y="30" width="40.5" height="23"/>
+                                <rect key="frame" x="243.5" y="30" width="36" height="23"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.65098039220000004" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -418,14 +413,14 @@
                                 <rect key="frame" x="10" y="65" width="280.5" height="39"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your target:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HyB-ph-juM">
-                                <rect key="frame" x="40" y="72.5" width="108" height="24"/>
+                                <rect key="frame" x="40" y="72.5" width="97" height="24"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="21"/>
                                 <color key="textColor" red="0.8784313725490196" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="CookingKing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyA-Qe-dhO">
-                                <rect key="frame" x="152" y="72.5" width="121" height="24"/>
+                                <rect key="frame" x="141" y="72.5" width="101.5" height="24"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="21"/>
                                 <color key="textColor" red="0.95686274509803915" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -434,11 +429,20 @@
                                 <rect key="frame" x="293.5" y="65" width="67.5" height="39"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="08:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v2w-Ni-Khy">
-                                <rect key="frame" x="297" y="70.5" width="60.5" height="28"/>
+                                <rect key="frame" x="301.5" y="70.5" width="51" height="28"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="24"/>
                                 <color key="textColor" red="0.71372549019999998" green="0.91764705879999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ldy-To-pvN">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sqj-v5-pL5">
+                                <rect key="frame" x="10" y="110" width="355" height="489"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <sections/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -448,6 +452,7 @@
                             <constraint firstItem="xbw-oE-FHn" firstAttribute="top" secondItem="sqj-v5-pL5" secondAttribute="bottom" constant="8" id="7BE-i0-Uiy"/>
                             <constraint firstItem="HyB-ph-juM" firstAttribute="centerY" secondItem="R8A-6o-dyF" secondAttribute="centerY" id="7K6-L9-yKh"/>
                             <constraint firstItem="ZPA-h3-iFp" firstAttribute="top" secondItem="u3P-xB-QI1" secondAttribute="top" constant="10" id="8Nl-vU-g6d"/>
+                            <constraint firstItem="Ldy-To-pvN" firstAttribute="trailing" secondItem="u3P-xB-QI1" secondAttribute="trailing" id="AjI-0m-ILF"/>
                             <constraint firstItem="wtw-dM-ftk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xbw-oE-FHn" secondAttribute="trailing" constant="8" symbolic="YES" id="BLQ-mJ-ymz"/>
                             <constraint firstItem="QxZ-bJ-Tl5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Kac-tA-fLz" secondAttribute="trailing" constant="8" symbolic="YES" id="Bay-p3-Oc6"/>
                             <constraint firstItem="4Zd-MZ-4WL" firstAttribute="leading" secondItem="R8A-6o-dyF" secondAttribute="trailing" constant="3" id="Bu5-rt-r9I"/>
@@ -456,6 +461,7 @@
                             <constraint firstItem="4Zd-MZ-4WL" firstAttribute="height" secondItem="R8A-6o-dyF" secondAttribute="height" id="FdU-J9-NaA"/>
                             <constraint firstItem="QxZ-bJ-Tl5" firstAttribute="leading" secondItem="GpY-pt-DPL" secondAttribute="trailing" constant="1" id="Iuf-Tq-I1Y"/>
                             <constraint firstItem="v2w-Ni-Khy" firstAttribute="centerY" secondItem="4Zd-MZ-4WL" secondAttribute="centerY" id="JCG-qG-aX2"/>
+                            <constraint firstItem="Ldy-To-pvN" firstAttribute="top" secondItem="T5x-5Z-zMD" secondAttribute="top" id="JwL-qb-8jj"/>
                             <constraint firstItem="ZPA-h3-iFp" firstAttribute="leading" secondItem="sqj-v5-pL5" secondAttribute="leading" id="KzO-Rl-4R1"/>
                             <constraint firstItem="xbw-oE-FHn" firstAttribute="bottom" secondItem="u3P-xB-QI1" secondAttribute="bottom" constant="-10" id="MK7-Kq-xh7"/>
                             <constraint firstItem="GpY-pt-DPL" firstAttribute="centerY" secondItem="ZPA-h3-iFp" secondAttribute="centerY" id="Mff-gZ-2VN"/>
@@ -478,12 +484,14 @@
                             <constraint firstItem="xbw-oE-FHn" firstAttribute="width" secondItem="T5x-5Z-zMD" secondAttribute="width" multiplier="0.5" constant="-15" id="dk1-US-Ye0"/>
                             <constraint firstItem="nEW-8p-pZ1" firstAttribute="width" secondItem="u3P-xB-QI1" secondAttribute="width" id="fQ7-wA-nhx"/>
                             <constraint firstItem="R8A-6o-dyF" firstAttribute="width" secondItem="sqj-v5-pL5" secondAttribute="width" multiplier="0.79" id="key-pF-0yB"/>
+                            <constraint firstItem="Ldy-To-pvN" firstAttribute="leading" secondItem="u3P-xB-QI1" secondAttribute="leading" id="nEk-RK-Ai1"/>
                             <constraint firstItem="nEW-8p-pZ1" firstAttribute="centerX" secondItem="u3P-xB-QI1" secondAttribute="centerX" id="ow7-4V-3Up"/>
                             <constraint firstItem="nEW-8p-pZ1" firstAttribute="centerY" secondItem="T5x-5Z-zMD" secondAttribute="centerY" id="pYi-f6-5ed"/>
                             <constraint firstItem="sqj-v5-pL5" firstAttribute="trailing" secondItem="u3P-xB-QI1" secondAttribute="trailing" constant="-10" id="t7X-JI-mik"/>
                             <constraint firstItem="eQ9-n7-2jr" firstAttribute="trailing" secondItem="sqj-v5-pL5" secondAttribute="trailing" id="wPB-LH-sxj"/>
                             <constraint firstItem="wtw-dM-ftk" firstAttribute="width" secondItem="T5x-5Z-zMD" secondAttribute="width" multiplier="0.5" constant="-15" id="wh3-q4-UyI"/>
                             <constraint firstItem="R8A-6o-dyF" firstAttribute="leading" secondItem="ZPA-h3-iFp" secondAttribute="leading" id="wvx-Ow-nvR"/>
+                            <constraint firstItem="Ldy-To-pvN" firstAttribute="bottom" secondItem="u3P-xB-QI1" secondAttribute="bottom" id="xEU-aU-ibx"/>
                             <constraint firstItem="eQ9-n7-2jr" firstAttribute="leading" secondItem="QxZ-bJ-Tl5" secondAttribute="trailing" constant="7" id="xOU-b8-gnA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="u3P-xB-QI1"/>
@@ -492,6 +500,7 @@
                         <outlet property="countdownValue" destination="v2w-Ni-Khy" id="GFV-nT-CBz"/>
                         <outlet property="exchangeBtn" destination="xbw-oE-FHn" id="x8k-7L-ZVq"/>
                         <outlet property="exchangeBtnWidth" destination="dk1-US-Ye0" id="4OZ-46-8He"/>
+                        <outlet property="greyOutView" destination="Ldy-To-pvN" id="soi-uz-C5Y"/>
                         <outlet property="playerName" destination="Kac-tA-fLz" id="wtg-Y3-uZX"/>
                         <outlet property="playerTableView" destination="sqj-v5-pL5" id="KpQ-01-pRB"/>
                         <outlet property="pointsValue" destination="QxZ-bJ-Tl5" id="CaG-Jl-Kob"/>
@@ -650,11 +659,11 @@
         <image name="background_grid" width="26" height="26"/>
         <image name="fancy_popup" width="128" height="115"/>
         <image name="globe" width="330" height="330"/>
-        <image name="neutral_full_pop_up" width="57.5" height="39.5"/>
-        <image name="spy_logo" width="311.25" height="301.5"/>
-        <image name="start-button" width="57.5" height="39.5"/>
-        <image name="target_status_bar_border" width="57" height="39.5"/>
-        <image name="time_status_bar_border" width="57" height="39.5"/>
+        <image name="neutral_full_pop_up" width="57" height="39"/>
+        <image name="spy_logo" width="415" height="402"/>
+        <image name="start-button" width="57" height="39"/>
+        <image name="target_status_bar_border" width="57" height="39"/>
+        <image name="time_status_bar_border" width="57" height="39"/>
         <image name="title_screen" width="317" height="309"/>
         <image name="valor" width="920" height="911"/>
     </resources>

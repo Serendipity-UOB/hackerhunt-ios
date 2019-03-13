@@ -64,7 +64,7 @@ extension MainGameViewController {
                     }
                     
                     self.gameState.incrementIntelFor(playerOne: interactee, playerTwo: secondaryId)
-                    self.gameState.unhideAll()
+                    //self.gameState.unhideAll()
                     self.exchange = false
                     
                     DispatchQueue.main.async {
@@ -113,7 +113,7 @@ extension MainGameViewController {
         // attempt to takedown far away person
         if (self.gameState.allPlayers[target].nearby == false) {
             DispatchQueue.main.async {
-                self.gameState.unhideAll()
+                //self.gameState.unhideAll()
                 self.playerTableView.reloadData()
                 self.alertVC.setMessage(message: "TAKEDOWN_FAILURE\n\nGet closer to your target", tapToClose: true)
                 self.showAlert()
@@ -125,7 +125,7 @@ extension MainGameViewController {
         // attempt to takedown with insufficient intel
         if (self.gameState.allPlayers[target].intel < 1.0) {
             DispatchQueue.main.async {
-                self.gameState.unhideAll()
+                //self.gameState.unhideAll()
                 self.playerTableView.reloadData()
                 self.alertVC.setMessage(message: "TAKEDOWN_FAILURE\n\nInsufficient intel", tapToClose: true)
                 self.showAlert()
@@ -137,7 +137,7 @@ extension MainGameViewController {
         // attempt to take down wrong person
         if (self.gameState.allPlayers[target].codeName != self.gameState.currentTarget!.codeName) {
             DispatchQueue.main.async {
-                self.gameState.unhideAll()
+                //self.gameState.unhideAll()
                 self.playerTableView.reloadData()
                 self.alertVC.setMessage(message: "TAKEDOWN_FAILURE\n\nNot your target", tapToClose: true)
                 self.showAlert()
@@ -184,7 +184,7 @@ extension MainGameViewController {
                         self.showAlert()
                         self.playerTableView.reloadData()
                         self.startCheckingForHomeBeacon(withCallback: self.requestNewTarget)
-                        self.gameState.unhideAll()
+                        //self.gameState.unhideAll()
                         self.takedown = false
                         self.contractTakeDownButton()
                     }
