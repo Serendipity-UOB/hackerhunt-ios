@@ -31,6 +31,7 @@ extension MainGameViewController {
             switch statusCode {
             case 200:
                 self.missionTimer.invalidate()
+                self.onMission = false
                 guard let responsedata = data else { return }
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
