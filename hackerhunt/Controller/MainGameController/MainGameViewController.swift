@@ -24,13 +24,19 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     var exchangeMessage: Bool = false
     var onMission: Bool = false
     
+    // header
     @IBOutlet weak var pointsValue: UILabel!
     @IBOutlet weak var positionValue: UILabel!
     @IBOutlet weak var countdownValue: UILabel!
-    @IBOutlet weak var playerTableView: UITableView!
     @IBOutlet weak var playerName: UILabel!
     @IBOutlet weak var targetName: UILabel!
+    
+    // player table
+    @IBOutlet weak var playerTableView: UITableView!
+    @IBOutlet weak var greyOutViewTap: UITapGestureRecognizer!
+    @IBOutlet weak var tableViewTap: UITapGestureRecognizer!
     @IBOutlet weak var greyOutView: UIView!
+    @IBOutlet weak var interactionButtons: UIView!
     
     @IBOutlet weak var exchangeBtn: UIButton!
     @IBOutlet weak var takeDownBtn: UIButton!

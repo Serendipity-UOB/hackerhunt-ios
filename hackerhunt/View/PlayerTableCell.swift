@@ -11,9 +11,13 @@ import UIKit
 class PlayerTableCell: UITableViewCell {
     
     let cellHeight: CGFloat = 65
+    var cellWidth: CGFloat = 0
+    var cellY: CGFloat = 0
     
     var player: Player = Player(realName: "test", codeName: "test", id: -1)
     var isTarget: Bool = false
+    var buttonsView: UIView?
+    
     var percentagePositionConstraint: NSLayoutConstraint!
     
     var greyOutView: UIView = {
@@ -94,7 +98,6 @@ class PlayerTableCell: UITableViewCell {
         button.setTitle("Exchange", for: .normal)
         button.titleLabel?.font = UIFont(name: "ShareTechMono-Regular", size: 15)
         button.isHidden = true
-        button.addTarget(self, action: #selector(testButtonAction), for: .touchUpInside)
         return button
     }()
     
@@ -104,7 +107,6 @@ class PlayerTableCell: UITableViewCell {
         button.setTitle("Intercept", for: .normal)
         button.titleLabel?.font = UIFont(name: "ShareTechMono-Regular", size: 15)
         button.isHidden = true
-        button.addTarget(self, action: #selector(testButtonAction), for: .touchUpInside)
         return button
     }()
     
@@ -114,13 +116,8 @@ class PlayerTableCell: UITableViewCell {
         button.setTitle("Expose", for: .normal)
         button.titleLabel?.font = UIFont(name: "ShareTechMono-Regular", size: 15)
         button.isHidden = true
-        button.addTarget(self, action: #selector(testButtonAction), for: .touchUpInside)
         return button
     }()
-    
-    @objc func testButtonAction(sender: UIButton!) {
-        print("button tapped \(player.realName)")
-    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -128,12 +125,14 @@ class PlayerTableCell: UITableViewCell {
         self.backgroundColor = UIColor.clear
         self.selectionStyle = .none
         
+        cellWidth = UIScreen.main.bounds.width - 20
+        
         self.addSubview(backgroundImage)
-        backgroundImage.frame.size.width = UIScreen.main.bounds.width - 20
+        backgroundImage.frame.size.width = cellWidth
         backgroundImage.frame.size.height = cellHeight
         
         self.addSubview(playerCardDivider)
-        playerCardDivider.frame.size.width = UIScreen.main.bounds.width - 60
+        playerCardDivider.frame.size.width = cellWidth - 40
         playerCardDivider.frame.size.height = 2
         playerCardDivider.frame.origin.y = self.frame.origin.y + self.frame.size.height * 0.6
         
@@ -159,26 +158,30 @@ class PlayerTableCell: UITableViewCell {
         greyOutView.frame.size.height = cellHeight + 1
         greyOutView.frame.origin.x = UIScreen.main.bounds.origin.x
         greyOutView.frame.origin.y = UIScreen.main.bounds.origin.y
-        
+    }
+    
+    func initialiseButtons(_ buttonsView: UIView) {
         let buttonWidth = (UIScreen.main.bounds.width - 20 - 10) / 3
+        let buttonHeight = cellHeight - 10
         
-        self.addSubview(exchangeBtn)
+        buttonsView.addSubview(exchangeBtn)
         exchangeBtn.frame.size.width = buttonWidth
-        exchangeBtn.frame.size.height = cellHeight - 10
+        exchangeBtn.frame.size.height = buttonHeight
         exchangeBtn.frame.origin.x = UIScreen.main.bounds.origin.x
-        exchangeBtn.frame.origin.y = UIScreen.main.bounds.origin.y + cellHeight + 4
         
-        self.addSubview(interceptBtn)
+        buttonsView.addSubview(interceptBtn)
         interceptBtn.frame.size.width = buttonWidth
-        interceptBtn.frame.size.height = cellHeight - 10
+        interceptBtn.frame.size.height = buttonHeight
         interceptBtn.frame.origin.x = UIScreen.main.bounds.origin.x + buttonWidth + 5
-        interceptBtn.frame.origin.y = UIScreen.main.bounds.origin.y + cellHeight + 4
         
-        self.addSubview(exposeBtn)
+        buttonsView.addSubview(exposeBtn)
         exposeBtn.frame.size.width = buttonWidth
-        exposeBtn.frame.size.height = cellHeight - 10
+        exposeBtn.frame.size.height = buttonHeight
         exposeBtn.frame.origin.x = UIScreen.main.bounds.origin.x + 2 * (buttonWidth + 5)
-        exposeBtn.frame.origin.y = UIScreen.main.bounds.origin.y + cellHeight + 4
+        
+        buttonsView.frame.size.width = UIScreen.main.bounds.width - 20
+        buttonsView.frame.size.height = buttonHeight
+        self.buttonsView = buttonsView
     }
     
     // anything dependent on the player object must be executed here
@@ -231,23 +234,28 @@ class PlayerTableCell: UITableViewCell {
         }
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        if selected {
-            self.exchangeBtn.isHidden = false
-            self.interceptBtn.isHidden = false
-            self.exposeBtn.isHidden = false
-        } else {
-            self.exchangeBtn.isHidden = true
-            self.interceptBtn.isHidden = true
-            self.exposeBtn.isHidden = true
-        }
+    func hideButtons() {
+        self.exchangeBtn.isHidden = true
+        self.interceptBtn.isHidden = true
+        self.exposeBtn.isHidden = true
+        buttonsView?.isUserInteractionEnabled = false
     }
     
-    func hide() {
+    func showButtons() {
+        if let buttonsView = self.buttonsView {
+            buttonsView.frame.origin.y = cellY + cellHeight + 4
+        }
+        self.exchangeBtn.isHidden = false
+        self.interceptBtn.isHidden = false
+        self.exposeBtn.isHidden = false
+        buttonsView?.isUserInteractionEnabled = true
+    }
+    
+    func greyOut() {
         self.greyOutView.alpha = 0.8
     }
     
-    func unhide() {
+    func ungreyOut() {
         self.greyOutView.alpha = 0
     }
     

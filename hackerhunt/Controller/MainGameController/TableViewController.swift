@@ -22,8 +22,24 @@ extension MainGameViewController {
         let cell = playerTableView.dequeueReusableCell(withIdentifier: "playerTableCell") as! PlayerTableCell
         cell.player = gameState!.allPlayers[indexPath.section]
         cell.isTarget = (gameState!.currentTarget?.codeName == cell.player.codeName)
+        cell.exchangeBtn.addTarget(self, action: #selector(exchangeButtonAction), for: .touchUpInside)
+        cell.interceptBtn.addTarget(self, action: #selector(interceptButtonAction), for: .touchUpInside)
+        cell.exposeBtn.addTarget(self, action: #selector(exposeButtonAction), for: .touchUpInside)
+        cell.initialiseButtons(interactionButtons)
+        cell.cellY = playerTableView.frame.origin.y + cell.frame.origin.y // set global Y pos for moving the buttons around
         cell.layoutSubviews()
         return cell
+    }
+    
+    @objc func exchangeButtonAction(sender: UIButton!) {
+        print("exchange button tapped")
+    }
+    
+    @objc func interceptButtonAction(sender: UIButton!) {
+        print("intercep button tapped")
+    }
+    @objc func exposeButtonAction(sender: UIButton!) {
+        print("expose button tapped")
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -45,36 +61,36 @@ extension MainGameViewController {
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        // if a selected row already exists, and it is also the row newly selected
-        if let indexPathForSelectedRow = tableView.indexPathForSelectedRow,
-            indexPathForSelectedRow == indexPath {
-            tableView.deselectRow(at: indexPath, animated: false)
-            unhideAllCells()
-            return nil
-        } else {
-            let shownCell = playerTableView.cellForRow(at: indexPath) as! PlayerTableCell
-            if shownCell.isHidden() {
-                return nil
-            }
-            hideAllCells()
-            shownCell.unhide()
-        }
+        let cellToShow = playerTableView.cellForRow(at: indexPath) as! PlayerTableCell
+        greyOutAllCells()
+        cellToShow.ungreyOut()
+        cellToShow.showButtons()
         return indexPath
     }
     
-    func unhideAllCells() {
+    @IBAction func doTheThing() {
+        ungreyOutAllCells()
+    }
+    
+    func ungreyOutAllCells() {
         greyOutView.alpha = 0
+        greyOutViewTap.isEnabled = false
+        tableViewTap.isEnabled = false
         for i in 0..<gameState.allPlayers.count {
             let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
-            cell.unhide()
+            cell.ungreyOut()
+            cell.hideButtons()
         }
     }
     
-    func hideAllCells() {
+    func greyOutAllCells() {
         greyOutView.alpha = 0.8
+        greyOutViewTap.isEnabled = true
+        tableViewTap.isEnabled = true
         for i in 0..<gameState!.allPlayers.count {
             let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
-            cell.hide()
+            cell.greyOut()
+            cell.hideButtons()
         }
     }
     
