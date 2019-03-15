@@ -558,6 +558,56 @@
             </objects>
             <point key="canvasLocation" x="2988.75" y="25.35211267605634"/>
         </scene>
+        <!--Log View Controller-->
+        <scene sceneID="9vN-9h-0vn">
+            <objects>
+                <viewController storyboardIdentifier="logViewController" id="hBs-sZ-3pf" customClass="LogViewController" customModule="hackerhunt" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" userInteractionEnabled="NO" contentMode="scaleToFill" id="6In-CU-UUi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notif-box" translatesAutoresizingMaskIntoConstraints="NO" id="9q7-cH-m3X">
+                                <rect key="frame" x="10" y="577" width="355" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="9q7-cH-m3X" secondAttribute="height" multiplier="355:70" id="biE-rp-ubc"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BLA BLA BLA BLA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcJ-1k-ZwE">
+                                <rect key="frame" x="80" y="600" width="275" height="24"/>
+                                <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="21"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spy_logo" translatesAutoresizingMaskIntoConstraints="NO" id="03B-Wc-NH2">
+                                <rect key="frame" x="20" y="587" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="XIO-uD-rk6"/>
+                                    <constraint firstAttribute="height" constant="50" id="jGn-Eb-Meg"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="9q7-cH-m3X" firstAttribute="leading" secondItem="6In-CU-UUi" secondAttribute="leading" constant="10" id="8yE-hI-GDU"/>
+                            <constraint firstItem="9q7-cH-m3X" firstAttribute="bottom" secondItem="6In-CU-UUi" secondAttribute="bottom" constant="-20" id="AQI-Kx-VxY"/>
+                            <constraint firstItem="OcJ-1k-ZwE" firstAttribute="centerY" secondItem="9q7-cH-m3X" secondAttribute="centerY" id="TnF-Cg-6W2"/>
+                            <constraint firstItem="OcJ-1k-ZwE" firstAttribute="leading" secondItem="03B-Wc-NH2" secondAttribute="trailing" constant="10" id="kCn-J5-vpa"/>
+                            <constraint firstItem="9q7-cH-m3X" firstAttribute="trailing" secondItem="6In-CU-UUi" secondAttribute="trailing" constant="-10" id="kiN-6y-eyC"/>
+                            <constraint firstItem="OcJ-1k-ZwE" firstAttribute="trailing" secondItem="9q7-cH-m3X" secondAttribute="trailing" constant="-10" id="l08-Km-xxy"/>
+                            <constraint firstItem="03B-Wc-NH2" firstAttribute="leading" secondItem="9q7-cH-m3X" secondAttribute="leading" constant="10" id="y0v-wq-IMm"/>
+                            <constraint firstItem="03B-Wc-NH2" firstAttribute="centerY" secondItem="9q7-cH-m3X" secondAttribute="centerY" id="ziA-lM-PIG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="I3P-Bc-83i"/>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundImage" destination="9q7-cH-m3X" id="UC8-mN-6JK"/>
+                        <outlet property="logMessage" destination="OcJ-1k-ZwE" id="sKW-dN-4Ns"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ehf-Sd-Io3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1536" y="708"/>
+        </scene>
         <!--Alert View Controller-->
         <scene sceneID="Je6-kt-8iq">
             <objects>
@@ -644,11 +694,12 @@
         <image name="background_grid" width="26" height="26"/>
         <image name="fancy_popup" width="128" height="115"/>
         <image name="globe" width="330" height="330"/>
-        <image name="neutral_full_pop_up" width="57" height="39"/>
-        <image name="spy_logo" width="415" height="402"/>
-        <image name="start-button" width="57" height="39"/>
-        <image name="target_status_bar_border" width="57" height="39"/>
-        <image name="time_status_bar_border" width="57" height="39"/>
+        <image name="neutral_full_pop_up" width="57.5" height="39.5"/>
+        <image name="notif-box" width="57.5" height="39.5"/>
+        <image name="spy_logo" width="311.25" height="301.5"/>
+        <image name="start-button" width="57.5" height="39.5"/>
+        <image name="target_status_bar_border" width="57" height="39.5"/>
+        <image name="time_status_bar_border" width="57" height="39.5"/>
         <image name="title_screen" width="317" height="309"/>
         <image name="valor" width="920" height="911"/>
     </resources>

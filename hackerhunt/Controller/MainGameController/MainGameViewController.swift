@@ -45,6 +45,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var alertVC : AlertViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "alertViewController") as! AlertViewController
     
+    var logVC : LogViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "logViewController") as! LogViewController
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setCurrentPoints(0)
@@ -52,6 +54,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         setupPlayerTable()
         playerName.text = gameState.player!.realName
         letTheChallengeBegin()
+        showLog()
     }
     
     // MARK: startInfo

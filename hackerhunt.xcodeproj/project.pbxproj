@@ -14,6 +14,7 @@
 		BE90B3152237C5680083F5DC /* MissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90B3142237C5680083F5DC /* MissionController.swift */; };
 		BE90B3172237C60F0083F5DC /* GameOverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90B3162237C60F0083F5DC /* GameOverController.swift */; };
 		BE90B3192237C6C70083F5DC /* InteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90B3182237C6C70083F5DC /* InteractionController.swift */; };
+		BEC2EBAC223BD0FE00B708EE /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC2EBAB223BD0FE00B708EE /* LogViewController.swift */; };
 		BF1AE2FD21FC484A00D3F333 /* LeaderboardTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1AE2FC21FC484A00D3F333 /* LeaderboardTableCell.swift */; };
 		BF1FE5672231339000017A54 /* ShareTech-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE5652231338F00017A54 /* ShareTech-Regular.ttf */; };
 		BF1FE5682231339000017A54 /* ShareTechMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE5662231339000017A54 /* ShareTechMono-Regular.ttf */; };
@@ -81,6 +82,7 @@
 		BE90B3142237C5680083F5DC /* MissionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionController.swift; sourceTree = "<group>"; };
 		BE90B3162237C60F0083F5DC /* GameOverController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverController.swift; sourceTree = "<group>"; };
 		BE90B3182237C6C70083F5DC /* InteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionController.swift; sourceTree = "<group>"; };
+		BEC2EBAB223BD0FE00B708EE /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		BF1AE2FC21FC484A00D3F333 /* LeaderboardTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardTableCell.swift; sourceTree = "<group>"; };
 		BF1FE5652231338F00017A54 /* ShareTech-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ShareTech-Regular.ttf"; sourceTree = "<group>"; };
 		BF1FE5662231339000017A54 /* ShareTechMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ShareTechMono-Regular.ttf"; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				BF3ADA9A21F8D2A5003AAB71 /* AlertViewController.swift */,
 				BFFC0CD521FA12C200F71ABB /* LeaderboardViewController.swift */,
 				BE90B3112237C3460083F5DC /* MainGameController */,
+				BEC2EBAB223BD0FE00B708EE /* LogViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				BFFC0CD821FA2C1300F71ABB /* PlayerTableCell.swift in Sources */,
 				BF3ADA9B21F8D2A5003AAB71 /* AlertViewController.swift in Sources */,
 				BF1AE2FD21FC484A00D3F333 /* LeaderboardTableCell.swift in Sources */,
+				BEC2EBAC223BD0FE00B708EE /* LogViewController.swift in Sources */,
 				BE90B3152237C5680083F5DC /* MissionController.swift in Sources */,
 				BF5CE20021F659E20057117A /* BeaconListener.swift in Sources */,
 				BE90B3102237C0AD0083F5DC /* AnimationsController.swift in Sources */,

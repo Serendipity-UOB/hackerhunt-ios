@@ -36,6 +36,13 @@ extension MainGameViewController {
         alertVC.isShowing = true
     }
     
+    func showLog() {
+        self.addChild(logVC)
+        self.view.addSubview(logVC.view)
+        logVC.didMove(toParent: self)
+        
+    }
+    
     
     // MARK: Button animations
     
