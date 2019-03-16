@@ -508,44 +508,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_grid" translatesAutoresizingMaskIntoConstraints="NO" id="Dio-2v-0AW">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="leaderboard_title" translatesAutoresizingMaskIntoConstraints="NO" id="2Af-GP-U4D">
+                                <rect key="frame" x="10" y="31" width="355" height="44"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leaderboard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Slz-JP-aRC">
-                                <rect key="frame" x="16" y="40" width="343" height="20"/>
-                                <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="16" y="40" width="343" height="25"/>
+                                <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="22"/>
+                                <color key="textColor" red="0.71533477310000004" green="0.9165197611" blue="0.99102431540000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAI-og-5LD">
-                                <rect key="frame" x="50" y="607" width="275" height="50"/>
-                                <color key="backgroundColor" red="0.09542418271" green="0.61054337020000005" blue="0.2413292229" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="y1c-kr-l8V">
+                                <rect key="frame" x="10" y="85" width="355" height="513"/>
+                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <sections/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAI-og-5LD">
+                                <rect key="frame" x="90" y="606" width="195" height="41"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Fr8-9l-XXZ"/>
+                                    <constraint firstAttribute="height" constant="41" id="Fr8-9l-XXZ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="15"/>
-                                <state key="normal" title="exit(EXIT_SUCCESS);">
+                                <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="20"/>
+                                <state key="normal" title="Exit" backgroundImage="start-button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="exitGame" destination="p0e-xV-tai" eventType="touchUpInside" id="fUg-lK-X2q"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="y1c-kr-l8V">
-                                <rect key="frame" x="10" y="80" width="355" height="518"/>
-                                <color key="backgroundColor" red="0.1788358092" green="0.18022242190000001" blue="0.25674799079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <sections/>
-                            </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.1788358092" green="0.18022242190000001" blue="0.25674799079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="2Af-GP-U4D" firstAttribute="top" secondItem="gsu-pu-iNK" secondAttribute="top" constant="11" id="E39-9S-xTJ"/>
                             <constraint firstItem="y1c-kr-l8V" firstAttribute="top" secondItem="Slz-JP-aRC" secondAttribute="bottom" constant="20" id="H1E-lA-ru9"/>
-                            <constraint firstItem="hAI-og-5LD" firstAttribute="bottom" secondItem="gsu-pu-iNK" secondAttribute="bottom" constant="-10" id="IKS-rQ-nnN"/>
+                            <constraint firstItem="hAI-og-5LD" firstAttribute="bottom" secondItem="gsu-pu-iNK" secondAttribute="bottom" constant="-20" id="IKS-rQ-nnN"/>
                             <constraint firstItem="Slz-JP-aRC" firstAttribute="leading" secondItem="gsu-pu-iNK" secondAttribute="leading" constant="16" id="IYF-QM-tSI"/>
-                            <constraint firstItem="hAI-og-5LD" firstAttribute="leading" secondItem="gsu-pu-iNK" secondAttribute="leading" constant="50" id="Kzy-0u-N5S"/>
-                            <constraint firstItem="hAI-og-5LD" firstAttribute="trailing" secondItem="gsu-pu-iNK" secondAttribute="trailing" constant="-50" id="OBi-ja-IG0"/>
+                            <constraint firstItem="hAI-og-5LD" firstAttribute="leading" secondItem="gsu-pu-iNK" secondAttribute="leading" constant="90" id="Kzy-0u-N5S"/>
+                            <constraint firstItem="hAI-og-5LD" firstAttribute="trailing" secondItem="gsu-pu-iNK" secondAttribute="trailing" constant="-90" id="OBi-ja-IG0"/>
                             <constraint firstItem="y1c-kr-l8V" firstAttribute="leading" secondItem="gsu-pu-iNK" secondAttribute="leading" constant="10" id="RmR-gD-Hbw"/>
+                            <constraint firstItem="Dio-2v-0AW" firstAttribute="bottom" secondItem="gsu-pu-iNK" secondAttribute="bottom" id="SrD-Zs-BR5"/>
                             <constraint firstItem="y1c-kr-l8V" firstAttribute="trailing" secondItem="gsu-pu-iNK" secondAttribute="trailing" constant="-10" id="V8D-Le-y1z"/>
+                            <constraint firstItem="Dio-2v-0AW" firstAttribute="leading" secondItem="gsu-pu-iNK" secondAttribute="leading" id="bNn-Wr-Fp8"/>
+                            <constraint firstItem="gsu-pu-iNK" firstAttribute="trailing" secondItem="2Af-GP-U4D" secondAttribute="trailing" constant="10" id="dFw-PG-UTX"/>
                             <constraint firstItem="Slz-JP-aRC" firstAttribute="top" secondItem="gsu-pu-iNK" secondAttribute="top" constant="20" id="dof-TB-9zM"/>
-                            <constraint firstItem="hAI-og-5LD" firstAttribute="top" secondItem="y1c-kr-l8V" secondAttribute="bottom" constant="9" id="gzh-IL-PH5"/>
+                            <constraint firstItem="y1c-kr-l8V" firstAttribute="top" secondItem="2Af-GP-U4D" secondAttribute="bottom" constant="10" id="ghp-2T-OVx"/>
+                            <constraint firstItem="hAI-og-5LD" firstAttribute="top" secondItem="y1c-kr-l8V" secondAttribute="bottom" constant="8" id="gzh-IL-PH5"/>
+                            <constraint firstItem="Dio-2v-0AW" firstAttribute="trailing" secondItem="gsu-pu-iNK" secondAttribute="trailing" id="iB2-KX-JhH"/>
+                            <constraint firstItem="2Af-GP-U4D" firstAttribute="leading" secondItem="gsu-pu-iNK" secondAttribute="leading" constant="10" id="s0Q-FH-eQe"/>
                             <constraint firstItem="Slz-JP-aRC" firstAttribute="trailing" secondItem="gsu-pu-iNK" secondAttribute="trailing" constant="-16" id="uuM-M0-AaN"/>
+                            <constraint firstItem="Dio-2v-0AW" firstAttribute="top" secondItem="4SM-Qu-Lf6" secondAttribute="top" id="yhh-JN-3VF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gsu-pu-iNK"/>
                     </view>
@@ -556,7 +569,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="baA-W6-DUn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2988.75" y="25.35211267605634"/>
+            <point key="canvasLocation" x="2988" y="24.7376311844078"/>
         </scene>
         <!--Log View Controller-->
         <scene sceneID="9vN-9h-0vn">
@@ -694,12 +707,13 @@
         <image name="background_grid" width="26" height="26"/>
         <image name="fancy_popup" width="128" height="115"/>
         <image name="globe" width="330" height="330"/>
-        <image name="neutral_full_pop_up" width="57.5" height="39.5"/>
-        <image name="notif-box" width="57.5" height="39.5"/>
-        <image name="spy_logo" width="311.25" height="301.5"/>
-        <image name="start-button" width="57.5" height="39.5"/>
-        <image name="target_status_bar_border" width="57" height="39.5"/>
-        <image name="time_status_bar_border" width="57" height="39.5"/>
+        <image name="leaderboard_title" width="57" height="39"/>
+        <image name="neutral_full_pop_up" width="57" height="39"/>
+        <image name="notif-box" width="57" height="39"/>
+        <image name="spy_logo" width="415" height="402"/>
+        <image name="start-button" width="57" height="39"/>
+        <image name="target_status_bar_border" width="57" height="39"/>
+        <image name="time_status_bar_border" width="57" height="39"/>
         <image name="title_screen" width="317" height="309"/>
         <image name="valor" width="920" height="911"/>
     </resources>
