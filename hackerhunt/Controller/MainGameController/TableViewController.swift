@@ -31,15 +31,9 @@ extension MainGameViewController {
         return cell
     }
     
-    @objc func exchangeButtonAction(sender: UIButton!) {
-        print("exchange button tapped")
-    }
-    
     @objc func interceptButtonAction(sender: UIButton!) {
-        print("intercep button tapped")
-    }
-    @objc func exposeButtonAction(sender: UIButton!) {
-        print("expose button tapped")
+        let player : Player = gameState.getPlayerById(sender.tag)!
+        print("intercept button tapped for player \(player.realName)")
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -95,11 +89,11 @@ extension MainGameViewController {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (exchange) {
-            exchange(withPlayerAtIndex: indexPath.section)
-        } else if (takedown) {
-            takeDown(target: indexPath.section)
-        }
+//        if (exchange) {
+//            exchange(withPlayerAtIndex: indexPath.section)
+//        } else if (takedown) {
+//            takeDown(target: indexPath.section)
+//        }
     }
     
 }

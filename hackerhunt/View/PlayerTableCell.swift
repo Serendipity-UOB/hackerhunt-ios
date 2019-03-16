@@ -182,6 +182,11 @@ class PlayerTableCell: UITableViewCell {
         buttonsView.frame.size.width = UIScreen.main.bounds.width - 20
         buttonsView.frame.size.height = buttonHeight
         self.buttonsView = buttonsView
+        
+        // use these tags to identify which button was pressed
+        exchangeBtn.tag = player.id
+        interceptBtn.tag = player.id
+        exposeBtn.tag = player.id
     }
     
     // anything dependent on the player object must be executed here
@@ -189,14 +194,14 @@ class PlayerTableCell: UITableViewCell {
         super.layoutSubviews()
         
         realName.text = player.realName
-        evidencePercent.text = String(format: "%.f%%", player.intel)
-        if (player.intel == 100.0) {
+        evidencePercent.text = String(format: "%.f%%", player.evidence)
+        if (player.evidence == 100.0) {
             codeName.text = player.codeName
             codeName.backgroundColor = (isTarget) ? UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7) : UIColor(red:0.00, green:0.65, blue:0.93, alpha:0.54)
             codeName.alpha = 1
             percentagePositionConstraint.constant = -9
         }
-        else if (player.intel >= 10.0){
+        else if (player.evidence >= 10.0){
             percentagePositionConstraint.constant = -12
         }
         else {
@@ -212,7 +217,7 @@ class PlayerTableCell: UITableViewCell {
         let center = CGPoint(x: backgroundImage.frame.origin.x + backgroundImage.frame.size.width - 30, y: backgroundImage.frame.origin.y + backgroundImage.frame.size.height * 0.5)
         let radius = CGFloat(21)
         let startAngle = -0.5 * CGFloat.pi
-        let endAngle = 2 * CGFloat.pi * CGFloat(player.intel/100.0) - 0.5 * CGFloat.pi
+        let endAngle = 2 * CGFloat.pi * CGFloat(player.evidence/100.0) - 0.5 * CGFloat.pi
         
         // draw background
         self.evidenceCircleBg.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0.0, endAngle: 2 * CGFloat.pi, clockwise: true).cgPath

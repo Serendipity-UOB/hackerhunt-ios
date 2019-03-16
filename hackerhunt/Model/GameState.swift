@@ -43,7 +43,7 @@ class GameState {
     func incrementEvidence(player: Int, evidence: Int) {
         for p in allPlayers {
             if (p.id == player) {
-                p.intel = min(p.intel + Float(evidence), 100)
+                p.evidence = min(p.evidence + Float(evidence), 100)
                 break
             }
         }
@@ -53,17 +53,17 @@ class GameState {
     func incrementIntelFor(playerOne: Int, playerTwo: Int) {
         for player in allPlayers {
             if (player.id == playerOne || (player.id == playerTwo) && (playerTwo != 0)) {
-                player.intel = min(player.intel + 0.2, 1.0)
+                player.evidence = min(player.evidence + 0.2, 1.0)
             }
         }
     }
     
     func deleteHalfOfIntel() {
         for player in allPlayers {
-            let intel = (player.intel / 2.0)
+            let intel = (player.evidence / 2.0)
             let remainder = intel.truncatingRemainder(dividingBy: 0.2)
             let rounded = round(remainder * 10)/10
-            player.intel = intel - rounded
+            player.evidence = intel - rounded
         }
     }
     
@@ -78,10 +78,10 @@ class GameState {
         ]
         newPlayers[0].nearby = true
         newPlayers[4].nearby = true
-        newPlayers[0].intel = 0.2
-        newPlayers[2].intel = 0.4
-        newPlayers[3].intel = 0.8
-        newPlayers[4].intel = 1.0
+        newPlayers[0].evidence = 20
+        newPlayers[2].evidence = 40
+        newPlayers[3].evidence = 80
+        newPlayers[4].evidence = 100
         self.allPlayers.append(contentsOf: newPlayers)
         self.allPlayers = prioritiseNearbyPlayers()
     }
@@ -168,7 +168,7 @@ class GameState {
                 let id: Int = player["id"] as! Int
                 let player: Player = Player(realName: realName, codeName: codeName, id: id)
                 if (ServerUtils.testing) {
-                    player.intel = 90.0
+                    player.evidence = 90.0
                 }
                 self.allPlayers.append(player)
             }

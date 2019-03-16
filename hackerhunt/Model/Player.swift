@@ -19,13 +19,13 @@ class Player {
     var id: Int
     
     var nearby: Bool = false
-    var intel: Float = 0.0
+    var evidence: Float = 0.0
     var score: Int = 0
     
     func copy() -> Player {
         let copy = Player(realName: self.realName, codeName: self.codeName, id: self.id)
         copy.nearby = self.nearby
-        copy.intel = self.intel
+        copy.evidence = self.evidence
         return copy
     }
     

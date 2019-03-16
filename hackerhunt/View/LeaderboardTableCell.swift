@@ -116,10 +116,10 @@ class LeaderBoardTableCell: UITableViewCell {
         self.layer.addSublayer(positionCircle)
         
         self.addSubview(crownImage)
+        crownImage.frame.origin.x = 60
         crownImage.frame.origin.y = 5
         crownImage.frame.size.width = 25
         crownImage.frame.size.height = 20
-        
     }
     
     // anything dependent on the player object must be executed here
@@ -134,7 +134,7 @@ class LeaderBoardTableCell: UITableViewCell {
             backgroundImage.image = UIImage(named: "player_card")
         }
         
-        crownImage.frame.origin.x = cellWidth - 5 - CGFloat(name.count * 10)
+        //crownImage.frame.origin.x = cellWidth - 5 - CGFloat(name.count * 10)
         if (position == 1) {
             crownImage.image = UIImage(named: "gold_crown")
         } else if (position == 2) {
@@ -159,3 +159,4 @@ class LeaderBoardTableCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+ 
