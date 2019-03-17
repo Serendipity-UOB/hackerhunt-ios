@@ -31,7 +31,7 @@ class LeaderboardViewController: UIViewController, UITableViewDataSource, UITabl
     
     func setupLeaderboardTable() {
         leaderboardTable.register(LeaderBoardTableCell.self, forCellReuseIdentifier: "leaderboardTableCell")
-        leaderboardTable.rowHeight = 45
+        leaderboardTable.rowHeight = 60
         leaderboardTable.delegate = self
         leaderboardTable.dataSource = self
     }
@@ -55,7 +55,7 @@ class LeaderboardViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return CGFloat(10.0)
+        return CGFloat(5.0)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

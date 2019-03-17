@@ -18,7 +18,6 @@ extension MainGameViewController {
         exchangeTimer.invalidate()
         homeBeaconTimer.invalidate()
         missionTimer.invalidate()
-        
         let request = ServerUtils.get(from: "/endInfo")
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -36,9 +35,10 @@ extension MainGameViewController {
                         print("leaderboard missing")
                         return
                     }
-                    
                     self.gameState.assignScores(scoreList: leaderboard)
-                    self.goToLeaderboard()
+                    DispatchQueue.main.async {
+                        self.goToLeaderboard()
+                    }
                 } catch {}
             }
             }.resume()
