@@ -79,6 +79,7 @@ extension MainGameViewController {
                     }
                     
                     DispatchQueue.main.async {
+                        self.playerTableView.reloadData()
                         self.logVC.setMessage(exchangeSuccessfulWithPlayer: responderName, evidence: players)
                         self.showLog()
                         print("Exchange accepted")
@@ -115,6 +116,85 @@ extension MainGameViewController {
         self.ungreyOutAllCells()
         let player : Player = gameState.getPlayerById(sender.tag)!
         print("intercept button tapped for player \(player.realName)")
+        
+        let targetId = sender.tag
+        
+        if (gameState.playerIsNearby(targetId)) {
+            
+            let data: [String:Any] = [
+                "player_id": self.gameState.player!.id,
+                "target_id": targetId
+            ]
+            
+            // send request
+            interceptTimer.invalidate()
+            interceptTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainGameViewController.interceptRequest), userInfo: data, repeats: true)
+            interceptTimer.fire()
+        }
+        
+        
+    }
+    
+    @objc func interceptRequest() {
+        let requestdata: [String:Any] = interceptTimer.userInfo as! [String:Any]
+        let request = ServerUtils.post(to: "/intercept", with: requestdata)
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            guard let httpResponse = response as? HTTPURLResponse else { return }
+            
+            let statusCode: Int = httpResponse.statusCode
+            
+            switch statusCode {
+            case 200:
+                self.interceptTimer.invalidate()
+                guard let responseData = data else { return }
+                do {
+                    let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
+                    guard let bodyDict = bodyJson as? [String: Any] else {
+                        print("something went wrong accessing 200 response data intercept")
+                        return
+                    }
+                    guard let evidence = bodyDict["evidence"] as? [[String:Any]] else {
+                        print("evidence missing for intercept")
+                        return
+                    }
+                    
+                    for e in evidence {
+                        let playerId: Int = e["player_id"] as! Int
+                        let amount: Int = e["amount"] as! Int
+                        self.gameState.incrementEvidence(player: playerId, evidence: amount)
+                    }
+                    
+                    DispatchQueue.main.async {
+                        // TODO: little pop up for successful
+                        self.playerTableView.reloadData()
+                        print("intercept successful")
+
+                    }
+                } catch {}
+            case 201:
+                DispatchQueue.main.async {
+                    // TODO: little pop up for attempting to intercept
+                    print("intercept created")
+                }
+            case 204:
+                DispatchQueue.main.async {
+                    // TODO: little pop up for no exchange occured
+                    print("no exchange happened")
+                }
+            case 206:
+                print("waiting for response, keep polling")
+            case 400:
+                print("something we sent was wrong in intercept request")
+            case 404:
+                print("something unexpected went wrong in intercept request")
+            default:
+                print("something weird has happened in intercept with status code \(statusCode)")
+            }
+                
+            
+        }.resume()
     }
     
     // MARK: Expose

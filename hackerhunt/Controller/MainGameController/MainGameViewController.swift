@@ -18,6 +18,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     var exchangeTimer = Timer()
     var homeBeaconTimer = Timer()
     var missionTimer = Timer()
+    var interceptTimer = Timer()
     
     var exchange: Bool = false
     var takedown: Bool = false
