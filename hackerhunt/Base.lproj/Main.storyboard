@@ -432,13 +432,42 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notif-box" translatesAutoresizingMaskIntoConstraints="NO" id="DSr-m0-TT7">
+                                <rect key="frame" x="10" y="568.5" width="355" height="88.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="DSr-m0-TT7" secondAttribute="height" multiplier="4:1" id="NFM-kZ-1Be"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fL8-lV-ARG">
+                                <rect key="frame" x="15" y="613" width="171.5" height="39"/>
+                                <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="20"/>
+                                <state key="normal" title="ACCEPT" backgroundImage="accept_exchange_button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="exchangeAcceptPressed:" destination="3Hg-En-CAh" eventType="touchUpInside" id="NCg-zd-faG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6GY-iU-ZJB">
+                                <rect key="frame" x="188.5" y="613" width="171.5" height="39"/>
+                                <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="19"/>
+                                <state key="normal" title="Button" backgroundImage="reject_exchange_button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="exchangeRejectPressed:" destination="3Hg-En-CAh" eventType="touchUpInside" id="nhm-gL-YRI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="R8A-6o-dyF" firstAttribute="top" secondItem="ZPA-h3-iFp" secondAttribute="bottom" constant="12" id="0CN-Sk-ThF"/>
                             <constraint firstItem="u3P-xB-QI1" firstAttribute="bottom" secondItem="sqj-v5-pL5" secondAttribute="bottom" constant="10" id="0EL-8y-gRC"/>
+                            <constraint firstItem="fL8-lV-ARG" firstAttribute="trailing" secondItem="u3P-xB-QI1" secondAttribute="centerX" constant="-1" id="1Ol-S8-weD"/>
                             <constraint firstItem="v2w-Ni-Khy" firstAttribute="centerX" secondItem="4Zd-MZ-4WL" secondAttribute="centerX" id="1XI-Nm-kFC"/>
+                            <constraint firstItem="DSr-m0-TT7" firstAttribute="bottom" secondItem="u3P-xB-QI1" secondAttribute="bottom" constant="-10" id="5pT-vQ-cEv"/>
                             <constraint firstItem="HyB-ph-juM" firstAttribute="centerY" secondItem="R8A-6o-dyF" secondAttribute="centerY" id="7K6-L9-yKh"/>
+                            <constraint firstItem="DSr-m0-TT7" firstAttribute="trailing" secondItem="u3P-xB-QI1" secondAttribute="trailing" constant="-10" id="8AN-4f-MCC"/>
                             <constraint firstItem="ZPA-h3-iFp" firstAttribute="top" secondItem="u3P-xB-QI1" secondAttribute="top" constant="10" id="8Nl-vU-g6d"/>
                             <constraint firstItem="Ldy-To-pvN" firstAttribute="trailing" secondItem="u3P-xB-QI1" secondAttribute="trailing" id="AjI-0m-ILF"/>
                             <constraint firstItem="QxZ-bJ-Tl5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Kac-tA-fLz" secondAttribute="trailing" constant="8" symbolic="YES" id="Bay-p3-Oc6"/>
@@ -460,12 +489,18 @@
                             <constraint firstItem="GpY-pt-DPL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Kac-tA-fLz" secondAttribute="trailing" constant="8" symbolic="YES" id="X1Y-KW-TGH"/>
                             <constraint firstItem="sqj-v5-pL5" firstAttribute="top" secondItem="u3P-xB-QI1" secondAttribute="top" constant="90" id="Xj5-o6-6Jq"/>
                             <constraint firstItem="kyA-Qe-dhO" firstAttribute="leading" secondItem="HyB-ph-juM" secondAttribute="trailing" constant="4" id="YHf-df-DRR"/>
+                            <constraint firstItem="6GY-iU-ZJB" firstAttribute="trailing" secondItem="DSr-m0-TT7" secondAttribute="trailing" constant="-5" id="Z4w-Xm-5c8"/>
                             <constraint firstItem="nEW-8p-pZ1" firstAttribute="height" secondItem="T5x-5Z-zMD" secondAttribute="height" id="ZSC-fa-a2z"/>
                             <constraint firstItem="Kac-tA-fLz" firstAttribute="centerY" secondItem="ZPA-h3-iFp" secondAttribute="centerY" id="ZZc-xc-Ue0"/>
                             <constraint firstItem="HyB-ph-juM" firstAttribute="leading" secondItem="R8A-6o-dyF" secondAttribute="leading" constant="30" id="Zap-v6-Loz"/>
+                            <constraint firstItem="DSr-m0-TT7" firstAttribute="leading" secondItem="u3P-xB-QI1" secondAttribute="leading" constant="10" id="a8d-PV-I15"/>
                             <constraint firstItem="u3P-xB-QI1" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kyA-Qe-dhO" secondAttribute="trailing" symbolic="YES" id="bTf-bM-gBQ"/>
                             <constraint firstItem="Kac-tA-fLz" firstAttribute="leading" secondItem="ZPA-h3-iFp" secondAttribute="trailing" constant="8" id="bqz-aL-3jg"/>
+                            <constraint firstItem="6GY-iU-ZJB" firstAttribute="leading" secondItem="u3P-xB-QI1" secondAttribute="centerX" constant="1" id="c9D-3W-C0K"/>
+                            <constraint firstItem="fL8-lV-ARG" firstAttribute="bottom" secondItem="DSr-m0-TT7" secondAttribute="bottom" constant="-5" id="cQI-2g-CwE"/>
+                            <constraint firstItem="6GY-iU-ZJB" firstAttribute="bottom" secondItem="DSr-m0-TT7" secondAttribute="bottom" constant="-5" id="e8q-1r-WUN"/>
                             <constraint firstItem="nEW-8p-pZ1" firstAttribute="width" secondItem="u3P-xB-QI1" secondAttribute="width" id="fQ7-wA-nhx"/>
+                            <constraint firstItem="fL8-lV-ARG" firstAttribute="leading" secondItem="DSr-m0-TT7" secondAttribute="leading" constant="5" id="gMm-qn-4hl"/>
                             <constraint firstItem="R8A-6o-dyF" firstAttribute="width" secondItem="sqj-v5-pL5" secondAttribute="width" multiplier="0.79" id="key-pF-0yB"/>
                             <constraint firstItem="Ldy-To-pvN" firstAttribute="leading" secondItem="u3P-xB-QI1" secondAttribute="leading" id="nEk-RK-Ai1"/>
                             <constraint firstItem="nEW-8p-pZ1" firstAttribute="centerX" secondItem="u3P-xB-QI1" secondAttribute="centerX" id="ow7-4V-3Up"/>
@@ -482,6 +517,9 @@
                     </view>
                     <connections>
                         <outlet property="countdownValue" destination="v2w-Ni-Khy" id="GFV-nT-CBz"/>
+                        <outlet property="exchangeRequestedAcceptButton" destination="fL8-lV-ARG" id="38u-Y0-kC7"/>
+                        <outlet property="exchangeRequestedBackground" destination="DSr-m0-TT7" id="qId-OI-TgG"/>
+                        <outlet property="exchangeRequestedRejectButton" destination="6GY-iU-ZJB" id="a9I-0o-MGl"/>
                         <outlet property="greyOutView" destination="Ldy-To-pvN" id="soi-uz-C5Y"/>
                         <outlet property="greyOutViewTap" destination="BbW-cd-0tQ" id="j5X-4U-vhG"/>
                         <outlet property="interactionButtons" destination="8uj-MP-nye" id="0GQ-A5-pKb"/>
@@ -716,12 +754,14 @@
         </scene>
     </scenes>
     <resources>
+        <image name="accept_exchange_button" width="57.5" height="39.5"/>
         <image name="background_grid" width="26" height="26"/>
         <image name="fancy_popup" width="128" height="115"/>
         <image name="globe" width="330" height="330"/>
         <image name="leaderboard_title" width="57.5" height="39.5"/>
         <image name="neutral_full_pop_up" width="57.5" height="39.5"/>
         <image name="notif-box" width="57.5" height="39.5"/>
+        <image name="reject_exchange_button" width="57.5" height="39.5"/>
         <image name="spy_logo" width="311.25" height="301.5"/>
         <image name="start-button" width="57.5" height="39.5"/>
         <image name="target_status_bar_border" width="57" height="39.5"/>

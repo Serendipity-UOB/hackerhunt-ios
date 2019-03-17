@@ -40,10 +40,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var interactionButtons: UIView!
     @IBOutlet weak var tapToCloseLabel: UILabel!
     
-    @IBOutlet weak var exchangeBtn: UIButton!
-    @IBOutlet weak var takeDownBtn: UIButton!
-    @IBOutlet weak var exchangeBtnWidth: NSLayoutConstraint!
-    @IBOutlet weak var takeDownBtnWidth: NSLayoutConstraint!
+    // requested exchange
+    @IBOutlet weak var exchangeRequestedBackground: UIImageView!
+    @IBOutlet weak var exchangeRequestedAcceptButton: UIButton!
+    @IBOutlet weak var exchangeRequestedRejectButton: UIButton!
+    
     
     var alertVC : AlertViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "alertViewController") as! AlertViewController
     
@@ -56,10 +57,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         setupPlayerTable()
         playerName.text = gameState.player!.realName
         letTheChallengeBegin()
-//        DispatchQueue.main.async {
-//            self.logVC.setMesssage(exchangeRequestedWith: "Tom")
-//            self.showLog()
-//        }
        
     }
     
@@ -213,7 +210,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
                         
                         guard let bodyDict = bodyJson as? [String: Any] else { return }
-                        // TODO: tidy this away
+                        
                         guard let takenDown: Int = bodyDict["exposed_by"] as? Int else {
                             print("exposed_by missing")
                             return
@@ -242,6 +239,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                             print("mission_description missing")
                             return
                         }
+                        guard let exchangeRequested: Int = bodyDict["exchange_pending"] as? Int else {
+                            print("exchange_pending missing")
+                            return
+                        }
+                        self.handleExchangeRequested(exchangeRequested)
                         self.handleTakenDown(takenDown)
                         self.handleNearbyPlayers(nearbyPlayers)
                         self.setCurrentPoints(points)
@@ -263,6 +265,14 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     print("/playerUpdate failed")
                 }
                 }.resume()
+        }
+    }
+    
+    func handleExchangeRequested(_ exchangeRequested: Int) {
+        if (exchangeRequested != 0) {
+            DispatchQueue.main.async {
+                self.showExchangeRequested()
+            }
         }
     }
     
@@ -366,40 +376,13 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         }.resume()
     }
     
-    // MARK: exchange
     
-    @IBAction func exchangePressed() {
-        self.exchange = !self.exchange
-        
-        if (self.exchange) {
-            //hide stuff thats now gone
-            expandExchangeButton()
-        } else {
-            //self.gameState.unhideAll()
-            contractExchangeButton()
-        }
-        
-        DispatchQueue.main.async {
-            self.playerTableView.reloadData()
-        }
+    @IBAction func exchangeAcceptPressed(_ sender: Any) {
+        print("accepted pressed")
     }
     
-    // MARK: takeDown
-    
-    @IBAction func takeDownPressed() {
-        self.takedown = !self.takedown
-        
-        if (takedown) {
-            //hide stuff thats now gone
-            expandTakeDownButton()
-        } else {
-            //self.gameState.unhideAll()
-            contractTakeDownButton()
-        }
-        
-        DispatchQueue.main.async {
-            self.playerTableView.reloadData()
-        }
+    @IBAction func exchangeRejectPressed(_ sender: Any) {
+        print("reject pressed")
     }
-
+    
 }

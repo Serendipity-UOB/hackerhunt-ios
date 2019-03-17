@@ -110,6 +110,8 @@ extension MainGameViewController {
     }
     
     
+    
+    
     // MARK: Intercept
     
     @objc func interceptButtonAction(sender: UIButton!) {
@@ -184,14 +186,19 @@ extension MainGameViewController {
             case 204:
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
-                    self.logVC.setMessage(interceptFailedOn: target)
+                    self.logVC.setMessage(interceptFailed: target)
                     self.showLog()
                     print("no exchange happened")
                 }
             case 206:
                 print("waiting for response, keep polling")
             case 400:
-                print("something we sent was wrong in intercept request")
+                self.interceptTimer.invalidate()
+                DispatchQueue.main.async {
+                    self.logVC.setMessage(interceptFailedOn: target)
+                    self.showLog()
+                    print("no exchange happened")
+                }
             case 404:
                 print("something unexpected went wrong in intercept request")
             default:

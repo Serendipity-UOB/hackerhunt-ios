@@ -83,6 +83,12 @@ class LogViewController : UIViewController {
         self.message = "Intercept on \(interceptFailedOn) failed, \(interceptFailedOn) wasn't exchanging."
     }
     
+    func setMessage(interceptFailed: Any) {
+        self.image = UIImage(named: "bad_full_pop_up")
+        self.ratio = ratios["intercept"]!
+        self.message = "Intercept failed, no evidence was shared."
+    }
+    
     func setMessage(exposeFailedWithInsufficientIntel: String) {
         self.image = UIImage(named: "bad_full_pop_up")
         self.ratio = ratios["expose_failed"]!

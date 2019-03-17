@@ -44,43 +44,21 @@ extension MainGameViewController {
         
     }
     
+    // MARK: Exchange requested
     
-    // MARK: Button animations
-    
-    func expandExchangeButton() {
-        takeDownBtn.isEnabled = false
-        UIView.animate(withDuration: 0.25, animations: {
-            // these constants are the offset - i.e. relative to the
-            self.exchangeBtnWidth.constant = self.view.frame.width / 2 - 20
-            self.takeDownBtnWidth.constant = -1 * self.view.frame.width / 2
-            self.exchangeBtn.setTitle("cancel(EXCHANGE);", for: .normal)
-        })
+    func showExchangeRequested() {
+        self.exchangeRequestedBackground.alpha = 1.0
+        self.exchangeRequestedAcceptButton.alpha = 1.0
+        self.exchangeRequestedAcceptButton.isUserInteractionEnabled = true
+        self.exchangeRequestedRejectButton.alpha = 1.0
+        self.exchangeRequestedRejectButton.isUserInteractionEnabled = true
     }
     
-    func contractExchangeButton() {
-        takeDownBtn.isEnabled = true
-        self.exchangeBtn.setTitle("exchange();", for: .normal)
-        UIView.animate(withDuration: 0.25, animations: {
-            self.exchangeBtnWidth.constant = -15
-            self.takeDownBtnWidth.constant = -15
-        })
-    }
-    
-    func expandTakeDownButton() {
-        exchangeBtn.isEnabled = false
-        UIView.animate(withDuration: 0.25, animations: {
-            self.takeDownBtnWidth.constant = self.view.frame.width / 2 - 20
-            self.exchangeBtn.alpha = 0
-            self.takeDownBtn.setTitle("cancel(TAKEDOWN);", for: .normal)
-        })
-    }
-    
-    func contractTakeDownButton() {
-        exchangeBtn.isEnabled = true
-        self.takeDownBtn.setTitle("take_down();", for: .normal)
-        UIView.animate(withDuration: 0.25, animations: {
-            self.takeDownBtnWidth.constant = -15
-            self.exchangeBtn.alpha = 1
-        })
+    func hideExchangeRequested() {
+        self.exchangeRequestedBackground.alpha = 0.0
+        self.exchangeRequestedAcceptButton.alpha = 0.0
+        self.exchangeRequestedAcceptButton.isUserInteractionEnabled = false
+        self.exchangeRequestedRejectButton.alpha = 0.0
+        self.exchangeRequestedRejectButton.isUserInteractionEnabled = false
     }
 }
