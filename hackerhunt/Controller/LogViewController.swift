@@ -15,7 +15,7 @@ class LogViewController : UIViewController {
     @IBOutlet weak var logMessage: UITextView!
     @IBOutlet weak var logMessageRatio: NSLayoutConstraint!
     
-    var ratios: [String:CGFloat] = ["exchange_requested":4.5, "exchange_accepted":3.6]
+    var ratios: [String:CGFloat] = ["exchange_requested":4.5, "exchange_accepted":3.6, "exchange_rejected":4.5]
     
     var message: String = ""
     var ratio: CGFloat = 1.0
@@ -30,7 +30,7 @@ class LogViewController : UIViewController {
     func setMesssage(exchangeRequestedWith: String) {
         self.image = UIImage(named: "notif-box")
         self.ratio = ratios["exchange_requested"]!
-        self.message = "Exchange with " + exchangeRequestedWith + " requested."
+        self.message = "\nExchange with " + exchangeRequestedWith + " requested."
     }
     
     func setMessage(exchangeSuccessfulWithPlayer: String, evidence: [String]) {
@@ -42,7 +42,18 @@ class LogViewController : UIViewController {
         }
         self.message.removeLast(5)
         self.message += ".\nYou also found some about \(exchangeSuccessfulWithPlayer)."
-        print(self.message)
+    }
+    
+    func setMessage(exchangeRejected: String) {
+        self.image = UIImage(named: "bad_full_pop_up")
+        self.ratio = ratios["exchange_rejected"]!
+        self.message = "Exchange failed.\n\(exchangeRejected) has rejected your request."
+    }
+    
+    func setMessage(exchangeTimeout: String) {
+        self.image = UIImage(named: "bad_full_pop_up")
+        self.ratio = ratios["exchange_rejected"]!
+        self.message = "Exchange failed.\n\(exchangeTimeout) didn't respond fast enough."
     }
     
     /* animations */

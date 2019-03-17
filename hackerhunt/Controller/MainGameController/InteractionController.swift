@@ -13,6 +13,7 @@ extension MainGameViewController {
     
     // MARK: Exchange
     @objc func exchangeButtonAction(sender: UIButton!) {
+        self.ungreyOutAllCells()
         let interacteeId = sender.tag
         let player : Player = gameState.getPlayerById(sender.tag)!
         print("exchange button tapped for player \(player.realName)")
@@ -47,16 +48,15 @@ extension MainGameViewController {
             
             guard let httpResponse = response as? HTTPURLResponse else { return }
             
-//            let statusCode: Int = httpResponse.statusCode
-            let statusCode = 201
+            let statusCode: Int = httpResponse.statusCode
             print("exchange code " + String(statusCode))
             let responderName = self.gameState.getPlayerById(requestdata["responder_id"] as! Int)!.realName
             switch statusCode {
             case 201: // created
-                
                 DispatchQueue.main.async {
                     self.logVC.setMesssage(exchangeRequestedWith: responderName)
                     self.showLog()
+                    print("Exchange requested")
                 }
             case 202: // accepted
                 guard let responseData = data else { return }
@@ -81,12 +81,14 @@ extension MainGameViewController {
                     DispatchQueue.main.async {
                         self.logVC.setMessage(exchangeSuccessfulWithPlayer: responderName, evidence: players)
                         self.showLog()
-                        print("Exchange accepted, put small popup here")
+                        print("Exchange accepted")
                     }
                 } catch {}
             case 204: // rejected
                 self.exchangeTimer.invalidate()
                 DispatchQueue.main.async {
+                    self.logVC.setMessage(exchangeRejected: responderName)
+                    self.showLog()
                     print("Exchange rejected, put small popup here")
                 }
             case 400, 404: // error
@@ -96,6 +98,8 @@ extension MainGameViewController {
                 self.exchangeTimer.invalidate()
                 self.exchangeTimer.invalidate()
                 DispatchQueue.main.async {
+                    self.logVC.setMessage(exchangeTimeout: responderName)
+                    self.showLog()
                     print("Exchange timed out, put small popup here")
                 }
             default:
@@ -104,9 +108,19 @@ extension MainGameViewController {
             }.resume()
     }
     
-    // MARK: Takedown
+    
+    // MARK: Intercept
+    
+    @objc func interceptButtonAction(sender: UIButton!) {
+        self.ungreyOutAllCells()
+        let player : Player = gameState.getPlayerById(sender.tag)!
+        print("intercept button tapped for player \(player.realName)")
+    }
+    
+    // MARK: Expose
     
     @objc func exposeButtonAction(sender: UIButton!) {
+        self.ungreyOutAllCells()
         let target: Int = sender.tag
         let player : Player = gameState.getPlayerById(target)!
         print("expose button tapped for player \(player.realName)")

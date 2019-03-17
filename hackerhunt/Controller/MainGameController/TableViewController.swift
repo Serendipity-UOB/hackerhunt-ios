@@ -31,11 +31,6 @@ extension MainGameViewController {
         return cell
     }
     
-    @objc func interceptButtonAction(sender: UIButton!) {
-        let player : Player = gameState.getPlayerById(sender.tag)!
-        print("intercept button tapped for player \(player.realName)")
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return gameState!.allPlayers.count
     }
@@ -59,6 +54,7 @@ extension MainGameViewController {
         greyOutAllCells()
         cellToShow.ungreyOut()
         cellToShow.showButtons()
+        self.tapToCloseLabel.alpha = 1.0
         return indexPath
     }
     
@@ -67,6 +63,7 @@ extension MainGameViewController {
     }
     
     func ungreyOutAllCells() {
+        self.tapToCloseLabel.alpha = 0.0
         greyOutView.alpha = 0
         greyOutViewTap.isEnabled = false
         tableViewTap.isEnabled = false

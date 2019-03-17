@@ -37,6 +37,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var tableViewTap: UITapGestureRecognizer!
     @IBOutlet weak var greyOutView: UIView!
     @IBOutlet weak var interactionButtons: UIView!
+    @IBOutlet weak var tapToCloseLabel: UILabel!
     
     @IBOutlet weak var exchangeBtn: UIButton!
     @IBOutlet weak var takeDownBtn: UIButton!
