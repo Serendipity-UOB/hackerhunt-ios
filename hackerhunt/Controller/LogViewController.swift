@@ -15,7 +15,7 @@ class LogViewController : UIViewController {
     @IBOutlet weak var logMessage: UITextView!
     @IBOutlet weak var logMessageRatio: NSLayoutConstraint!
     
-    var ratios: [String:CGFloat] = ["exchange_requested":4.5, "exchange_accepted":3.6, "exchange_rejected":4.5]
+    var ratios: [String:CGFloat] = ["exchange_requested":4.5, "exchange_accepted":3.6, "exchange_rejected":4.5, "intercept":4.5]
     
     var message: String = ""
     var ratio: CGFloat = 1.0
@@ -38,7 +38,9 @@ class LogViewController : UIViewController {
         self.ratio = ratios["exchange_accepted"]!
         self.message = "Exchange successful.\n\(exchangeSuccessfulWithPlayer) gave you evidence on "
         for e in evidence {
-            message += e + " and "
+            if (e != exchangeSuccessfulWithPlayer) {
+                self.message += e + " and "
+            }
         }
         self.message.removeLast(5)
         self.message += ".\nYou also found some about \(exchangeSuccessfulWithPlayer)."
@@ -54,6 +56,31 @@ class LogViewController : UIViewController {
         self.image = UIImage(named: "bad_full_pop_up")
         self.ratio = ratios["exchange_rejected"]!
         self.message = "Exchange failed.\n\(exchangeTimeout) didn't respond fast enough."
+    }
+    
+    func setMessage(interceptRequestedOn: String) {
+        self.image = UIImage(named: "notif-box")
+        self.ratio = ratios["intercept"]!
+        self.message = "Attempting to intercept \(interceptRequestedOn)'s Exchange."
+    }
+    
+    func setMessage(interceptSuccessfulOn: String, withEvidenceOn: [String]) {
+        self.image = UIImage(named: "good_full_pop_up")
+        self.ratio = ratios["intercept"]!
+        self.message = "Intercept on \(interceptSuccessfulOn) succeeded.\nYou also gained evidence about "
+        for e in withEvidenceOn {
+            if (e != interceptSuccessfulOn) {
+                self.message += e + " and "
+            }
+        }
+        self.message.removeLast(5)
+        self.message += "."
+    }
+    
+    func setMessage(interceptFailedOn: String) {
+        self.image = UIImage(named: "bad_full_pop_up")
+        self.ratio = ratios["intercept"]!
+        self.message = "Intercept on \(interceptFailedOn) failed, \(interceptFailedOn) wasn't exchanging."
     }
     
     /* animations */

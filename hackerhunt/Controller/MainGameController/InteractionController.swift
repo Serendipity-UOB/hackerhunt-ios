@@ -126,18 +126,17 @@ extension MainGameViewController {
                 "target_id": targetId
             ]
             
-            // send request
             interceptTimer.invalidate()
             interceptTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainGameViewController.interceptRequest), userInfo: data, repeats: true)
             interceptTimer.fire()
         }
-        
-        
     }
     
     @objc func interceptRequest() {
         let requestdata: [String:Any] = interceptTimer.userInfo as! [String:Any]
         let request = ServerUtils.post(to: "/intercept", with: requestdata)
+        
+        let target = self.gameState.getPlayerById(requestdata["target_id"]! as! Int)!.realName
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
@@ -160,27 +159,33 @@ extension MainGameViewController {
                         return
                     }
                     
+                    var players: [String] = []
                     for e in evidence {
                         let playerId: Int = e["player_id"] as! Int
+                        players.append(self.gameState.getPlayerById(playerId)!.realName)
                         let amount: Int = e["amount"] as! Int
                         self.gameState.incrementEvidence(player: playerId, evidence: amount)
                     }
                     
                     DispatchQueue.main.async {
-                        // TODO: little pop up for successful
                         self.playerTableView.reloadData()
+                        self.logVC.setMessage(interceptSuccessfulOn: target, withEvidenceOn: players)
+                        self.showLog()
                         print("intercept successful")
 
                     }
                 } catch {}
             case 201:
                 DispatchQueue.main.async {
-                    // TODO: little pop up for attempting to intercept
+                    self.logVC.setMessage(interceptRequestedOn: target)
+                    self.showLog()
                     print("intercept created")
                 }
             case 204:
+                self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
-                    // TODO: little pop up for no exchange occured
+                    self.logVC.setMessage(interceptFailedOn: target)
+                    self.showLog()
                     print("no exchange happened")
                 }
             case 206:
