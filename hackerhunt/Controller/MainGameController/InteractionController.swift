@@ -40,20 +40,23 @@ extension MainGameViewController {
     }
     
     @objc func exchangeRequest() {
-        let data: [String:Any] = exchangeTimer.userInfo as! [String:Any]
-        let request = ServerUtils.post(to: "/exchangeRequest", with: data)
+        let requestdata: [String:Any] = exchangeTimer.userInfo as! [String:Any]
+        let request = ServerUtils.post(to: "/exchangeRequest", with: requestdata)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             guard let httpResponse = response as? HTTPURLResponse else { return }
             
-            let statusCode: Int = httpResponse.statusCode
+//            let statusCode: Int = httpResponse.statusCode
+            let statusCode = 201
             print("exchange code " + String(statusCode))
-            
+            let responderName = self.gameState.getPlayerById(requestdata["responder_id"] as! Int)!.realName
             switch statusCode {
             case 201: // created
+                
                 DispatchQueue.main.async {
-                    print("Exchange requested, put small popup here")
+                    self.logVC.setMesssage(exchangeRequestedWith: responderName)
+                    self.showLog()
                 }
             case 202: // accepted
                 guard let responseData = data else { return }
@@ -67,14 +70,17 @@ extension MainGameViewController {
                         print("evidence missing")
                         return
                     }
-                    
+                    var players: [String] = []
                     for e in evidence {
                         let playerId: Int = e["player_id"] as! Int
+                        players.append(self.gameState.getPlayerById(playerId)!.realName)
                         let amount: Int = e["amount"] as! Int
                         self.gameState.incrementEvidence(player: playerId, evidence: amount)
                     }
                     
                     DispatchQueue.main.async {
+                        self.logVC.setMessage(exchangeSuccessfulWithPlayer: responderName, evidence: players)
+                        self.showLog()
                         print("Exchange accepted, put small popup here")
                     }
                 } catch {}

@@ -40,6 +40,7 @@ extension MainGameViewController {
         self.addChild(logVC)
         self.view.addSubview(logVC.view)
         logVC.didMove(toParent: self)
+        logVC.showAnimate()
         
     }
     

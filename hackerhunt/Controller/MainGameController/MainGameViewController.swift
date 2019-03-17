@@ -54,7 +54,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         setupPlayerTable()
         playerName.text = gameState.player!.realName
         letTheChallengeBegin()
-        showLog()
+//        DispatchQueue.main.async {
+//            self.logVC.setMesssage(exchangeRequestedWith: "Tom")
+//            self.showLog()
+//        }
+       
     }
     
     // MARK: startInfo
@@ -241,10 +245,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.setCurrentPoints(points)
                         self.handleRequestNewTarget(requestNewTarget)
                         self.handlePosition(position)
-                        //self.handleMission(missionDescription)
-//                        if (ServerUtils.testing) {
-//                            self.updatesTimer.invalidate()
-//                        }
+                        self.handleMission(missionDescription)
+                        if (ServerUtils.testing) {
+                            self.updatesTimer.invalidate()
+                        }
                         if (gameOver == 1) {
                             self.gameOver()
                         }

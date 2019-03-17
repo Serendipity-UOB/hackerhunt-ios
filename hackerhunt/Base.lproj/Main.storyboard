@@ -580,19 +580,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notif-box" translatesAutoresizingMaskIntoConstraints="NO" id="9q7-cH-m3X">
-                                <rect key="frame" x="10" y="577" width="355" height="70"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="9q7-cH-m3X" secondAttribute="height" multiplier="355:70" id="biE-rp-ubc"/>
-                                </constraints>
+                                <rect key="frame" x="10" y="513" width="355" height="134"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BLA BLA BLA BLA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcJ-1k-ZwE">
-                                <rect key="frame" x="80" y="600" width="275" height="24"/>
-                                <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="21"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9vI-t4-rpn">
+                                <rect key="frame" x="75" y="518" width="285" height="124"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="9vI-t4-rpn" secondAttribute="height" multiplier="115:50" id="TWO-lu-Arx"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spy_logo" translatesAutoresizingMaskIntoConstraints="NO" id="03B-Wc-NH2">
-                                <rect key="frame" x="20" y="587" width="50" height="50"/>
+                                <rect key="frame" x="20" y="555" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="XIO-uD-rk6"/>
                                     <constraint firstAttribute="height" constant="50" id="jGn-Eb-Meg"/>
@@ -601,25 +602,27 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="9q7-cH-m3X" firstAttribute="leading" secondItem="6In-CU-UUi" secondAttribute="leading" constant="10" id="8yE-hI-GDU"/>
-                            <constraint firstItem="9q7-cH-m3X" firstAttribute="bottom" secondItem="6In-CU-UUi" secondAttribute="bottom" constant="-20" id="AQI-Kx-VxY"/>
-                            <constraint firstItem="OcJ-1k-ZwE" firstAttribute="centerY" secondItem="9q7-cH-m3X" secondAttribute="centerY" id="TnF-Cg-6W2"/>
-                            <constraint firstItem="OcJ-1k-ZwE" firstAttribute="leading" secondItem="03B-Wc-NH2" secondAttribute="trailing" constant="10" id="kCn-J5-vpa"/>
-                            <constraint firstItem="9q7-cH-m3X" firstAttribute="trailing" secondItem="6In-CU-UUi" secondAttribute="trailing" constant="-10" id="kiN-6y-eyC"/>
-                            <constraint firstItem="OcJ-1k-ZwE" firstAttribute="trailing" secondItem="9q7-cH-m3X" secondAttribute="trailing" constant="-10" id="l08-Km-xxy"/>
+                            <constraint firstItem="9vI-t4-rpn" firstAttribute="bottom" secondItem="9q7-cH-m3X" secondAttribute="bottom" constant="-5" id="1r3-rz-fQ3"/>
+                            <constraint firstItem="9q7-cH-m3X" firstAttribute="bottom" secondItem="I3P-Bc-83i" secondAttribute="bottom" constant="-20" id="7Tz-2Y-ugn"/>
+                            <constraint firstItem="9q7-cH-m3X" firstAttribute="leading" secondItem="I3P-Bc-83i" secondAttribute="leading" constant="10" id="ZRa-b5-TmU"/>
+                            <constraint firstItem="9vI-t4-rpn" firstAttribute="trailing" secondItem="9q7-cH-m3X" secondAttribute="trailing" constant="-5" id="eMK-lD-TRZ"/>
+                            <constraint firstItem="9q7-cH-m3X" firstAttribute="top" secondItem="9vI-t4-rpn" secondAttribute="top" constant="-5" id="jUf-uw-N9h"/>
+                            <constraint firstItem="9q7-cH-m3X" firstAttribute="trailing" secondItem="I3P-Bc-83i" secondAttribute="trailing" constant="-10" id="p2d-A1-gQ4"/>
                             <constraint firstItem="03B-Wc-NH2" firstAttribute="leading" secondItem="9q7-cH-m3X" secondAttribute="leading" constant="10" id="y0v-wq-IMm"/>
+                            <constraint firstItem="9vI-t4-rpn" firstAttribute="leading" secondItem="03B-Wc-NH2" secondAttribute="trailing" constant="5" id="zS7-dh-Yj5"/>
                             <constraint firstItem="03B-Wc-NH2" firstAttribute="centerY" secondItem="9q7-cH-m3X" secondAttribute="centerY" id="ziA-lM-PIG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="I3P-Bc-83i"/>
                     </view>
                     <connections>
                         <outlet property="backgroundImage" destination="9q7-cH-m3X" id="UC8-mN-6JK"/>
-                        <outlet property="logMessage" destination="OcJ-1k-ZwE" id="sKW-dN-4Ns"/>
+                        <outlet property="logMessage" destination="9vI-t4-rpn" id="gme-tw-PEn"/>
+                        <outlet property="logMessageRatio" destination="TWO-lu-Arx" id="l0U-aI-PX1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ehf-Sd-Io3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1536" y="708"/>
+            <point key="canvasLocation" x="1535.2" y="707.49625187406298"/>
         </scene>
         <!--Alert View Controller-->
         <scene sceneID="Je6-kt-8iq">
@@ -707,13 +710,13 @@
         <image name="background_grid" width="26" height="26"/>
         <image name="fancy_popup" width="128" height="115"/>
         <image name="globe" width="330" height="330"/>
-        <image name="leaderboard_title" width="57" height="39"/>
-        <image name="neutral_full_pop_up" width="57" height="39"/>
-        <image name="notif-box" width="57" height="39"/>
-        <image name="spy_logo" width="415" height="402"/>
-        <image name="start-button" width="57" height="39"/>
-        <image name="target_status_bar_border" width="57" height="39"/>
-        <image name="time_status_bar_border" width="57" height="39"/>
+        <image name="leaderboard_title" width="57.5" height="39.5"/>
+        <image name="neutral_full_pop_up" width="57.5" height="39.5"/>
+        <image name="notif-box" width="57.5" height="39.5"/>
+        <image name="spy_logo" width="311.25" height="301.5"/>
+        <image name="start-button" width="57.5" height="39.5"/>
+        <image name="target_status_bar_border" width="57" height="39.5"/>
+        <image name="time_status_bar_border" width="57" height="39.5"/>
         <image name="title_screen" width="317" height="309"/>
         <image name="valor" width="920" height="911"/>
     </resources>
