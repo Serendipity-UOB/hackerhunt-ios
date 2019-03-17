@@ -220,7 +220,8 @@ extension MainGameViewController {
         // attempt to expose with insufficient intel
         if (player.evidence < 100) {
             DispatchQueue.main.async {
-                print("insufficient intel to expose")
+                self.logVC.setMessage(exposeFailedWithInsufficientIntel: player.realName)
+                self.showLog()
             }
             return
         }

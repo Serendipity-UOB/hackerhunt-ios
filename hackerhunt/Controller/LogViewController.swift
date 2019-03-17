@@ -15,7 +15,7 @@ class LogViewController : UIViewController {
     @IBOutlet weak var logMessage: UITextView!
     @IBOutlet weak var logMessageRatio: NSLayoutConstraint!
     
-    var ratios: [String:CGFloat] = ["exchange_requested":4.5, "exchange_accepted":3.6, "exchange_rejected":4.5, "intercept":4.5]
+    var ratios: [String:CGFloat] = ["exchange_requested":4.5, "exchange_accepted":3.6, "exchange_rejected":4.5, "intercept":4.5, "expose_failed":4.5]
     
     var message: String = ""
     var ratio: CGFloat = 1.0
@@ -81,6 +81,12 @@ class LogViewController : UIViewController {
         self.image = UIImage(named: "bad_full_pop_up")
         self.ratio = ratios["intercept"]!
         self.message = "Intercept on \(interceptFailedOn) failed, \(interceptFailedOn) wasn't exchanging."
+    }
+    
+    func setMessage(exposeFailedWithInsufficientIntel: String) {
+        self.image = UIImage(named: "bad_full_pop_up")
+        self.ratio = ratios["expose_failed"]!
+        self.message = "Expose failed.\nInsufficient evidence on \(exposeFailedWithInsufficientIntel)."
     }
     
     /* animations */
