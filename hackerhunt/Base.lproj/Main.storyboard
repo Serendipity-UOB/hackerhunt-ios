@@ -566,7 +566,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notif-box" translatesAutoresizingMaskIntoConstraints="NO" id="9q7-cH-m3X">
+                            <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notif-box" translatesAutoresizingMaskIntoConstraints="NO" id="9q7-cH-m3X">
                                 <rect key="frame" x="10" y="577" width="355" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="9q7-cH-m3X" secondAttribute="height" multiplier="355:70" id="biE-rp-ubc"/>
