@@ -451,18 +451,25 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6GY-iU-ZJB">
                                 <rect key="frame" x="188.5" y="613" width="171.5" height="39"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="19"/>
-                                <state key="normal" title="Button" backgroundImage="reject_exchange_button">
+                                <state key="normal" title="REJECT 6" backgroundImage="reject_exchange_button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="exchangeRejectPressed:" destination="3Hg-En-CAh" eventType="touchUpInside" id="nhm-gL-YRI"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v1u-HZ-wkY">
+                                <rect key="frame" x="20" y="586" width="335" height="17"/>
+                                <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="R8A-6o-dyF" firstAttribute="top" secondItem="ZPA-h3-iFp" secondAttribute="bottom" constant="12" id="0CN-Sk-ThF"/>
                             <constraint firstItem="u3P-xB-QI1" firstAttribute="bottom" secondItem="sqj-v5-pL5" secondAttribute="bottom" constant="10" id="0EL-8y-gRC"/>
+                            <constraint firstItem="v1u-HZ-wkY" firstAttribute="leading" secondItem="DSr-m0-TT7" secondAttribute="leading" constant="10" id="0wb-I8-mra"/>
                             <constraint firstItem="fL8-lV-ARG" firstAttribute="trailing" secondItem="u3P-xB-QI1" secondAttribute="centerX" constant="-1" id="1Ol-S8-weD"/>
                             <constraint firstItem="v2w-Ni-Khy" firstAttribute="centerX" secondItem="4Zd-MZ-4WL" secondAttribute="centerX" id="1XI-Nm-kFC"/>
                             <constraint firstItem="DSr-m0-TT7" firstAttribute="bottom" secondItem="u3P-xB-QI1" secondAttribute="bottom" constant="-10" id="5pT-vQ-cEv"/>
@@ -477,6 +484,7 @@
                             <constraint firstItem="4Zd-MZ-4WL" firstAttribute="height" secondItem="R8A-6o-dyF" secondAttribute="height" id="FdU-J9-NaA"/>
                             <constraint firstItem="QxZ-bJ-Tl5" firstAttribute="leading" secondItem="GpY-pt-DPL" secondAttribute="trailing" constant="1" id="Iuf-Tq-I1Y"/>
                             <constraint firstItem="v2w-Ni-Khy" firstAttribute="centerY" secondItem="4Zd-MZ-4WL" secondAttribute="centerY" id="JCG-qG-aX2"/>
+                            <constraint firstItem="v1u-HZ-wkY" firstAttribute="trailing" secondItem="DSr-m0-TT7" secondAttribute="trailing" constant="-10" id="Jno-Vf-xfo"/>
                             <constraint firstItem="Ldy-To-pvN" firstAttribute="top" secondItem="T5x-5Z-zMD" secondAttribute="top" id="JwL-qb-8jj"/>
                             <constraint firstItem="ZPA-h3-iFp" firstAttribute="leading" secondItem="sqj-v5-pL5" secondAttribute="leading" id="KzO-Rl-4R1"/>
                             <constraint firstItem="GpY-pt-DPL" firstAttribute="centerY" secondItem="ZPA-h3-iFp" secondAttribute="centerY" id="Mff-gZ-2VN"/>
@@ -506,6 +514,7 @@
                             <constraint firstItem="nEW-8p-pZ1" firstAttribute="centerX" secondItem="u3P-xB-QI1" secondAttribute="centerX" id="ow7-4V-3Up"/>
                             <constraint firstItem="nEW-8p-pZ1" firstAttribute="centerY" secondItem="T5x-5Z-zMD" secondAttribute="centerY" id="pYi-f6-5ed"/>
                             <constraint firstItem="sqj-v5-pL5" firstAttribute="trailing" secondItem="u3P-xB-QI1" secondAttribute="trailing" constant="-10" id="t7X-JI-mik"/>
+                            <constraint firstItem="v1u-HZ-wkY" firstAttribute="bottom" secondItem="fL8-lV-ARG" secondAttribute="top" constant="-10" id="toz-Lz-k5K"/>
                             <constraint firstItem="Wj3-uJ-j1Y" firstAttribute="bottom" secondItem="u3P-xB-QI1" secondAttribute="bottom" constant="-30" id="uc2-ex-WB8"/>
                             <constraint firstItem="Wj3-uJ-j1Y" firstAttribute="centerX" secondItem="T5x-5Z-zMD" secondAttribute="centerX" id="ufN-b6-jeM"/>
                             <constraint firstItem="eQ9-n7-2jr" firstAttribute="trailing" secondItem="sqj-v5-pL5" secondAttribute="trailing" id="wPB-LH-sxj"/>
@@ -520,6 +529,7 @@
                         <outlet property="exchangeRequestedAcceptButton" destination="fL8-lV-ARG" id="38u-Y0-kC7"/>
                         <outlet property="exchangeRequestedBackground" destination="DSr-m0-TT7" id="qId-OI-TgG"/>
                         <outlet property="exchangeRequestedRejectButton" destination="6GY-iU-ZJB" id="a9I-0o-MGl"/>
+                        <outlet property="exchangeRequestedText" destination="v1u-HZ-wkY" id="5yz-Jt-eBW"/>
                         <outlet property="greyOutView" destination="Ldy-To-pvN" id="soi-uz-C5Y"/>
                         <outlet property="greyOutViewTap" destination="BbW-cd-0tQ" id="j5X-4U-vhG"/>
                         <outlet property="interactionButtons" destination="8uj-MP-nye" id="0GQ-A5-pKb"/>

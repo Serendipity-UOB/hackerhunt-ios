@@ -52,6 +52,7 @@ extension MainGameViewController {
         self.exchangeRequestedAcceptButton.isUserInteractionEnabled = true
         self.exchangeRequestedRejectButton.alpha = 1.0
         self.exchangeRequestedRejectButton.isUserInteractionEnabled = true
+        self.exchangeRequestedText.alpha = 1.0
     }
     
     func hideExchangeRequested() {
@@ -60,5 +61,6 @@ extension MainGameViewController {
         self.exchangeRequestedAcceptButton.isUserInteractionEnabled = false
         self.exchangeRequestedRejectButton.alpha = 0.0
         self.exchangeRequestedRejectButton.isUserInteractionEnabled = false
+        self.exchangeRequestedText.alpha = 0.0
     }
 }

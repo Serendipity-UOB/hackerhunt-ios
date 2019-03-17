@@ -110,6 +110,95 @@ extension MainGameViewController {
     }
     
     
+    func exchangeResponse(_ requesterId: Int) {
+        let data: [String:Any] = [
+            "responder_id": self.gameState.player!.id,
+            "requester_id": requesterId,
+        ]
+        
+        self.exchangeRequestTimer.invalidate()
+        self.exchangeRequestTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainGameViewController.exchangeResponseRequest), userInfo: data, repeats: true)
+        self.exchangeRequestTimer.fire()
+    }
+    
+    @objc func exchangeResponseRequest() {
+        var requestdata: [String:Any] = exchangeRequestTimer.userInfo as! [String:Any]
+        requestdata["response"] = self.exchangeResponse
+        let request = ServerUtils.post(to: "/exchangeResponse", with: requestdata)
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            guard let httpResponse = response as? HTTPURLResponse else { return }
+            
+            let statusCode: Int = httpResponse.statusCode
+            
+            switch statusCode {
+            case 202:
+                print("exchange request accepted")
+                self.exchangeRequestTimer.invalidate()
+                guard let responseData = data else { return }
+                do {
+                    let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
+                    guard let bodyDict = bodyJson as? [String: Any] else {
+                        print("something went wrong accessing 202 response data exchange request")
+                        return
+                    }
+                    guard let evidence = bodyDict["evidence"] as? [[String:Any]] else {
+                        print("evidence missing for exchange request")
+                        return
+                    }
+                    
+                    for e in evidence {
+                        let playerId: Int = e["player_id"] as! Int
+                        let amount: Int = e["amount"] as! Int
+                        self.gameState.incrementEvidence(player: playerId, evidence: amount)
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.playerTableView.reloadData()
+                        self.hideExchangeRequested()
+                    }
+                } catch {}
+            case 205:
+                self.exchangeRequestTimer.invalidate()
+                print("exchange request successfully rejected")
+                DispatchQueue.main.async {
+                    self.hideExchangeRequested()
+                }
+            case 206:
+                print("keep polling")
+                guard let responseData = data else { return }
+                do {
+                    let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
+                    guard let bodyDict = bodyJson as? [String: Any] else {
+                        print("something went wrong accessing 206 response data exchange request")
+                        return
+                    }
+                    guard let timeRemaining = bodyDict["time_remaining"] as? String else {
+                        print("time remaining missing in exchange response")
+                        return
+                    }
+                    let seconds = calculateTimeRemaining(startTime: timeRemaining)
+                    DispatchQueue.main.async {
+                        self.exchangeRequestedRejectButton.setTitle("REJECT \(seconds)", for: .normal)
+                    }
+                    
+                } catch {}
+            case 400:
+                self.exchangeRequestTimer.invalidate()
+                print("something we did was wrong in exchange response")
+            case 408:
+                self.exchangeRequestTimer.invalidate()
+                print("exchange response timed out")
+                DispatchQueue.main.async {
+                    self.hideExchangeRequested()
+                }
+            default:
+                self.exchangeRequestTimer.invalidate()
+                print("something went wrong in exchange response with code \(statusCode)")
+            }
+        }.resume()
+    }
     
     
     // MARK: Intercept

@@ -19,11 +19,13 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     var homeBeaconTimer = Timer()
     var missionTimer = Timer()
     var interceptTimer = Timer()
+    var exchangeRequestTimer = Timer()
     
     var exchange: Bool = false
     var takedown: Bool = false
     var exchangeMessage: Bool = false
     var onMission: Bool = false
+    var exchangeResponse: Int = 0
     
     // header
     @IBOutlet weak var pointsValue: UILabel!
@@ -44,6 +46,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var exchangeRequestedBackground: UIImageView!
     @IBOutlet weak var exchangeRequestedAcceptButton: UIButton!
     @IBOutlet weak var exchangeRequestedRejectButton: UIButton!
+    @IBOutlet weak var exchangeRequestedText: UILabel!
     
     
     var alertVC : AlertViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "alertViewController") as! AlertViewController
@@ -243,7 +246,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                             print("exchange_pending missing")
                             return
                         }
-                        self.handleExchangeRequested(exchangeRequested)
+                        self.handleExchangeRequested(3)
                         self.handleTakenDown(takenDown)
                         self.handleNearbyPlayers(nearbyPlayers)
                         self.setCurrentPoints(points)
@@ -271,8 +274,12 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     func handleExchangeRequested(_ exchangeRequested: Int) {
         if (exchangeRequested != 0) {
             DispatchQueue.main.async {
+                let sender = self.gameState.getPlayerById(exchangeRequested)!.realName
+                self.exchangeRequestedText.text = "\(sender) wants to exchange evidence with you."
                 self.showExchangeRequested()
+                self.exchangeResponse(exchangeRequested)
             }
+            self.exchangeResponse = 0
         }
     }
     
@@ -379,10 +386,12 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBAction func exchangeAcceptPressed(_ sender: Any) {
         print("accepted pressed")
+        self.exchangeResponse = 1
     }
     
     @IBAction func exchangeRejectPressed(_ sender: Any) {
         print("reject pressed")
+        self.exchangeResponse = 2
     }
     
 }
