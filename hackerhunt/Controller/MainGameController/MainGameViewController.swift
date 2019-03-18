@@ -55,12 +55,13 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        letTheChallengeBegin()
+        hideExchangeRequested()
         setCurrentPoints(0)
         startGameOverCountdown()
         setupPlayerTable()
         playerName.text = gameState.player!.realName
-        letTheChallengeBegin()
-       
+        
     }
     
     // MARK: startInfo
@@ -246,7 +247,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                             print("exchange_pending missing")
                             return
                         }
-                        self.handleExchangeRequested(3)
+                        self.handleExchangeRequested(exchangeRequested)
                         self.handleTakenDown(takenDown)
                         self.handleNearbyPlayers(nearbyPlayers)
                         self.setCurrentPoints(points)

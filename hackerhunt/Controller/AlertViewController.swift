@@ -20,7 +20,7 @@ class AlertViewController: UIViewController {
     var titleMessage: String = "default title"
     var homeBeacon = "A"
     var isShowing = false
-    var tapToClose: Bool = true
+    var tapToClose: Bool = false
     var backgroundImage: UIImage!
     var newMissionDetailsRatio: CGFloat = 1.0
     var titleColour: UIColor!
@@ -48,6 +48,7 @@ class AlertViewController: UIViewController {
     
     func setTapToClose(_ tapToClose: Bool) {
         self.tapToClose = tapToClose
+        self.tapLabel.alpha = (self.tapToClose) ? 1 : 0
     }
     
     func setHomeBeacon(homeBeaconName: String) {
@@ -57,12 +58,14 @@ class AlertViewController: UIViewController {
     /* preset messages */
     
     func setMessage(message: String, tapToClose: Bool) {
-        self.setTapToClose(tapToClose)
+//        self.setTapToClose(tapToClose)
+        self.tapToClose = tapToClose
         self.message = message
     }
     
     func setMessage(gameOver: Any) {
-        self.setTapToClose(true)
+//        self.setTapToClose(true)
+        self.tapToClose = false
         self.message = "Incoming message...\n\nGood work! Return your equipment to the stand to collect your reward.\n\n- Anon"
     }
     
@@ -72,6 +75,7 @@ class AlertViewController: UIViewController {
         self.titleMessage = "GAME START"
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
         self.message = "Welcome, Agent. \nGo to game zone \(homeBeacon) for your first target."
+        self.tapToClose = tapToClose
     }
     
     func setMessage(requestNewTarget: Any) {
@@ -80,6 +84,7 @@ class AlertViewController: UIViewController {
         self.titleMessage = "TOO SLOW"
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
         self.message = "Your target was Exposed by another agent.\n\nReturn to \(homeBeacon) to be assigned a new target."
+        self.tapToClose = false
     }
     
     func setMessage(takenDown: Any, exposedBy: String) {
@@ -88,6 +93,7 @@ class AlertViewController: UIViewController {
         self.titleMessage = "SECURITY BREACH"
         self.backgroundImage = UIImage(named: "bad_full_pop_up")
         self.message = "Your mission has been Exposed by \(exposedBy), you have lost 50% of your gathered Evidence.\n\nReturn to \(homeBeacon), Agent."
+        self.tapToClose = false
     }
     
     func setMessage(successfulExpose: Any, reputation: Int) {
@@ -96,6 +102,7 @@ class AlertViewController: UIViewController {
         self.titleMessage = "EXPOSE SUCCESS"
         self.backgroundImage = UIImage(named: "good_full_pop_up")
         self.message = "Good work, agent. Return to \(homeBeacon) for your next target.\n\nReward: \(reputation) reputation"
+        self.tapToClose = false
     }
     
     func setMessage(newMission: String) {
@@ -104,6 +111,7 @@ class AlertViewController: UIViewController {
         self.titleMessage = "MISSION UPDATE"
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
         self.message = newMission
+        self.tapToClose = true
     }
     
     func setMessage(missionSuccess: Any, missionString: String) {
@@ -112,6 +120,7 @@ class AlertViewController: UIViewController {
         self.titleMessage = "MISSION SUCCESS"
         self.backgroundImage = UIImage(named: "good_full_pop_up")
         self.message = missionString
+        self.tapToClose = true
     }
     
     func setMessage(missionFailure: Any, missionString: String) {
@@ -120,14 +129,13 @@ class AlertViewController: UIViewController {
         self.titleMessage = "MISSION FAILED"
         self.backgroundImage = UIImage(named: "bad_full_pop_up")
         self.message = missionString
+        self.tapToClose = true
     }
     
     /* animations */
     
     func showAnimate() {
         self.alertSizeRatio = self.alertSizeRatio.constraintWithMultiplier(self.newMissionDetailsRatio)
-//        self.alertMessage.removeConstraint(self.alertSizeRatio)
-//        self.alertMessage.addConstraint(ratio)
         self.alertTitleLabel.text = self.titleMessage
         self.alertMessage.text = self.message
         self.alertBackgroundImage.image = self.backgroundImage

@@ -361,14 +361,11 @@ extension MainGameViewController {
                     self.gameState!.points += reputation
                     
                     DispatchQueue.main.async {
-                        // big popup
                         print("expose successful")
-                        
-//                        self.alertVC.setMessage(successfulExpose: true, reputation: reputation)
-//                        self.showAlert()
+                        self.alertVC.setMessage(successfulExpose: true, reputation: reputation)
+                        self.showAlert()
                         self.playerTableView.reloadData()
                         self.startCheckingForHomeBeacon(withCallback: self.requestNewTarget)
-                        //self.gameState.unhideAll()
                         self.takedown = false
                     }
                 } catch {}
