@@ -24,8 +24,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        realNameTextField.autocapitalizationType = .words
         realNameTextField.layer.borderWidth = 1
         realNameTextField.layer.borderColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0).cgColor
+        codeNameTextField.autocapitalizationType = .words
         codeNameTextField.layer.borderWidth = 1
         codeNameTextField.layer.borderColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0).cgColor
         

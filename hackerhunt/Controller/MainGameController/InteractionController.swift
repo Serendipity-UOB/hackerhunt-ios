@@ -43,7 +43,7 @@ extension MainGameViewController {
     
     @objc func exchangeRequest() {
         let requestdata: [String:Any] = exchangeTimer.userInfo as! [String:Any]
-        let player = self.gameState.getPlayerById(requestdata["responder_id"]! as! Int)
+        let player = self.gameState.getPlayerById(requestdata["responder_id"]! as! Int)!
         let request = ServerUtils.post(to: "/exchangeRequest", with: requestdata)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -64,7 +64,7 @@ extension MainGameViewController {
                 guard let responseData = data else { return }
                 do {
                     self.exchangeTimer.invalidate()
-                    player?.exchangeRequested = false
+//                    player.exchangeRequested = false
                     
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
                     
@@ -90,7 +90,7 @@ extension MainGameViewController {
                 } catch {}
             case 204: // rejected
                 self.exchangeTimer.invalidate()
-                player?.exchangeRequested = false
+//                player.exchangeRequested = false
                 DispatchQueue.main.async {
                     self.playerTableView.reloadData()
                     self.logVC.setMessage(exchangeRejected: responderName)
@@ -98,15 +98,19 @@ extension MainGameViewController {
                     print("Exchange rejected, put small popup here")
                 }
             case 206:
+//                player.exchangeRequested = true
+                DispatchQueue.main.async {
+                    self.playerTableView.reloadData()
+                }
                 print("keep polling")
             case 400, 404: // error
                 self.exchangeTimer.invalidate()
-                player?.exchangeRequested = false
+//                player.exchangeRequested = false
                 self.playerTableView.reloadData()
                 print("You did a bad exchange")
             case 408: // timeout
                 self.exchangeTimer.invalidate()
-                player?.exchangeRequested = false
+//                player.exchangeRequested = false
                 DispatchQueue.main.async {
                     self.playerTableView.reloadData()
                     self.logVC.setMessage(exchangeTimeout: responderName)
@@ -147,10 +151,13 @@ extension MainGameViewController {
             
             let statusCode: Int = httpResponse.statusCode
             
+            print("exchange response status code \(statusCode)")
+            
             switch statusCode {
             case 202:
                 print("exchange request accepted")
                 self.exchangeRequestTimer.invalidate()
+                self.exchangeResponse = 0
                 guard let responseData = data else { return }
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
@@ -176,6 +183,7 @@ extension MainGameViewController {
                 } catch {}
             case 205:
                 self.exchangeRequestTimer.invalidate()
+                self.exchangeResponse = 0
                 print("exchange request successfully rejected")
                 DispatchQueue.main.async {
                     self.hideExchangeRequested()
@@ -189,28 +197,39 @@ extension MainGameViewController {
                         print("something went wrong accessing 206 response data exchange request")
                         return
                     }
-                    guard let timeRemaining = bodyDict["time_remaining"] as? String else {
+                    guard let timeRemaining = bodyDict["time_remaining"] as? Int else {
                         print("time remaining missing in exchange response")
                         return
                     }
-                    let seconds = calculateTimeRemaining(startTime: timeRemaining)
+                    
                     DispatchQueue.main.async {
-                        self.exchangeRequestedRejectButton.setTitle("REJECT \(seconds)", for: .normal)
+                        UIView.performWithoutAnimation {
+                            self.exchangeRequestedRejectButton.setTitle("REJECT \(timeRemaining)", for: .normal)
+                        }
                     }
                     
                 } catch {}
             case 400:
                 self.exchangeRequestTimer.invalidate()
+                self.exchangeResponse = 0
                 print("something we did was wrong in exchange response")
+                DispatchQueue.main.async {
+                    self.hideExchangeRequested()
+                }
             case 408:
                 self.exchangeRequestTimer.invalidate()
+                self.exchangeResponse = 0
                 print("exchange response timed out")
                 DispatchQueue.main.async {
                     self.hideExchangeRequested()
                 }
             default:
                 self.exchangeRequestTimer.invalidate()
+                self.exchangeResponse = 0
                 print("something went wrong in exchange response with code \(statusCode)")
+                DispatchQueue.main.async {
+                    self.hideExchangeRequested()
+                }
             }
         }.resume()
     }

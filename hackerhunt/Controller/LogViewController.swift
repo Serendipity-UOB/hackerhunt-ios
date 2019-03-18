@@ -37,12 +37,15 @@ class LogViewController : UIViewController {
         self.image = UIImage(named: "good_full_pop_up")
         self.ratio = ratios["exchange_accepted"]!
         self.message = "Exchange successful.\n\(exchangeSuccessfulWithPlayer) gave you evidence on "
+        
         for e in evidence {
             if (e != exchangeSuccessfulWithPlayer) {
                 self.message += e + " and "
             }
         }
-        self.message.removeLast(5)
+        if (evidence.count != 1) {
+            self.message.removeLast(5)
+        }
         self.message += ".\nYou also found some about \(exchangeSuccessfulWithPlayer)."
     }
     
@@ -108,7 +111,7 @@ class LogViewController : UIViewController {
             self.view.alpha = 1.0
             self.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         }, completion: {_ in
-            self.perform(#selector(LogViewController.removeAnimate), with: nil, afterDelay: 5)
+            self.perform(#selector(LogViewController.removeAnimate), with: nil, afterDelay: 3)
         });
     }
     
