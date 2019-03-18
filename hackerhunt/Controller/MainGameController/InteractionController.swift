@@ -54,7 +54,7 @@ extension MainGameViewController {
             print("exchange code " + String(statusCode))
             let responderName = self.gameState.getPlayerById(requestdata["responder_id"] as! Int)!.realName
             switch statusCode {
-            case 201, 206: // created
+            case 201: // created
                 DispatchQueue.main.async {
                     self.logVC.setMesssage(exchangeRequestedWith: responderName)
                     self.showLog()
@@ -97,6 +97,8 @@ extension MainGameViewController {
                     self.showLog()
                     print("Exchange rejected, put small popup here")
                 }
+            case 206:
+                print("keep polling")
             case 400, 404: // error
                 self.exchangeTimer.invalidate()
                 player?.exchangeRequested = false
@@ -126,7 +128,7 @@ extension MainGameViewController {
         let data: [String:Any] = [
             "responder_id": self.gameState.player!.id,
             "requester_id": requesterId,
-            "contacts_id": validContacts
+            "contact_ids": validContacts
         ]
         
         self.exchangeRequestTimer.invalidate()
