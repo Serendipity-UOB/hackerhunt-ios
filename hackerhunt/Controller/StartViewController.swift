@@ -16,9 +16,12 @@ class StartViewController: UIViewController {
     
     @IBOutlet weak var titleLogoGif: UIImageView!
     @IBOutlet weak var errorMessage: UILabel!
+    @IBOutlet weak var testingButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        testingButton.setTitle((ServerUtils.testing) ? "testing on" : "testing off", for: .normal)
 
         titleLogoGif.loadGif(name: "title_screen")
         
@@ -41,6 +44,11 @@ class StartViewController: UIViewController {
                 beaconListener.requestBluetoothOn()
             }
         }
+    }
+    
+    @IBAction func testingModePressed(_ sender: Any) {
+        ServerUtils.testing = !ServerUtils.testing
+        testingButton.setTitle((ServerUtils.testing) ? "testing on" : "testing off", for: .normal)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
