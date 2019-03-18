@@ -19,6 +19,7 @@ class PlayerTableCell: UITableViewCell {
     var buttonsView: UIView?
     
     var percentagePositionConstraint: NSLayoutConstraint!
+    var displayedEvidenceValue: Float = 0.0
     
     var greyOutView: UIView = {
         let view = UIView()
@@ -44,7 +45,7 @@ class PlayerTableCell: UITableViewCell {
         textView.textContainer.lineFragmentPadding = 0
         return textView
     }()
-
+    
     var codeName: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -153,7 +154,7 @@ class PlayerTableCell: UITableViewCell {
         realName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         realName.topAnchor.constraint(equalTo: self.topAnchor, constant: -4).isActive = true
         realName.bottomAnchor.constraint(equalTo: self.playerCardDivider.topAnchor, constant: 0).isActive = true
-
+        
         self.addSubview(codeName)
         codeName.leftAnchor.constraint(equalTo: self.realName.leftAnchor, constant: 0).isActive = true
         codeName.topAnchor.constraint(equalTo: playerCardDivider.bottomAnchor, constant: 7).isActive = true
@@ -211,7 +212,7 @@ class PlayerTableCell: UITableViewCell {
         super.layoutSubviews()
         
         realName.text = player.realName
-        evidencePercent.text = String(format: "%.f%%", player.evidence)
+        
         if (player.codeNameDiscovered) {
             codeName.text = player.codeName
             codeName.backgroundColor = (isTarget) ? UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7) : UIColor(red:0.00, green:0.65, blue:0.93, alpha:0.54)
@@ -229,6 +230,23 @@ class PlayerTableCell: UITableViewCell {
         }
         else {
             percentagePositionConstraint.constant = -15
+        }
+        
+        let evidenceDifference: Float = player.evidence - displayedEvidenceValue
+        if (evidenceDifference > 0) {
+            // do +5% animation
+            evidencePercent.text = String(format: "+%.f%%", evidenceDifference)
+            self.evidencePercent.textColor = UIColor(red:0.02, green:0.95, blue:0.43, alpha:1.0) // green
+            
+            // revert +5% animation
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.displayedEvidenceValue = self.player.evidence
+                self.evidencePercent.text = String(format: "%.f%%", self.displayedEvidenceValue)
+                self.evidencePercent.text = String(format: "%.f%%", self.displayedEvidenceValue)
+            }
+        } else {
+            displayedEvidenceValue = player.evidence
+            evidencePercent.text = String(format: "%.f%%", displayedEvidenceValue)
         }
         
         setDefaultBackgroundColor()
@@ -250,7 +268,7 @@ class PlayerTableCell: UITableViewCell {
         // draw foreground
         self.evidenceCircle.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true).cgPath
     }
-
+    
     func setDefaultBackgroundColor() {
         if (player.nearby) {
             backgroundImage.image = UIImage(named: "player_card")
@@ -261,6 +279,13 @@ class PlayerTableCell: UITableViewCell {
             backgroundImage.image = UIImage(named: "player_card_far")
             evidenceCircle.strokeColor = UIColor(red:0.69, green:0.67, blue:0.67, alpha:1.0).cgColor
             evidenceCircleBg.strokeColor = UIColor(red:0.02, green:0.10, blue:0.17, alpha:1.0).cgColor
+        }
+        
+        if (displayedEvidenceValue == 100) {
+            evidencePercent.textColor = UIColor(red:0.71, green:0.84, blue:0.66, alpha:1.0) // yellowy green
+            evidenceCircle.strokeColor = UIColor(red:0.02, green:0.95, blue:0.43, alpha:1.0).cgColor // green
+        } else {
+            evidencePercent.textColor = UIColor.white
         }
     }
     
