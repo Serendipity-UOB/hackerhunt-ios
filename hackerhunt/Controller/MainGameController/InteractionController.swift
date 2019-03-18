@@ -329,16 +329,12 @@ extension MainGameViewController {
             return
         }
         
-        DispatchQueue.main.async {
-            print("Initiating expose")
-        }
         
         // create data
         let data: [String: Int] = [
             "player_id": self.gameState.player!.id,
             "target_id": self.gameState.allPlayers[target].id
         ]
-        print("taking down with data:\n\t\(data)\n")
         
         let request = ServerUtils.post(to: "/expose", with: data)
         

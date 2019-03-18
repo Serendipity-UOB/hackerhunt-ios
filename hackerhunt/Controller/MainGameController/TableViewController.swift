@@ -50,11 +50,13 @@ extension MainGameViewController {
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let cellToShow = playerTableView.cellForRow(at: indexPath) as! PlayerTableCell
-        greyOutAllCells()
-        cellToShow.ungreyOut()
-        cellToShow.showButtons()
-        self.tapToCloseLabel.alpha = 1.0
+        if (gameState!.allPlayers[indexPath.section].nearby) {
+            let cellToShow = playerTableView.cellForRow(at: indexPath) as! PlayerTableCell
+            greyOutAllCells()
+            cellToShow.ungreyOut()
+            cellToShow.showButtons()
+            self.tapToCloseLabel.alpha = 1.0
+        }
         return indexPath
     }
     
