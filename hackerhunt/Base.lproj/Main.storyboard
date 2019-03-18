@@ -464,7 +464,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6GY-iU-ZJB">
                                 <rect key="frame" x="188.5" y="613" width="171.5" height="39"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="19"/>
-                                <state key="normal" title="REJECT 6" backgroundImage="reject_exchange_button">
+                                <state key="normal" title="REJECT" backgroundImage="reject_exchange_button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>

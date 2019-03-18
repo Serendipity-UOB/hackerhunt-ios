@@ -54,7 +54,7 @@ extension MainGameViewController {
             print("exchange code " + String(statusCode))
             let responderName = self.gameState.getPlayerById(requestdata["responder_id"] as! Int)!.realName
             switch statusCode {
-            case 201: // created
+            case 201, 206: // created
                 DispatchQueue.main.async {
                     self.logVC.setMesssage(exchangeRequestedWith: responderName)
                     self.showLog()
@@ -119,9 +119,14 @@ extension MainGameViewController {
     
     
     func exchangeResponse(_ requesterId: Int) {
+        let validContacts: [[String: Int]] = self.gameState.allPlayers
+            .filter({ $0.evidence > 0.0 })
+            .map({ return ["contact_id": $0.id] })
+        
         let data: [String:Any] = [
             "responder_id": self.gameState.player!.id,
             "requester_id": requesterId,
+            "contacts_id": validContacts
         ]
         
         self.exchangeRequestTimer.invalidate()
@@ -366,6 +371,7 @@ extension MainGameViewController {
                     self.gameState!.points += reputation
                     player.evidence = 0
                     DispatchQueue.main.async {
+                        self.pointsValue.text = String(self.gameState.points) + " rep /"
                         print("expose successful")
                         self.alertVC.setMessage(successfulExpose: true, reputation: reputation)
                         self.showAlert()

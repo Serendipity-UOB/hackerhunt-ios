@@ -153,25 +153,15 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         return
                     }
                     
-                    guard let allPlayersString = bodyDict["all_players"] as? String else {
-                        print("all_players missing")
-                        return
-                    }
-                    
-                    let allPlayersJson = try JSONSerialization.jsonObject(with: allPlayersString.data(using: .utf8)!, options: [])
-                    
-                    guard let allPlayersList = allPlayersJson as? [[String:Any]] else {
+                    guard let allPlayersList = bodyDict["all_players"] as? [[String:Any]] else {
                         print("all_players cast to list of dicts failed")
                         return
                     }
                     
                     DispatchQueue.main.async {
                         self.gameState.initialisePlayerList(allPlayers: allPlayersList)
-                        
                         self.playerTableView.reloadData()
-                        
                         self.startPollingForUpdates()
-                        
                         self.requestNewTarget()
                     }
                 } catch {}
