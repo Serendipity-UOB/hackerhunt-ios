@@ -15,13 +15,11 @@ extension MainGameViewController {
     @objc func exchangeButtonAction(sender: UIButton!) {
         self.ungreyOutAllCells()
         let interacteeId = sender.tag
-        let player : Player = gameState.getPlayerById(sender.tag)!
+        let player = self.gameState.getPlayerById(interacteeId)!
         player.exchangeRequested = true
         DispatchQueue.main.async {
             self.playerTableView.reloadData()
         }
-
-        print("exchange button tapped for player \(player.realName)")
         
         if (gameState.playerIsNearby(interacteeId)) {
             let validContacts: [[String: Int]] = self.gameState.allPlayers
@@ -52,6 +50,7 @@ extension MainGameViewController {
             
             let statusCode: Int = httpResponse.statusCode
             print("exchange code " + String(statusCode))
+            print(player.exchangeRequested)
             let responderName = self.gameState.getPlayerById(requestdata["responder_id"] as! Int)!.realName
             switch statusCode {
             case 201: // created
@@ -64,7 +63,7 @@ extension MainGameViewController {
                 guard let responseData = data else { return }
                 do {
                     self.exchangeTimer.invalidate()
-//                    player.exchangeRequested = false
+                    player.exchangeRequested = false
                     
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
                     
@@ -87,10 +86,11 @@ extension MainGameViewController {
                         self.showLog()
                         print("Exchange accepted")
                     }
+                    print("exchange accepted \(player.exchangeRequested)")
                 } catch {}
             case 204: // rejected
                 self.exchangeTimer.invalidate()
-//                player.exchangeRequested = false
+                player.exchangeRequested = false
                 DispatchQueue.main.async {
                     self.playerTableView.reloadData()
                     self.logVC.setMessage(exchangeRejected: responderName)
@@ -98,19 +98,20 @@ extension MainGameViewController {
                     print("Exchange rejected, put small popup here")
                 }
             case 206:
-//                player.exchangeRequested = true
                 DispatchQueue.main.async {
                     self.playerTableView.reloadData()
                 }
                 print("keep polling")
             case 400, 404: // error
                 self.exchangeTimer.invalidate()
-//                player.exchangeRequested = false
-                self.playerTableView.reloadData()
+                player.exchangeRequested = false
+                DispatchQueue.main.async {
+                   self.playerTableView.reloadData()
+                }
                 print("You did a bad exchange")
             case 408: // timeout
                 self.exchangeTimer.invalidate()
-//                player.exchangeRequested = false
+                player.exchangeRequested = false
                 DispatchQueue.main.async {
                     self.playerTableView.reloadData()
                     self.logVC.setMessage(exchangeTimeout: responderName)
@@ -120,7 +121,7 @@ extension MainGameViewController {
             default:
                 print("/exchangeRequest unexpected \(statusCode)")
             }
-            }.resume()
+        }.resume()
     }
     
     
@@ -203,9 +204,10 @@ extension MainGameViewController {
                     }
                     
                     DispatchQueue.main.async {
-                        UIView.performWithoutAnimation {
-                            self.exchangeRequestedRejectButton.setTitle("REJECT \(timeRemaining)", for: .normal)
-                        }
+                        UIView.setAnimationsEnabled(false)
+                        self.exchangeRequestedRejectButton.setTitle("REJECT \(timeRemaining)", for: .normal)
+                        self.exchangeRequestedRejectButton.layoutIfNeeded()
+                        UIView.setAnimationsEnabled(true)
                     }
                     
                 } catch {}
