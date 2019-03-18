@@ -16,6 +16,11 @@ extension MainGameViewController {
         self.ungreyOutAllCells()
         let interacteeId = sender.tag
         let player : Player = gameState.getPlayerById(sender.tag)!
+        player.exchangeRequested = true
+        DispatchQueue.main.async {
+            self.playerTableView.reloadData()
+        }
+
         print("exchange button tapped for player \(player.realName)")
         
         if (gameState.playerIsNearby(interacteeId)) {
@@ -33,15 +38,12 @@ extension MainGameViewController {
             exchangeTimer.invalidate()
             exchangeTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainGameViewController.exchangeRequest), userInfo: data, repeats: true)
             exchangeTimer.fire()
-        } else {
-            DispatchQueue.main.async {
-                self.alertVC.setMessage(message: "EXCHANGE_FAIL\n\nPlayer not nearby", tapToClose: true)
-            }
         }
     }
     
     @objc func exchangeRequest() {
         let requestdata: [String:Any] = exchangeTimer.userInfo as! [String:Any]
+        let player = self.gameState.getPlayerById(requestdata["responder_id"]! as! Int)
         let request = ServerUtils.post(to: "/exchangeRequest", with: requestdata)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -62,6 +64,7 @@ extension MainGameViewController {
                 guard let responseData = data else { return }
                 do {
                     self.exchangeTimer.invalidate()
+                    player?.exchangeRequested = false
                     
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
                     
@@ -87,18 +90,23 @@ extension MainGameViewController {
                 } catch {}
             case 204: // rejected
                 self.exchangeTimer.invalidate()
+                player?.exchangeRequested = false
                 DispatchQueue.main.async {
+                    self.playerTableView.reloadData()
                     self.logVC.setMessage(exchangeRejected: responderName)
                     self.showLog()
                     print("Exchange rejected, put small popup here")
                 }
             case 400, 404: // error
                 self.exchangeTimer.invalidate()
+                player?.exchangeRequested = false
+                self.playerTableView.reloadData()
                 print("You did a bad exchange")
             case 408: // timeout
                 self.exchangeTimer.invalidate()
-                self.exchangeTimer.invalidate()
+                player?.exchangeRequested = false
                 DispatchQueue.main.async {
+                    self.playerTableView.reloadData()
                     self.logVC.setMessage(exchangeTimeout: responderName)
                     self.showLog()
                     print("Exchange timed out, put small popup here")

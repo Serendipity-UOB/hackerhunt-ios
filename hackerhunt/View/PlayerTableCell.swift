@@ -57,6 +57,19 @@ class PlayerTableCell: UITableViewCell {
         return textView
     }()
     
+    var exchangeRequested: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.isUserInteractionEnabled = false
+        textView.isScrollEnabled = false
+        textView.backgroundColor = UIColor.clear
+        textView.font = UIFont(name: "ShareTech-Regular", size: 13)
+        textView.textColor = UIColor(red:0.58, green:0.74, blue:0.81, alpha:1.0)
+        textView.textContainer.lineFragmentPadding = 0
+        textView.text = "exchange requested"
+        return textView
+    }()
+    
     var playerCardDivider: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "player_card_divider"))
         imageView.contentMode = UIView.ContentMode.scaleToFill
@@ -158,6 +171,10 @@ class PlayerTableCell: UITableViewCell {
         greyOutView.frame.size.height = cellHeight + 1
         greyOutView.frame.origin.x = UIScreen.main.bounds.origin.x
         greyOutView.frame.origin.y = UIScreen.main.bounds.origin.y
+        
+        self.addSubview(exchangeRequested)
+        exchangeRequested.rightAnchor.constraint(equalTo: playerCardDivider.rightAnchor, constant: -20).isActive = true
+        exchangeRequested.topAnchor.constraint(equalTo: playerCardDivider.bottomAnchor, constant: 2).isActive = true
     }
     
     func initialiseButtons(_ buttonsView: UIView) {
@@ -214,6 +231,8 @@ class PlayerTableCell: UITableViewCell {
         setDefaultBackgroundColor()
         
         drawEvidenceBar()
+        
+        exchangeRequested.alpha = (player.exchangeRequested) ? 1 : 0
     }
     
     func drawEvidenceBar() {

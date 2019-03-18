@@ -22,6 +22,7 @@ class Player {
     var evidence: Float = 0.0
     var score: Int = 0
     var codeNameDiscovered: Bool = false
+    var exchangeRequested: Bool = false
     
     func copy() -> Player {
         let copy = Player(realName: self.realName, codeName: self.codeName, id: self.id)
