@@ -195,10 +195,13 @@ class PlayerTableCell: UITableViewCell {
         
         realName.text = player.realName
         evidencePercent.text = String(format: "%.f%%", player.evidence)
-        if (player.evidence == 100.0) {
+        if (player.codeNameDiscovered) {
             codeName.text = player.codeName
             codeName.backgroundColor = (isTarget) ? UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7) : UIColor(red:0.00, green:0.65, blue:0.93, alpha:0.54)
             codeName.alpha = 1
+        }
+        
+        if (player.evidence == 100.0) {
             percentagePositionConstraint.constant = -9
         }
         else if (player.evidence >= 10.0){

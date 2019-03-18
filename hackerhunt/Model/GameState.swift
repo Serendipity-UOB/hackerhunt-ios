@@ -44,18 +44,11 @@ class GameState {
         for p in allPlayers {
             if (p.id == player) {
                 p.evidence = min(p.evidence + Float(evidence), 100)
+                p.codeNameDiscovered = (p.evidence == 100 || p.codeNameDiscovered) ? true : false
                 break
             }
         }
         
-    }
-    
-    func incrementIntelFor(playerOne: Int, playerTwo: Int) {
-        for player in allPlayers {
-            if (player.id == playerOne || (player.id == playerTwo) && (playerTwo != 0)) {
-                player.evidence = min(player.evidence + 0.2, 1.0)
-            }
-        }
     }
     
     func deleteHalfOfIntel() {

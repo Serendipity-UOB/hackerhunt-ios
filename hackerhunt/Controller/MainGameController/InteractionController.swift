@@ -330,7 +330,8 @@ extension MainGameViewController {
         }
         
         DispatchQueue.main.async {
-            print("Initiating expose")        }
+            print("Initiating expose")
+        }
         
         // create data
         let data: [String: Int] = [
@@ -359,7 +360,7 @@ extension MainGameViewController {
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
                     guard let reputation = bodyDict["reputation"] as? Int else { return }
                     self.gameState!.points += reputation
-                    
+                    player.evidence = 0
                     DispatchQueue.main.async {
                         print("expose successful")
                         self.alertVC.setMessage(successfulExpose: true, reputation: reputation)
