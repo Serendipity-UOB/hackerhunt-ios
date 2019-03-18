@@ -369,7 +369,7 @@ extension MainGameViewController {
         // create data
         let data: [String: Int] = [
             "player_id": self.gameState.player!.id,
-            "target_id": self.gameState.allPlayers[target].id
+            "target_id": player.id
         ]
         
         let request = ServerUtils.post(to: "/expose", with: data)

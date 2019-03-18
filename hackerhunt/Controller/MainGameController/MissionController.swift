@@ -54,8 +54,6 @@ extension MainGameViewController {
                         self.alertVC.setMessage(missionSuccess: true, missionString: description)
                         self.showAlert()
                     }
-                    
-                    
                 } catch {}
             case 203:
                 self.missionTimer.invalidate()
@@ -74,11 +72,13 @@ extension MainGameViewController {
                         self.alertVC.setMessage(missionFailure: true, missionString: description)
                         self.showAlert()
                     }
-                    
-                    
                 } catch {}
             case 206:
                 print("time remaining for missions not yet implemented")
+//                var message = self.alertVC.message
+//                let regex = try! NSRegularExpression(pattern: "[0-9]+ Seconds")
+//                regex.replaceMatches(in: message as! NSMutableString, options: [], range: NSRange(location: 0,length: message.count), withTemplate: "Tom is good at swift")
+//                print(message)
             case 400:
                 print("mission something went wrong from client")
             default:

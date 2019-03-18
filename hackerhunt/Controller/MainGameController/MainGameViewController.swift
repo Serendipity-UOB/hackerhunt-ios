@@ -243,6 +243,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.setCurrentPoints(points)
                         self.handleRequestNewTarget(requestNewTarget)
                         self.handlePosition(position)
+//                        self.handleMission("Do this mission at Beacon <b>A</b> in <b>30</b> seconds")
                         self.handleMission(missionDescription)
                         if (ServerUtils.testing) {
                             self.updatesTimer.invalidate()
@@ -282,6 +283,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.startMissionUpdates()
             }
             self.onMission = true
+//            var message = self.alertVC.message
+//            var mutableMessage = NSMutableString(string: message)
+//            let regex = try! NSRegularExpression(pattern: "[0-9]+ [Ss]econds")
+//            regex.replaceMatches(in: mutableMessage, options: [], range: NSRange(location: 0,length: message.count), withTemplate: "Tom is good at swift")
+//            print(mutableMessage as String)
         }
     }
     

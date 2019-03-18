@@ -217,6 +217,9 @@ class PlayerTableCell: UITableViewCell {
             codeName.backgroundColor = (isTarget) ? UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7) : UIColor(red:0.00, green:0.65, blue:0.93, alpha:0.54)
             codeName.alpha = 1
         }
+        else {
+            codeName.alpha = 0
+        }
         
         if (player.evidence == 100.0) {
             percentagePositionConstraint.constant = -9
