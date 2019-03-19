@@ -16,8 +16,9 @@ extension MainGameViewController {
         self.ungreyOutAllCells()
         let interacteeId = sender.tag
         let player = self.gameState.getPlayerById(interacteeId)!
-        player.exchangeRequested = true
+        
         DispatchQueue.main.async {
+            self.setCurrentlyExchanging(with: player)
             self.playerTableView.reloadData()
         }
         
@@ -50,7 +51,7 @@ extension MainGameViewController {
             
             let statusCode: Int = httpResponse.statusCode
             print("exchange code " + String(statusCode))
-            print(player.exchangeRequested)
+            
             let responderName = self.gameState.getPlayerById(requestdata["responder_id"] as! Int)!.realName
             switch statusCode {
             case 201: // created
@@ -63,7 +64,6 @@ extension MainGameViewController {
                 guard let responseData = data else { return }
                 do {
                     self.exchangeTimer.invalidate()
-                    player.exchangeRequested = false
                     
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
                     
@@ -81,17 +81,18 @@ extension MainGameViewController {
                     }
                     
                     DispatchQueue.main.async {
+                        self.setNoLongerExchanging(with: player)
                         self.playerTableView.reloadData()
                         self.logVC.setMessage(exchangeSuccessfulWithPlayer: responderName, evidence: players)
                         self.showLog()
                         print("Exchange accepted")
                     }
-                    print("exchange accepted \(player.exchangeRequested)")
                 } catch {}
             case 204: // rejected
                 self.exchangeTimer.invalidate()
-                player.exchangeRequested = false
+                
                 DispatchQueue.main.async {
+                    self.setNoLongerExchanging(with: player)
                     self.playerTableView.reloadData()
                     self.logVC.setMessage(exchangeRejected: responderName)
                     self.showLog()
@@ -102,17 +103,26 @@ extension MainGameViewController {
                     self.playerTableView.reloadData()
                 }
                 print("keep polling")
-            case 400, 404: // error
+            case 400: // error
                 self.exchangeTimer.invalidate()
-                player.exchangeRequested = false
+                
                 DispatchQueue.main.async {
-                   self.playerTableView.reloadData()
+                    self.setNoLongerExchanging(with: player)
+                    self.playerTableView.reloadData()
                 }
                 print("You did a bad exchange")
+            case 404: // exchange already pending
+                self.exchangeTimer.invalidate()
+                
+                DispatchQueue.main.async {
+                    self.setNoLongerExchanging(with: player)
+                    self.playerTableView.reloadData()
+                }
+                print("Exchange already pending")
             case 408: // timeout
                 self.exchangeTimer.invalidate()
-                player.exchangeRequested = false
                 DispatchQueue.main.async {
+                    self.setNoLongerExchanging(with: player)
                     self.playerTableView.reloadData()
                     self.logVC.setMessage(exchangeTimeout: responderName)
                     self.showLog()
@@ -124,6 +134,23 @@ extension MainGameViewController {
         }.resume()
     }
     
+    func setCurrentlyExchanging(with player: Player) {
+        player.exchangeRequested = true
+        // grey out all exchange buttons
+        for i in 0..<gameState!.allPlayers.count {
+            let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+            cell.disableExchange()
+        }
+    }
+    
+    func setNoLongerExchanging(with player: Player) {
+        player.exchangeRequested = false
+        // un grey out all exchange buttons
+        for i in 0..<self.gameState!.allPlayers.count {
+            let cell = self.playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+            cell.enableExchange()
+        }
+    }
     
     func exchangeResponse(_ requesterId: Int) {
         let validContacts: [[String: Int]] = self.gameState.allPlayers
@@ -241,29 +268,35 @@ extension MainGameViewController {
     
     @objc func interceptButtonAction(sender: UIButton!) {
         self.ungreyOutAllCells()
-        let player : Player = gameState.getPlayerById(sender.tag)!
-        print("intercept button tapped for player \(player.realName)")
         
         let targetId = sender.tag
+        let player : Player = gameState.getPlayerById(targetId)!
         
-        if (gameState.playerIsNearby(targetId)) {
-            
-            let data: [String:Any] = [
-                "player_id": self.gameState.player!.id,
-                "target_id": targetId
-            ]
-            
-            interceptTimer.invalidate()
-            interceptTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainGameViewController.interceptRequest), userInfo: data, repeats: true)
-            interceptTimer.fire()
+        if (!gameState.playerIsNearby(targetId)) {
+            print("player not nearby")
+            return
         }
+        
+        DispatchQueue.main.async {
+            self.setCurrentlyIntercepting(player)
+            self.playerTableView.reloadData()
+        }
+        
+        let data: [String:Any] = [
+            "player_id": self.gameState.player!.id,
+            "target_id": targetId
+        ]
+        
+        interceptTimer.invalidate()
+        interceptTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainGameViewController.interceptRequest), userInfo: data, repeats: true)
+        interceptTimer.fire()
     }
     
     @objc func interceptRequest() {
         let requestdata: [String:Any] = interceptTimer.userInfo as! [String:Any]
         let request = ServerUtils.post(to: "/intercept", with: requestdata)
         
-        let target = self.gameState.getPlayerById(requestdata["target_id"]! as! Int)!.realName
+        let target = self.gameState.getPlayerById(requestdata["target_id"]! as! Int)!
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
@@ -286,32 +319,34 @@ extension MainGameViewController {
                         return
                     }
                     
-                    var players: [String] = []
+                    var playerNames: [String] = []
                     for e in evidence {
                         let playerId: Int = e["player_id"] as! Int
-                        players.append(self.gameState.getPlayerById(playerId)!.realName)
                         let amount: Int = e["amount"] as! Int
                         self.gameState.incrementEvidence(player: playerId, evidence: amount)
+                        playerNames.append(self.gameState.getPlayerById(playerId)!.realName)
                     }
                     
                     DispatchQueue.main.async {
+                        self.setNoLongerIntercepting(target)
                         self.playerTableView.reloadData()
-                        self.logVC.setMessage(interceptSuccessfulOn: target, withEvidenceOn: players)
+                        self.logVC.setMessage(interceptSuccessfulOn: target.realName, withEvidenceOn: playerNames)
                         self.showLog()
                         print("intercept successful")
-
                     }
                 } catch {}
             case 201:
                 DispatchQueue.main.async {
-                    self.logVC.setMessage(interceptRequestedOn: target)
+                    self.logVC.setMessage(interceptRequestedOn: target.realName)
                     self.showLog()
                     print("intercept created")
                 }
             case 204:
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
-                    self.logVC.setMessage(interceptFailed: target)
+                    self.setNoLongerIntercepting(target)
+                    self.playerTableView.reloadData()
+                    self.logVC.setMessage(interceptFailed: target.realName)
                     self.showLog()
                     print("no exchange happened")
                 }
@@ -320,18 +355,43 @@ extension MainGameViewController {
             case 400:
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
-                    self.logVC.setMessage(interceptFailedOn: target)
+                    self.setNoLongerIntercepting(target)
+                    self.playerTableView.reloadData()
+                    self.logVC.setMessage(interceptFailedOn: target.realName)
                     self.showLog()
                     print("no exchange happened")
                 }
             case 404:
-                print("something unexpected went wrong in intercept request")
+                self.interceptTimer.invalidate()
+                DispatchQueue.main.async {
+                    self.setNoLongerIntercepting(target)
+                    self.playerTableView.reloadData()
+                    print("already intercepting someone")
+                }
             default:
                 print("something weird has happened in intercept with status code \(statusCode)")
             }
-                
-            
         }.resume()
+    }
+    
+    func setCurrentlyIntercepting(_ player: Player) {
+        //player.currentlyIntercepting = true
+        // grey out all intercept buttons
+        for i in 0..<gameState!.allPlayers.count {
+            let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+            cell.disableIntercept()
+        }
+    }
+    
+    func setNoLongerIntercepting(_ player: Player) {
+        //player.currentlyIntercepting = false
+        // un grey out all intercept buttons
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            for i in 0..<self.gameState!.allPlayers.count {
+                let cell = self.playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+                cell.enableIntercept()
+            }
+        }
     }
     
     // MARK: Expose

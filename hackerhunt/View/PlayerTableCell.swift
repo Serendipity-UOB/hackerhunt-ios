@@ -217,21 +217,65 @@ class PlayerTableCell: UITableViewCell {
             codeName.text = player.codeName
             codeName.backgroundColor = (isTarget) ? UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7) : UIColor(red:0.00, green:0.65, blue:0.93, alpha:0.54)
             codeName.alpha = 1
-        }
-        else {
+        } else {
             codeName.alpha = 0
         }
         
+        // evidence text positioning
         if (player.evidence == 100.0) {
             percentagePositionConstraint.constant = -9
-        }
-        else if (player.evidence >= 10.0){
+        } else if (player.evidence >= 10.0){
             percentagePositionConstraint.constant = -12
-        }
-        else {
+        } else {
             percentagePositionConstraint.constant = -15
         }
         
+        setColoursNearbyOrFar()
+        
+        checkForCompleteEvidence()
+        
+        drawEvidenceBar()
+        
+        checkForPlusFiveAnimation()
+        
+        setInteractionLabels()
+    }
+    
+    func setColoursNearbyOrFar() {
+        if (player.nearby) {
+            backgroundImage.image = UIImage(named: "player_card")
+            evidenceCircle.strokeColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0).cgColor    // brighter white
+            evidenceCircleBg.strokeColor = UIColor(red:0.02, green:0.20, blue:0.31, alpha:1.0).cgColor  // dark blue
+        } else {
+            backgroundImage.image = UIImage(named: "player_card_far")
+            evidenceCircle.strokeColor = UIColor(red:0.69, green:0.67, blue:0.67, alpha:1.0).cgColor    // duller white
+            evidenceCircleBg.strokeColor = UIColor(red:0.02, green:0.10, blue:0.17, alpha:1.0).cgColor  // darker blue
+        }
+    }
+    
+    func checkForCompleteEvidence() {
+        if (displayedEvidenceValue == 100) {
+            evidencePercent.textColor = UIColor(red:0.71, green:0.84, blue:0.66, alpha:1.0) // yellowy green
+            evidenceCircle.strokeColor = UIColor(red:0.02, green:0.95, blue:0.43, alpha:1.0).cgColor // green
+        } else {
+            evidencePercent.textColor = UIColor.white
+        }
+    }
+    
+    func drawEvidenceBar() {
+        let center = CGPoint(x: backgroundImage.frame.origin.x + backgroundImage.frame.size.width - 30, y: backgroundImage.frame.origin.y + backgroundImage.frame.size.height * 0.5)
+        let radius = CGFloat(21)
+        let startAngle = -0.5 * CGFloat.pi
+        let endAngle = 2 * CGFloat.pi * CGFloat(player.evidence/100.0) - 0.5 * CGFloat.pi
+        
+        // draw background
+        self.evidenceCircleBg.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0.0, endAngle: 2 * CGFloat.pi, clockwise: true).cgPath
+        
+        // draw foreground
+        self.evidenceCircle.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true).cgPath
+    }
+    
+    func checkForPlusFiveAnimation() {
         let evidenceDifference: Float = player.evidence - displayedEvidenceValue
         if (evidenceDifference > 0) {
             // do +5% animation
@@ -248,45 +292,10 @@ class PlayerTableCell: UITableViewCell {
             displayedEvidenceValue = player.evidence
             evidencePercent.text = String(format: "%.f%%", displayedEvidenceValue)
         }
-        
-        setDefaultBackgroundColor()
-        
-        drawEvidenceBar()
-        
+    }
+    
+    func setInteractionLabels() {
         exchangeRequested.alpha = (player.exchangeRequested) ? 1 : 0
-    }
-    
-    func drawEvidenceBar() {
-        let center = CGPoint(x: backgroundImage.frame.origin.x + backgroundImage.frame.size.width - 30, y: backgroundImage.frame.origin.y + backgroundImage.frame.size.height * 0.5)
-        let radius = CGFloat(21)
-        let startAngle = -0.5 * CGFloat.pi
-        let endAngle = 2 * CGFloat.pi * CGFloat(player.evidence/100.0) - 0.5 * CGFloat.pi
-        
-        // draw background
-        self.evidenceCircleBg.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0.0, endAngle: 2 * CGFloat.pi, clockwise: true).cgPath
-        
-        // draw foreground
-        self.evidenceCircle.path = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true).cgPath
-    }
-    
-    func setDefaultBackgroundColor() {
-        if (player.nearby) {
-            backgroundImage.image = UIImage(named: "player_card")
-            evidenceCircle.strokeColor = UIColor(red:0.61, green:0.81, blue:0.93, alpha:1.0).cgColor
-            evidenceCircleBg.strokeColor = UIColor(red:0.02, green:0.20, blue:0.31, alpha:1.0).cgColor
-        }
-        else {
-            backgroundImage.image = UIImage(named: "player_card_far")
-            evidenceCircle.strokeColor = UIColor(red:0.69, green:0.67, blue:0.67, alpha:1.0).cgColor
-            evidenceCircleBg.strokeColor = UIColor(red:0.02, green:0.10, blue:0.17, alpha:1.0).cgColor
-        }
-        
-        if (displayedEvidenceValue == 100) {
-            evidencePercent.textColor = UIColor(red:0.71, green:0.84, blue:0.66, alpha:1.0) // yellowy green
-            evidenceCircle.strokeColor = UIColor(red:0.02, green:0.95, blue:0.43, alpha:1.0).cgColor // green
-        } else {
-            evidencePercent.textColor = UIColor.white
-        }
     }
     
     func hideButtons() {
@@ -316,6 +325,26 @@ class PlayerTableCell: UITableViewCell {
     
     func isHidden() -> Bool {
         return self.greyOutView.alpha != 0
+    }
+    
+    func disableExchange() {
+        exchangeBtn.setBackgroundImage(UIImage(named: "exchange_button_greyed"), for: .normal)
+        exchangeBtn.isEnabled = false
+    }
+    
+    func enableExchange() {
+        exchangeBtn.setBackgroundImage(UIImage(named: "exchange_button"), for: .normal)
+        exchangeBtn.isEnabled = true
+    }
+    
+    func disableIntercept() {
+        interceptBtn.setBackgroundImage(UIImage(named: "intercept_button_greyed"), for: .normal)
+        interceptBtn.isEnabled = false
+    }
+    
+    func enableIntercept() {
+        interceptBtn.setBackgroundImage(UIImage(named: "intercept_button"), for: .normal)
+        interceptBtn.isEnabled = true
     }
     
     required init?(coder aDecoder: NSCoder) {
