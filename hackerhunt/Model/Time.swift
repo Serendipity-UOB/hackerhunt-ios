@@ -37,6 +37,17 @@ func timeStringToDouble(time: String) -> Double {
     return total
 }
 
+func timeStringToInt(time: String) -> Int {
+    //"21:07:42.494"
+    let timeArr = time.components(separatedBy: ":")
+    let hour = Int(timeArr[0])
+    let minute = Int(timeArr[1])
+    let second = Int(Float(timeArr[2])!)
+    let total = second + 60 * (minute! + 60 * hour!)
+    
+    return total
+}
+
 func calculateTimeRemaining(startTime: String) -> Int {
     let currentTotal = now()
     let startTotal = timeStringToDouble(time: startTime)

@@ -142,6 +142,9 @@ class JoinGameViewController: UIViewController {
                             self.gameStartTime = startTimeDouble
                             self.gameState.endTime = calculateEndTime(startTime: startTime)
                             self.startTiming()
+                            
+                            // auto join
+                            self.joinButton.sendActions(for: .touchUpInside)
                         }
                     }
                 } catch {}

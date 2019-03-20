@@ -158,6 +158,12 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         return
                     }
                     
+                    guard let endTime: String = bodyDict["end_time"] as? String else {
+                        print("end_time missing")
+                        return
+                    }
+                    self.gameState.endTime = timeStringToInt(time: endTime)
+                    
                     DispatchQueue.main.async {
                         self.gameState.initialisePlayerList(allPlayers: allPlayersList)
                         self.playerTableView.reloadData()
