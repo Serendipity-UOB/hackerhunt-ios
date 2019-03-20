@@ -171,6 +171,7 @@ extension MainGameViewController {
     @objc func exchangeResponseRequest() {
         var requestdata: [String:Any] = exchangeRequestTimer.userInfo as! [String:Any]
         requestdata["response"] = self.exchangeResponse
+        let requesterName = self.gameState.getPlayerById(requestdata["requester_id"]! as! Int)!.realName
         let request = ServerUtils.post(to: "/exchangeResponse", with: requestdata)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -198,14 +199,18 @@ extension MainGameViewController {
                         return
                     }
                     
+                    var players: [String] = []
                     for e in evidence {
                         let playerId: Int = e["player_id"] as! Int
+                        players.append(self.gameState.getPlayerById(playerId)!.realName)
                         let amount: Int = e["amount"] as! Int
                         self.gameState.incrementEvidence(player: playerId, evidence: amount)
                     }
                     
                     DispatchQueue.main.async {
                         self.playerTableView.reloadData()
+                        self.logVC.setMessage(exchangeAcceptedWithPlayer: requesterName, evidence: players)
+                        self.showLog()
                         self.hideExchangeRequested()
                     }
                 } catch {}
@@ -214,6 +219,8 @@ extension MainGameViewController {
                 self.exchangeResponse = 0
                 print("exchange request successfully rejected")
                 DispatchQueue.main.async {
+                    self.logVC.setMessage(exchangeRejectedWithPlayer: requesterName)
+                    self.showLog()
                     self.hideExchangeRequested()
                 }
             case 206:

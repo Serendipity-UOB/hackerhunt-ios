@@ -21,10 +21,7 @@ class LeaderboardViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeaderboardTable()
-        DispatchQueue.main.async {
-            self.alertVC.setMessage(gameOver: 1)
-            self.showAlert()
-        }
+
     }
     
     /* tableView setup */

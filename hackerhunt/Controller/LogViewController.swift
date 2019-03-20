@@ -98,6 +98,28 @@ class LogViewController : UIViewController {
         self.message = "Expose failed.\nInsufficient evidence on \(exposeFailedWithInsufficientIntel)."
     }
     
+    func setMessage(exchangeAcceptedWithPlayer: String, evidence: [String]) {
+        self.image = UIImage(named: "good_full_pop_up")
+        self.ratio = ratios["exchange_accepted"]!
+        self.message = "Exchange successful.\n\(exchangeAcceptedWithPlayer) gave you evidence on "
+        
+        for e in evidence {
+            if (e != exchangeAcceptedWithPlayer) {
+                self.message += e + " and "
+            }
+        }
+        if (evidence.count != 1) {
+            self.message.removeLast(5)
+        }
+        self.message += ".\nYou also found some about \(exchangeAcceptedWithPlayer)."
+    }
+    
+    func setMessage(exchangeRejectedWithPlayer: String) {
+        self.image = UIImage(named: "bad_full_pop_up")
+        self.ratio = ratios["expose_failed"]!
+        self.message = "You rejected \(exchangeRejectedWithPlayer)'s exchange."
+    }
+    
     /* animations */
     
     func showAnimate() {
