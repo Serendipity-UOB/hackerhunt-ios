@@ -15,6 +15,7 @@ class PlayerTableCell: UITableViewCell {
     var cellY: CGFloat = 0
     
     var player: Player = Player(realName: "test", codeName: "test", id: -1)
+    var playerName: String = "test"
     var isTarget: Bool = false
     var buttonsView: UIView?
     
@@ -239,6 +240,8 @@ class PlayerTableCell: UITableViewCell {
         checkForPlusFiveAnimation()
         
         setInteractionLabels()
+        
+        playerName = player.realName
     }
     
     func setColoursNearbyOrFar() {
@@ -277,7 +280,8 @@ class PlayerTableCell: UITableViewCell {
     
     func checkForPlusFiveAnimation() {
         let evidenceDifference: Float = player.evidence - displayedEvidenceValue
-        if (evidenceDifference > 0) {
+        let stillTheSamePlayer: Bool = playerName == player.realName
+        if (evidenceDifference > 0 && stillTheSamePlayer) {
             // do +5% animation
             evidencePercent.text = String(format: "+%.f%%", evidenceDifference)
             self.evidencePercent.textColor = UIColor(red:0.02, green:0.95, blue:0.43, alpha:1.0) // green

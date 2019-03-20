@@ -48,6 +48,8 @@ class JoinGameViewController: UIViewController {
         showJoinGameButton()
         
         startPollingGameInfo()
+        
+        joinButton.sendActions(for: .touchUpInside)
     }
     
     @IBAction func joinGamePressed(_ sender: Any) {
