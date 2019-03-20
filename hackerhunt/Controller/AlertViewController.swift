@@ -13,7 +13,6 @@ class AlertViewController: UIViewController {
     @IBOutlet weak var alertBackgroundImage: UIImageView!
     @IBOutlet weak var alertTitleLabel: UILabel!
     @IBOutlet weak var alertMessage: UITextView!
-    @IBOutlet var alertSizeRatio: NSLayoutConstraint!
     @IBOutlet weak var tapLabel: UILabel!
     
     var message: String = "default string"
@@ -22,16 +21,14 @@ class AlertViewController: UIViewController {
     var isShowing = false
     var tapToClose: Bool = false
     var backgroundImage: UIImage!
-    var newMissionDetailsRatio: CGFloat = 1.0
     var titleColour: UIColor!
-    
-    var ratios: [String: CGFloat] = ["game_start":3.0, "exposed":1.5, "request_target":1.8, "expose_success":2.0, "mission":2, "mission_success":2.0, "mission_failure":2.5]
     
     var titleColours: [String: UIColor] = ["neutral":UIColor(red:0.00, green:0.79, blue:0.85, alpha:1.0), "bad":UIColor(red:0.83, green:0.11, blue:0.02, alpha:1.0), "good":UIColor(red:0.28, green:0.75, blue:0.18, alpha:1.0)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         alertMessage.isUserInteractionEnabled = false
+        alertMessage.isScrollEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,19 +55,16 @@ class AlertViewController: UIViewController {
     /* preset messages */
     
     func setMessage(message: String, tapToClose: Bool) {
-//        self.setTapToClose(tapToClose)
         self.tapToClose = tapToClose
         self.message = message
     }
     
     func setMessage(gameOver: Any) {
-//        self.setTapToClose(true)
         self.tapToClose = false
         self.message = "Incoming message...\n\nGood work! Return your equipment to the stand to collect your reward.\n\n- Anon"
     }
     
     func setMessage(gameStart: Any, tapToClose: Bool = false) {
-        self.newMissionDetailsRatio = ratios["game_start"]!
         self.titleColour = titleColours["neutral"]!
         self.titleMessage = "GAME START"
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
@@ -79,7 +73,6 @@ class AlertViewController: UIViewController {
     }
     
     func setMessage(requestNewTarget: Any) {
-        self.newMissionDetailsRatio = ratios["request_target"]!
         self.titleColour = titleColours["neutral"]!
         self.titleMessage = "TOO SLOW"
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
@@ -88,7 +81,6 @@ class AlertViewController: UIViewController {
     }
     
     func setMessage(takenDown: Any, exposedBy: String) {
-        self.newMissionDetailsRatio = ratios["exposed"]!
         self.titleColour = titleColours["bad"]!
         self.titleMessage = "SECURITY BREACH"
         self.backgroundImage = UIImage(named: "bad_full_pop_up")
@@ -97,7 +89,6 @@ class AlertViewController: UIViewController {
     }
     
     func setMessage(successfulExpose: Any, reputation: Int) {
-        self.newMissionDetailsRatio = ratios["expose_success"]!
         self.titleColour = titleColours["good"]!
         self.titleMessage = "EXPOSE SUCCESS"
         self.backgroundImage = UIImage(named: "good_full_pop_up")
@@ -106,7 +97,6 @@ class AlertViewController: UIViewController {
     }
     
     func setMessage(newMission: String) {
-        self.newMissionDetailsRatio = ratios["mission"]!
         self.titleColour = titleColours["neutral"]!
         self.titleMessage = "MISSION UPDATE"
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
@@ -115,7 +105,6 @@ class AlertViewController: UIViewController {
     }
     
     func setMessage(missionSuccess: Any, missionString: String) {
-        self.newMissionDetailsRatio = ratios["mission_success"]!
         self.titleColour = titleColours["good"]
         self.titleMessage = "MISSION SUCCESS"
         self.backgroundImage = UIImage(named: "good_full_pop_up")
@@ -124,7 +113,6 @@ class AlertViewController: UIViewController {
     }
     
     func setMessage(missionFailure: Any, missionString: String) {
-        self.newMissionDetailsRatio = ratios["mission_failure"]!
         self.titleColour = titleColours["bad"]!
         self.titleMessage = "MISSION FAILED"
         self.backgroundImage = UIImage(named: "bad_full_pop_up")
@@ -135,7 +123,6 @@ class AlertViewController: UIViewController {
     /* animations */
     
     func showAnimate() {
-        self.alertSizeRatio = self.alertSizeRatio.constraintWithMultiplier(self.newMissionDetailsRatio)
         self.alertTitleLabel.text = self.titleMessage
         self.alertMessage.text = self.message
         self.alertBackgroundImage.image = self.backgroundImage

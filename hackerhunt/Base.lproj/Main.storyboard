@@ -651,9 +651,6 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notif-box" translatesAutoresizingMaskIntoConstraints="NO" id="9q7-cH-m3X">
                                 <rect key="frame" x="10" y="608" width="355" height="39"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="9q7-cH-m3X" secondAttribute="height" multiplier="355:39" id="1Vv-SD-J0r"/>
-                                </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9vI-t4-rpn">
                                 <rect key="frame" x="75" y="608" width="285" height="29"/>
@@ -676,7 +673,7 @@
                             <constraint firstItem="9q7-cH-m3X" firstAttribute="bottom" secondItem="I3P-Bc-83i" secondAttribute="bottom" constant="-20" id="7Tz-2Y-ugn"/>
                             <constraint firstItem="9q7-cH-m3X" firstAttribute="leading" secondItem="I3P-Bc-83i" secondAttribute="leading" constant="10" id="ZRa-b5-TmU"/>
                             <constraint firstItem="9vI-t4-rpn" firstAttribute="trailing" secondItem="9q7-cH-m3X" secondAttribute="trailing" constant="-5" id="eMK-lD-TRZ"/>
-                            <constraint firstItem="9vI-t4-rpn" firstAttribute="top" secondItem="9q7-cH-m3X" secondAttribute="top" id="jUf-uw-N9h"/>
+                            <constraint firstItem="9q7-cH-m3X" firstAttribute="top" secondItem="9vI-t4-rpn" secondAttribute="top" id="jUf-uw-N9h"/>
                             <constraint firstItem="9q7-cH-m3X" firstAttribute="trailing" secondItem="I3P-Bc-83i" secondAttribute="trailing" constant="-10" id="p2d-A1-gQ4"/>
                             <constraint firstItem="03B-Wc-NH2" firstAttribute="leading" secondItem="9q7-cH-m3X" secondAttribute="leading" constant="10" id="y0v-wq-IMm"/>
                             <constraint firstItem="9vI-t4-rpn" firstAttribute="leading" secondItem="03B-Wc-NH2" secondAttribute="trailing" constant="5" id="zS7-dh-Yj5"/>
@@ -687,7 +684,6 @@
                     <connections>
                         <outlet property="backgroundImage" destination="9q7-cH-m3X" id="UC8-mN-6JK"/>
                         <outlet property="logMessage" destination="9vI-t4-rpn" id="gme-tw-PEn"/>
-                        <outlet property="logMessageRatio" destination="1Vv-SD-J0r" id="Jll-Kf-twm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ehf-Sd-Io3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -703,33 +699,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="neutral_full_pop_up" translatesAutoresizingMaskIntoConstraints="NO" id="PYc-1J-y5R">
-                                <rect key="frame" x="20" y="292.5" width="335" height="102"/>
+                                <rect key="frame" x="20" y="324" width="335" height="39"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GAME START" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F83-uQ-iEI">
-                                <rect key="frame" x="90" y="231.5" width="195" height="41"/>
+                                <rect key="frame" x="90" y="263" width="195" height="41"/>
                                 <fontDescription key="fontDescription" name="ShareTechMono-Regular" family="Share Tech Mono" pointSize="36"/>
                                 <color key="textColor" red="0.0" green="0.78823529411764703" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Lorem ipsum " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DvJ-6c-pD3">
-                                <rect key="frame" x="121.5" y="302.5" width="223.5" height="82"/>
+                                <rect key="frame" x="121.5" y="334" width="223.5" height="19"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="DvJ-6c-pD3" secondAttribute="height" multiplier="52:19" id="x1I-4x-ckP"/>
-                                </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spy_logo" translatesAutoresizingMaskIntoConstraints="NO" id="HAw-3j-WJd">
-                                <rect key="frame" x="30" y="302.5" width="81.5" height="82"/>
+                                <rect key="frame" x="30" y="334" width="81.5" height="82"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="81.5" id="HEW-a5-oOL"/>
                                     <constraint firstAttribute="height" constant="82" id="uxV-Go-hFZ"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(tap to close)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DE9-B4-Emd">
-                                <rect key="frame" x="142.5" y="402" width="90" height="20"/>
+                                <rect key="frame" x="142.5" y="370.5" width="90" height="20"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="17"/>
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -761,7 +754,6 @@
                     <connections>
                         <outlet property="alertBackgroundImage" destination="PYc-1J-y5R" id="oQW-SO-OzU"/>
                         <outlet property="alertMessage" destination="DvJ-6c-pD3" id="Xch-eb-tK5"/>
-                        <outlet property="alertSizeRatio" destination="x1I-4x-ckP" id="FlZ-p3-JYF"/>
                         <outlet property="alertTitleLabel" destination="F83-uQ-iEI" id="sNJ-xQ-B4K"/>
                         <outlet property="tapLabel" destination="DE9-B4-Emd" id="Ie1-GJ-h8c"/>
                     </connections>
