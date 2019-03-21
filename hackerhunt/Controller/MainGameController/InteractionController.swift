@@ -24,7 +24,7 @@ extension MainGameViewController {
         
         if (gameState.playerIsNearby(interacteeId)) {
             let validContacts: [[String: Int]] = self.gameState.allPlayers
-                .filter({ $0.evidence > 0.0 })
+                .filter({ $0.evidence > 0 })
                 .map({ return ["contact_id": $0.id] })
             
             let data: [String:Any] = [
@@ -154,7 +154,7 @@ extension MainGameViewController {
     
     func exchangeResponse(_ requesterId: Int) {
         let validContacts: [[String: Int]] = self.gameState.allPlayers
-            .filter({ $0.evidence > 0.0 })
+            .filter({ $0.evidence > 0 })
             .map({ return ["contact_id": $0.id] })
         
         let data: [String:Any] = [
@@ -355,7 +355,7 @@ extension MainGameViewController {
                     self.playerTableView.reloadData()
                     self.logVC.setMessage(interceptFailed: target.realName)
                     self.showLog()
-                    print("no exchange happened")
+                    print("no exchange happened for \(statusCode)")
                 }
             case 206:
                 print("waiting for response, keep polling")
@@ -366,7 +366,7 @@ extension MainGameViewController {
                     self.playerTableView.reloadData()
                     self.logVC.setMessage(interceptFailedOn: target.realName)
                     self.showLog()
-                    print("no exchange happened")
+                    print("no exchange happened for \(statusCode)")
                 }
             case 404:
                 self.interceptTimer.invalidate()
@@ -427,6 +427,8 @@ extension MainGameViewController {
         // attempt to expose wrong person
         if (player.codeName != self.gameState.currentTarget!.codeName) {
             DispatchQueue.main.async {
+                self.logVC.setMessage(exposeFailedWithWrongPerson: player.realName)
+                self.showLog()
                 print("not your target")
             }
             return

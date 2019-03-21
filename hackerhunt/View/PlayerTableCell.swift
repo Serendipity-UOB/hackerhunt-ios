@@ -168,15 +168,17 @@ class PlayerTableCell: UITableViewCell {
         percentagePositionConstraint = NSLayoutConstraint.init(item: evidencePercent, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: -9)
         NSLayoutConstraint.activate([percentagePositionConstraint])
         
+        
+        self.addSubview(exchangeRequested)
+        exchangeRequested.rightAnchor.constraint(equalTo: playerCardDivider.rightAnchor, constant: -20).isActive = true
+        exchangeRequested.topAnchor.constraint(equalTo: playerCardDivider.bottomAnchor, constant: 2).isActive = true
+        
         self.addSubview(greyOutView)
         greyOutView.frame.size.width = UIScreen.main.bounds.width - 20
         greyOutView.frame.size.height = cellHeight + 1
         greyOutView.frame.origin.x = UIScreen.main.bounds.origin.x
         greyOutView.frame.origin.y = UIScreen.main.bounds.origin.y
-        
-        self.addSubview(exchangeRequested)
-        exchangeRequested.rightAnchor.constraint(equalTo: playerCardDivider.rightAnchor, constant: -20).isActive = true
-        exchangeRequested.topAnchor.constraint(equalTo: playerCardDivider.bottomAnchor, constant: 2).isActive = true
+
     }
     
     func initialiseButtons(_ buttonsView: UIView) {

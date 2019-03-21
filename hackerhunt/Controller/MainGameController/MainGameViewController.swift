@@ -249,7 +249,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.setCurrentPoints(points)
                         self.handleRequestNewTarget(requestNewTarget)
                         self.handlePosition(position)
-//                        self.handleMission("Do this mission at Beacon <b>A</b> in <b>30</b> seconds")
+//                        self.handleMission("Do this mission at Beacon <b>A</b> in <b>30</b> seconds Do this mission at Beacon <b>A</b> in <b>30</b> seconds Do this mission at Beacon <b>A</b> in <b>30</b> seconds Do this mission at Beacon <b>A</b> in <b>30</b> seconds Do this mission at Beacon <b>A</b> in <b>30</b> seconds Do this mission at Beacon <b>A</b> in <b>30</b> seconds")
                         self.handleMission(missionDescription)
                         if (ServerUtils.testing) {
                             self.updatesTimer.invalidate()
@@ -263,7 +263,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         }
                     } catch {}
                 } else {
-                    print("/playerUpdate failed")
+                    print("/playerUpdate failed with status code \(statusCode)")
                 }
                 }.resume()
         }

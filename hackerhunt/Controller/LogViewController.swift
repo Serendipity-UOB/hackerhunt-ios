@@ -112,6 +112,21 @@ class LogViewController : UIViewController {
         self.message = "You rejected \(exchangeRejectedWithPlayer)'s exchange."
     }
     
+    func setMessage(farAwayPlayerSelected: String) {
+        self.image = UIImage(named: "notif-box")
+        self.message = "\(farAwayPlayerSelected) is too far away, find them to interact."
+    }
+    
+    func setMessage(exposeFailedWithWrongPerson: String) {
+        self.image = UIImage(named: "bad_full_pop_up")
+        self.message = "Expose failed.\n\(exposeFailedWithWrongPerson) is not your target."
+    }
+    
+    func setMessage(cantHaveMultipleExchanges: Any) {
+        self.image = UIImage(named: "notif-box")
+        self.message = "You can only send one exchange request at a time, wait for your current one to complete."
+    }
+    
     /* animations */
     
     func showAnimate() {
