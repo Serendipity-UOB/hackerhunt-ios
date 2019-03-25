@@ -393,11 +393,9 @@ extension MainGameViewController {
     func setNoLongerIntercepting(_ player: Player) {
         //player.currentlyIntercepting = false
         // un grey out all intercept buttons
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            for i in 0..<self.gameState!.allPlayers.count {
-                let cell = self.playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
-                cell.enableIntercept()
-            }
+        for i in 0..<self.gameState!.allPlayers.count {
+            let cell = self.playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+            cell.enableIntercept()
         }
     }
     

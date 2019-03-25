@@ -132,6 +132,7 @@ class GameState {
             if (id != self.player!.id) {
                 let p = getPlayerById(id)
                 p!.score = player["score"] as! Int
+                p!.position = player["position"] as! Int
             } else {
                 // TODO score didn't exist here ?
                 if let score : Int = player["score"] as? Int {
