@@ -101,7 +101,7 @@ class AlertViewController: UIViewController {
         self.titleMessage = "MISSION UPDATE"
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
         self.message = newMission
-        self.tapToClose = true
+        self.tapToClose = false || ServerUtils.testing
     }
     
     func setMessage(missionSuccess: Any, missionString: String) {

@@ -58,7 +58,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         letTheChallengeBegin()
         hideExchangeRequested()
         setCurrentPoints(0)
-        startGameOverCountdown()
         setupPlayerTable()
         playerName.text = gameState.player!.realName
         
@@ -165,6 +164,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.gameState.endTime = timeStringToInt(time: endTime)
                     
                     DispatchQueue.main.async {
+                        self.startGameOverCountdown()
                         self.gameState.initialisePlayerList(allPlayers: allPlayersList)
                         self.playerTableView.reloadData()
                         self.startPollingForUpdates()

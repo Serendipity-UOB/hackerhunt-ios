@@ -37,16 +37,18 @@ extension MainGameViewController {
     }
     
     func showLog() {
-        self.addChild(logVC)
-        self.view.addSubview(logVC.view)
-        logVC.didMove(toParent: self)
-        logVC.showAnimate()
-        
+        if (self.exchangeRequestedBackground.alpha != 1.0) {
+            self.addChild(logVC)
+            self.view.addSubview(logVC.view)
+            logVC.didMove(toParent: self)
+            logVC.showAnimate()
+        }
     }
     
     // MARK: Exchange requested
     
     func showExchangeRequested() {
+        self.logVC.removeAnimate()
         self.exchangeRequestedBackground.alpha = 1.0
         self.exchangeRequestedAcceptButton.alpha = 1.0
         self.exchangeRequestedAcceptButton.isUserInteractionEnabled = true

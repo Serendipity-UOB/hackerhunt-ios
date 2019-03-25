@@ -209,9 +209,9 @@ extension MainGameViewController {
                     
                     DispatchQueue.main.async {
                         self.playerTableView.reloadData()
+                        self.hideExchangeRequested()
                         self.logVC.setMessage(exchangeAcceptedWithPlayer: requesterName, evidence: players)
                         self.showLog()
-                        self.hideExchangeRequested()
                     }
                 } catch {}
             case 205:
@@ -219,9 +219,9 @@ extension MainGameViewController {
                 self.exchangeResponse = 0
                 print("exchange request successfully rejected")
                 DispatchQueue.main.async {
+                    self.hideExchangeRequested()
                     self.logVC.setMessage(exchangeRejectedWithPlayer: requesterName)
                     self.showLog()
-                    self.hideExchangeRequested()
                 }
             case 206:
                 print("keep polling")
