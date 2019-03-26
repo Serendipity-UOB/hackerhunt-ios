@@ -21,6 +21,7 @@ class Player {
     var nearby: Bool = false
     var evidence: Float = 0.0
     var score: Int = 0
+    var position: Int = 0
     var codeNameDiscovered: Bool = false
     var exchangeRequested: Bool = false
     

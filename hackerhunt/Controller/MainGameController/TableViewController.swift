@@ -70,6 +70,7 @@ extension MainGameViewController {
     }
     
     func ungreyOutAllCells() {
+        playerTableView.isScrollEnabled = true
         self.tapToCloseLabel.alpha = 0.0
         greyOutView.alpha = 0
         greyOutViewTap.isEnabled = false
@@ -82,6 +83,7 @@ extension MainGameViewController {
     }
     
     func greyOutAllCells() {
+        playerTableView.isScrollEnabled = false
         greyOutView.alpha = 0.8
         greyOutViewTap.isEnabled = true
         tableViewTap.isEnabled = true

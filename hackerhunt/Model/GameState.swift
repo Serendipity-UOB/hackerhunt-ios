@@ -132,10 +132,16 @@ class GameState {
             if (id != self.player!.id) {
                 let p = getPlayerById(id)
                 p!.score = player["score"] as! Int
+                p!.position = player["position"] as! Int
             } else {
                 // TODO score didn't exist here ?
                 if let score : Int = player["score"] as? Int {
                     self.player!.score = score
+                } else {
+                    print("player \(id) score not found\n")
+                }
+                if let position : Int = player["position"] as? Int {
+                    self.player!.position = position
                 } else {
                     print("player \(id) score not found\n")
                 }
@@ -178,8 +184,7 @@ class GameState {
     }
     
     func prepareLeaderboard() {
-        self.player!.score = self.points
         self.allPlayers.append(self.player!)
-        self.allPlayers.sort(by: { $0.score > $1.score })
+        self.allPlayers.sort(by: { $0.position < $1.position })
     }
 }
