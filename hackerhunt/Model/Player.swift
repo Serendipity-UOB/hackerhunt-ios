@@ -24,6 +24,7 @@ class Player {
     var position: Int = 0
     var codeNameDiscovered: Bool = false
     var exchangeRequested: Bool = false
+    var position: Int = 0
     
     func copy() -> Player {
         let copy = Player(realName: self.realName, codeName: self.codeName, id: self.id)
@@ -31,6 +32,7 @@ class Player {
         copy.evidence = self.evidence
         copy.exchangeRequested = self.exchangeRequested
         copy.codeNameDiscovered = self.codeNameDiscovered
+        copy.position = self.position
         return copy
     }
     
