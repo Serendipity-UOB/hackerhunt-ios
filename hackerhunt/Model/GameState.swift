@@ -137,9 +137,11 @@ class GameState {
                 // TODO score didn't exist here ?
                 if let score : Int = player["score"] as? Int {
                     self.player!.score = score
+                    self.player!.position = player["position"] as! Int
                 } else {
                     print("player \(id) score not found\n")
                 }
+                
             }
         }
     }
