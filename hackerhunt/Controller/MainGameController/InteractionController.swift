@@ -466,7 +466,8 @@ extension MainGameViewController {
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
                     guard let reputation = bodyDict["reputation"] as? Int else { return }
                     self.gameState!.points += reputation
-                    player.evidence = 0
+                    let p = self.gameState.getPlayerById(player.id)
+                    p!.evidence = 0
                     DispatchQueue.main.async {
                         self.pointsValue.text = String(self.gameState.points) + " rep /"
                         print("expose successful")
