@@ -13,6 +13,7 @@ extension MainGameViewController {
     func startMissionUpdates() {
         self.missionTimer.invalidate()
         missionTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainGameViewController.missionUpdates), userInfo: nil, repeats: true)
+        missionTimer.tolerance = 0.4
     }
     
     @objc func missionUpdates() {

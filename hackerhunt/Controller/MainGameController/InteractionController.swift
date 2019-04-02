@@ -35,8 +35,9 @@ extension MainGameViewController {
             
             // send request
             exchangeTimer.invalidate()
-            exchangeTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainGameViewController.exchangeRequest), userInfo: data, repeats: true)
+            exchangeTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self, selector: #selector(MainGameViewController.exchangeRequest), userInfo: data, repeats: true)
             exchangeTimer.fire()
+            exchangeTimer.tolerance = 0.5
         }
     }
     
@@ -173,6 +174,7 @@ extension MainGameViewController {
         self.exchangeRequestTimer.invalidate()
         self.exchangeRequestTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainGameViewController.exchangeResponseRequest), userInfo: data, repeats: true)
         self.exchangeRequestTimer.fire()
+        exchangeRequestTimer.tolerance = 0.4
     }
     
     @objc func exchangeResponseRequest() {
@@ -304,6 +306,7 @@ extension MainGameViewController {
         interceptTimer.invalidate()
         interceptTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainGameViewController.interceptRequest), userInfo: data, repeats: true)
         interceptTimer.fire()
+        interceptTimer.tolerance = 0.4
     }
     
     @objc func interceptRequest() {

@@ -77,6 +77,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     func startCheckingForHomeBeacon(withCallback callback: @escaping () -> Void) {
         homeBeaconTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(MainGameViewController.checkForHomeBeacon), userInfo: callback, repeats: true)
         homeBeaconTimer.fire()
+        homeBeaconTimer.tolerance = 0.4
     }
     
     @objc func checkForHomeBeacon() {
@@ -179,8 +180,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func startPollingForUpdates() {
         updatesTimer.invalidate()
-        updatesTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(MainGameViewController.pollForUpdates), userInfo: nil, repeats: true)
+        updatesTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self, selector: #selector(MainGameViewController.pollForUpdates), userInfo: nil, repeats: true)
         updatesTimer.fire()
+        updatesTimer.tolerance = 0.5
     }
     
     @objc func pollForUpdates() {
