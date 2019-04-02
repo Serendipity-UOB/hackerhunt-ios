@@ -129,13 +129,19 @@ extension MainGameViewController {
                     print("Exchange timed out, put small popup here")
                 }
             default:
+                self.exchangeTimer.invalidate()
                 print("/exchangeRequest unexpected \(statusCode)")
+                DispatchQueue.main.async {
+                    self.setNoLongerExchanging(with: player)
+                    self.playerTableView.reloadData()
+                }
             }
         }.resume()
     }
     
     func setCurrentlyExchanging(with player: Player) {
-        player.exchangeRequested = true
+        let p = gameState.getPlayerById(player.id)
+        p!.exchangeRequested = true
         // grey out all exchange buttons
         for i in 0..<gameState!.allPlayers.count {
             let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
@@ -144,7 +150,8 @@ extension MainGameViewController {
     }
     
     func setNoLongerExchanging(with player: Player) {
-        player.exchangeRequested = false
+        let p = gameState.getPlayerById(player.id)
+        p!.exchangeRequested = false
         // un grey out all exchange buttons
         for i in 0..<self.gameState!.allPlayers.count {
             let cell = self.playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
