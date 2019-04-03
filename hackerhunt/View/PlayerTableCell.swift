@@ -290,12 +290,12 @@ class PlayerTableCell: UITableViewCell {
             
             // revert +5% animation
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.displayedEvidenceValue = self.player.evidence.rounded(.down)
+                self.displayedEvidenceValue = self.player.evidence
                 self.evidencePercent.text = String(format: "%.f%%", self.displayedEvidenceValue)
                 self.evidencePercent.text = String(format: "%.f%%", self.displayedEvidenceValue)
             }
         } else {
-            displayedEvidenceValue = player.evidence.rounded(.down)
+            displayedEvidenceValue = player.evidence
             evidencePercent.text = String(format: "%.f%%", displayedEvidenceValue)
         }
     }

@@ -54,9 +54,10 @@ class GameState {
     func deleteHalfOfIntel() {
         for player in allPlayers {
             let intel = (player.evidence / 2.0)
-            let remainder = intel.truncatingRemainder(dividingBy: 0.2)
-            let rounded = round(remainder * 10)/10
-            player.evidence = intel - rounded
+            player.evidence = intel.rounded()
+//            let remainder = intel.truncatingRemainder(dividingBy: 0.2)
+//            let rounded = round(remainder * 10)/10
+//            player.evidence = intel
         }
     }
     
