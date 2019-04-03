@@ -21,7 +21,7 @@ class StartViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        testingButton.setTitle((ServerUtils.testing) ? "testing on" : "testing off", for: .normal)
+        //testingButton.setTitle((ServerUtils.testing) ? "testing on" : "testing off", for: .normal)
 
         titleLogoGif.loadGif(name: "title_screen")
         
@@ -47,8 +47,9 @@ class StartViewController: UIViewController {
     }
     
     @IBAction func testingModePressed(_ sender: Any) {
-        ServerUtils.testing = !ServerUtils.testing
-        testingButton.setTitle((ServerUtils.testing) ? "testing on" : "testing off", for: .normal)
+        self.performSegue(withIdentifier:"transitionToTutorial", sender:self);
+        //ServerUtils.testing = !ServerUtils.testing
+        //testingButton.setTitle((ServerUtils.testing) ? "testing on" : "testing off", for: .normal)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

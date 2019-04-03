@@ -158,6 +158,7 @@ extension MainGameViewController {
             let cell = self.playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
             cell.enableExchange()
         }
+        print("setNoLongerExchanging called")
     }
     
     func exchangeResponse(_ requesterId: Int) {
