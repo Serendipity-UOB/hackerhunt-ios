@@ -17,12 +17,14 @@ extension MainGameViewController {
         let interacteeId = sender.tag
         let player = self.gameState.getPlayerById(interacteeId)!
         
-        DispatchQueue.main.async {
-            self.setCurrentlyExchanging(with: player)
-            self.playerTableView.reloadData()
-        }
+
         
         if (gameState.playerIsNearby(interacteeId)) {
+            DispatchQueue.main.async {
+                self.setCurrentlyExchanging(with: player)
+                self.playerTableView.reloadData()
+            }
+            
             let validContacts: [[String: Int]] = self.gameState.allPlayers
                 .filter({ $0.evidence > 0 })
                 .map({ return ["contact_id": $0.id] })
