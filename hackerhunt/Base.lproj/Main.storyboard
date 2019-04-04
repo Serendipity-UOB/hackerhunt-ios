@@ -43,6 +43,9 @@
                                 <state key="normal" title="Start" backgroundImage="start-button">
                                     <color key="titleColor" red="0.71372549019607845" green="0.91764705882352937" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <state key="selected" backgroundImage="start-button">
+                                    <color key="titleColor" red="0.71533477310000004" green="0.9165197611" blue="0.99102431540000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="startPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HwD-BG-Hbo"/>
                                 </connections>
@@ -62,7 +65,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6H-hN-Jq7">
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6H-hN-Jq7">
                                 <rect key="frame" x="44" y="30" width="286" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.65098039220000004" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -96,6 +99,7 @@
                     </view>
                     <connections>
                         <outlet property="errorMessage" destination="6j9-mF-RoC" id="Bax-pG-1zY"/>
+                        <outlet property="startButton" destination="JoR-2S-lKr" id="0TV-ni-nhd"/>
                         <outlet property="testingButton" destination="M6H-hN-Jq7" id="IOf-vC-2pD"/>
                         <outlet property="titleLogoGif" destination="mtB-Il-17F" id="BOi-rc-KyH"/>
                         <segue destination="O1B-1s-BhP" kind="show" identifier="transitionToRegister" id="JlR-uf-d8r"/>
@@ -104,13 +108,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-290" y="25"/>
+            <point key="canvasLocation" x="911" y="-1083"/>
         </scene>
-        <!--Welcome Tut View Controller-->
+        <!--Tutorial View Controller-->
         <scene sceneID="9kA-dy-8eq">
             <objects>
-                <viewController id="HMo-Jn-fox" customClass="WelcomeTutViewController" customModule="hackerhunt" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="UAh-R9-h4F" customClass="welcome">
+                <viewController id="HMo-Jn-fox" customClass="TutorialViewController" customModule="hackerhunt" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UAh-R9-h4F">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -184,22 +188,45 @@
                                 <color key="textColor" red="0.71372549019999998" green="0.91764705879999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g0L-TS-AYF">
+                            <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g0L-TS-AYF">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kf4-Zm-HAG">
                                 <rect key="frame" x="10" y="110" width="355" height="547"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.1456014555" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <sections/>
                             </tableView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ncx-mp-0mh">
-                                <rect key="frame" x="10" y="311" width="355" height="80"/>
+                                <rect key="frame" x="10" y="314" width="355" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BMF-v5-A7b">
+                                <rect key="frame" x="10" y="309" width="355" height="218"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="neutral_full_pop_up" translatesAutoresizingMaskIntoConstraints="NO" id="4RW-dW-M8X">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="spy_logo" translatesAutoresizingMaskIntoConstraints="NO" id="nol-yj-zyO">
+                                        <rect key="frame" x="19" y="8" width="56" height="53"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Welcome to Spy Exposé" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTs-j0-yEe">
+                                        <rect key="frame" x="91" y="19" width="254" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Q3A-eS-7Ie" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8El-gz-Cc1" secondAttribute="trailing" id="38y-9j-Mpd"/>
                             <constraint firstItem="gVT-69-8vf" firstAttribute="leading" secondItem="du2-7Y-dD0" secondAttribute="trailing" constant="8" id="3uf-w8-Bql"/>
@@ -238,16 +265,39 @@
                             <constraint firstItem="g0L-TS-AYF" firstAttribute="height" secondItem="yyK-lh-BMt" secondAttribute="height" id="zMF-Vm-e9U"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yyK-lh-BMt"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="nK8-eo-B7s" appends="YES" id="VJY-Xr-BPy"/>
+                        </connections>
                     </view>
                     <connections>
+                        <outlet property="agentName" destination="8Jz-Pr-rTg" id="7st-mE-iHa"/>
+                        <outlet property="backgroundGrid" destination="6N8-2M-Gij" id="ZOm-ia-aXw"/>
                         <outlet property="greyOutView" destination="g0L-TS-AYF" id="QCX-Yu-gAO"/>
+                        <outlet property="helpIcon" destination="gVT-69-8vf" id="Yw8-zp-xZl"/>
                         <outlet property="interactionButtons" destination="ncx-mp-0mh" id="g6J-tE-4Ah"/>
+                        <outlet property="message" destination="rTs-j0-yEe" id="gcv-qo-6tx"/>
+                        <outlet property="messageImage" destination="4RW-dW-M8X" id="M6j-i1-eqT"/>
+                        <outlet property="messageView" destination="BMF-v5-A7b" id="XnS-d7-y14"/>
+                        <outlet property="parentView" destination="UAh-R9-h4F" id="NW0-d9-joS"/>
                         <outlet property="playerTableView" destination="Kf4-Zm-HAG" id="uBO-gt-zp7"/>
+                        <outlet property="scoreAndRep" destination="du2-7Y-dD0" id="mKs-yn-Sm5"/>
+                        <outlet property="spyIcon" destination="nol-yj-zyO" id="Yvj-sT-Lk0"/>
+                        <outlet property="targetBorder" destination="Q3A-eS-7Ie" id="xf0-WA-COm"/>
+                        <outlet property="targetName" destination="Ugv-XP-xew" id="UXn-rv-f65"/>
+                        <outlet property="time" destination="jP6-62-cQs" id="9eb-tq-fej"/>
+                        <outlet property="timeBorder" destination="IO0-NE-J7W" id="5ST-ha-Qzb"/>
+                        <outlet property="yourTarget" destination="8El-gz-Cc1" id="kaS-Qb-Jnq"/>
+                        <segue destination="O1B-1s-BhP" kind="presentation" identifier="tutorialToRegister" id="pzc-k5-rGu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xan-OE-R3l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="nK8-eo-B7s">
+                    <connections>
+                        <action selector="screenTapped:" destination="HMo-Jn-fox" id="ZV1-O5-Ct5"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="580" y="-774.06296851574223"/>
+            <point key="canvasLocation" x="120.8" y="25.637181409295355"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="Vff-Iv-c0r">
@@ -928,4 +978,7 @@
         <image name="title_screen" width="317" height="309"/>
         <image name="valor" width="920" height="911"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="pzc-k5-rGu"/>
+    </inferredMetricsTieBreakers>
 </document>

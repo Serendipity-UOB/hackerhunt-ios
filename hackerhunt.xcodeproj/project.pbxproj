@@ -36,6 +36,7 @@
 		BF6F9F8821F7AA0000924174 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F9F8721F7AA0000924174 /* GameState.swift */; };
 		BF6F9F8A21F7AED600924174 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F9F8921F7AED600924174 /* Player.swift */; };
 		BF6F9F8F21F7B54000924174 /* ServerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F9F8E21F7B54000924174 /* ServerUtils.swift */; };
+		BF90D7A12254BB630053052D /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF90D7A02254BB630053052D /* TutorialViewController.swift */; };
 		BF9A7FE921EF6CC100C30261 /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9A7FE821EF6CC100C30261 /* Gif.swift */; };
 		BF9A7FED21EF720C00C30261 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9A7FEC21EF720C00C30261 /* Assets.xcassets */; };
 		BF9A7FEF21EF883500C30261 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9A7FEE21EF883500C30261 /* RegisterViewController.swift */; };
@@ -108,6 +109,7 @@
 		BF6F9F8721F7AA0000924174 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		BF6F9F8921F7AED600924174 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		BF6F9F8E21F7B54000924174 /* ServerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerUtils.swift; sourceTree = "<group>"; };
+		BF90D7A02254BB630053052D /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		BF9A7FE821EF6CC100C30261 /* Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
 		BF9A7FEC21EF720C00C30261 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF9A7FEE21EF883500C30261 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				BF584CC121A5A1FD00830823 /* StartViewController.swift */,
+				BF90D7A02254BB630053052D /* TutorialViewController.swift */,
 				BF9A7FEE21EF883500C30261 /* RegisterViewController.swift */,
 				BF5CE1FA21F62ACE0057117A /* JoinGameViewController.swift */,
 				BF3ADA9A21F8D2A5003AAB71 /* AlertViewController.swift */,
@@ -419,6 +422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFFC0CD821FA2C1300F71ABB /* PlayerTableCell.swift in Sources */,
+				BF90D7A12254BB630053052D /* TutorialViewController.swift in Sources */,
 				BF3ADA9B21F8D2A5003AAB71 /* AlertViewController.swift in Sources */,
 				BF1AE2FD21FC484A00D3F333 /* LeaderboardTableCell.swift in Sources */,
 				BEC2EBAC223BD0FE00B708EE /* LogViewController.swift in Sources */,
@@ -616,7 +620,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8VG3786329;
+				DEVELOPMENT_TEAM = 749VTM9F4U;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/kontakt-ios-sdk/KontaktSDK/iOS",
@@ -624,7 +628,7 @@
 				INFOPLIST_FILE = hackerhunt/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = serendipity.hackerhunt1;
+				PRODUCT_BUNDLE_IDENTIFIER = serendipity.hackerhunt2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -639,7 +643,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8VG3786329;
+				DEVELOPMENT_TEAM = 749VTM9F4U;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/kontakt-ios-sdk/KontaktSDK/iOS",
@@ -647,7 +651,7 @@
 				INFOPLIST_FILE = hackerhunt/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = serendipity.hackerhunt1;
+				PRODUCT_BUNDLE_IDENTIFIER = serendipity.hackerhunt2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;

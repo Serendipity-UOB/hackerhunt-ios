@@ -11,12 +11,15 @@ import KontaktSDK
 
 class StartViewController: UIViewController {
   
+    var runTutorial = false
+    
     var beaconListener: BeaconListener!
     var gameState: GameState!
     
     @IBOutlet weak var titleLogoGif: UIImageView!
     @IBOutlet weak var errorMessage: UILabel!
     @IBOutlet weak var testingButton: UIButton!
+    @IBOutlet weak var startButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +38,7 @@ class StartViewController: UIViewController {
     @IBAction func startPressed(_ sender: Any) {
         if (beaconListener.isAuthorised() && beaconListener.isOn()) {
             beaconListener.startMonitoring()
-            self.performSegue(withIdentifier:"transitionToRegister", sender:self);
+            progressToGame()
         } else {
             if (!beaconListener.isAuthorised()) {
                 beaconListener.requestAuthorisation()
@@ -46,15 +49,25 @@ class StartViewController: UIViewController {
         }
     }
     
+    func progressToGame() {
+        if (runTutorial) {
+            self.performSegue(withIdentifier:"transitionToTutorial", sender:self);
+        } else {
+            self.performSegue(withIdentifier:"transitionToRegister", sender:self);
+        }
+    }
+    
     @IBAction func testingModePressed(_ sender: Any) {
-        self.performSegue(withIdentifier:"transitionToTutorial", sender:self);
-        //ServerUtils.testing = !ServerUtils.testing
-        //testingButton.setTitle((ServerUtils.testing) ? "testing on" : "testing off", for: .normal)
+        ServerUtils.testing = !ServerUtils.testing
+        testingButton.setTitle((ServerUtils.testing) ? "testing on" : "testing off", for: .normal)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let registerViewController = segue.destination as? RegisterViewController {
             registerViewController.gameState = gameState
+        } else if let tutorialViewController = segue.destination as? TutorialViewController {
+            tutorialViewController.gameState = gameState
+            tutorialViewController.exitSegue = "tutorialToRegister"
         }
     }
 }
