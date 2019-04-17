@@ -264,7 +264,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
 //                        self.handleMission("Do this mission at Beacon <b>A</b> in <b>30</b> seconds Do this mission at Beacon <b>A</b> in <b>30</b> seconds Do this mission at Beacon <b>A</b> in <b>30</b> seconds Do this mission at Beacon <b>A</b> in <b>30</b> seconds Do this mission at Beacon <b>A</b> in <b>30</b> seconds Do this mission at Beacon <b>A</b> in <b>30</b> seconds")
                         self.handleMission(missionDescription)
                         if (ServerUtils.testing) {
-//                            self.updatesTimer.invalidate()
+                            self.updatesTimer.invalidate()
                         }
                         if (gameOver == 1) {
                             self.gameOver()

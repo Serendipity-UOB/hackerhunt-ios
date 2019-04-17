@@ -26,7 +26,6 @@ extension MainGameViewController {
         cell.interceptBtn.addTarget(self, action: #selector(interceptButtonAction), for: .touchUpInside)
         cell.exposeBtn.addTarget(self, action: #selector(exposeButtonAction), for: .touchUpInside)
         cell.initialiseButtons(interactionButtons)
-        cell.cellY = playerTableView.frame.origin.y + cell.frame.origin.y // set global Y pos for moving the buttons around
         cell.layoutSubviews()
         return cell
     }
@@ -53,9 +52,11 @@ extension MainGameViewController {
         let player = gameState!.allPlayers[indexPath.section]
         if (player.nearby) {
             let cellToShow = self.playerTableView.cellForRow(at: indexPath) as! PlayerTableCell
+            cellToShow.cellY = playerTableView.convert(playerTableView.rectForRow(at: indexPath), to: playerTableView.superview).origin.y
             self.greyOutAllCells()
             cellToShow.ungreyOut()
             cellToShow.showButtons()
+
             self.tapToCloseLabel.alpha = 1.0
         }
         else {
