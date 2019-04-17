@@ -59,8 +59,8 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mtB-Il-17F">
                                 <rect key="frame" x="5" y="101" width="365" height="365"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spy Exposé" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8t-sA-ekb">
-                                <rect key="frame" x="79.5" y="261" width="216" height="45.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SpyWhere" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8t-sA-ekb">
+                                <rect key="frame" x="101" y="260.5" width="173" height="46"/>
                                 <fontDescription key="fontDescription" name="ShareTechMono-Regular" family="Share Tech Mono" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -215,8 +215,8 @@
                                         <rect key="frame" x="19" y="8" width="56" height="53"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Welcome to Spy Exposé" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTs-j0-yEe">
-                                        <rect key="frame" x="91" y="19" width="254" height="31"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Welcome to SpyWhere" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTs-j0-yEe">
+                                        <rect key="frame" x="91" y="19" width="254" height="34.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="16"/>
@@ -569,7 +569,7 @@
                                 <color key="textColor" red="0.62352941179999999" green="0.7725490196" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="valor" translatesAutoresizingMaskIntoConstraints="NO" id="eQ9-n7-2jr">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="italyFlag" translatesAutoresizingMaskIntoConstraints="NO" id="eQ9-n7-2jr">
                                 <rect key="frame" x="340" y="29" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="Ix6-t2-NgD"/>
@@ -967,6 +967,7 @@
         <image name="background_grid" width="26" height="26"/>
         <image name="fancy_popup" width="128" height="115"/>
         <image name="globe" width="330" height="330"/>
+        <image name="italyFlag" width="120" height="120"/>
         <image name="leaderboard_title" width="57" height="39"/>
         <image name="neutral_full_pop_up" width="57" height="39"/>
         <image name="notif-box" width="57" height="39"/>
@@ -979,6 +980,6 @@
         <image name="valor" width="920" height="911"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pzc-k5-rGu"/>
+        <segue reference="JlR-uf-d8r"/>
     </inferredMetricsTieBreakers>
 </document>

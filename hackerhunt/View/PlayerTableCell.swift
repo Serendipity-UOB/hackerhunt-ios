@@ -35,6 +35,12 @@ class PlayerTableCell: UITableViewCell {
         return imageView
     }()
     
+    var currentLocationFlag: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "italyFlag"))
+        imageView.contentMode = UIView.ContentMode.scaleToFill
+        return imageView
+    }()
+    
     var realName: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -151,8 +157,14 @@ class PlayerTableCell: UITableViewCell {
         playerCardDivider.frame.size.height = 2
         playerCardDivider.frame.origin.y = self.frame.origin.y + self.frame.size.height * 0.6
         
+        self.addSubview(currentLocationFlag)
+        currentLocationFlag.frame.size.width = 15
+        currentLocationFlag.frame.size.height = 15
+        currentLocationFlag.frame.origin.x = 10
+        currentLocationFlag.frame.origin.y = 6
+        
         self.addSubview(realName)
-        realName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
+        realName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 32).isActive = true
         realName.topAnchor.constraint(equalTo: self.topAnchor, constant: -4).isActive = true
         realName.bottomAnchor.constraint(equalTo: self.playerCardDivider.topAnchor, constant: 0).isActive = true
         
@@ -244,6 +256,8 @@ class PlayerTableCell: UITableViewCell {
         setInteractionLabels()
         
         playerName = player.realName
+        
+        updateFlag(zoneId: player.zone)
     }
     
     func setColoursNearbyOrFar() {
@@ -351,6 +365,27 @@ class PlayerTableCell: UITableViewCell {
     func enableIntercept() {
         interceptBtn.setBackgroundImage(UIImage(named: "intercept_button"), for: .normal)
         interceptBtn.isEnabled = true
+    }
+    
+    func updateFlag(zoneId: Int) {
+        currentLocationFlag.frame.size.height = 15
+        currentLocationFlag.frame.origin.y = 6
+        switch zoneId {
+        case 0:
+            currentLocationFlag.frame.size.height = 13
+            currentLocationFlag.frame.origin.y = 7
+            currentLocationFlag.image = UIImage(named: "unitedNations")
+        case 1:
+            currentLocationFlag.image = UIImage(named: "italyFlag")
+        case 2:
+            currentLocationFlag.image = UIImage(named: "swedenFlag")
+        case 3:
+            currentLocationFlag.image = UIImage(named: "switzerlandFlag")
+        case 4:
+            currentLocationFlag.image = UIImage(named: "czechRepublicFlag")
+        default:
+            print("zone \(zoneId) not recognised")
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
