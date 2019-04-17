@@ -145,22 +145,13 @@ extension MainGameViewController {
     func setCurrentlyExchanging(with player: Player) {
         let p = gameState.getPlayerById(player.id)
         p!.exchangeRequested = true
-        // grey out all exchange buttons
-        for c in self.playerTableView.visibleCells {
-            let cell = c as! PlayerTableCell
-            cell.disableExchange()
-        }
+        self.exchanging = true
     }
     
     func setNoLongerExchanging(with player: Player) {
         let p = gameState.getPlayerById(player.id)
         p!.exchangeRequested = false
-        // un grey out all exchange buttons
-        for c in self.playerTableView.visibleCells {
-            let cell = c as! PlayerTableCell
-            cell.enableExchange()
-        }
-        print("setNoLongerExchanging called")
+        self.exchanging = false
     }
     
     func exchangeResponse(_ requesterId: Int) {
@@ -396,20 +387,12 @@ extension MainGameViewController {
     
     func setCurrentlyIntercepting(_ player: Player) {
         //player.currentlyIntercepting = true
-        // grey out all intercept buttons
-        for c in self.playerTableView.visibleCells {
-            let cell = c as! PlayerTableCell
-            cell.disableIntercept()
-        }
+        self.intercepting = true
     }
     
     func setNoLongerIntercepting(_ player: Player) {
         //player.currentlyIntercepting = false
-        // un grey out all intercept buttons
-        for c in self.playerTableView.visibleCells {
-            let cell = c as! PlayerTableCell
-            cell.enableIntercept()
-        }
+        self.intercepting = false
     }
     
     // MARK: Expose
@@ -481,7 +464,6 @@ extension MainGameViewController {
                         self.showAlert()
                         self.playerTableView.reloadData()
                         self.startCheckingForHomeBeacon(withCallback: self.requestNewTarget)
-                        self.takedown = false
                     }
                 } catch {}
             } else {

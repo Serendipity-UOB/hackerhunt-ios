@@ -20,10 +20,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     var missionTimer = Timer()
     var interceptTimer = Timer()
     var exchangeRequestTimer = Timer()
-    
-    var exchange: Bool = false
-    var takedown: Bool = false
-    var exchangeMessage: Bool = false
+
+    var exchanging: Bool = false
+    var intercepting: Bool = false
     var onMission: Bool = false
     var exchangeResponse: Int = 0
 
