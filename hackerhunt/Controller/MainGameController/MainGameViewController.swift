@@ -283,10 +283,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func handleLocation(_ location: Int) {
         DispatchQueue.main.async {
-            //locationIcon.frame.size.height = 25
             switch location {
             case 0:
-                //locationIcon.frame.size.height = 22
                 self.locationIcon.image = UIImage(named: "unitedNations")
             case 1:
                 self.locationIcon.image = UIImage(named: "italyFlag")
