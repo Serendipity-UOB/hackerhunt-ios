@@ -169,7 +169,7 @@ class PlayerTableCell: UITableViewCell {
         realName.bottomAnchor.constraint(equalTo: self.playerCardDivider.topAnchor, constant: 0).isActive = true
         
         self.addSubview(codeName)
-        codeName.leftAnchor.constraint(equalTo: self.realName.leftAnchor, constant: 0).isActive = true
+        codeName.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         codeName.topAnchor.constraint(equalTo: playerCardDivider.bottomAnchor, constant: 7).isActive = true
         
         self.layer.addSublayer(evidenceCircleBg)
@@ -368,12 +368,8 @@ class PlayerTableCell: UITableViewCell {
     }
     
     func updateFlag(zoneId: Int) {
-        currentLocationFlag.frame.size.height = 15
-        currentLocationFlag.frame.origin.y = 6
         switch zoneId {
         case 0:
-            currentLocationFlag.frame.size.height = 13
-            currentLocationFlag.frame.origin.y = 7
             currentLocationFlag.image = UIImage(named: "unitedNations")
         case 1:
             currentLocationFlag.image = UIImage(named: "italyFlag")
