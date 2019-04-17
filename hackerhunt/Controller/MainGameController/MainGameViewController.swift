@@ -26,10 +26,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     var exchangeMessage: Bool = false
     var onMission: Bool = false
     var exchangeResponse: Int = 0
-    
-    var exchanging: Bool = false
-    var intercepting: Bool = false
-    var greyout: Bool = false
+
     // header
     @IBOutlet weak var pointsValue: UILabel!
     @IBOutlet weak var positionValue: UILabel!
@@ -267,7 +264,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
 //                        self.handleMission("Do this mission at Beacon <b>A</b> in <b>30</b> seconds Do this mission at Beacon <b>A</b> in <b>30</b> seconds Do this mission at Beacon <b>A</b> in <b>30</b> seconds Do this mission at Beacon <b>A</b> in <b>30</b> seconds Do this mission at Beacon <b>A</b> in <b>30</b> seconds Do this mission at Beacon <b>A</b> in <b>30</b> seconds")
                         self.handleMission(missionDescription)
                         if (ServerUtils.testing) {
-                            self.updatesTimer.invalidate()
+//                            self.updatesTimer.invalidate()
                         }
                         if (gameOver == 1) {
                             self.gameOver()

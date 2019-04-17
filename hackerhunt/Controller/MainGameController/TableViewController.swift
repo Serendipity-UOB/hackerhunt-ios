@@ -28,19 +28,6 @@ extension MainGameViewController {
         cell.initialiseButtons(interactionButtons)
         cell.cellY = playerTableView.frame.origin.y + cell.frame.origin.y // set global Y pos for moving the buttons around
         cell.layoutSubviews()
-        if (greyout && !cell.player.selected) {
-            cell.greyOut()
-            cell.hideButtons()
-        }
-        else if (greyout && cell.player.selected) {
-            cell.ungreyOut()
-            cell.showButtons()
-            view.bringSubviewToFront(cell)
-        }
-        else {
-            cell.ungreyOut()
-            cell.hideButtons()
-        }
         return cell
     }
     
@@ -65,11 +52,13 @@ extension MainGameViewController {
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         let player = gameState!.allPlayers[indexPath.section]
         if (player.nearby) {
-//            let cellToShow = playerTableView.cellForRow(at: indexPath) as! PlayerTableCell
-            player.selected = true
-            greyOutAllCells()
-//            cellToShow.ungreyOut()
-//            cellToShow.showButtons()
+            DispatchQueue.main.async {
+                let cellToShow = self.playerTableView.cellForRow(at: indexPath) as! PlayerTableCell
+                self.greyOutAllCells()
+                cellToShow.ungreyOut()
+                cellToShow.showButtons()
+                self.tapToCloseLabel.alpha = 1.0
+            }
         }
         else {
             self.logVC.setMessage(farAwayPlayerSelected: player.realName)
@@ -83,50 +72,42 @@ extension MainGameViewController {
     }
     
     func ungreyOutAllCells() {
-        for p in self.gameState.allPlayers {
-            p.selected = false
+        playerTableView.isScrollEnabled = true
+        self.tapToCloseLabel.alpha = 0.0
+        greyOutView.alpha = 0
+        greyOutViewTap.isEnabled = false
+        tableViewTap.isEnabled = false
+        let count = self.playerTableView.visibleCells.count
+        let start = self.playerTableView.visibleCells[0]
+        let startIndex = self.playerTableView.indexPath(for: start)!.section
+        for i in startIndex..<count {
+            let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+            cell.ungreyOut()
+            cell.hideButtons()
         }
-        DispatchQueue.main.async {
-            self.greyout = false
-            self.playerTableView.reloadData()
-            self.playerTableView.isScrollEnabled = true
-            self.tapToCloseLabel.alpha = 0.0
-            self.greyOutView.alpha = 0
-            self.greyOutViewTap.isEnabled = false
-            self.tableViewTap.isEnabled = false
-        }
-
-//        for cell in playerTableView!.visibleCells {
-//            let c = cell as! PlayerTableCell
-//            c.ungreyOut()
-//            c.hideButtons()
-//        }
     }
     
     func greyOutAllCells() {
-        DispatchQueue.main.async {
-            self.greyout = true
-            self.playerTableView.reloadData()
-            self.playerTableView.isScrollEnabled = false
-            self.greyOutView.alpha = 0.8
-            self.greyOutViewTap.isEnabled = true
-            self.tableViewTap.isEnabled = true
-            self.tapToCloseLabel.alpha = 1.0
+        playerTableView.isScrollEnabled = false
+        greyOutView.alpha = 0.8
+        greyOutViewTap.isEnabled = true
+        tableViewTap.isEnabled = true
+        let count = self.playerTableView.visibleCells.count
+        let start = self.playerTableView.visibleCells[0]
+        let startIndex = self.playerTableView.indexPath(for: start)!.section
+        for i in startIndex..<count {
+            let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+            cell.greyOut()
+            cell.hideButtons()
         }
-
-//        for cell in playerTableView!.visibleCells {
-//            let c = cell as! PlayerTableCell
-//            c.greyOut()
-//            c.hideButtons()
-//        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if (exchange) {
-//            exchange(withPlayerAtIndex: indexPath.section)
-//        } else if (takedown) {
-//            takeDown(target: indexPath.section)
-//        }
+        //        if (exchange) {
+        //            exchange(withPlayerAtIndex: indexPath.section)
+        //        } else if (takedown) {
+        //            takeDown(target: indexPath.section)
+        //        }
     }
     
 }

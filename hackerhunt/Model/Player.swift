@@ -25,7 +25,6 @@ class Player {
     var codeNameDiscovered: Bool = false
     var exchangeRequested: Bool = false
     var position: Int = 0
-    var selected: Bool = false
     
     func copy() -> Player {
         let copy = Player(realName: self.realName, codeName: self.codeName, id: self.id)

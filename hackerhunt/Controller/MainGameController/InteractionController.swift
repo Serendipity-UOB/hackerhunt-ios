@@ -17,7 +17,7 @@ extension MainGameViewController {
         let interacteeId = sender.tag
         let player = self.gameState.getPlayerById(interacteeId)!
         
-
+        
         
         if (gameState.playerIsNearby(interacteeId)) {
             DispatchQueue.main.async {
@@ -139,16 +139,19 @@ extension MainGameViewController {
                     self.playerTableView.reloadData()
                 }
             }
-        }.resume()
+            }.resume()
     }
     
     func setCurrentlyExchanging(with player: Player) {
         let p = gameState.getPlayerById(player.id)
         p!.exchangeRequested = true
         // grey out all exchange buttons
-        for cell in playerTableView!.visibleCells {
-            let c = cell as! PlayerTableCell
-            c.disableExchange()
+        let count = self.playerTableView.visibleCells.count
+        let start = self.playerTableView.visibleCells[0]
+        let startIndex = self.playerTableView.indexPath(for: start)!.section
+        for i in startIndex..<count {
+            let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+            cell.disableExchange()
         }
     }
     
@@ -156,9 +159,12 @@ extension MainGameViewController {
         let p = gameState.getPlayerById(player.id)
         p!.exchangeRequested = false
         // un grey out all exchange buttons
-        for cell in playerTableView!.visibleCells {
-            let c = cell as! PlayerTableCell
-            c.enableExchange()
+        let count = self.playerTableView.visibleCells.count
+        let start = self.playerTableView.visibleCells[0]
+        let startIndex = self.playerTableView.indexPath(for: start)!.section
+        for i in startIndex..<count {
+            let cell = self.playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+            cell.enableExchange()
         }
         print("setNoLongerExchanging called")
     }
@@ -279,7 +285,7 @@ extension MainGameViewController {
                     self.hideExchangeRequested()
                 }
             }
-        }.resume()
+            }.resume()
     }
     
     
@@ -391,24 +397,30 @@ extension MainGameViewController {
             default:
                 print("something weird has happened in intercept with status code \(statusCode)")
             }
-        }.resume()
+            }.resume()
     }
     
     func setCurrentlyIntercepting(_ player: Player) {
         //player.currentlyIntercepting = true
         // grey out all intercept buttons
-        for cell in playerTableView!.visibleCells {
-            let c = cell as! PlayerTableCell
-            c.disableIntercept()
+        let count = self.playerTableView.visibleCells.count
+        let start = self.playerTableView.visibleCells[0]
+        let startIndex = self.playerTableView.indexPath(for: start)!.section
+        for i in startIndex..<count {
+            let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+            cell.disableIntercept()
         }
     }
     
     func setNoLongerIntercepting(_ player: Player) {
         //player.currentlyIntercepting = false
         // un grey out all intercept buttons
-        for cell in playerTableView!.visibleCells {
-            let c = cell as! PlayerTableCell
-            c.enableIntercept()
+        let count = self.playerTableView.visibleCells.count
+        let start = self.playerTableView.visibleCells[0]
+        let startIndex = self.playerTableView.indexPath(for: start)!.section
+        for i in startIndex..<count {
+            let cell = self.playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+            cell.enableIntercept()
         }
     }
     
