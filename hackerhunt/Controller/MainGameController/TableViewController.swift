@@ -79,7 +79,7 @@ extension MainGameViewController {
         let count = self.playerTableView.visibleCells.count
         let start = self.playerTableView.visibleCells[0]
         let startIndex = self.playerTableView.indexPath(for: start)!.section
-        for i in startIndex..<count {
+        for i in startIndex..<startIndex+count {
             let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
             cell.ungreyOut()
             cell.hideButtons()
@@ -94,7 +94,7 @@ extension MainGameViewController {
         let count = self.playerTableView.visibleCells.count
         let start = self.playerTableView.visibleCells[0]
         let startIndex = self.playerTableView.indexPath(for: start)!.section
-        for i in startIndex..<count {
+        for i in startIndex..<startIndex+count {
             let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
             cell.greyOut()
             cell.hideButtons()

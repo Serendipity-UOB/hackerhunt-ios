@@ -149,7 +149,7 @@ extension MainGameViewController {
         let count = self.playerTableView.visibleCells.count
         let start = self.playerTableView.visibleCells[0]
         let startIndex = self.playerTableView.indexPath(for: start)!.section
-        for i in startIndex..<count {
+        for i in startIndex..<startIndex+count {
             let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
             cell.disableExchange()
         }
@@ -162,7 +162,7 @@ extension MainGameViewController {
         let count = self.playerTableView.visibleCells.count
         let start = self.playerTableView.visibleCells[0]
         let startIndex = self.playerTableView.indexPath(for: start)!.section
-        for i in startIndex..<count {
+        for i in startIndex..<startIndex+count {
             let cell = self.playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
             cell.enableExchange()
         }
@@ -406,7 +406,7 @@ extension MainGameViewController {
         let count = self.playerTableView.visibleCells.count
         let start = self.playerTableView.visibleCells[0]
         let startIndex = self.playerTableView.indexPath(for: start)!.section
-        for i in startIndex..<count {
+        for i in startIndex..<startIndex+count {
             let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
             cell.disableIntercept()
         }
@@ -418,7 +418,7 @@ extension MainGameViewController {
         let count = self.playerTableView.visibleCells.count
         let start = self.playerTableView.visibleCells[0]
         let startIndex = self.playerTableView.indexPath(for: start)!.section
-        for i in startIndex..<count {
+        for i in startIndex..<startIndex+count {
             let cell = self.playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
             cell.enableIntercept()
         }
