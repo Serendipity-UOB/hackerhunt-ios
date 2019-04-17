@@ -26,13 +26,13 @@ extension MainGameViewController {
         cell.interceptBtn.addTarget(self, action: #selector(interceptButtonAction), for: .touchUpInside)
         cell.exposeBtn.addTarget(self, action: #selector(exposeButtonAction), for: .touchUpInside)
         cell.initialiseButtons(interactionButtons)
-        if (self.exchanging) {
+        if (cell.player.exchangeDisabled) {
             cell.disableExchange()
         }
         else {
             cell.enableExchange()
         }
-        if (self.intercepting) {
+        if (cell.player.interceptDisabled) {
             cell.disableIntercept()
         }
         else {

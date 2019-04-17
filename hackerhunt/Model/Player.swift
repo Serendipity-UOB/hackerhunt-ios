@@ -25,6 +25,8 @@ class Player {
     var codeNameDiscovered: Bool = false
     var exchangeRequested: Bool = false
     var position: Int = 0
+    var interceptDisabled: Bool = false
+    var exchangeDisabled: Bool = false
     
     func copy() -> Player {
         let copy = Player(realName: self.realName, codeName: self.codeName, id: self.id)
@@ -34,6 +36,8 @@ class Player {
         copy.exchangeRequested = self.exchangeRequested
         copy.codeNameDiscovered = self.codeNameDiscovered
         copy.position = self.position
+        copy.interceptDisabled = self.interceptDisabled
+        copy.exchangeDisabled = self.exchangeDisabled
         return copy
     }
     

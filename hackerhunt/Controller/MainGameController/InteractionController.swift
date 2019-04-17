@@ -145,13 +145,19 @@ extension MainGameViewController {
     func setCurrentlyExchanging(with player: Player) {
         let p = gameState.getPlayerById(player.id)
         p!.exchangeRequested = true
-        self.exchanging = true
+        p!.interceptDisabled = true
+        for p in self.gameState.allPlayers {
+            p.exchangeDisabled = true
+        }
     }
     
     func setNoLongerExchanging(with player: Player) {
         let p = gameState.getPlayerById(player.id)
         p!.exchangeRequested = false
-        self.exchanging = false
+        p!.interceptDisabled = false
+        for p in self.gameState.allPlayers {
+            p.exchangeDisabled = false
+        }
     }
     
     func exchangeResponse(_ requesterId: Int) {
@@ -387,12 +393,20 @@ extension MainGameViewController {
     
     func setCurrentlyIntercepting(_ player: Player) {
         //player.currentlyIntercepting = true
-        self.intercepting = true
+        let p = self.gameState.getPlayerById(player.id)
+        p!.exchangeDisabled = true
+        for p in self.gameState.allPlayers {
+            p.interceptDisabled = true
+        }
     }
     
     func setNoLongerIntercepting(_ player: Player) {
         //player.currentlyIntercepting = false
-        self.intercepting = false
+        let p = self.gameState.getPlayerById(player.id)
+        p!.exchangeDisabled = false
+        for p in self.gameState.allPlayers {
+            p.interceptDisabled = false
+        }
     }
     
     // MARK: Expose
