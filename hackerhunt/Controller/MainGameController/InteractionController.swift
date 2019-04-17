@@ -146,11 +146,8 @@ extension MainGameViewController {
         let p = gameState.getPlayerById(player.id)
         p!.exchangeRequested = true
         // grey out all exchange buttons
-        let count = self.playerTableView.visibleCells.count
-        let start = self.playerTableView.visibleCells[0]
-        let startIndex = self.playerTableView.indexPath(for: start)!.section
-        for i in startIndex..<startIndex+count {
-            let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+        for c in self.playerTableView.visibleCells {
+            let cell = c as! PlayerTableCell
             cell.disableExchange()
         }
     }
@@ -159,11 +156,8 @@ extension MainGameViewController {
         let p = gameState.getPlayerById(player.id)
         p!.exchangeRequested = false
         // un grey out all exchange buttons
-        let count = self.playerTableView.visibleCells.count
-        let start = self.playerTableView.visibleCells[0]
-        let startIndex = self.playerTableView.indexPath(for: start)!.section
-        for i in startIndex..<startIndex+count {
-            let cell = self.playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+        for c in self.playerTableView.visibleCells {
+            let cell = c as! PlayerTableCell
             cell.enableExchange()
         }
         print("setNoLongerExchanging called")
@@ -403,11 +397,8 @@ extension MainGameViewController {
     func setCurrentlyIntercepting(_ player: Player) {
         //player.currentlyIntercepting = true
         // grey out all intercept buttons
-        let count = self.playerTableView.visibleCells.count
-        let start = self.playerTableView.visibleCells[0]
-        let startIndex = self.playerTableView.indexPath(for: start)!.section
-        for i in startIndex..<startIndex+count {
-            let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+        for c in self.playerTableView.visibleCells {
+            let cell = c as! PlayerTableCell
             cell.disableIntercept()
         }
     }
@@ -415,11 +406,8 @@ extension MainGameViewController {
     func setNoLongerIntercepting(_ player: Player) {
         //player.currentlyIntercepting = false
         // un grey out all intercept buttons
-        let count = self.playerTableView.visibleCells.count
-        let start = self.playerTableView.visibleCells[0]
-        let startIndex = self.playerTableView.indexPath(for: start)!.section
-        for i in startIndex..<startIndex+count {
-            let cell = self.playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
+        for c in self.playerTableView.visibleCells {
+            let cell = c as! PlayerTableCell
             cell.enableIntercept()
         }
     }
