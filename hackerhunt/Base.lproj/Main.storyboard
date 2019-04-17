@@ -740,6 +740,7 @@
                         <outlet property="greyOutView" destination="Ldy-To-pvN" id="soi-uz-C5Y"/>
                         <outlet property="greyOutViewTap" destination="BbW-cd-0tQ" id="j5X-4U-vhG"/>
                         <outlet property="interactionButtons" destination="8uj-MP-nye" id="0GQ-A5-pKb"/>
+                        <outlet property="locationIcon" destination="eQ9-n7-2jr" id="HoQ-ss-gsJ"/>
                         <outlet property="playerName" destination="Kac-tA-fLz" id="wtg-Y3-uZX"/>
                         <outlet property="playerTableView" destination="sqj-v5-pL5" id="KpQ-01-pRB"/>
                         <outlet property="pointsValue" destination="QxZ-bJ-Tl5" id="CaG-Jl-Kob"/>

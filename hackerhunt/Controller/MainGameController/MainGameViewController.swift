@@ -36,6 +36,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var countdownValue: UILabel!
     @IBOutlet weak var playerName: UILabel!
     @IBOutlet weak var targetName: UILabel!
+    @IBOutlet weak var locationIcon: UIImageView!
     
     // player table
     @IBOutlet weak var playerTableView: UITableView!
@@ -216,12 +217,20 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         
                         guard let bodyDict = bodyJson as? [String: Any] else { return }
                         
+                        guard let location: Int = bodyDict["location"] as? Int else {
+                            print("location zone missing")
+                            return
+                        }
                         guard let takenDown: Int = bodyDict["exposed_by"] as? Int else {
                             print("exposed_by missing")
                             return
                         }
-                        guard let nearbyPlayers: [Int] = bodyDict["nearby_players"] as? [Int] else {
+                        guard let nearbyPlayers: [[String:Int]] = bodyDict["nearby_players"] as? [[String:Int]] else {
                             print("nearbyPlayers missing")
+                            return
+                        }
+                        guard let farPlayers: [[String:Int]] = bodyDict["far_players"] as? [[String:Int]] else {
+                            print("farPlayers missing")
                             return
                         }
                         guard let points: Int = bodyDict["reputation"] as? Int else {
@@ -248,9 +257,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                             print("exchange_pending missing")
                             return
                         }
+                        self.handleLocation(location)
                         self.handleExchangeRequested(exchangeRequested)
                         self.handleTakenDown(takenDown)
-                        self.handleNearbyPlayers(nearbyPlayers)
+                        self.handlePlayers(nearbyPlayers, farPlayers)
                         self.setCurrentPoints(points)
                         self.handleRequestNewTarget(requestNewTarget)
                         self.handlePosition(position)
@@ -271,6 +281,27 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     print("/playerUpdate failed with status code \(statusCode)")
                 }
                 }.resume()
+        }
+    }
+    
+    func handleLocation(_ location: Int) {
+        DispatchQueue.main.async {
+            //locationIcon.frame.size.height = 25
+            switch location {
+            case 0:
+                //locationIcon.frame.size.height = 22
+                self.locationIcon.image = UIImage(named: "unitedNations")
+            case 1:
+                self.locationIcon.image = UIImage(named: "italyFlag")
+            case 2:
+                self.locationIcon.image = UIImage(named: "swedenFlag")
+            case 3:
+                self.locationIcon.image = UIImage(named: "switzerlandFlag")
+            case 4:
+                self.locationIcon.image = UIImage(named: "czechRepublicFlag")
+            default:
+                print("zone \(location) not recognised")
+            }
         }
     }
     
@@ -313,12 +344,37 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    func handleNearbyPlayers(_ nearbyPlayers: [Int]) {
+    func handlePlayers(_ nearbyPlayers: [[String:Int]], _ farPlayers: [[String:Int]]) {
         for p in self.gameState.allPlayers {
-            if nearbyPlayers.contains(p.id) {
-                p.nearby = true
-            } else {
-                p.nearby = false
+            for dict in nearbyPlayers {
+                guard let id: Int = dict["id"] else {
+                    print("no player id for a player in nearbyPlayers")
+                    return
+                }
+                if (p.id == id) {
+                    guard let location: Int = dict["location"] else {
+                        print("location missing for player \(id)")
+                        return
+                    }
+                    p.zone = location
+                    p.nearby = true
+                    break
+                }
+            }
+            for dict in farPlayers {
+                guard let id: Int = dict["id"] else {
+                    print("no player id for a player in nearbyPlayers")
+                    return
+                }
+                if (p.id == id) {
+                    guard let location: Int = dict["location"] else {
+                        print("location missing for player \(id)")
+                        return
+                    }
+                    p.zone = location
+                    p.nearby = false
+                    break
+                }
             }
         }
         self.gameState.allPlayers = self.gameState.prioritiseNearbyPlayers()
