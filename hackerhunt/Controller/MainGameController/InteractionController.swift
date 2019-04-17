@@ -146,9 +146,9 @@ extension MainGameViewController {
         let p = gameState.getPlayerById(player.id)
         p!.exchangeRequested = true
         // grey out all exchange buttons
-        for i in 0..<gameState!.allPlayers.count {
-            let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
-            cell.disableExchange()
+        for cell in playerTableView!.visibleCells {
+            let c = cell as! PlayerTableCell
+            c.disableExchange()
         }
     }
     
@@ -156,9 +156,9 @@ extension MainGameViewController {
         let p = gameState.getPlayerById(player.id)
         p!.exchangeRequested = false
         // un grey out all exchange buttons
-        for i in 0..<self.gameState!.allPlayers.count {
-            let cell = self.playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
-            cell.enableExchange()
+        for cell in playerTableView!.visibleCells {
+            let c = cell as! PlayerTableCell
+            c.enableExchange()
         }
         print("setNoLongerExchanging called")
     }
@@ -397,18 +397,18 @@ extension MainGameViewController {
     func setCurrentlyIntercepting(_ player: Player) {
         //player.currentlyIntercepting = true
         // grey out all intercept buttons
-        for i in 0..<gameState!.allPlayers.count {
-            let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
-            cell.disableIntercept()
+        for cell in playerTableView!.visibleCells {
+            let c = cell as! PlayerTableCell
+            c.disableIntercept()
         }
     }
     
     func setNoLongerIntercepting(_ player: Player) {
         //player.currentlyIntercepting = false
         // un grey out all intercept buttons
-        for i in 0..<self.gameState!.allPlayers.count {
-            let cell = self.playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
-            cell.enableIntercept()
+        for cell in playerTableView!.visibleCells {
+            let c = cell as! PlayerTableCell
+            c.enableIntercept()
         }
     }
     

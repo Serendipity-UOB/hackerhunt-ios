@@ -75,10 +75,10 @@ extension MainGameViewController {
         greyOutView.alpha = 0
         greyOutViewTap.isEnabled = false
         tableViewTap.isEnabled = false
-        for i in 0..<gameState.allPlayers.count {
-            let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
-            cell.ungreyOut()
-            cell.hideButtons()
+        for cell in playerTableView!.visibleCells {
+            let c = cell as! PlayerTableCell
+            c.ungreyOut()
+            c.hideButtons()
         }
     }
     
@@ -87,10 +87,10 @@ extension MainGameViewController {
         greyOutView.alpha = 0.8
         greyOutViewTap.isEnabled = true
         tableViewTap.isEnabled = true
-        for i in 0..<gameState!.allPlayers.count {
-            let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
-            cell.greyOut()
-            cell.hideButtons()
+        for cell in playerTableView!.visibleCells {
+            let c = cell as! PlayerTableCell
+            c.greyOut()
+            c.hideButtons()
         }
     }
     
