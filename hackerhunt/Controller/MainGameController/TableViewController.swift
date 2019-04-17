@@ -52,13 +52,11 @@ extension MainGameViewController {
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         let player = gameState!.allPlayers[indexPath.section]
         if (player.nearby) {
-            DispatchQueue.main.async {
-                let cellToShow = self.playerTableView.cellForRow(at: indexPath) as! PlayerTableCell
-                self.greyOutAllCells()
-                cellToShow.ungreyOut()
-                cellToShow.showButtons()
-                self.tapToCloseLabel.alpha = 1.0
-            }
+            let cellToShow = self.playerTableView.cellForRow(at: indexPath) as! PlayerTableCell
+            self.greyOutAllCells()
+            cellToShow.ungreyOut()
+            cellToShow.showButtons()
+            self.tapToCloseLabel.alpha = 1.0
         }
         else {
             self.logVC.setMessage(farAwayPlayerSelected: player.realName)
