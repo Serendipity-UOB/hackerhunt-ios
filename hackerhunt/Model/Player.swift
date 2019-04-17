@@ -19,6 +19,7 @@ class Player {
     var id: Int
     
     var nearby: Bool = false
+    var zone: Int = 0
     var evidence: Float = 0.0
     var score: Int = 0
     var codeNameDiscovered: Bool = false
@@ -28,6 +29,7 @@ class Player {
     func copy() -> Player {
         let copy = Player(realName: self.realName, codeName: self.codeName, id: self.id)
         copy.nearby = self.nearby
+        copy.zone = self.zone
         copy.evidence = self.evidence
         copy.exchangeRequested = self.exchangeRequested
         copy.codeNameDiscovered = self.codeNameDiscovered
