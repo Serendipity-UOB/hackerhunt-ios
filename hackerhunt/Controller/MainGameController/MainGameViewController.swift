@@ -27,6 +27,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     var onMission: Bool = false
     var exchangeResponse: Int = 0
     
+    var exchanging: Bool = false
+    var intercepting: Bool = false
+    var greyout: Bool = false
     // header
     @IBOutlet weak var pointsValue: UILabel!
     @IBOutlet weak var positionValue: UILabel!
