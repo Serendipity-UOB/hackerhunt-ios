@@ -55,14 +55,9 @@ extension MainGameViewController {
             let statusCode: Int = httpResponse.statusCode
             print("exchange code " + String(statusCode))
             
-            let responderName = self.gameState.getPlayerById(requestdata["responder_id"] as! Int)!.realName
             switch statusCode {
             case 201: // created
-                DispatchQueue.main.async {
-                    self.logVC.setMesssage(exchangeRequestedWith: responderName)
-                    self.showLog()
-                    print("Exchange requested")
-                }
+                print("Exchange requested")
             case 202: // accepted
                 guard let responseData = data else { return }
                 do {
@@ -85,8 +80,6 @@ extension MainGameViewController {
                     
                     DispatchQueue.main.async {
                         self.setNoLongerExchanging(with: player, true)
-                        self.logVC.setMessage(exchangeSuccessfulWithPlayer: responderName, evidence: players)
-                        self.showLog()
                         print("Exchange accepted")
                     }
                 } catch {}
@@ -94,8 +87,6 @@ extension MainGameViewController {
                 self.exchangeTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerExchanging(with: player, false)
-                    self.logVC.setMessage(exchangeRejected: responderName)
-                    self.showLog()
                     print("Exchange rejected, put small popup here")
                 }
             case 206:
@@ -121,8 +112,6 @@ extension MainGameViewController {
                 self.exchangeTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerExchanging(with: player, false)
-                    self.logVC.setMessage(exchangeTimeout: responderName)
-                    self.showLog()
                     print("Exchange timed out, put small popup here")
                 }
             default:
@@ -177,7 +166,6 @@ extension MainGameViewController {
     @objc func exchangeResponseRequest() {
         var requestdata: [String:Any] = exchangeRequestTimer.userInfo as! [String:Any]
         requestdata["response"] = self.exchangeResponse
-        let requesterName = self.gameState.getPlayerById(requestdata["requester_id"]! as! Int)!.realName
         let request = ServerUtils.post(to: "/exchangeResponse", with: requestdata)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -216,8 +204,6 @@ extension MainGameViewController {
                     DispatchQueue.main.async {
                         self.playerTableView.reloadData()
                         self.hideExchangeRequested()
-                        self.logVC.setMessage(exchangeAcceptedWithPlayer: requesterName, evidence: players)
-                        self.showLog()
                     }
                 } catch {}
             case 205:
@@ -226,8 +212,6 @@ extension MainGameViewController {
                 print("exchange request successfully rejected")
                 DispatchQueue.main.async {
                     self.hideExchangeRequested()
-                    self.logVC.setMessage(exchangeRejectedWithPlayer: requesterName)
-                    self.showLog()
                 }
             case 206:
                 print("keep polling")
@@ -343,23 +327,15 @@ extension MainGameViewController {
                     
                     DispatchQueue.main.async {
                         self.setNoLongerIntercepting(target, true)
-                        self.logVC.setMessage(interceptSuccessfulOn: target.realName, withEvidenceOn: playerNames)
-                        self.showLog()
                         print("intercept successful")
                     }
                 } catch {}
             case 201:
-                DispatchQueue.main.async {
-                    self.logVC.setMessage(interceptRequestedOn: target.realName)
-                    self.showLog()
-                    print("intercept created")
-                }
+                print("intercept created")
             case 204:
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerIntercepting(target, false)
-                    self.logVC.setMessage(interceptFailed: target.realName)
-                    self.showLog()
                     print("no exchange happened for \(statusCode)")
                 }
             case 206:
@@ -368,8 +344,6 @@ extension MainGameViewController {
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerIntercepting(target, false)
-                    self.logVC.setMessage(interceptFailedOn: target.realName)
-                    self.showLog()
                     print("no exchange happened for \(statusCode)")
                 }
             case 404:

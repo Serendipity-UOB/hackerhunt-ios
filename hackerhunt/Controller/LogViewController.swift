@@ -23,93 +23,9 @@ class LogViewController : UIViewController {
         logMessage.isScrollEnabled = false
     }
     
-    
-    func setMesssage(exchangeRequestedWith: String) {
-        self.image = UIImage(named: "notif-box")
-        self.message = "\nExchange with " + exchangeRequestedWith + " requested."
-    }
-    
-    func setMessage(exchangeSuccessfulWithPlayer: String, evidence: [String]) {
-        self.image = UIImage(named: "good_full_pop_up")
-        if (evidence.count != 1) {
-            self.message = "Exchange successful.\n\(exchangeSuccessfulWithPlayer) gave you evidence on "
-            for e in evidence {
-                if (e != exchangeSuccessfulWithPlayer) {
-                    self.message += e + " and "
-                }
-            }
-            self.message.removeLast(5)
-            self.message += ".\nYou also found some about \(exchangeSuccessfulWithPlayer)."
-        }
-        else {
-            self.message = "Exchange successful.\nYou found some evidence on \(exchangeSuccessfulWithPlayer)."
-        }
-
-    }
-    
-    func setMessage(exchangeRejected: String) {
-        self.image = UIImage(named: "bad_full_pop_up")
-        self.message = "Exchange failed.\n\(exchangeRejected) has rejected your request."
-    }
-    
-    func setMessage(exchangeTimeout: String) {
-        self.image = UIImage(named: "bad_full_pop_up")
-        self.message = "Exchange failed.\n\(exchangeTimeout) didn't respond fast enough."
-    }
-    
-    func setMessage(interceptRequestedOn: String) {
-        self.image = UIImage(named: "notif-box")
-        self.message = "Attempting to intercept \(interceptRequestedOn)'s Exchange."
-    }
-    
-    func setMessage(interceptSuccessfulOn: String, withEvidenceOn: [String]) {
-        self.image = UIImage(named: "good_full_pop_up")
-        self.message = "Intercept on \(interceptSuccessfulOn) succeeded.\nYou also gained evidence about "
-        for e in withEvidenceOn {
-            if (e != interceptSuccessfulOn) {
-                self.message += e + " and "
-            }
-        }
-        self.message.removeLast(5)
-        self.message += "."
-    }
-    
-    func setMessage(interceptFailedOn: String) {
-        self.image = UIImage(named: "bad_full_pop_up")
-        self.message = "Intercept on \(interceptFailedOn) failed, \(interceptFailedOn) wasn't exchanging."
-    }
-    
-    func setMessage(interceptFailed: Any) {
-        self.image = UIImage(named: "bad_full_pop_up")
-        self.message = "Intercept failed, no evidence was shared."
-    }
-    
     func setMessage(exposeFailedWithInsufficientIntel: String) {
         self.image = UIImage(named: "bad_full_pop_up")
         self.message = "Expose failed.\nInsufficient evidence on \(exposeFailedWithInsufficientIntel)."
-    }
-    
-    func setMessage(exchangeAcceptedWithPlayer: String, evidence: [String]) {
-        self.image = UIImage(named: "good_full_pop_up")
-        if (evidence.count != 1) {
-            self.message = "Exchange successful.\n\(exchangeAcceptedWithPlayer) gave you evidence on "
-            for e in evidence {
-                if (e != exchangeAcceptedWithPlayer) {
-                    self.message += e + " and "
-                }
-            }
-            self.message.removeLast(5)
-            self.message += ".\nYou also found some about \(exchangeAcceptedWithPlayer)."
-        }
-        else {
-            self.message = "Exchange successful.\nYou found some evidence on \(exchangeAcceptedWithPlayer)"
-        }
-        
-    }
-    
-    func setMessage(exchangeRejectedWithPlayer: String) {
-        self.image = UIImage(named: "bad_full_pop_up")
-        self.message = "You rejected \(exchangeRejectedWithPlayer)'s exchange."
     }
     
     func setMessage(farAwayPlayerSelected: String) {
