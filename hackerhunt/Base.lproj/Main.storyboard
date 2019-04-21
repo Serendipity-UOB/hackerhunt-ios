@@ -954,7 +954,7 @@
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spy_logo" translatesAutoresizingMaskIntoConstraints="NO" id="HAw-3j-WJd">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unitedNations" translatesAutoresizingMaskIntoConstraints="NO" id="HAw-3j-WJd">
                                 <rect key="frame" x="30" y="334" width="81.5" height="82"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="81.5" id="HEW-a5-oOL"/>
@@ -995,6 +995,7 @@
                         <outlet property="alertBackgroundImage" destination="PYc-1J-y5R" id="oQW-SO-OzU"/>
                         <outlet property="alertMessage" destination="DvJ-6c-pD3" id="Xch-eb-tK5"/>
                         <outlet property="alertTitleLabel" destination="F83-uQ-iEI" id="sNJ-xQ-B4K"/>
+                        <outlet property="destinationIcon" destination="HAw-3j-WJd" id="jRY-oH-CLD"/>
                         <outlet property="tapLabel" destination="DE9-B4-Emd" id="Ie1-GJ-h8c"/>
                     </connections>
                 </viewController>

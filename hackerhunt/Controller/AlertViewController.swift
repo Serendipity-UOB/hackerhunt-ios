@@ -14,6 +14,7 @@ class AlertViewController: UIViewController {
     @IBOutlet weak var alertTitleLabel: UILabel!
     @IBOutlet weak var alertMessage: UITextView!
     @IBOutlet weak var tapLabel: UILabel!
+    @IBOutlet weak var destinationIcon: UIImageView!
     
     var message: String = "default string"
     var titleMessage: String = "default title"
@@ -76,7 +77,8 @@ class AlertViewController: UIViewController {
         self.titleColour = titleColours["neutral"]!
         self.titleMessage = "TOO SLOW"
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
-        self.message = "Your target was Exposed by another agent.\n\nReturn to \(homeBeacon) to be assigned a new target."
+        self.message = "Another agent has exposed your target.\nReturn to the\(homeBeacon) to be assigned a new target."
+        destinationIcon.image = UIImage(named: "unitedNations")
         self.tapToClose = false
     }
     
@@ -84,7 +86,8 @@ class AlertViewController: UIViewController {
         self.titleColour = titleColours["bad"]!
         self.titleMessage = "SECURITY BREACH"
         self.backgroundImage = UIImage(named: "bad_full_pop_up")
-        self.message = "Your mission has been Exposed by \(exposedBy), you have lost 50% of your gathered Evidence.\n\nReturn to \(homeBeacon), Agent."
+        self.message = "Exposed by \(exposedBy).\nLose 50% of your evidence.Return to \(homeBeacon)."
+        self.destinationIcon.image = UIImage(named: "unitedNations")
         self.tapToClose = false
     }
     
@@ -92,7 +95,8 @@ class AlertViewController: UIViewController {
         self.titleColour = titleColours["good"]!
         self.titleMessage = "EXPOSE SUCCESS"
         self.backgroundImage = UIImage(named: "good_full_pop_up")
-        self.message = "Good work, agent. Return to \(homeBeacon) for your next target.\n\nReward: \(reputation) reputation"
+        self.message = "Reward: \(reputation) reputation.\nReturn to \(homeBeacon) for your next target."
+        self.destinationIcon.image = UIImage(named: "unitedNations")
         self.tapToClose = false
     }
     
@@ -102,6 +106,7 @@ class AlertViewController: UIViewController {
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
         self.message = newMission
         self.tapToClose = false || ServerUtils.testing
+        setDestination(newMission)
     }
     
     func setMessage(missionSuccess: Any, missionString: String) {
@@ -118,6 +123,27 @@ class AlertViewController: UIViewController {
         self.backgroundImage = UIImage(named: "bad_full_pop_up")
         self.message = missionString
         self.tapToClose = true
+    }
+    
+    func setDestination(_ missionDescription: String) {
+        if (missionDescription.contains("Italy")) {
+            destinationIcon.image = UIImage(named: "italyFlag")
+        }
+        else if (missionDescription.contains("Switzerland")) {
+            destinationIcon.image = UIImage(named: "switzerlandFlag")
+        }
+        else if (missionDescription.contains("Sweden")) {
+            destinationIcon.image = UIImage(named: "swedenFlag")
+        }
+        else if (missionDescription.contains("Czech Republic")) {
+            destinationIcon.image = UIImage(named: "czechRepublicFlag")
+        }
+        else if (missionDescription.contains("Columbia")) {
+            destinationIcon.image = UIImage(named: "columbiaFlag")
+        }
+        else {
+            destinationIcon.image = UIImage(named: "unitedNations")
+        }
     }
     
     /* animations */
