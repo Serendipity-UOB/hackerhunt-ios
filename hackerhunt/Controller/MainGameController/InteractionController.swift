@@ -395,6 +395,7 @@ extension MainGameViewController {
         //player.currentlyIntercepting = true
         let p = self.gameState.getPlayerById(player.id)
         p!.exchangeDisabled = true
+        p!.interceptRequested = true
         for p in self.gameState.allPlayers {
             p.interceptDisabled = true
         }
@@ -404,6 +405,7 @@ extension MainGameViewController {
         //player.currentlyIntercepting = false
         let p = self.gameState.getPlayerById(player.id)
         p!.exchangeDisabled = false
+        p!.interceptRequested = false
         for p in self.gameState.allPlayers {
             p.interceptDisabled = false
         }

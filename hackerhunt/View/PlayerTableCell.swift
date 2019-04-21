@@ -65,7 +65,7 @@ class PlayerTableCell: UITableViewCell {
         return textView
     }()
     
-    var exchangeRequested: UITextView = {
+    var interactionRequested: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isUserInteractionEnabled = false
@@ -181,9 +181,9 @@ class PlayerTableCell: UITableViewCell {
         NSLayoutConstraint.activate([percentagePositionConstraint])
         
         
-        self.addSubview(exchangeRequested)
-        exchangeRequested.rightAnchor.constraint(equalTo: playerCardDivider.rightAnchor, constant: -20).isActive = true
-        exchangeRequested.topAnchor.constraint(equalTo: playerCardDivider.bottomAnchor, constant: 2).isActive = true
+        self.addSubview(interactionRequested)
+        interactionRequested.rightAnchor.constraint(equalTo: playerCardDivider.rightAnchor, constant: -20).isActive = true
+        interactionRequested.topAnchor.constraint(equalTo: playerCardDivider.bottomAnchor, constant: 2).isActive = true
         
         self.addSubview(greyOutView)
         greyOutView.frame.size.width = UIScreen.main.bounds.width - 20
@@ -315,7 +315,17 @@ class PlayerTableCell: UITableViewCell {
     }
     
     func setInteractionLabels() {
-        exchangeRequested.alpha = (player.exchangeRequested) ? 1 : 0
+        if (player.exchangeRequested) {
+            interactionRequested.text = "exchange requested"
+            interactionRequested.alpha = 1
+        }
+        else if (player.interceptRequested) {
+            interactionRequested.text = "intercept requested"
+            interactionRequested.alpha = 1
+        }
+        else {
+            interactionRequested.alpha = 0
+        }
     }
     
     func hideButtons() {

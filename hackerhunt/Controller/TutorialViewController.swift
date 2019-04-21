@@ -200,7 +200,7 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
             changeMessageText("Your intercept was successful. You gained evidence on Tilly and Louis.")
             moveMessage(newY: 330, newHeight: 90)
         } else if tutorialStage == 17 {
-            getPlayerCell("Tilly").exchangeRequested.alpha = 0
+            getPlayerCell("Tilly").interactionRequested.alpha = 0
             changeMessageText("You have discovered Tilly's codename, and they are your target!\nTap on Tilly to expose her identity.")
             moveMessage(newY: 330, newHeight: 130)
         } else if tutorialStage == 18 {
@@ -233,7 +233,7 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
         if tutorialStage == 9 {
             let tillyCell = getPlayerCell("Tilly")
             tillyCell.disableExchange()
-            tillyCell.exchangeRequested.alpha = 1
+            tillyCell.interactionRequested.alpha = 1
             changeMessageText("Note: You can only have one exchange at a time!")
             tutorialStage += 1
         }
@@ -243,7 +243,7 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
         if tutorialStage == 15 {
             let tillyCell = getPlayerCell("Tilly")
             tillyCell.disableIntercept()
-            tillyCell.exchangeRequested.alpha = 1
+            tillyCell.interactionRequested.alpha = 1
             
             // TODO intercept pending text, rather than exchange requested
             

@@ -24,6 +24,7 @@ class Player {
     var score: Int = 0
     var codeNameDiscovered: Bool = false
     var exchangeRequested: Bool = false
+    var interceptRequested: Bool = false
     var position: Int = 0
     var interceptDisabled: Bool = false
     var exchangeDisabled: Bool = false
