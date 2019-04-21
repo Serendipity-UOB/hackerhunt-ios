@@ -75,6 +75,7 @@ class PlayerTableCell: UITableViewCell {
         textView.textColor = UIColor(red:0.58, green:0.74, blue:0.81, alpha:1.0)
         textView.textContainer.lineFragmentPadding = 0
         textView.text = "exchange requested"
+        textView.alpha = 0
         return textView
     }()
     
@@ -306,7 +307,6 @@ class PlayerTableCell: UITableViewCell {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.displayedEvidenceValue = self.player.evidence
                 self.evidencePercent.text = String(format: "%.f%%", self.displayedEvidenceValue)
-                self.evidencePercent.text = String(format: "%.f%%", self.displayedEvidenceValue)
             }
         } else {
             displayedEvidenceValue = player.evidence
@@ -316,15 +316,31 @@ class PlayerTableCell: UITableViewCell {
     
     func setInteractionLabels() {
         if (player.exchangeRequested) {
+            interactionRequested.textColor = UIColor(red:0.58, green:0.74, blue:0.81, alpha:1.0)
             interactionRequested.text = "exchange requested"
             interactionRequested.alpha = 1
         }
         else if (player.interceptRequested) {
+            interactionRequested.textColor = UIColor(red:0.58, green:0.74, blue:0.81, alpha:1.0)
             interactionRequested.text = "intercept requested"
             interactionRequested.alpha = 1
         }
         else {
-            interactionRequested.alpha = 0
+            if (player.interactionResult == 1) {
+                interactionRequested.text = interactionRequested.text.components(separatedBy: " ")[0] + " success"
+                interactionRequested.textColor = UIColor(red:0.18, green:0.75, blue:0.32, alpha:1.0)
+                interactionRequested.alpha = 1
+            }
+            else if (player.interactionResult == 2) {
+                interactionRequested.text = interactionRequested.text.components(separatedBy: " ")[0] + " fail"
+                interactionRequested.textColor = UIColor(red:0.83, green:0.42, blue:0.42, alpha:1.0)
+                interactionRequested.alpha = 1
+            }
+            if (player.interactionResult != 0) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.interactionRequested.alpha = 0
+                }
+            }
         }
     }
     

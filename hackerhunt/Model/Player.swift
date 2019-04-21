@@ -25,6 +25,7 @@ class Player {
     var codeNameDiscovered: Bool = false
     var exchangeRequested: Bool = false
     var interceptRequested: Bool = false
+    var interactionResult: Int = 0 // 0 = no result, 1 = success, 2 = failure
     var position: Int = 0
     var interceptDisabled: Bool = false
     var exchangeDisabled: Bool = false

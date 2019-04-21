@@ -84,8 +84,7 @@ extension MainGameViewController {
                     }
                     
                     DispatchQueue.main.async {
-                        self.setNoLongerExchanging(with: player)
-                        self.playerTableView.reloadData()
+                        self.setNoLongerExchanging(with: player, true)
                         self.logVC.setMessage(exchangeSuccessfulWithPlayer: responderName, evidence: players)
                         self.showLog()
                         print("Exchange accepted")
@@ -93,10 +92,8 @@ extension MainGameViewController {
                 } catch {}
             case 204: // rejected
                 self.exchangeTimer.invalidate()
-                
                 DispatchQueue.main.async {
-                    self.setNoLongerExchanging(with: player)
-                    self.playerTableView.reloadData()
+                    self.setNoLongerExchanging(with: player, false)
                     self.logVC.setMessage(exchangeRejected: responderName)
                     self.showLog()
                     print("Exchange rejected, put small popup here")
@@ -110,23 +107,20 @@ extension MainGameViewController {
                 self.exchangeTimer.invalidate()
                 
                 DispatchQueue.main.async {
-                    self.setNoLongerExchanging(with: player)
-                    self.playerTableView.reloadData()
+                    self.setNoLongerExchanging(with: player, false)
                 }
                 print("You did a bad exchange")
             case 404: // exchange already pending
                 self.exchangeTimer.invalidate()
                 
                 DispatchQueue.main.async {
-                    self.setNoLongerExchanging(with: player)
-                    self.playerTableView.reloadData()
+                    self.setNoLongerExchanging(with: player, false)
                 }
                 print("Exchange already pending")
             case 408: // timeout
                 self.exchangeTimer.invalidate()
                 DispatchQueue.main.async {
-                    self.setNoLongerExchanging(with: player)
-                    self.playerTableView.reloadData()
+                    self.setNoLongerExchanging(with: player, false)
                     self.logVC.setMessage(exchangeTimeout: responderName)
                     self.showLog()
                     print("Exchange timed out, put small popup here")
@@ -135,8 +129,7 @@ extension MainGameViewController {
                 self.exchangeTimer.invalidate()
                 print("/exchangeRequest unexpected \(statusCode)")
                 DispatchQueue.main.async {
-                    self.setNoLongerExchanging(with: player)
-                    self.playerTableView.reloadData()
+                    self.setNoLongerExchanging(with: player, false)
                 }
             }
             }.resume()
@@ -151,13 +144,17 @@ extension MainGameViewController {
         }
     }
     
-    func setNoLongerExchanging(with player: Player) {
+    func setNoLongerExchanging(with player: Player, _ success: Bool) {
         let p = gameState.getPlayerById(player.id)
         p!.exchangeRequested = false
         p!.interceptDisabled = false
+        p!.interactionResult = success ? 1 : 2
         for p in self.gameState.allPlayers {
             p.exchangeDisabled = false
         }
+        self.playerTableView.reloadData()
+        self.playerTableView.layoutIfNeeded()
+        p!.interactionResult = 0
     }
     
     func exchangeResponse(_ requesterId: Int) {
@@ -345,8 +342,7 @@ extension MainGameViewController {
                     }
                     
                     DispatchQueue.main.async {
-                        self.setNoLongerIntercepting(target)
-                        self.playerTableView.reloadData()
+                        self.setNoLongerIntercepting(target, true)
                         self.logVC.setMessage(interceptSuccessfulOn: target.realName, withEvidenceOn: playerNames)
                         self.showLog()
                         print("intercept successful")
@@ -361,8 +357,7 @@ extension MainGameViewController {
             case 204:
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
-                    self.setNoLongerIntercepting(target)
-                    self.playerTableView.reloadData()
+                    self.setNoLongerIntercepting(target, false)
                     self.logVC.setMessage(interceptFailed: target.realName)
                     self.showLog()
                     print("no exchange happened for \(statusCode)")
@@ -372,8 +367,7 @@ extension MainGameViewController {
             case 400:
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
-                    self.setNoLongerIntercepting(target)
-                    self.playerTableView.reloadData()
+                    self.setNoLongerIntercepting(target, false)
                     self.logVC.setMessage(interceptFailedOn: target.realName)
                     self.showLog()
                     print("no exchange happened for \(statusCode)")
@@ -381,8 +375,7 @@ extension MainGameViewController {
             case 404:
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
-                    self.setNoLongerIntercepting(target)
-                    self.playerTableView.reloadData()
+                    self.setNoLongerIntercepting(target, false)
                     print("already intercepting someone")
                 }
             default:
@@ -401,14 +394,18 @@ extension MainGameViewController {
         }
     }
     
-    func setNoLongerIntercepting(_ player: Player) {
+    func setNoLongerIntercepting(_ player: Player, _ success: Bool) {
         //player.currentlyIntercepting = false
         let p = self.gameState.getPlayerById(player.id)
         p!.exchangeDisabled = false
         p!.interceptRequested = false
+        p!.interactionResult = success ? 1 : 2
         for p in self.gameState.allPlayers {
             p.interceptDisabled = false
         }
+        self.playerTableView.reloadData()
+        self.playerTableView.layoutIfNeeded()
+        p!.interactionResult = 0
     }
     
     // MARK: Expose
