@@ -141,10 +141,10 @@ extension MainGameViewController {
     func setNoLongerExchanging(with player: Player, _ success: Bool) {
         let p = gameState.getPlayerById(player.id)
         p!.exchangeRequested = false
-        p!.interceptDisabled = false
         p!.interactionResult = success ? 1 : 2
         for p in self.gameState.allPlayers {
-            if (!p.interceptDisabled) {
+            if (!p.interceptRequested) {
+                p.interceptDisabled = false
                 p.exchangeDisabled = false
             }
         }
@@ -388,12 +388,12 @@ extension MainGameViewController {
     
     func setNoLongerIntercepting(_ player: Player, _ success: Bool) {
         let p = self.gameState.getPlayerById(player.id)
-        p!.exchangeDisabled = false
         p!.interceptRequested = false
         p!.interactionResult = success ? 1 : 2
         for p in self.gameState.allPlayers {
-            if (!p.exchangeDisabled) {
+            if (!p.exchangeRequested) {
                 p.interceptDisabled = false
+                p.exchangeDisabled = false
             }
         }
         self.playerTableView.reloadData()

@@ -35,8 +35,10 @@ class Player {
         copy.nearby = self.nearby
         copy.zone = self.zone
         copy.evidence = self.evidence
-        copy.exchangeRequested = self.exchangeRequested
         copy.codeNameDiscovered = self.codeNameDiscovered
+        copy.exchangeRequested = self.exchangeRequested
+        copy.interceptRequested = self.interceptRequested
+        copy.interactionResult = self.interactionResult
         copy.position = self.position
         copy.interceptDisabled = self.interceptDisabled
         copy.exchangeDisabled = self.exchangeDisabled
