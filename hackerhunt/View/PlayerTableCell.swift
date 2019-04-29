@@ -336,6 +336,9 @@ class PlayerTableCell: UITableViewCell {
                 interactionRequested.textColor = UIColor(red:0.83, green:0.42, blue:0.42, alpha:1.0)
                 interactionRequested.alpha = 1
             }
+            else if (player.interactionResult == 0) {
+                interactionRequested.alpha = 0
+            }
             if (player.interactionResult != 0) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.interactionRequested.alpha = 0

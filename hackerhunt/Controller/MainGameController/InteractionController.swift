@@ -139,7 +139,9 @@ extension MainGameViewController {
         p!.interceptDisabled = false
         p!.interactionResult = success ? 1 : 2
         for p in self.gameState.allPlayers {
-            p.exchangeDisabled = false
+            if (!p.interceptDisabled) {
+                p.exchangeDisabled = false
+            }
         }
         self.playerTableView.reloadData()
         self.playerTableView.layoutIfNeeded()
@@ -355,7 +357,7 @@ extension MainGameViewController {
             default:
                 print("something weird has happened in intercept with status code \(statusCode)")
             }
-            }.resume()
+        }.resume()
     }
     
     func setCurrentlyIntercepting(_ player: Player) {
@@ -369,13 +371,14 @@ extension MainGameViewController {
     }
     
     func setNoLongerIntercepting(_ player: Player, _ success: Bool) {
-        //player.currentlyIntercepting = false
         let p = self.gameState.getPlayerById(player.id)
         p!.exchangeDisabled = false
         p!.interceptRequested = false
         p!.interactionResult = success ? 1 : 2
         for p in self.gameState.allPlayers {
-            p.interceptDisabled = false
+            if (!p.exchangeDisabled) {
+                p.interceptDisabled = false
+            }
         }
         self.playerTableView.reloadData()
         self.playerTableView.layoutIfNeeded()
