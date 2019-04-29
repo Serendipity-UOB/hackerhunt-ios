@@ -264,8 +264,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.setCurrentPoints(points)
                         self.handleRequestNewTarget(requestNewTarget)
                         self.handlePosition(position)
-//                        self.handleMission(missionDescription)
-                        self.handleMission("mission at Italy")
+                        self.handleMission(missionDescription)
+//                        self.handleMission("mission at Italy")
                         if (ServerUtils.testing) {
                             self.updatesTimer.invalidate()
                         }
