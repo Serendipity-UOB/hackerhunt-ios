@@ -74,12 +74,17 @@ extension MainGameViewController {
                         self.showAlert()
                     }
                 } catch {}
+            case 204:
+                print("you are on your start mission")
+            case 205:
+                self.missionTimer.invalidate()
+                self.onMission = false
+                DispatchQueue.main.async {
+                    self.alertVC.removeAnimate()
+                }
             case 206:
                 print("time remaining for missions not yet implemented")
-//                var message = self.alertVC.message
-//                let regex = try! NSRegularExpression(pattern: "[0-9]+ Seconds")
-//                regex.replaceMatches(in: message as! NSMutableString, options: [], range: NSRange(location: 0,length: message.count), withTemplate: "Tom is good at swift")
-//                print(message)
+                // TODO decrement timer
             case 400:
                 print("mission something went wrong from client")
             default:

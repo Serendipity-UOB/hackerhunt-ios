@@ -156,6 +156,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         return
                     }
                     
+//                    guard let firstTargetId = bodyDict["first_target_id"] as? Int else {
+//                        print("first_target_id cast to list of dicts failed")
+//                        return
+//                    }
+                    
                     guard let endTime: String = bodyDict["end_time"] as? String else {
                         print("end_time missing")
                         return
@@ -165,6 +170,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     DispatchQueue.main.async {
                         self.startGameOverCountdown()
                         self.gameState.initialisePlayerList(allPlayers: allPlayersList)
+                        //self.gameState.setFirstTarget(firstTargetId)
                         self.playerTableView.reloadData()
                         self.startPollingForUpdates()
                         self.requestNewTarget()
