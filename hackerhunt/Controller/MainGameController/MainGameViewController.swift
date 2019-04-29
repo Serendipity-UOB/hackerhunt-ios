@@ -274,8 +274,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         }
                         
                         DispatchQueue.main.async {
-                            self.playerTableView.reloadData()
+//                            if (self.tapToCloseLabel.alpha != 1.0) {
+                                self.playerTableView.reloadData()
+//                            }
                         }
+//                        print(self.gameState.allPlayers.count)
                     } catch {}
                 } else {
                     print("/playerUpdate failed with status code \(statusCode)")
@@ -370,7 +373,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         }
-        self.gameState.allPlayers = self.gameState.prioritiseNearbyPlayers()
+        self.gameState.prioritiseNearbyPlayers()
     }
     
     func setCurrentPoints(_ points: Int) {

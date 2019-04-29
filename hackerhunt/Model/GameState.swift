@@ -77,23 +77,11 @@ class GameState {
         newPlayers[3].evidence = 80
         newPlayers[4].evidence = 100
         self.allPlayers.append(contentsOf: newPlayers)
-        self.allPlayers = prioritiseNearbyPlayers()
+        prioritiseNearbyPlayers()
     }
     
-    func prioritiseNearbyPlayers() -> [Player] {
-        var copy = self.allPlayers.map { $0.copy() }
-        
-        for i in 1..<copy.count {
-            var j = i
-            while j > 0 && copy[j - 1].nearby == false && copy[j].nearby == true {
-                let tmp = copy[j]
-                copy[j] = copy[j - 1]
-                copy[j - 1] = tmp
-                j -= 1
-            }
-        }
-
-        return copy
+    func prioritiseNearbyPlayers() {
+        self.allPlayers.sort { $0.nearby && !$1.nearby }
     }
     
     func getPlayerById(_ id: Int) -> Player? {
