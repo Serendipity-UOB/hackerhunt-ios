@@ -73,9 +73,14 @@ extension MainGameViewController {
                     var players: [String] = []
                     for e in evidence {
                         let playerId: Int = e["player_id"] as! Int
-                        players.append(self.gameState.getPlayerById(playerId)!.realName)
-                        let amount: Int = e["amount"] as! Int
-                        self.gameState.incrementEvidence(player: playerId, evidence: amount)
+                        if let p = self.gameState.getPlayerById(playerId) {
+                            players.append(p.realName)
+                            let amount: Int = e["amount"] as! Int
+                            self.gameState.incrementEvidence(player: playerId, evidence: amount)
+                        } else {
+                            print("couldn't find player \(playerId)")
+                            return
+                        }
                     }
                     
                     DispatchQueue.main.async {
@@ -93,7 +98,7 @@ extension MainGameViewController {
                 DispatchQueue.main.async {
                     self.playerTableView.reloadData()
                 }
-                print("keep polling")
+                print("EXCHANGE REQUEST keep polling")
             case 400: // error
                 self.exchangeTimer.invalidate()
                 
@@ -198,9 +203,14 @@ extension MainGameViewController {
                     var players: [String] = []
                     for e in evidence {
                         let playerId: Int = e["player_id"] as! Int
-                        players.append(self.gameState.getPlayerById(playerId)!.realName)
-                        let amount: Int = e["amount"] as! Int
-                        self.gameState.incrementEvidence(player: playerId, evidence: amount)
+                        if let p = self.gameState.getPlayerById(playerId) {
+                            players.append(p.realName)
+                            let amount: Int = e["amount"] as! Int
+                            self.gameState.incrementEvidence(player: playerId, evidence: amount)
+                        } else {
+                            print("couldn't find player \(playerId)")
+                            return
+                        }
                     }
                     
                     DispatchQueue.main.async {
@@ -216,7 +226,7 @@ extension MainGameViewController {
                     self.hideExchangeRequested()
                 }
             case 206:
-                print("keep polling")
+                print("EXCHANGE RESPONSE keep polling")
                 guard let responseData = data else { return }
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
@@ -322,9 +332,15 @@ extension MainGameViewController {
                     var playerNames: [String] = []
                     for e in evidence {
                         let playerId: Int = e["player_id"] as! Int
-                        let amount: Int = e["amount"] as! Int
-                        self.gameState.incrementEvidence(player: playerId, evidence: amount)
-                        playerNames.append(self.gameState.getPlayerById(playerId)!.realName)
+                        
+                        if let p = self.gameState.getPlayerById(playerId) {
+                            let amount: Int = e["amount"] as! Int
+                            self.gameState.incrementEvidence(player: playerId, evidence: amount)
+                            playerNames.append(p.realName)
+                        } else {
+                            print("couldn't find player \(playerId)")
+                            return
+                        }
                     }
                     
                     DispatchQueue.main.async {
@@ -341,7 +357,7 @@ extension MainGameViewController {
                     print("no exchange happened for \(statusCode)")
                 }
             case 206:
-                print("waiting for response, keep polling")
+                print("INTERCEPT waiting for response, keep polling")
             case 400:
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
