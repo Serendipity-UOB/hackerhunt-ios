@@ -163,6 +163,16 @@ class GameState {
         }
     }
     
+    func setFirstTarget(_ firstTargetId: Int) -> Bool {
+        for p in self.allPlayers {
+            if p.id == firstTargetId {
+                self.currentTarget = p
+                return true
+            }
+        }
+        return false
+    }
+    
     func playerIsNearby(_ id: Int) -> Bool {
         let player = getPlayerById(id)
         if let player = player {

@@ -340,7 +340,7 @@ class PlayerTableCell: UITableViewCell {
                 interactionRequested.alpha = 0
             }
             if (player.interactionResult != 0) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.interactionRequested.alpha = 0
                 }
             }
