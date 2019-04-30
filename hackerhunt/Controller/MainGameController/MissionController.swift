@@ -84,6 +84,20 @@ extension MainGameViewController {
                 }
             case 206:
                 print("time remaining for missions not yet implemented")
+                guard let responsedata = data else { return }
+                do {
+                    let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
+                    
+                    guard let bodyDict = bodyJson as? [String: Any] else { return }
+                    guard let timeRemaining = bodyDict["time_remaining"] as? Int else {
+                        print("time remaining failed in mission update")
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.alertVC.updateCountdown(timeRemaining)
+                    }
+                } catch {}
                 // TODO decrement timer
             case 400:
                 print("mission something went wrong from client")
