@@ -1,0 +1,35 @@
+{
+  "images" : [
+    {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 37,
+          "height" : 20
+        },
+        "cap-insets" : {
+          "bottom" : 16,
+          "top" : 5,
+          "right" : 18,
+          "left" : 4
+        }
+      },
+      "idiom" : "universal",
+      "filename" : "expose_button_greyed.png",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}
