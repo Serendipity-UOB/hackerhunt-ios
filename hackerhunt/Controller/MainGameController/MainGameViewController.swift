@@ -22,6 +22,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     var exchangeRequestTimer = Timer()
 
     var onMission: Bool = false
+    var atUnitedNations: Bool = false
     var exchangeResponse: Int = 0
 
     // header
@@ -54,11 +55,12 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         getStartInfo()
+        
         hideExchangeRequested()
         setCurrentPoints(0)
         setupPlayerTable()
         playerName.text = gameState.player!.realName
-        
+        alertVC.setHomeBeacon(homeBeaconName: self.gameState.homeBeacon!)
     }
     
     // MARK: startInfo
@@ -298,6 +300,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.locationIcon.image = UIImage(named: "czechRepublicFlag")
             default:
                 print("zone \(location) not recognised")
+            }
+            if location == 0 {
+                self.atUnitedNations = true
+            } else {
+                self.atUnitedNations = false
             }
         }
     }

@@ -396,6 +396,16 @@ class PlayerTableCell: UITableViewCell {
         interceptBtn.isEnabled = true
     }
     
+    func disableExpose() {
+        exposeBtn.setBackgroundImage(UIImage(named: "expose_button_greyed"), for: .normal)
+        exposeBtn.isEnabled = false
+    }
+    
+    func enableExpose() {
+        exposeBtn.setBackgroundImage(UIImage(named: "expose_button"), for: .normal)
+        exposeBtn.isEnabled = true
+    }
+    
     func updateFlag(zoneId: Int) {
         switch zoneId {
         case 0:

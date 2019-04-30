@@ -78,7 +78,7 @@ class AlertViewController: UIViewController {
         self.titleColour = titleColours["neutral"]!
         self.titleMessage = "TOO SLOW"
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
-        self.message = "Another agent has exposed your target.\nReturn to the\(homeBeacon) to be assigned a new target."
+        self.message = "Another agent has exposed your target.\nReturn to the \(homeBeacon) to be assigned a new target."
         destinationIcon.image = UIImage(named: "unitedNations")
         self.tapToClose = false
     }
@@ -87,7 +87,7 @@ class AlertViewController: UIViewController {
         self.titleColour = titleColours["bad"]!
         self.titleMessage = "SECURITY BREACH"
         self.backgroundImage = UIImage(named: "bad_full_pop_up")
-        self.message = "Exposed by \(exposedBy).\nLose 50% of your evidence.Return to \(homeBeacon)."
+        self.message = "Exposed by \(exposedBy).\nLose 50% of your evidence. Return to \(homeBeacon)."
         self.destinationIcon.image = UIImage(named: "unitedNations")
         self.tapToClose = false
     }
