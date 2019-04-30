@@ -15,6 +15,7 @@ class AlertViewController: UIViewController {
     @IBOutlet weak var alertMessage: UITextView!
     @IBOutlet weak var tapLabel: UILabel!
     @IBOutlet weak var destinationIcon: UIImageView!
+    @IBOutlet weak var countdown: UILabel!
     
     var message: String = "default string"
     var titleMessage: String = "default title"
@@ -30,6 +31,7 @@ class AlertViewController: UIViewController {
         super.viewDidLoad()
         alertMessage.isUserInteractionEnabled = false
         alertMessage.isScrollEnabled = false
+        countdown.alpha = 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -149,6 +151,7 @@ class AlertViewController: UIViewController {
     /* animations */
     
     func showAnimate() {
+        self.countdown.alpha = 0
         self.alertTitleLabel.text = self.titleMessage
         self.alertMessage.text = self.message
         self.alertBackgroundImage.image = self.backgroundImage
@@ -169,10 +172,17 @@ class AlertViewController: UIViewController {
         }, completion:{(finished : Bool)  in
             if (finished)
             {
+                self.countdown.alpha = 0
                 self.view.removeFromSuperview()
             }
         });
     }
+    
+    func updateCountdown(_ value: Int) {
+        self.countdown.alpha = 1
+        self.countdown.text = "\(value)"
+    }
+    
 }
 
 extension NSLayoutConstraint {

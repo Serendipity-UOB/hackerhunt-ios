@@ -265,7 +265,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.handleRequestNewTarget(requestNewTarget)
                         self.handlePosition(position)
                         self.handleMission(missionDescription)
-//                        self.handleMission("mission at Italy")
                         if (ServerUtils.testing) {
                             self.updatesTimer.invalidate()
                         }
@@ -278,12 +277,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                                 self.playerTableView.reloadData()
 //                            }
                         }
-//                        print(self.gameState.allPlayers.count)
                     } catch {}
                 } else {
                     print("/playerUpdate failed with status code \(statusCode)")
                 }
-                }.resume()
+            }.resume()
         }
     }
     
