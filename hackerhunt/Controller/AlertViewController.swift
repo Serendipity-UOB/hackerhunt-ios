@@ -24,6 +24,7 @@ class AlertViewController: UIViewController {
     var tapToClose: Bool = false
     var backgroundImage: UIImage!
     var titleColour: UIColor!
+    var destinationImage: UIImage!
     
     var titleColours: [String: UIColor] = ["neutral":UIColor(red:0.00, green:0.79, blue:0.85, alpha:1.0), "bad":UIColor(red:0.83, green:0.11, blue:0.02, alpha:1.0), "good":UIColor(red:0.28, green:0.75, blue:0.18, alpha:1.0)]
     
@@ -129,22 +130,22 @@ class AlertViewController: UIViewController {
     
     func setDestination(_ missionDescription: String) {
         if (missionDescription.contains("Italy")) {
-            destinationIcon.image = UIImage(named: "italyFlag")
+            destinationImage = UIImage(named: "italyFlag")
         }
         else if (missionDescription.contains("Switzerland")) {
-            destinationIcon.image = UIImage(named: "switzerlandFlag")
+            destinationImage = UIImage(named: "switzerlandFlag")
         }
         else if (missionDescription.contains("Sweden")) {
-            destinationIcon.image = UIImage(named: "swedenFlag")
+            destinationImage = UIImage(named: "swedenFlag")
         }
         else if (missionDescription.contains("Czech Republic")) {
-            destinationIcon.image = UIImage(named: "czechRepublicFlag")
+            destinationImage = UIImage(named: "czechRepublicFlag")
         }
         else if (missionDescription.contains("Columbia")) {
-            destinationIcon.image = UIImage(named: "columbiaFlag")
+            destinationImage = UIImage(named: "columbiaFlag")
         }
         else {
-            destinationIcon.image = UIImage(named: "unitedNations")
+            destinationImage = UIImage(named: "unitedNations")
         }
     }
     
@@ -155,6 +156,7 @@ class AlertViewController: UIViewController {
         self.alertTitleLabel.text = self.titleMessage
         self.alertMessage.text = self.message
         self.alertBackgroundImage.image = self.backgroundImage
+        self.destinationIcon.image = self.destinationImage
         self.alertTitleLabel.textColor = self.titleColour
         self.tapLabel.alpha = (self.tapToClose) ? 1 : 0
         self.view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)

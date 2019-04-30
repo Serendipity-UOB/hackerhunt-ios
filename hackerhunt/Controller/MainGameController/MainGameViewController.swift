@@ -53,7 +53,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        letTheChallengeBegin()
+        getStartInfo()
         hideExchangeRequested()
         setCurrentPoints(0)
         setupPlayerTable()
@@ -62,15 +62,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     // MARK: startInfo
-    
-    func letTheChallengeBegin() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-            self.alertVC.setHomeBeacon(homeBeaconName: self.gameState.homeBeacon!)
-            self.alertVC.setMessage(gameStart: true, tapToClose: ServerUtils.testing)
-            self.showAlert()
-            self.startCheckingForHomeBeacon(withCallback: self.getStartInfo)
-        })
-    }
     
     func startCheckingForHomeBeacon(withCallback callback: @escaping () -> Void) {
         homeBeaconTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(MainGameViewController.checkForHomeBeacon), userInfo: callback, repeats: true)
@@ -155,11 +146,19 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         print("all_players cast to list of dicts failed")
                         return
                     }
+                    self.gameState.initialisePlayerList(allPlayers: allPlayersList)
                     
-//                    guard let firstTargetId = bodyDict["first_target_id"] as? Int else {
-//                        print("first_target_id cast to list of dicts failed")
-//                        return
-//                    }
+                    guard let firstTargetId = bodyDict["first_target_id"] as? Int else {
+                        print("first_target_id cast to list of dicts failed")
+                        return
+                    }
+                    let success = self.gameState.setFirstTarget(firstTargetId)
+                    if success {
+                        self.targetName.text = self.gameState.currentTarget?.codeName
+                    } else {
+                        print("ERROR target player not found in player list")
+                    }
+                    
                     
                     guard let endTime: String = bodyDict["end_time"] as? String else {
                         print("end_time missing")
@@ -169,11 +168,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     
                     DispatchQueue.main.async {
                         self.startGameOverCountdown()
-                        self.gameState.initialisePlayerList(allPlayers: allPlayersList)
-                        //self.gameState.setFirstTarget(firstTargetId)
                         self.playerTableView.reloadData()
                         self.startPollingForUpdates()
-                        self.requestNewTarget()
                     }
                 } catch {}
             } else {
