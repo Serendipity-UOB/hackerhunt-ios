@@ -151,7 +151,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.gameState.initialisePlayerList(allPlayers: allPlayersList)
                     
                     guard let firstTargetId = bodyDict["first_target_id"] as? Int else {
-                        print("first_target_id cast to list of dicts failed")
+                        print("first_target_id cast to int failed")
                         return
                     }
                     let success = self.gameState.setFirstTarget(firstTargetId)

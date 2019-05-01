@@ -65,6 +65,14 @@ class PlayerTableCell: UITableViewCell {
         return textView
     }()
     
+    var interactionIcon: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "exchange_success"))
+        imageView.frame.size.width = 10
+        imageView.frame.size.height = 10
+        imageView.alpha = 0
+        return imageView
+    }()
+    
     var interactionRequested: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -181,10 +189,13 @@ class PlayerTableCell: UITableViewCell {
         percentagePositionConstraint = NSLayoutConstraint.init(item: evidencePercent, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: -9)
         NSLayoutConstraint.activate([percentagePositionConstraint])
         
-        
         self.addSubview(interactionRequested)
         interactionRequested.rightAnchor.constraint(equalTo: playerCardDivider.rightAnchor, constant: -20).isActive = true
         interactionRequested.topAnchor.constraint(equalTo: playerCardDivider.bottomAnchor, constant: 2).isActive = true
+        
+        self.addSubview(interactionIcon)
+        interactionIcon.frame.origin.x = cellWidth / 2 - 30
+        interactionIcon.frame.origin.y = cellHeight / 2 + 8
         
         self.addSubview(greyOutView)
         greyOutView.frame.size.width = UIScreen.main.bounds.width - 20
@@ -319,29 +330,50 @@ class PlayerTableCell: UITableViewCell {
             interactionRequested.textColor = UIColor(red:0.58, green:0.74, blue:0.81, alpha:1.0)
             interactionRequested.text = "exchange requested"
             interactionRequested.alpha = 1
+            interactionIcon.alpha = 1
+            interactionIcon.frame.origin.x = cellWidth / 2 - 30
         }
         else if (player.interceptRequested) {
             interactionRequested.textColor = UIColor(red:0.58, green:0.74, blue:0.81, alpha:1.0)
             interactionRequested.text = "intercept requested"
             interactionRequested.alpha = 1
+            interactionIcon.alpha = 1
+            interactionIcon.frame.origin.x = cellWidth / 2 - 30
+            interactionIcon.image = UIImage(named: "intercept_requested")
         }
         else {
             if (player.interactionResult == 1) {
                 interactionRequested.text = interactionRequested.text.components(separatedBy: " ")[0] + " success"
                 interactionRequested.textColor = UIColor(red:0.18, green:0.75, blue:0.32, alpha:1.0)
                 interactionRequested.alpha = 1
+                interactionIcon.alpha = 1
+                interactionIcon.frame.origin.x = cellWidth / 2 - 15
+                if (interactionRequested.text.components(separatedBy: " ")[0] == "exchange") {
+                    interactionIcon.image = UIImage(named: "exchange_success")
+                } else {
+                    interactionIcon.image = UIImage(named: "intercept_success")
+                }
             }
             else if (player.interactionResult == 2) {
                 interactionRequested.text = interactionRequested.text.components(separatedBy: " ")[0] + " fail"
                 interactionRequested.textColor = UIColor(red:0.83, green:0.42, blue:0.42, alpha:1.0)
                 interactionRequested.alpha = 1
+                interactionIcon.alpha = 1
+                interactionIcon.frame.origin.x = cellWidth / 2 + 5
+                if (interactionRequested.text.components(separatedBy: " ")[0] == "exchange") {
+                    interactionIcon.image = UIImage(named: "exchange_fail")
+                } else {
+                    interactionIcon.image = UIImage(named: "intercept_fail")
+                }
             }
             else if (player.interactionResult == 0) {
                 interactionRequested.alpha = 0
+                interactionIcon.alpha = 0
             }
             if (player.interactionResult != 0) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                     self.interactionRequested.alpha = 0
+                    self.interactionIcon.alpha = 0
                 }
             }
         }

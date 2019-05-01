@@ -346,7 +346,7 @@ extension MainGameViewController {
                     
                     DispatchQueue.main.async {
                         self.setNoLongerIntercepting(target, true)
-                        print("intercept successful")
+                        print("intercept on \(target.realName) successful")
                     }
                 } catch {}
             case 201:
