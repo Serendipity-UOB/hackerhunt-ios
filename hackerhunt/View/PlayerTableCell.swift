@@ -332,6 +332,7 @@ class PlayerTableCell: UITableViewCell {
             interactionRequested.alpha = 1
             interactionIcon.alpha = 1
             interactionIcon.frame.origin.x = cellWidth / 2 - 30
+            interactionIcon.image = UIImage(named: "exchange_requested")
         }
         else if (player.interceptRequested) {
             interactionRequested.textColor = UIColor(red:0.58, green:0.74, blue:0.81, alpha:1.0)
