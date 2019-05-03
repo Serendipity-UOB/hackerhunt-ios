@@ -50,7 +50,7 @@
                                     <action selector="startPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HwD-BG-Hbo"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="title_screen" translatesAutoresizingMaskIntoConstraints="NO" id="Xhv-hf-VHE">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="title" translatesAutoresizingMaskIntoConstraints="NO" id="Xhv-hf-VHE">
                                 <rect key="frame" x="5" y="101" width="365" height="365"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Xhv-hf-VHE" secondAttribute="height" multiplier="1:1" id="xyq-m4-c3m"/>
@@ -59,12 +59,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mtB-Il-17F">
                                 <rect key="frame" x="5" y="101" width="365" height="365"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SpyWhere" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8t-sA-ekb">
-                                <rect key="frame" x="101" y="261" width="173" height="45.5"/>
-                                <fontDescription key="fontDescription" name="ShareTechMono-Regular" family="Share Tech Mono" pointSize="40"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6H-hN-Jq7">
                                 <rect key="frame" x="44" y="30" width="286" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -82,10 +76,8 @@
                         <constraints>
                             <constraint firstItem="Xhv-hf-VHE" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-5" id="1q6-0E-Imj"/>
                             <constraint firstItem="mtB-Il-17F" firstAttribute="leading" secondItem="Xhv-hf-VHE" secondAttribute="leading" id="ADd-ZW-cFX"/>
-                            <constraint firstItem="h8t-sA-ekb" firstAttribute="centerX" secondItem="Xhv-hf-VHE" secondAttribute="centerX" id="DS6-AH-RcL"/>
                             <constraint firstItem="mtB-Il-17F" firstAttribute="bottom" secondItem="Xhv-hf-VHE" secondAttribute="bottom" id="K6q-UK-SD8"/>
                             <constraint firstItem="mtB-Il-17F" firstAttribute="trailing" secondItem="Xhv-hf-VHE" secondAttribute="trailing" id="Kos-Jd-aej"/>
-                            <constraint firstItem="h8t-sA-ekb" firstAttribute="centerY" secondItem="Xhv-hf-VHE" secondAttribute="centerY" id="Mbr-UI-sPv"/>
                             <constraint firstItem="Xhv-hf-VHE" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="-60" id="Msb-wu-llD"/>
                             <constraint firstItem="mtB-Il-17F" firstAttribute="width" secondItem="mtB-Il-17F" secondAttribute="height" multiplier="1:1" id="WvB-Bv-ew4"/>
                             <constraint firstItem="mtB-Il-17F" firstAttribute="top" secondItem="Xhv-hf-VHE" secondAttribute="top" id="XXh-F6-YwP"/>
@@ -482,37 +474,37 @@
                                 <rect key="frame" x="16" y="349" width="343" height="285"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Welcome, agent Jack Jones." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U6x-My-2Hq">
-                                <rect key="frame" x="59" y="391.5" width="257" height="23"/>
+                                <rect key="frame" x="79.5" y="391.5" width="216" height="23"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="20"/>
                                 <color key="textColor" red="0.71533477310000004" green="0.9165197611" blue="0.99102431540000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Players in game:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pb-Gg-qjC">
-                                <rect key="frame" x="46" y="449" width="133.5" height="21"/>
+                                <rect key="frame" x="54" y="449" width="117" height="21"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="18"/>
                                 <color key="textColor" red="0.71533477310000004" green="0.9165197611" blue="0.99102431540000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Time to next game:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pmr-bF-I0k">
-                                <rect key="frame" x="185" y="449" width="155.5" height="21"/>
+                                <rect key="frame" x="194.5" y="449" width="136" height="21"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="18"/>
                                 <color key="textColor" red="0.71533477310000004" green="0.9165197611" blue="0.99102431540000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGV-dv-Db2">
-                                <rect key="frame" x="46" y="477" width="133.5" height="58.5"/>
+                                <rect key="frame" x="54" y="478" width="117" height="56.5"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="50"/>
                                 <color key="textColor" red="0.71533477310000004" green="0.9165197611" blue="0.99102431540000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsd-kS-Bsr">
-                                <rect key="frame" x="185" y="477" width="155.5" height="58.5"/>
+                                <rect key="frame" x="194.5" y="478" width="136" height="56.5"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="50"/>
                                 <color key="textColor" red="0.71533477310000004" green="0.9165197611" blue="0.99102431540000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game joined" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yjn-PT-gLe">
-                                <rect key="frame" x="125" y="567" width="125" height="26"/>
+                                <rect key="frame" x="134" y="567.5" width="107" height="25"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="22"/>
                                 <color key="textColor" red="0.71533477310000004" green="0.9165197611" blue="0.99102431540000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1018,20 +1010,20 @@
         </scene>
     </scenes>
     <resources>
-        <image name="accept_exchange_button" width="57.5" height="39.5"/>
+        <image name="accept_exchange_button" width="57" height="39"/>
         <image name="background_grid" width="26" height="26"/>
         <image name="fancy_popup" width="128" height="115"/>
         <image name="globe" width="330" height="330"/>
         <image name="italyFlag" width="120" height="120"/>
-        <image name="leaderboard_title" width="57.5" height="39.5"/>
-        <image name="neutral_full_pop_up" width="57.5" height="39.5"/>
-        <image name="notif-box" width="57.5" height="39.5"/>
-        <image name="reject_exchange_button" width="57.5" height="39.5"/>
-        <image name="spy_logo" width="311.25" height="301.5"/>
-        <image name="start-button" width="57.5" height="39.5"/>
-        <image name="target_status_bar_border" width="57" height="39.5"/>
-        <image name="time_status_bar_border" width="57" height="39.5"/>
-        <image name="title_screen" width="317" height="309"/>
+        <image name="leaderboard_title" width="57" height="39"/>
+        <image name="neutral_full_pop_up" width="57" height="39"/>
+        <image name="notif-box" width="57" height="39"/>
+        <image name="reject_exchange_button" width="57" height="39"/>
+        <image name="spy_logo" width="415" height="402"/>
+        <image name="start-button" width="57" height="39"/>
+        <image name="target_status_bar_border" width="57" height="39"/>
+        <image name="time_status_bar_border" width="57" height="39"/>
+        <image name="title" width="599" height="584"/>
         <image name="unitedNations" width="1915" height="1915"/>
     </resources>
     <inferredMetricsTieBreakers>

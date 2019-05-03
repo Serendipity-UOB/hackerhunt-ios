@@ -26,7 +26,7 @@ class StartViewController: UIViewController {
         
         //testingButton.setTitle((ServerUtils.testing) ? "testing on" : "testing off", for: .normal)
 
-        titleLogoGif.loadGif(name: "title_screen")
+        titleLogoGif.loadGif(name: "title")
         
         if (!beaconListener.isAuthorised()) {
             beaconListener.requestAuthorisation()
