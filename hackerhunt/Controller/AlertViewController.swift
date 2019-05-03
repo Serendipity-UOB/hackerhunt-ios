@@ -25,6 +25,7 @@ class AlertViewController: UIViewController {
     var backgroundImage: UIImage!
     var titleColour: UIColor!
     var destinationImage: UIImage!
+    var currentMission: String! = ""
     
     var titleColours: [String: UIColor] = ["neutral":UIColor(red:0.00, green:0.79, blue:0.85, alpha:1.0), "bad":UIColor(red:0.83, green:0.11, blue:0.02, alpha:1.0), "good":UIColor(red:0.28, green:0.75, blue:0.18, alpha:1.0)]
     
@@ -81,7 +82,7 @@ class AlertViewController: UIViewController {
         self.titleMessage = "TOO SLOW"
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
         self.message = "Another agent has exposed your target.\nReturn to the \(homeBeacon) to be assigned a new target."
-        destinationIcon.image = UIImage(named: "unitedNations")
+        self.destinationImage = UIImage(named: "unitedNations")
         self.tapToClose = false
     }
     
@@ -90,7 +91,7 @@ class AlertViewController: UIViewController {
         self.titleMessage = "SECURITY BREACH"
         self.backgroundImage = UIImage(named: "bad_full_pop_up")
         self.message = "Exposed by \(exposedBy).\nLose 50% of your evidence. Return to \(homeBeacon)."
-        self.destinationIcon.image = UIImage(named: "unitedNations")
+        self.destinationImage = UIImage(named: "unitedNations")
         self.tapToClose = false
     }
     
@@ -99,7 +100,7 @@ class AlertViewController: UIViewController {
         self.titleMessage = "EXPOSE SUCCESS"
         self.backgroundImage = UIImage(named: "good_full_pop_up")
         self.message = "Reward: \(reputation) reputation.\nReturn to \(homeBeacon) for your next target."
-        self.destinationIcon.image = UIImage(named: "unitedNations")
+        self.destinationImage = UIImage(named: "unitedNations")
         self.tapToClose = false
     }
     
@@ -108,6 +109,7 @@ class AlertViewController: UIViewController {
         self.titleMessage = "MISSION UPDATE"
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
         self.message = newMission
+        self.currentMission = newMission
         self.tapToClose = false || ServerUtils.testing
         setDestination(newMission)
     }
@@ -118,6 +120,7 @@ class AlertViewController: UIViewController {
         self.backgroundImage = UIImage(named: "good_full_pop_up")
         self.message = missionString
         self.tapToClose = true
+        setDestination(self.currentMission)
     }
     
     func setMessage(missionFailure: Any, missionString: String) {
@@ -126,6 +129,7 @@ class AlertViewController: UIViewController {
         self.backgroundImage = UIImage(named: "bad_full_pop_up")
         self.message = missionString
         self.tapToClose = true
+        setDestination(self.currentMission)
     }
     
     func setDestination(_ missionDescription: String) {
