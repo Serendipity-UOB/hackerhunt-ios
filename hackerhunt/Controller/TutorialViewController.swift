@@ -30,7 +30,6 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var timeBorder: UIImageView!
     @IBOutlet weak var time: UILabel!
     
-    
     @IBOutlet weak var helpIcon: UIImageView!
     @IBOutlet weak var greyOutView: UIView!
     @IBOutlet weak var playerTableView: UITableView!
@@ -40,6 +39,7 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var messageImage: UIImageView!
     @IBOutlet weak var spyIcon: UIImageView!
     @IBOutlet weak var message: UITextView!
+    @IBOutlet weak var tapToContinue: UILabel!
     
     @IBOutlet weak var exchangeRequestedBackground: UIImageView!
     @IBOutlet weak var exchangeRequestedAcceptButton: UIButton!
@@ -95,54 +95,24 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBAction func screenTapped(_ sender: Any) {
         if tutorialStage == 0 {
-            scoreAndRep.text = "#1 / 0 rep  "
-            reorderElements(toFront: [scoreAndRep], toBack: [])
-            changeMessageText("This is your position and reputation.\nGet the most reputation to win!")
-            moveMessage(newY: 60, newHeight: 110)
-        } else if tutorialStage == 1 {
-            scoreAndRep.text = "#1 / 0 rep /"
-            reorderElements(toFront: [helpIcon], toBack: [scoreAndRep])
-            changeMessageText("This is your current location.")
-            moveMessage(newY: 60, newHeight: 70)
-        } else if tutorialStage == 2 {
-            reorderElements(toFront: [targetBorder, targetName, yourTarget], toBack: [helpIcon])
-            changeMessageText("This is your target.")
-            moveMessage(newY: 115, newHeight: 70)
-        } else if tutorialStage == 3 {
-            reorderElements(toFront: [timeBorder, time], toBack: [targetBorder, targetName, yourTarget])
-            changeMessageText("This is the remaining game time.")
-            moveMessage(newY: 115, newHeight: 80)
-        } else if tutorialStage == 4 {
-            reorderElements(toFront: [], toBack: [timeBorder, time])
             let nuhaCell = getPlayerCell("Nuha")
             nuhaCell.ungreyOut()
             changeMessageText("This is another agent. The flag shows their current location.")
             moveMessage(newY: 190, newHeight: 90)
-        } else if tutorialStage == 5 {
-            let nuhaCell = getPlayerCell("Nuha")
-            nuhaCell.greyOut()
-            nuhaCell.evidenceCircle.zPosition = 1000
-            nuhaCell.evidenceCircleBg.zPosition = 1000
-            nuhaCell.bringSubviewToFront(nuhaCell.evidencePercent)
-            changeMessageText("This is how much evidence you've gathered about an agent.")
-        } else if tutorialStage == 6 {
+            tapToContinue.alpha = 1
+        } else if tutorialStage == 1 {
             let nuhaCell = getPlayerCell("Nuha")
             nuhaCell.player.evidence = 100
             nuhaCell.player.codeNameDiscovered = true
-            nuhaCell.bringSubviewToFront(nuhaCell.codeName)
+            nuhaCell.layoutSubviews()
             changeMessageText("If you have full evidence on the agent's activities their codename will be revealed.")
-        } else if tutorialStage == 7 {
-            let nuhaCell = getPlayerCell("Nuha")
-            nuhaCell.insertSubview(nuhaCell.codeName, aboveSubview: nuhaCell.realName)
-            nuhaCell.insertSubview(nuhaCell.evidencePercent, aboveSubview: nuhaCell.codeName)
-            nuhaCell.evidenceCircle.zPosition = 0
-            nuhaCell.evidenceCircleBg.zPosition = 0
-            nuhaCell.ungreyOut()
+        } else if tutorialStage == 2 {
             getPlayerCell("Louis").ungreyOut()
             getPlayerCell("Tilly").ungreyOut()
             changeMessageText("These agents are nearby.\nTap Tilly to interact.")
             moveMessage(newY: 330, newHeight: 80)
-        } else if tutorialStage == 8 {
+            tapToContinue.alpha = 0
+        } else if tutorialStage == 3 {
             getPlayerCell("Nuha").greyOut()
             getPlayerCell("Louis").greyOut()
             let tillyCell = getPlayerCell("Tilly")
@@ -151,40 +121,38 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
             tillyCell.interceptBtn.isHidden = true
             tillyCell.exposeBtn.isHidden = true
             changeMessageText("Press exchange to exchange evidence with this agent.")
-        } else if tutorialStage == 10 {
-            getPlayerCell("Nuha").ungreyOut()
+        } else if tutorialStage == 5 {
+            scoreAndRep.text = "#1 / 1 rep /"
             let tillyCell = getPlayerCell("Tilly")
             tillyCell.player.evidence += 25
             tillyCell.hideButtons()
+            tillyCell.player.exchangeRequested = false
+            tillyCell.player.interactionResult = 1
             tillyCell.layoutSubviews()
-            
-            // TODO green exchange accepted text
-            
             let louisCell = getPlayerCell("Louis")
             louisCell.ungreyOut()
             louisCell.player.evidence += 10
             louisCell.layoutSubviews()
             changeMessageText("You gained evidence on Tilly from your exchange. Tilly also gave you evidence on Louis.")
             moveMessage(newY: 330, newHeight: 100)
-        } else if tutorialStage == 11 {
+        } else if tutorialStage == 6 {
+            getPlayerCell("Tilly").player.interactionResult = 0
             showExchangeRequested()
             exchangeRequestedLabel.text = "Tilly wants to exchange evidence with you."
             changeMessageText("Tilly has requested an exchange with you! Accept it!")
             moveMessage(newY: 330, newHeight: 80)
-        } else if tutorialStage == 13 {
-            changeMessageText("Tilly is exchanging with Louis. Tap Tilly again to intercept the exchange!")
-        } else if tutorialStage == 14 {
+            tapToContinue.alpha = 0
+        } else if tutorialStage == 8 {
             getPlayerCell("Louis").greyOut()
-            getPlayerCell("Nuha").greyOut()
             let tillyCell = getPlayerCell("Tilly")
             tillyCell.cellY = playerTableView.frame.origin.y + tillyCell.frame.origin.y
             tillyCell.showButtons()
             tillyCell.exchangeBtn.isHidden = true
             tillyCell.exposeBtn.isHidden = true
-            changeMessageText("Tap to deploy the spyware.")
+            changeMessageText("Tap to intercept.")
             moveMessage(newY: 330, newHeight: 70)
-        } else if tutorialStage == 16 {
-            getPlayerCell("Nuha").ungreyOut()
+        } else if tutorialStage == 10 {
+            scoreAndRep.text = "#1 / 4 rep /"
             let louisCell = getPlayerCell("Louis")
             louisCell.ungreyOut()
             louisCell.player.evidence += 10
@@ -193,34 +161,33 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
             tillyCell.player.evidence += 30
             tillyCell.player.codeNameDiscovered = true
             tillyCell.hideButtons()
+            tillyCell.player.interceptRequested = false
+            tillyCell.player.interactionResult = 1
             tillyCell.layoutSubviews()
-            
-            // TODO green intercept success text
-            
             changeMessageText("Your intercept was successful. You gained evidence on Tilly and Louis.")
             moveMessage(newY: 330, newHeight: 90)
-        } else if tutorialStage == 17 {
-            getPlayerCell("Tilly").interactionRequested.alpha = 0
-            changeMessageText("You have discovered Tilly's codename, and they are your target!\nTap on Tilly to expose her identity.")
-            moveMessage(newY: 330, newHeight: 130)
-        } else if tutorialStage == 18 {
-            getPlayerCell("Nuha").greyOut()
+        } else if tutorialStage == 11 {
+            getPlayerCell("Tilly").player.interactionResult = 0
+            changeMessageText("Tilly is your your target!\nTap on her card to expose her identity.")
+            moveMessage(newY: 330, newHeight: 90)
+            tapToContinue.alpha = 0
+        } else if tutorialStage == 12 {
             getPlayerCell("Louis").greyOut()
             let tillyCell = getPlayerCell("Tilly")
             tillyCell.cellY = playerTableView.frame.origin.y + tillyCell.frame.origin.y
             tillyCell.showButtons()
             tillyCell.exchangeBtn.isHidden = true
             tillyCell.interceptBtn.isHidden = true
-            changeMessageText("Expose your target, releasing your evidence and increasing your reputation.")
-            moveMessage(newY: 330, newHeight: 100)
-        } else if tutorialStage == 20 {
-            reorderElements(toFront: [], toBack: [scoreAndRep])
+            changeMessageText("Tap to expose.")
+            moveMessage(newY: 330, newHeight: 70)
+        } else if tutorialStage == 14 {
             getPlayerCell("Nuha").greyOut()
             getPlayerCell("Louis").greyOut()
             getPlayerCell("Tilly").greyOut()
             changeMessageText("The safety of the world is in your hands. Good luck!")
             moveMessage(newY: 250, newHeight: 80)
-        } else if tutorialStage == 21 {
+            tapToContinue.alpha = 1
+        } else if tutorialStage == 15 {
             // leave tutorial
             exitTutorial()
             tutorialStage = 0
@@ -230,48 +197,50 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func exchangeButtonAction(sender: UIButton!) {
-        if tutorialStage == 9 {
+        if tutorialStage == 4 {
             let tillyCell = getPlayerCell("Tilly")
             tillyCell.disableExchange()
-            tillyCell.interactionRequested.alpha = 1
+            tillyCell.player.exchangeRequested = true
+            tillyCell.layoutSubviews()
             changeMessageText("Note: You can only have one exchange at a time!")
             tutorialStage += 1
+            tapToContinue.alpha = 1
         }
     }
     
     @objc func interceptButtonAction(sender: UIButton!) {
-        if tutorialStage == 15 {
+        if tutorialStage == 9 {
             let tillyCell = getPlayerCell("Tilly")
             tillyCell.disableIntercept()
-            tillyCell.interactionRequested.alpha = 1
-            
-            // TODO intercept pending text, rather than exchange requested
-            
-            changeMessageText("Note: You can only have one intercept active at once.")
-            moveMessage(newY: 330, newHeight: 80)
+            tillyCell.player.interceptRequested = true
+            tillyCell.layoutSubviews()
+            changeMessageText("If evidence is shared during your intercept you will also receive it.")
+            moveMessage(newY: 330, newHeight: 90)
             tutorialStage += 1
+            tapToContinue.alpha = 1
         }
     }
     
     @objc func exposeButtonAction(sender: UIButton!) {
-        if tutorialStage == 19 {
-            //getPlayerCell("Nuha").ungreyOut()
-            //getPlayerCell("Louis").ungreyOut()
+        if tutorialStage == 13 {
+            scoreAndRep.text = "#1 / 14 rep /"
+            getPlayerCell("Nuha").ungreyOut()
+            getPlayerCell("Louis").ungreyOut()
             let tillyCell = getPlayerCell("Tilly")
             tillyCell.player.evidence = 0
             tillyCell.isTarget = false
             tillyCell.hideButtons()
             tillyCell.layoutSubviews()
-            scoreAndRep.text = "#1 / 10 rep  "
-            reorderElements(toFront: [scoreAndRep], toBack: [])
-            changeMessageText("Your expose was succesful! You gained reputation and will be assigned your next target.")
+            changeMessageText("Congratulations, your expose was successful.\nYou’ve used up your evidence and will get a new target.")
             moveMessage(newY: 330, newHeight: 110)
             tutorialStage += 1
+            tapToContinue.alpha = 1
         }
     }
     
     @IBAction func acceptRequestedExchange(_ sender: Any) {
-        if tutorialStage == 12 {
+        if tutorialStage == 7 {
+            scoreAndRep.text = "#1 / 2 rep /"
             hideExchangeRequested()
             let tillyCell = getPlayerCell("Tilly")
             tillyCell.player.evidence += 25
@@ -279,7 +248,7 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
             let louisCell = getPlayerCell("Louis")
             louisCell.player.evidence += 10
             louisCell.layoutSubviews()
-            changeMessageText("You gained evidence on Tilly from your exchange. Tilly also gave you evidence on Louis.")
+            changeMessageText("Tilly is exchanging with Louis. Tap Tilly again to intercept the exchange!")
             moveMessage(newY: 330, newHeight: 100)
             tutorialStage += 1
         }

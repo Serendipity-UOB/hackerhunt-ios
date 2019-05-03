@@ -367,12 +367,13 @@ class PlayerTableCell: UITableViewCell {
                     interactionIcon.image = UIImage(named: "intercept_fail")
                 }
             }
-            else if (player.interactionResult == 0) {
-                interactionRequested.alpha = 0
-                interactionIcon.alpha = 0
-            }
+            /* me thinks this is why the text disappears prematurely. left in for testing */
+//            else if (player.interactionResult == 0) {
+//                interactionRequested.alpha = 0
+//                interactionIcon.alpha = 0
+//            }
             if (player.interactionResult != 0) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.interactionRequested.alpha = 0
                     self.interactionIcon.alpha = 0
                 }

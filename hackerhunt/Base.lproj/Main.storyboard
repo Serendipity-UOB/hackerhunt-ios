@@ -123,8 +123,8 @@
                                 <color key="textColor" red="0.62352941179999999" green="0.7725490196" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="#1 / 0 rep" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="du2-7Y-dD0">
-                                <rect key="frame" x="246" y="30" width="86" height="23"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="#1 / 0 rep /" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="du2-7Y-dD0">
+                                <rect key="frame" x="240" y="30" width="92" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="wQ4-Rt-kr9"/>
                                 </constraints>
@@ -245,6 +245,12 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(tap to continue)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lqy-De-0IJ">
+                                <rect key="frame" x="131" y="617" width="113" height="20"/>
+                                <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="17"/>
+                                <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -258,6 +264,7 @@
                             <constraint firstItem="yyK-lh-BMt" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8Jz-Pr-rTg" secondAttribute="trailing" symbolic="YES" id="BoS-FZ-xUP"/>
                             <constraint firstItem="du2-7Y-dD0" firstAttribute="leading" relation="lessThanOrEqual" secondItem="8Jz-Pr-rTg" secondAttribute="trailing" constant="92" id="Buc-Qw-1pL"/>
                             <constraint firstItem="Q3A-eS-7Ie" firstAttribute="top" secondItem="8Jz-Pr-rTg" secondAttribute="bottom" constant="12" id="Cfm-VY-exm"/>
+                            <constraint firstItem="yyK-lh-BMt" firstAttribute="centerX" secondItem="Lqy-De-0IJ" secondAttribute="centerX" id="Cqd-Hs-kFp"/>
                             <constraint firstItem="yyK-lh-BMt" firstAttribute="trailing" secondItem="Kf4-Zm-HAG" secondAttribute="trailing" constant="10" id="Hjx-m0-TIm"/>
                             <constraint firstItem="xaR-uN-eif" firstAttribute="leading" secondItem="mcf-jv-JBN" secondAttribute="trailing" constant="2" id="HxW-f0-WJv"/>
                             <constraint firstItem="2Wg-Wc-1XH" firstAttribute="leading" secondItem="yyK-lh-BMt" secondAttribute="leading" constant="20" id="IBJ-Ec-J5Y"/>
@@ -275,6 +282,7 @@
                             <constraint firstItem="Kf4-Zm-HAG" firstAttribute="top" secondItem="Q3A-eS-7Ie" secondAttribute="bottom" constant="5" id="XfR-zW-zJe"/>
                             <constraint firstItem="yyK-lh-BMt" firstAttribute="bottom" secondItem="Kf4-Zm-HAG" secondAttribute="bottom" constant="10" id="XvF-y2-BsP"/>
                             <constraint firstItem="Ugv-XP-xew" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Q3A-eS-7Ie" secondAttribute="trailing" id="Zc2-cR-rTu"/>
+                            <constraint firstItem="Lqy-De-0IJ" firstAttribute="top" secondItem="yyK-lh-BMt" secondAttribute="bottom" constant="-50" id="Zva-Z7-LSa"/>
                             <constraint firstItem="Ugv-XP-xew" firstAttribute="top" secondItem="8Jz-Pr-rTg" secondAttribute="bottom" constant="19" id="a8Y-wz-8Ye"/>
                             <constraint firstItem="g0L-TS-AYF" firstAttribute="width" secondItem="yyK-lh-BMt" secondAttribute="width" id="a9w-No-C5h"/>
                             <constraint firstItem="gVT-69-8vf" firstAttribute="top" secondItem="yyK-lh-BMt" secondAttribute="top" constant="9" id="bhD-Ge-9cj"/>
@@ -319,6 +327,7 @@
                         <outlet property="playerTableView" destination="Kf4-Zm-HAG" id="uBO-gt-zp7"/>
                         <outlet property="scoreAndRep" destination="du2-7Y-dD0" id="mKs-yn-Sm5"/>
                         <outlet property="spyIcon" destination="nol-yj-zyO" id="Yvj-sT-Lk0"/>
+                        <outlet property="tapToContinue" destination="Lqy-De-0IJ" id="bT6-MX-bDI"/>
                         <outlet property="targetBorder" destination="Q3A-eS-7Ie" id="xf0-WA-COm"/>
                         <outlet property="targetName" destination="Ugv-XP-xew" id="UXn-rv-f65"/>
                         <outlet property="time" destination="jP6-62-cQs" id="9eb-tq-fej"/>
@@ -1023,7 +1032,7 @@
         <image name="start-button" width="57" height="39"/>
         <image name="target_status_bar_border" width="57" height="39"/>
         <image name="time_status_bar_border" width="57" height="39"/>
-        <image name="title" width="599" height="584"/>
+        <image name="title" width="707" height="689"/>
         <image name="unitedNations" width="1915" height="1915"/>
     </resources>
     <inferredMetricsTieBreakers>
