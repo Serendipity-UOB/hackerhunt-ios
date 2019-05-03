@@ -14,12 +14,12 @@
 		BE90B3152237C5680083F5DC /* MissionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90B3142237C5680083F5DC /* MissionController.swift */; };
 		BE90B3172237C60F0083F5DC /* GameOverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90B3162237C60F0083F5DC /* GameOverController.swift */; };
 		BE90B3192237C6C70083F5DC /* InteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90B3182237C6C70083F5DC /* InteractionController.swift */; };
+		BEA88130227C44F1003A726A /* title.gif in Resources */ = {isa = PBXBuildFile; fileRef = BEA8812F227C44F1003A726A /* title.gif */; };
 		BEC2EBAC223BD0FE00B708EE /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC2EBAB223BD0FE00B708EE /* LogViewController.swift */; };
 		BF1AE2FD21FC484A00D3F333 /* LeaderboardTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1AE2FC21FC484A00D3F333 /* LeaderboardTableCell.swift */; };
 		BF1FE5672231339000017A54 /* ShareTech-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE5652231338F00017A54 /* ShareTech-Regular.ttf */; };
 		BF1FE5682231339000017A54 /* ShareTechMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE5662231339000017A54 /* ShareTechMono-Regular.ttf */; };
 		BF1FE56B223133A600017A54 /* globe.gif in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE569223133A600017A54 /* globe.gif */; };
-		BF1FE56C223133A600017A54 /* title_screen.gif in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE56A223133A600017A54 /* title_screen.gif */; };
 		BF3ADA9B21F8D2A5003AAB71 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3ADA9A21F8D2A5003AAB71 /* AlertViewController.swift */; };
 		BF584CC021A5A1FD00830823 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CBF21A5A1FD00830823 /* AppDelegate.swift */; };
 		BF584CC221A5A1FD00830823 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF584CC121A5A1FD00830823 /* StartViewController.swift */; };
@@ -83,12 +83,12 @@
 		BE90B3142237C5680083F5DC /* MissionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionController.swift; sourceTree = "<group>"; };
 		BE90B3162237C60F0083F5DC /* GameOverController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverController.swift; sourceTree = "<group>"; };
 		BE90B3182237C6C70083F5DC /* InteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionController.swift; sourceTree = "<group>"; };
+		BEA8812F227C44F1003A726A /* title.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = title.gif; sourceTree = "<group>"; };
 		BEC2EBAB223BD0FE00B708EE /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		BF1AE2FC21FC484A00D3F333 /* LeaderboardTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardTableCell.swift; sourceTree = "<group>"; };
 		BF1FE5652231338F00017A54 /* ShareTech-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ShareTech-Regular.ttf"; sourceTree = "<group>"; };
 		BF1FE5662231339000017A54 /* ShareTechMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ShareTechMono-Regular.ttf"; sourceTree = "<group>"; };
 		BF1FE569223133A600017A54 /* globe.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = globe.gif; sourceTree = "<group>"; };
-		BF1FE56A223133A600017A54 /* title_screen.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = title_screen.gif; sourceTree = "<group>"; };
 		BF3ADA9A21F8D2A5003AAB71 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		BF584CBC21A5A1FD00830823 /* hackerhunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hackerhunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF584CBF21A5A1FD00830823 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -254,7 +254,7 @@
 				BF1FE5662231339000017A54 /* ShareTechMono-Regular.ttf */,
 				BF9A7FE821EF6CC100C30261 /* Gif.swift */,
 				BF1FE569223133A600017A54 /* globe.gif */,
-				BF1FE56A223133A600017A54 /* title_screen.gif */,
+				BEA8812F227C44F1003A726A /* title.gif */,
 				BFFC0CD721FA2C1300F71ABB /* PlayerTableCell.swift */,
 				BF1AE2FC21FC484A00D3F333 /* LeaderboardTableCell.swift */,
 			);
@@ -374,9 +374,9 @@
 				BF1FE5682231339000017A54 /* ShareTechMono-Regular.ttf in Resources */,
 				BF1FE56B223133A600017A54 /* globe.gif in Resources */,
 				BF1FE5672231339000017A54 /* ShareTech-Regular.ttf in Resources */,
-				BF1FE56C223133A600017A54 /* title_screen.gif in Resources */,
 				BF9A7FED21EF720C00C30261 /* Assets.xcassets in Resources */,
 				BF584CC521A5A1FD00830823 /* Main.storyboard in Resources */,
+				BEA88130227C44F1003A726A /* title.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
