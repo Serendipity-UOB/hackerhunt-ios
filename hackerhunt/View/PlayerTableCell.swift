@@ -21,6 +21,7 @@ class PlayerTableCell: UITableViewCell {
     
     var percentagePositionConstraint: NSLayoutConstraint!
     var displayedEvidenceValue: Float = 0.0
+    var waitingForAnimation: Bool = false
     
     var greyOutView: UIView = {
         let view = UIView()
@@ -368,12 +369,14 @@ class PlayerTableCell: UITableViewCell {
                 }
             }
             /* me thinks this is why the text disappears prematurely. left in for testing */
-//            else if (player.interactionResult == 0) {
-//                interactionRequested.alpha = 0
-//                interactionIcon.alpha = 0
-//            }
+            else if (player.interactionResult == 0 && !WaitingForAnimation) {
+                interactionRequested.alpha = 0
+                interactionIcon.alpha = 0
+            }
             if (player.interactionResult != 0) {
+                waitingForAnimation = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.waitingForAnimation = false
                     self.interactionRequested.alpha = 0
                     self.interactionIcon.alpha = 0
                 }
