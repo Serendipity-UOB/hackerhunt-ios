@@ -369,7 +369,7 @@ class PlayerTableCell: UITableViewCell {
                 }
             }
             /* me thinks this is why the text disappears prematurely. left in for testing */
-            else if (player.interactionResult == 0 && !WaitingForAnimation) {
+            else if (player.interactionResult == 0 && !waitingForAnimation) {
                 interactionRequested.alpha = 0
                 interactionIcon.alpha = 0
             }
