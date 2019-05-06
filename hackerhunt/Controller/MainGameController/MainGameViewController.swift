@@ -24,6 +24,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     var onMission: Bool = false
     var atUnitedNations: Bool = false
     var exchangeResponse: Int = 0
+    var tableCardSelected: Bool = false
 
     // header
     @IBOutlet weak var pointsValue: UILabel!
@@ -327,6 +328,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func handleMission(_ missionDescription: String, _ bodyDict: [String: Any]) {
         if (missionDescription != "" && !onMission) {
+            if (tableCardSelected) { // deselect selected player if a mission is popping up
+                tableCardSelected = false
+                ungreyOutAllCells()
+            }
             guard let missionType: Int = bodyDict["mission_type"] as? Int else {
                 print("mission_type missing")
                 return
@@ -393,7 +398,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         }
-        self.gameState.prioritiseNearbyPlayers()
+        if (!tableCardSelected) {
+            self.gameState.prioritiseNearbyPlayers()
+        }
     }
     
     func setCurrentPoints(_ points: Int) {

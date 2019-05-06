@@ -66,6 +66,7 @@ extension MainGameViewController {
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         let player = gameState!.allPlayers[indexPath.section]
         if (player.nearby) {
+            self.tableCardSelected = true
             let cellToShow = self.playerTableView.cellForRow(at: indexPath) as! PlayerTableCell
             cellToShow.cellY = playerTableView.convert(playerTableView.rectForRow(at: indexPath), to: playerTableView.superview).origin.y
             self.greyOutAllCells()
@@ -81,11 +82,12 @@ extension MainGameViewController {
         return indexPath
     }
     
-    @IBAction func doTheThing() {
+    @IBAction func doTheThing() { // greyOutView has been tapped
         ungreyOutAllCells()
     }
     
     func ungreyOutAllCells() {
+        self.tableCardSelected = false
         playerTableView.isScrollEnabled = true
         self.tapToCloseLabel.alpha = 0.0
         greyOutView.alpha = 0

@@ -85,7 +85,9 @@ class GameState {
     }
     
     func getPlayerById(_ id: Int) -> Player? {
+        print("searching for player \(id)")
         for p in self.allPlayers {
+            print("\t\(p.realName) has id \(p.id)")
             if (p.id == id) {
                 return p
             }
