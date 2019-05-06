@@ -91,6 +91,7 @@ class GameState {
             }
         }
         print("Failed to find player with id \(id)\n")
+        printAllPlayers()
         return nil
     }
     
@@ -185,5 +186,12 @@ class GameState {
     func prepareLeaderboard() {
         self.allPlayers.append(self.player!)
         self.allPlayers.sort(by: { $0.position < $1.position })
+    }
+    
+    func printAllPlayers() {
+        print("printing all players")
+        for p in self.allPlayers {
+            print("\t\(p.realName) \(p.id)")
+        }
     }
 }
