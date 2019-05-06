@@ -326,11 +326,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 return
             }
             if missionType == 0 {        // start
-                self.alertVC.setTapToClose(false)
+                self.alertVC.tapToClose = false
             } else if missionType == 1 { // evidence
-                self.alertVC.setTapToClose(false)
+                self.alertVC.tapToClose = false
             } else if missionType == 2 { // hint
-                self.alertVC.setTapToClose(true)
+                self.alertVC.tapToClose = true
             }
             DispatchQueue.main.async {
                 self.alertVC.setMessage(newMission: missionDescription)
