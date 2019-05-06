@@ -110,7 +110,7 @@ class AlertViewController: UIViewController {
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
         self.message = newMission
         self.currentMission = newMission
-        self.tapToClose = false || ServerUtils.testing
+//        self.tapToClose = false || ServerUtils.testing
         setDestination(newMission)
     }
     
