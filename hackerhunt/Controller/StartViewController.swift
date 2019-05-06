@@ -11,7 +11,7 @@ import KontaktSDK
 
 class StartViewController: UIViewController {
   
-    var runTutorial = true
+    var runTutorial = false
     
     var beaconListener: BeaconListener!
     var gameState: GameState!

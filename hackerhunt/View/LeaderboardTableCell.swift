@@ -132,6 +132,8 @@ class LeaderBoardTableCell: UITableViewCell {
         
         if (isCurrentPlayer) {
             backgroundImage.image = UIImage(named: "player_card")
+        } else {
+            backgroundImage.image = UIImage(named: "player_card_far")
         }
         
         //crownImage.frame.origin.x = cellWidth - 5 - CGFloat(name.count * 10)

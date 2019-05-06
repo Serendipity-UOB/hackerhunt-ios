@@ -188,7 +188,6 @@ class AlertViewController: UIViewController {
         self.countdown.alpha = 1
         self.countdown.text = "\(value)"
     }
-    
 }
 
 extension NSLayoutConstraint {

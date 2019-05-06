@@ -235,10 +235,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                             print("reputation missing")
                             return
                         }
-                        guard let requestNewTarget: Int = bodyDict["req_new_target"] as? Int else {
-                            print("req_new_target missing")
-                            return
-                        }
+//                        guard let requestNewTarget: Int = bodyDict["req_new_target"] as? Int else {
+//                            print("req_new_target missing")
+//                            return
+//                        }
                         guard let position: Int = bodyDict["position"] as? Int else {
                             print("position missing")
                             return
@@ -260,9 +260,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.handleTakenDown(takenDown)
                         self.handlePlayers(nearbyPlayers, farPlayers)
                         self.setCurrentPoints(points)
-                        self.handleRequestNewTarget(requestNewTarget)
+                        //self.handleRequestNewTarget(requestNewTarget)
                         self.handlePosition(position)
-                        self.handleMission(missionDescription)
+                        self.handleMission(missionDescription, bodyDict)
                         if (ServerUtils.testing) {
                             self.updatesTimer.invalidate()
                         }
@@ -319,12 +319,25 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-    func handleMission(_ missionDescription: String) {
+    func handleMission(_ missionDescription: String, _ bodyDict: [String: Any]) {
         if (missionDescription != "" && !onMission) {
+            guard let missionType: Int = bodyDict["mission_type"] as? Int else {
+                print("mission_type missing")
+                return
+            }
+            if missionType == 0 {        // start
+                self.alertVC.setTapToClose(false)
+            } else if missionType == 1 { // evidence
+                self.alertVC.setTapToClose(false)
+            } else if missionType == 2 { // hint
+                self.alertVC.setTapToClose(true)
+            }
             DispatchQueue.main.async {
                 self.alertVC.setMessage(newMission: missionDescription)
                 self.showAlert()
-                self.startMissionUpdates()
+                if missionType != 2 {
+                    self.startMissionUpdates()
+                }
             }
             self.onMission = true
         }
