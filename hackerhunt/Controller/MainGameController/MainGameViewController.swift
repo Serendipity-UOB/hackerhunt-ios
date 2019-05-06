@@ -124,11 +124,17 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         let data: [String:Any] = [
             "player_id": self.gameState.player!.id as Int
         ]
-        
+        print("prepared data")
         let request = ServerUtils.post(to: "/startInfo", with: data)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let httpResponse = response as? HTTPURLResponse else { return }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("getStartInfo failed, trying again in 2 seconds")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.getStartInfo()
+                }
+                return
+            }
             
             let statusCode: Int = httpResponse.statusCode
 
