@@ -142,12 +142,23 @@ extension MainGameViewController {
         var p = gameState.getPlayerById(player.id)
         p!.exchangeRequested = false
         p!.interactionResult = success ? 1 : 2
-        for p in self.gameState.allPlayers {
-            if (!p.interceptRequested) {
-                p.interceptDisabled = false
-                p.exchangeDisabled = false
-            }
-        }
+        enableEnableableButtons()
+//        var interceptCurrentlyPending = false
+//        for player in self.gameState.allPlayers {
+//            if (player.interceptRequested) {
+//                interceptCurrentlyPending = true
+//            }
+//        }
+//        for player in self.gameState.allPlayers {
+//            // enable all exchanges apart from for a player who is being intercepted
+//            if (!player.interceptRequested) {
+//                player.exchangeDisabled = false
+//            }
+//            // enable all intercepts IF no intercept is pending
+//            if (!interceptCurrentlyPending) {
+//                player.interceptDisabled = false
+//            }
+//        }
         self.playerTableView.reloadData()
         self.playerTableView.layoutIfNeeded()
         p = gameState.getPlayerById(player.id)!
@@ -391,16 +402,41 @@ extension MainGameViewController {
         var p = self.gameState.getPlayerById(player.id)
         p!.interceptRequested = false
         p!.interactionResult = success ? 1 : 2
-        for p in self.gameState.allPlayers {
-            if (!p.exchangeRequested) {
-                p.interceptDisabled = false
-                p.exchangeDisabled = false
-            }
-        }
+        enableEnableableButtons()
         self.playerTableView.reloadData()
         self.playerTableView.layoutIfNeeded()
         p = self.gameState.getPlayerById(player.id)!
         p!.interactionResult = 0
+    }
+    
+    func enableEnableableButtons() {
+        // work out if an exchange or intercept is currently in progress
+        var exchangeCurrentlyPending = false
+        var interceptCurrentlyPending = false
+        for player in self.gameState.allPlayers {
+            if (player.exchangeRequested) {
+                exchangeCurrentlyPending = true
+            }
+            if (player.interceptRequested) {
+                interceptCurrentlyPending = true
+            }
+        }
+        // only enable intercepts if not doing one
+        if (!interceptCurrentlyPending) {
+            for player in self.gameState.allPlayers {
+                if (!player.exchangeRequested && !player.interceptRequested) {
+                    player.interceptDisabled = false
+                }
+            }
+        }
+        // only enable exchanges if not doing one
+        if (!exchangeCurrentlyPending) {
+            for player in self.gameState.allPlayers {
+                if (!player.exchangeRequested && !player.interceptRequested) {
+                    player.exchangeDisabled = false
+                }
+            }
+        }
     }
     
     // MARK: Expose
