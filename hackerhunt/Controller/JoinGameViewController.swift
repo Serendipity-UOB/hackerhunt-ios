@@ -80,6 +80,7 @@ class JoinGameViewController: UIViewController {
             } else {
                 DispatchQueue.main.async {
                     self.welcomeLabel.text = "Join game failed"
+                    print("/joinGame response code \(statusCode)")
                     self.joinButton.isEnabled = true
                 }
             }
