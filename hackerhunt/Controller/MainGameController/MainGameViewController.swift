@@ -86,7 +86,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 return
             }
             
-            guard let httpResponse = response as? HTTPURLResponse else { return }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                self.logVC.setMessage(networkError: true)
+                self.showLog()
+                return
+            }
             
             let statusCode: Int = httpResponse.statusCode
             
@@ -130,6 +134,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse else {
+                self.logVC.setMessage(networkError: true)
+                self.showLog()
                 print("getStartInfo failed, trying again in 2 seconds")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.getStartInfo()
@@ -210,7 +216,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             
             URLSession.shared.dataTask(with: request) { (data, response, error) in
                 
-                guard let httpResponse = response as? HTTPURLResponse else { return }
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    self.logVC.setMessage(networkError: true)
+                    self.showLog()
+                    return
+                }
                 
                 let statusCode: Int = httpResponse.statusCode
                 if (statusCode == 200) {
@@ -438,7 +448,11 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
-            guard let httpResponse = response as? HTTPURLResponse else { return }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                self.logVC.setMessage(networkError: true)
+                self.showLog()
+                return
+            }
             
             let statusCode: Int = httpResponse.statusCode
             

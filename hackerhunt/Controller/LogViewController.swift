@@ -43,6 +43,11 @@ class LogViewController : UIViewController {
         self.message = "You can only send one exchange request at a time, wait for your current one to complete."
     }
     
+    func setMessage(networkError: Any) {
+        self.image = UIImage(named: "bad_full_pop_up")
+        self.message = "Network error on request response"
+    }
+    
     /* animations */
     
     func showAnimate() {

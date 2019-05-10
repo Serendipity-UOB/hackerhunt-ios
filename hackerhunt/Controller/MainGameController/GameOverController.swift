@@ -22,7 +22,11 @@ extension MainGameViewController {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
-            guard let httpResponse = response as? HTTPURLResponse else { return }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                self.logVC.setMessage(networkError: true)
+                self.showLog()
+                return
+            }
             
             let statusCode: Int = httpResponse.statusCode
             
