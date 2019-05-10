@@ -12,11 +12,8 @@ import UIKit
 class JoinGameViewController: UIViewController {
     
     var gameState: GameState!
-    
-    var startTimer = Timer()
+
     var pollTimer = Timer()
-    var gameStartTime: Double = -1
-    var gameJoined = false
     
     @IBOutlet weak var timeRemainingTitleLabel: UILabel!
     @IBOutlet weak var playerCountTitleLabel: UILabel!
@@ -34,7 +31,6 @@ class JoinGameViewController: UIViewController {
             playerCountTitleLabel.font = playerCountTitleLabel.font.withSize(16)
             timeRemainingTitleLabel.font = timeRemainingTitleLabel.font.withSize(16)
         }
-        
     }
     
     
@@ -43,20 +39,15 @@ class JoinGameViewController: UIViewController {
         
         globeGif.loadGif(name: "globe")
         
-        welcomeLabel.text = (ServerUtils.testing) ? "Testing mode: \(gameState.player!.realName)" : "Welcome: \(gameState.player!.realName)"
+        welcomeLabel.text = (ServerUtils.testing) ? "Testing mode: \(gameState.player!.realName)" : "Welcome, agent \(gameState.player!.realName)"
         
         showJoinGameButton()
-        
-        startPollingGameInfo()
         
         joinButton.sendActions(for: .touchUpInside)
     }
     
     @IBAction func joinGamePressed(_ sender: Any) {
-        if (gameStartTime == -1) {
-            return
-        }
-        
+
         joinButton.isEnabled = false
  
         let request = ServerUtils.post(to: "/joinGame", with: ["player_id": gameState.player!.id])
@@ -79,15 +70,17 @@ class JoinGameViewController: UIViewController {
                         return
                     }
                     
+                    self.startPollingGameInfo()
+                    
                     DispatchQueue.main.async {
                         self.gameState.homeBeacon = homeZoneName
-                        self.gameJoined = true
                         self.hideJoinGameButton()
                     }
                 } catch {}
             } else {
                 DispatchQueue.main.async {
                     self.welcomeLabel.text = "Join game failed"
+                    print("/joinGame response code \(statusCode)")
                     self.joinButton.isEnabled = true
                 }
             }
@@ -122,29 +115,28 @@ class JoinGameViewController: UIViewController {
                     let bodyJson = try JSONSerialization.jsonObject(with: data, options: [])
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
-                    guard let startTime: String = bodyDict["start_time"] as? String else {
-                        print("start_time missing")
+                    guard let countdown: String = bodyDict["countdown"] as? String else {
+                        print("countdown missing")
                         return
                     }
                     guard let numPlayers: Int = bodyDict["number_players"] as? Int else {
                         print("number_players missing")
                         return
                     }
-                    
-                    let startTimeDouble : Double = timeStringToDouble(time: startTime)
+                    guard let gameStarting: Bool = bodyDict["game_start"] as? Bool else {
+                        print("game_start missing")
+                        return
+                    }
                     
                     DispatchQueue.main.async {
                         self.playerCountLabel.text = "\(numPlayers)"
+                        self.timeRemainingLabel.text = countdown
+                        self.joinSuccessLabel.text = (countdown == "--:--") ? "Waiting for players" : "Game starting"
+
                         self.gameIsScheduled()
                         
-                        // if no game yet scheduled or server has scheduled a new game
-                        if (self.gameStartTime == -1 || (startTimeDouble != self.gameStartTime && !ServerUtils.testing)) {
-                            self.gameStartTime = startTimeDouble
-                            self.gameState.endTime = calculateEndTime(startTime: startTime)
-                            self.startTiming()
-                            
-                            // auto join
-                            self.joinButton.sendActions(for: .touchUpInside)
+                        if (gameStarting) {
+                            self.transitionToMainGame()
                         }
                     }
                 } catch {}
@@ -159,28 +151,6 @@ class JoinGameViewController: UIViewController {
             }
             
         }.resume()
-    }
-    
-    /* Timing */
-    
-    func startTiming() {
-        self.startTimer.invalidate()
-        self.startTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(JoinGameViewController.updateGameTimer), userInfo: nil, repeats: true)
-        self.startTimer.fire()
-    }
-    
-    @objc func updateGameTimer() {
-        let timeRemaining = self.gameStartTime - now()
-        if (timeRemaining >= 0) {
-            timeRemainingLabel.text = prettyTimeFrom(seconds: Int(timeRemaining))
-        }
-        if (timeRemaining <= 0) {
-            if (gameJoined) {
-                transitionToMainGame()
-            }
-            self.gameStartTime = -1
-            self.startTimer.invalidate()
-        }
     }
     
     /* Transition */

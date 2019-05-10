@@ -96,7 +96,7 @@ extension BeaconListener: KTKBeaconManagerDelegate {
     func beaconManager(_ manager: KTKBeaconManager, didRangeBeacons beacons: [CLBeacon], in region: KTKBeaconRegion) {
         // update game state
         let sortedBeacons = beacons.sorted(by: { $0.rssi > $1.rssi })
-        print(stringFrom(beacons: sortedBeacons))
+        //print(stringFrom(beacons: sortedBeacons))
         gameState.nearbyBeacons = sortedBeacons
     }
 

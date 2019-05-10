@@ -44,11 +44,28 @@ class GameState {
         for p in allPlayers {
             if (p.id == player) {
                 p.evidence = min(p.evidence + Float(evidence), 100)
-                p.codeNameDiscovered = (p.evidence == 100 || p.codeNameDiscovered) ? true : false
+                let codeNameAlreadyDiscovered = p.codeNameDiscovered
+                p.codeNameDiscovered = (p.evidence == 100 || codeNameAlreadyDiscovered) ? true : false
+                if (!codeNameAlreadyDiscovered && p.codeNameDiscovered) {
+                    sendDecipherCodename()
+                }
                 break
             }
         }
         
+    }
+    
+    func sendDecipherCodename() {
+        let request : URLRequest = ServerUtils.post(to: "/decipherCodename", with: ["player_id":player!.id])
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                let statusCode: Int = httpResponse.statusCode
+                if statusCode != 200 {
+                    print("failed /decipherCodename response \(statusCode)")
+                }
+            }}.resume()
+        return
     }
     
     func deleteHalfOfIntel() {
@@ -80,11 +97,19 @@ class GameState {
         prioritiseNearbyPlayers()
     }
     
+    var sorting = false
     func prioritiseNearbyPlayers() {
+        print("sorting")
+        sorting = true
         self.allPlayers.sort { $0.nearby && !$1.nearby }
+        sorting = false
+        print("done sorting")
     }
     
     func getPlayerById(_ id: Int) -> Player? {
+        while (sorting) {
+            print("waiting for sort to end")
+        }
         print("searching for player \(id)")
         for p in self.allPlayers {
             print("\t\(p.realName) has id \(p.id)")
