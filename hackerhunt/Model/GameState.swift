@@ -25,6 +25,8 @@ class GameState {
     var endTime : Int?
     var missionBeacon: String = ""
     
+    var sorting = false
+    
     init() {}
     
     func getNearestBeaconMajor() -> Int {
@@ -97,7 +99,6 @@ class GameState {
         prioritiseNearbyPlayers()
     }
     
-    var sorting = false
     func prioritiseNearbyPlayers() {
         print("sorting")
         sorting = true

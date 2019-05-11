@@ -20,6 +20,9 @@ extension MainGameViewController {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = playerTableView.dequeueReusableCell(withIdentifier: "playerTableCell") as! PlayerTableCell
+        while (gameState.sorting) {
+            print("waiting for sort")
+        }
         cell.player = gameState!.allPlayers[indexPath.section]
         cell.isTarget = (gameState!.currentTarget?.codeName == cell.player.codeName)
         cell.exchangeBtn.addTarget(self, action: #selector(exchangeButtonAction), for: .touchUpInside)
@@ -64,6 +67,9 @@ extension MainGameViewController {
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        while (gameState.sorting) {
+            print("waiting for sort")
+        }
         let player = gameState!.allPlayers[indexPath.section]
         if (player.nearby) {
             self.tableCardSelected = true
