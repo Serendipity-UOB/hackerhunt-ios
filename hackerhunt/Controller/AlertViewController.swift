@@ -41,6 +41,7 @@ class AlertViewController: UIViewController {
     }
     
     @IBAction func tapToClose(_ sender: UITapGestureRecognizer) {
+        print("tap to close tapped")
         if (tapToClose) {
             DispatchQueue.main.async {
                 self.removeAnimate()
@@ -132,6 +133,15 @@ class AlertViewController: UIViewController {
         setDestination(self.currentMission)
     }
     
+    func setMessage(newTarget: String) {
+        self.titleColour = titleColours["neutral"]!
+        self.titleMessage = "NEW TARGET"
+        self.backgroundImage = UIImage(named: "neutral_full_pop_up")
+        self.message = "Your new target is:\n\(newTarget)"
+        self.tapToClose = true
+        self.destinationImage = UIImage(named: "unitedNations")
+    }
+    
     func setDestination(_ missionDescription: String) {
         if (missionDescription.contains("Italy")) {
             destinationImage = UIImage(named: "italyFlag")
@@ -162,10 +172,10 @@ class AlertViewController: UIViewController {
         self.alertBackgroundImage.image = self.backgroundImage
         self.destinationIcon.image = self.destinationImage
         self.alertTitleLabel.textColor = self.titleColour
-        self.tapLabel.alpha = (self.tapToClose) ? 1 : 0
         self.view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         self.view.alpha = 0.0;
         UIView.animate(withDuration: 0.25, animations: {
+            self.tapLabel.alpha = (self.tapToClose) ? 1 : 0
             self.view.alpha = 1.0
             self.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         });
