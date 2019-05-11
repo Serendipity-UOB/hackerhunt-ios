@@ -301,6 +301,7 @@ extension MainGameViewController {
         
         let targetId = sender.tag
         let player : Player = gameState.getPlayerById(targetId)!
+        print("intercepting \(player.realName) with id \(player.id) where targetid \(targetId)")
         
         if (!gameState.playerIsNearby(targetId)) {
             print("player not nearby")
@@ -325,6 +326,8 @@ extension MainGameViewController {
     
     @objc func interceptRequest() {
         let requestdata: [String:Any] = interceptTimer.userInfo as! [String:Any]
+        print("intercept requested")
+        print(requestdata)
         let request = ServerUtils.post(to: "/intercept", with: requestdata)
         
         let target = self.gameState.getPlayerById(requestdata["target_id"]! as! Int)!

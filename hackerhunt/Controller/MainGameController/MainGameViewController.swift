@@ -201,7 +201,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @objc func pollForUpdates() {
-        print("Nearest major: \(gameState.getNearestBeaconMajor())\n")
+//        print("Nearest major: \(gameState.getNearestBeaconMajor())\n")
         if (self.gameState.isGameOver()) {
             print("game over\n")
             gameOver()
