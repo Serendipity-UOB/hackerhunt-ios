@@ -57,7 +57,7 @@ extension MainGameViewController {
                         self.gameState.incrementEvidence(player: element["player_id"]!, evidence: element["amount"]!)
                     }
                     DispatchQueue.main.async {
-                        self.playerTableView.reloadData()
+                        self.reloadTable()
                         self.alertVC.setMessage(missionSuccess: true, missionString: description)
                         self.showAlert()
                     }
@@ -75,7 +75,7 @@ extension MainGameViewController {
                     }
                     
                     DispatchQueue.main.async {
-                        self.playerTableView.reloadData()
+                        self.reloadTable()
                         self.alertVC.setMessage(missionFailure: true, missionString: description)
                         self.showAlert()
                     }
@@ -89,7 +89,6 @@ extension MainGameViewController {
                     self.alertVC.removeAnimate()
                 }
             case 206:
-                print("time remaining for missions not yet implemented")
                 guard let responsedata = data else { return }
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])

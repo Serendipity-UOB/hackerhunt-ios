@@ -18,6 +18,13 @@ extension MainGameViewController {
         playerTableView.dataSource = self
     }
     
+    func reloadTable() {
+        let contentOffset = playerTableView.contentOffset
+        playerTableView.reloadData()
+        playerTableView.layoutIfNeeded()
+        playerTableView.setContentOffset(contentOffset, animated: false)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = playerTableView.dequeueReusableCell(withIdentifier: "playerTableCell") as! PlayerTableCell
         while (gameState.sorting) {
@@ -72,14 +79,9 @@ extension MainGameViewController {
         }
         let player = gameState!.allPlayers[indexPath.section]
         if (player.nearby) {
-            self.tableCardSelected = true
             let cellToShow = self.playerTableView.cellForRow(at: indexPath) as! PlayerTableCell
             cellToShow.cellY = playerTableView.convert(playerTableView.rectForRow(at: indexPath), to: playerTableView.superview).origin.y
-            self.greyOutAllCells()
-            cellToShow.ungreyOut()
-            cellToShow.showButtons()
-
-            self.tapToCloseLabel.alpha = 1.0
+            greyOutAllCellsBut(cellToShow)
         }
         else {
             self.logVC.setMessage(farAwayPlayerSelected: player.realName)
@@ -88,44 +90,41 @@ extension MainGameViewController {
         return indexPath
     }
     
-    @IBAction func doTheThing() { // greyOutView has been tapped
+    @IBAction func greyOutViewTapped() {
         ungreyOutAllCells()
     }
     
     func ungreyOutAllCells() {
-        self.tableCardSelected = false
+        tableCardSelected = false
         playerTableView.isScrollEnabled = true
-        self.tapToCloseLabel.alpha = 0.0
+        tapToCloseLabel.alpha = 0.0
         greyOutView.alpha = 0
         greyOutViewTap.isEnabled = false
         tableViewTap.isEnabled = false
-        for c in self.playerTableView.visibleCells {
-            //            let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
-            let cell = c as! PlayerTableCell
-            cell.ungreyOut()
-            cell.hideButtons()
+        for p in self.gameState.allPlayers {
+            p.card.isGreyedOut = false
         }
+        for c in self.playerTableView.visibleCells {
+            let cell = c as! PlayerTableCell
+            cell.hideButtons() // not every cell needs to call this
+        }
+        reloadTable()
     }
     
-    func greyOutAllCells() {
+    func greyOutAllCellsBut(_ cellToShow: PlayerTableCell) {
+        tableCardSelected = true
         playerTableView.isScrollEnabled = false
+        tapToCloseLabel.alpha = 1.0
         greyOutView.alpha = 0.8
         greyOutViewTap.isEnabled = true
         tableViewTap.isEnabled = true
-        for c in self.playerTableView.visibleCells {
-//            let cell = playerTableView.cellForRow(at: IndexPath(row: 0, section: i)) as! PlayerTableCell
-            let cell = c as! PlayerTableCell
-            cell.greyOut()
-            cell.hideButtons()
+        for p in self.gameState.allPlayers {
+            p.card.isGreyedOut = p.id != cellToShow.player.id
         }
+        cellToShow.showButtons()
+        reloadTable()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        if (exchange) {
-        //            exchange(withPlayerAtIndex: indexPath.section)
-        //        } else if (takedown) {
-        //            takeDown(target: indexPath.section)
-        //        }
     }
-    
 }

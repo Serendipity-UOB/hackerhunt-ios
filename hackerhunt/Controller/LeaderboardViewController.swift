@@ -39,9 +39,6 @@ class LeaderboardViewController: UIViewController, UITableViewDataSource, UITabl
         cell.name = gameState.allPlayers[indexPath.section].realName
         cell.score = gameState.allPlayers[indexPath.section].score
         cell.isCurrentPlayer = (gameState.allPlayers[indexPath.section].id == gameState.player!.id)
-        if (cell.isCurrentPlayer) {
-            print("LEADERBOARD selected \(gameState.allPlayers[indexPath.section].realName) id \(gameState.allPlayers[indexPath.section].id) as current player. gameState.player.id=\(gameState.player!.id)")
-        }
         cell.layoutSubviews()
         return cell
     }

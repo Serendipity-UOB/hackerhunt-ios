@@ -16,6 +16,7 @@
 		BE90B3192237C6C70083F5DC /* InteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE90B3182237C6C70083F5DC /* InteractionController.swift */; };
 		BEA88130227C44F1003A726A /* title.gif in Resources */ = {isa = PBXBuildFile; fileRef = BEA8812F227C44F1003A726A /* title.gif */; };
 		BEC2EBAC223BD0FE00B708EE /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC2EBAB223BD0FE00B708EE /* LogViewController.swift */; };
+		BEFBAC6522872EBE0090EA7B /* CardState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBAC6422872EBE0090EA7B /* CardState.swift */; };
 		BF1AE2FD21FC484A00D3F333 /* LeaderboardTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1AE2FC21FC484A00D3F333 /* LeaderboardTableCell.swift */; };
 		BF1FE5672231339000017A54 /* ShareTech-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE5652231338F00017A54 /* ShareTech-Regular.ttf */; };
 		BF1FE5682231339000017A54 /* ShareTechMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF1FE5662231339000017A54 /* ShareTechMono-Regular.ttf */; };
@@ -85,6 +86,7 @@
 		BE90B3182237C6C70083F5DC /* InteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionController.swift; sourceTree = "<group>"; };
 		BEA8812F227C44F1003A726A /* title.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = title.gif; sourceTree = "<group>"; };
 		BEC2EBAB223BD0FE00B708EE /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
+		BEFBAC6422872EBE0090EA7B /* CardState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardState.swift; sourceTree = "<group>"; };
 		BF1AE2FC21FC484A00D3F333 /* LeaderboardTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardTableCell.swift; sourceTree = "<group>"; };
 		BF1FE5652231338F00017A54 /* ShareTech-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ShareTech-Regular.ttf"; sourceTree = "<group>"; };
 		BF1FE5662231339000017A54 /* ShareTechMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ShareTechMono-Regular.ttf"; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				BF6F9F8721F7AA0000924174 /* GameState.swift */,
 				BF6F9F8921F7AED600924174 /* Player.swift */,
 				BE25F73421FBAF11008FBAF4 /* Time.swift */,
+				BEFBAC6422872EBE0090EA7B /* CardState.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				BF6F9F8A21F7AED600924174 /* Player.swift in Sources */,
 				BE25F73521FBAF11008FBAF4 /* Time.swift in Sources */,
 				BFFC0CD621FA12C200F71ABB /* LeaderboardViewController.swift in Sources */,
+				BEFBAC6522872EBE0090EA7B /* CardState.swift in Sources */,
 				BE062B962232AA8B00EC5578 /* ModelIdentifier.swift in Sources */,
 				BF9A7FEF21EF883500C30261 /* RegisterViewController.swift in Sources */,
 			);

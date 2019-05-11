@@ -30,6 +30,8 @@ class Player {
     var interceptDisabled: Bool = false
     var exchangeDisabled: Bool = false
     
+    var card: CardState = CardState()
+    
     func copy() -> Player {
         let copy = Player(realName: self.realName, codeName: self.codeName, id: self.id)
         copy.nearby = self.nearby
@@ -42,6 +44,7 @@ class Player {
         copy.position = self.position
         copy.interceptDisabled = self.interceptDisabled
         copy.exchangeDisabled = self.exchangeDisabled
+        copy.card = self.card
         return copy
     }
     
