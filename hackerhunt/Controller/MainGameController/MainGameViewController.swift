@@ -187,7 +187,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     
                     DispatchQueue.main.async {
                         self.startGameOverCountdown()
-                        self.playerTableView.reloadData()
+                        self.reloadTable()
                         self.startPollingForUpdates()
                     }
                 } catch {}
@@ -295,7 +295,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         
                         DispatchQueue.main.async {
 //                            if (self.tapToCloseLabel.alpha != 1.0) {
-                                self.playerTableView.reloadData()
+                                self.reloadTable()
 //                            }
                         }
                     } catch {}
@@ -481,7 +481,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.gameState.currentTarget = self.gameState.getPlayerById(newTarget)
                         
                         self.targetName.text = self.gameState.currentTarget?.codeName
-                        self.playerTableView.reloadData()
+                        self.reloadTable()
                     }
                     
                 } catch {}

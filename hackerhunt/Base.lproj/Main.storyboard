@@ -800,12 +800,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DmE-du-icI" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer enabled="NO" id="BbW-cd-0tQ">
                     <connections>
-                        <action selector="doTheThing" destination="3Hg-En-CAh" id="Kib-lk-I9f"/>
+                        <action selector="greyOutViewTapped" destination="3Hg-En-CAh" id="0v0-Dq-fje"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer enabled="NO" id="05A-pj-Zhc">
                     <connections>
-                        <action selector="doTheThing" destination="3Hg-En-CAh" id="ZQe-p8-hRM"/>
+                        <action selector="greyOutViewTapped" destination="3Hg-En-CAh" id="AZq-9J-PaM"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -1019,19 +1019,19 @@
         </scene>
     </scenes>
     <resources>
-        <image name="accept_exchange_button" width="57.5" height="39.5"/>
+        <image name="accept_exchange_button" width="57" height="39"/>
         <image name="background_grid" width="26" height="26"/>
         <image name="fancy_popup" width="128" height="115"/>
         <image name="globe" width="330" height="330"/>
         <image name="italyFlag" width="120" height="120"/>
-        <image name="leaderboard_title" width="57.5" height="39.5"/>
-        <image name="neutral_full_pop_up" width="57.5" height="39.5"/>
-        <image name="notif-box" width="57.5" height="39.5"/>
-        <image name="reject_exchange_button" width="57.5" height="39.5"/>
-        <image name="spy_logo" width="311.25" height="301.5"/>
-        <image name="start-button" width="57.5" height="39.5"/>
-        <image name="target_status_bar_border" width="57" height="39.5"/>
-        <image name="time_status_bar_border" width="57" height="39.5"/>
+        <image name="leaderboard_title" width="57" height="39"/>
+        <image name="neutral_full_pop_up" width="57" height="39"/>
+        <image name="notif-box" width="57" height="39"/>
+        <image name="reject_exchange_button" width="57" height="39"/>
+        <image name="spy_logo" width="415" height="402"/>
+        <image name="start-button" width="57" height="39"/>
+        <image name="target_status_bar_border" width="57" height="39"/>
+        <image name="time_status_bar_border" width="57" height="39"/>
         <image name="title" width="707" height="689"/>
         <image name="unitedNations" width="1915" height="1915"/>
     </resources>

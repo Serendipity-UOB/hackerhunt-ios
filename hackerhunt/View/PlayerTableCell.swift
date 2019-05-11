@@ -240,6 +240,7 @@ class PlayerTableCell: UITableViewCell {
         super.layoutSubviews()
         
         realName.text = player.realName
+        playerName = player.realName
         
         if (player.codeNameDiscovered) {
             codeName.text = player.codeName
@@ -268,9 +269,17 @@ class PlayerTableCell: UITableViewCell {
         
         setInteractionLabels()
         
-        playerName = player.realName
-        
         updateFlag(zoneId: player.zone)
+        
+        checkForGreyOut()
+    }
+    
+    func checkForGreyOut() {
+        if (player.card.isGreyedOut) {
+            greyOut()
+        } else {
+            ungreyOut()
+        }
     }
     
     func setColoursNearbyOrFar() {
@@ -340,7 +349,7 @@ class PlayerTableCell: UITableViewCell {
             interactionRequested.text = "intercept pending"
             interactionRequested.alpha = 1
             interactionIcon.alpha = 1
-            interactionIcon.frame.origin.x = cellWidth / 2 - 30
+            interactionIcon.frame.origin.x = cellWidth / 2 - 20
             interactionIcon.image = UIImage(named: "intercept_requested")
         }
         else {
@@ -407,10 +416,6 @@ class PlayerTableCell: UITableViewCell {
     
     func ungreyOut() {
         self.greyOutView.alpha = 0
-    }
-    
-    func isHidden() -> Bool {
-        return self.greyOutView.alpha != 0
     }
     
     func disableExchange() {

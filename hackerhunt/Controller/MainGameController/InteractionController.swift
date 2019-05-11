@@ -22,7 +22,7 @@ extension MainGameViewController {
         if (gameState.playerIsNearby(interacteeId)) {
             DispatchQueue.main.async {
                 self.setCurrentlyExchanging(with: player)
-                self.playerTableView.reloadData()
+                self.reloadTable()
             }
             
             let validContacts: [[String: Int]] = self.gameState.allPlayers
@@ -102,7 +102,7 @@ extension MainGameViewController {
                 }
             case 206:
                 DispatchQueue.main.async {
-                    self.playerTableView.reloadData()
+                    self.reloadTable()
                 }
                 print("EXCHANGE REQUEST keep polling")
             case 400: // error
@@ -165,7 +165,7 @@ extension MainGameViewController {
 //                player.interceptDisabled = false
 //            }
 //        }
-        self.playerTableView.reloadData()
+        self.reloadTable()
         self.playerTableView.layoutIfNeeded()
         p = gameState.getPlayerById(player.id)!
         p!.interactionResult = 0
@@ -238,7 +238,7 @@ extension MainGameViewController {
                     }
                     
                     DispatchQueue.main.async {
-                        self.playerTableView.reloadData()
+                        self.reloadTable()
                         self.hideExchangeRequested()
                     }
                 } catch {}
@@ -313,7 +313,7 @@ extension MainGameViewController {
         
         DispatchQueue.main.async {
             self.setCurrentlyIntercepting(player)
-            self.playerTableView.reloadData()
+            self.reloadTable()
         }
         
         let data: [String:Any] = [
@@ -424,7 +424,7 @@ extension MainGameViewController {
         p!.interceptRequested = false
         p!.interactionResult = success ? 1 : 2
         enableEnableableButtons()
-        self.playerTableView.reloadData()
+        self.reloadTable()
         self.playerTableView.layoutIfNeeded()
         p = self.gameState.getPlayerById(player.id)!
         p!.interactionResult = 0
@@ -533,14 +533,14 @@ extension MainGameViewController {
                         print("expose successful")
                         self.alertVC.setMessage(successfulExpose: true, reputation: reputation)
                         self.showAlert()
-                        self.playerTableView.reloadData()
+                        self.reloadTable()
                         self.startCheckingForHomeBeacon(withCallback: self.requestNewTarget)
                     }
                 } catch {}
             } else {
                 DispatchQueue.main.async {
                     // small popup here
-                    print("take down failed\n\(String(describing: response))")
+                    print("take down failed \(statusCode)\n\n\(String(describing: response))")
                 }
             }
             }.resume()

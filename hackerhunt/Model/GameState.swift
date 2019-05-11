@@ -100,26 +100,26 @@ class GameState {
     }
     
     func prioritiseNearbyPlayers() {
-        print("sorting")
+        // print("sorting")
         sorting = true
         self.allPlayers.sort { $0.nearby && !$1.nearby }
         sorting = false
-        print("done sorting")
+        // print("done sorting")
     }
     
     func getPlayerById(_ id: Int) -> Player? {
         while (sorting) {
             print("waiting for sort to end")
         }
-        print("searching for player \(id)")
+        // print("searching for player \(id)")
         for p in self.allPlayers {
-            print("\t\(p.realName) has id \(p.id)")
+            // print("\t\(p.realName) has id \(p.id)")
             if (p.id == id) {
                 return p
             }
         }
         print("Failed to find player with id \(id)\n")
-        printAllPlayers()
+        // printAllPlayers()
         return nil
     }
     
