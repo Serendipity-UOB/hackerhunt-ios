@@ -105,9 +105,9 @@ class AlertViewController: UIViewController {
         self.tapToClose = false
     }
     
-    func setMessage(newMission: String) {
+    func setMessage(newMission: String, hint: Bool) {
         self.titleColour = titleColours["neutral"]!
-        self.titleMessage = "MISSION UPDATE"
+        self.titleMessage = (hint) ? "TARGET UPDATE" : "MISSION UPDATE"
         self.backgroundImage = UIImage(named: "neutral_full_pop_up")
         self.message = newMission
         self.currentMission = newMission

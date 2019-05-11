@@ -360,7 +360,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.alertVC.tapToClose = true
             }
             DispatchQueue.main.async {
-                self.alertVC.setMessage(newMission: missionDescription)
+                self.alertVC.setMessage(newMission: missionDescription, hint: missionType == 2)
                 self.showAlert()
                 if missionType != 2 {
                     self.startMissionUpdates()
