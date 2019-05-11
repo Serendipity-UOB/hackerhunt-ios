@@ -344,6 +344,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func handleMission(_ missionDescription: String, _ bodyDict: [String: Any]) {
         if (missionDescription != "" && !onMission) {
+            self.onMission = true
             if (tableCardSelected) { // deselect selected player if a mission is popping up
                 tableCardSelected = false
                 ungreyOutAllCells()
@@ -358,6 +359,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.alertVC.tapToClose = false
             } else if missionType == 2 { // hint
                 self.alertVC.tapToClose = true
+                self.onMission = false
             }
             DispatchQueue.main.async {
                 self.alertVC.setMessage(newMission: missionDescription)
@@ -366,7 +368,6 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.startMissionUpdates()
                 }
             }
-            self.onMission = true
         }
     }
     
