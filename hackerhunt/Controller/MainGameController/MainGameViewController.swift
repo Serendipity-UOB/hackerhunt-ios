@@ -455,7 +455,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             guard let httpResponse = response as? HTTPURLResponse else {
-                DispatchQueue.main.async {n
+                DispatchQueue.main.async {
                     self.logVC.setMessage(networkError: "new target")
                     self.showLog()
                 }
