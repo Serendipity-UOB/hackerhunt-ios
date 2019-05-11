@@ -240,7 +240,6 @@ class PlayerTableCell: UITableViewCell {
         super.layoutSubviews()
         
         realName.text = player.realName
-        playerName = player.realName
         
         if (player.codeNameDiscovered) {
             codeName.text = player.codeName
@@ -268,6 +267,8 @@ class PlayerTableCell: UITableViewCell {
         checkForPlusFiveAnimation()
         
         setInteractionLabels()
+        
+        playerName = player.realName
         
         updateFlag(zoneId: player.zone)
         
