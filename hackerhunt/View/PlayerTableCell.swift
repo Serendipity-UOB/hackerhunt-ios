@@ -337,7 +337,7 @@ class PlayerTableCell: UITableViewCell {
         }
         else if (player.interceptRequested) {
             interactionRequested.textColor = UIColor(red:0.58, green:0.74, blue:0.81, alpha:1.0)
-            interactionRequested.text = "intercept requested"
+            interactionRequested.text = "intercept pending"
             interactionRequested.alpha = 1
             interactionIcon.alpha = 1
             interactionIcon.frame.origin.x = cellWidth / 2 - 30

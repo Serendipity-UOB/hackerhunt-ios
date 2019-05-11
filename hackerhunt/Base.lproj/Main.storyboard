@@ -638,14 +638,14 @@
                                 <rect key="frame" x="10" y="65" width="280.5" height="39"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your target:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HyB-ph-juM">
-                                <rect key="frame" x="40" y="72.5" width="97" height="24"/>
+                                <rect key="frame" x="30" y="72.5" width="97" height="24"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="21"/>
                                 <color key="textColor" red="0.8784313725490196" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="CookingKing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyA-Qe-dhO">
-                                <rect key="frame" x="145" y="72.5" width="101.5" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyA-Qe-dhO">
+                                <rect key="frame" x="145" y="84.5" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="21"/>
                                 <color key="textColor" red="0.95686274509803915" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -753,7 +753,7 @@
                             <constraint firstItem="6GY-iU-ZJB" firstAttribute="trailing" secondItem="DSr-m0-TT7" secondAttribute="trailing" constant="-5" id="Z4w-Xm-5c8"/>
                             <constraint firstItem="nEW-8p-pZ1" firstAttribute="height" secondItem="T5x-5Z-zMD" secondAttribute="height" id="ZSC-fa-a2z"/>
                             <constraint firstItem="Kac-tA-fLz" firstAttribute="centerY" secondItem="ZPA-h3-iFp" secondAttribute="centerY" id="ZZc-xc-Ue0"/>
-                            <constraint firstItem="HyB-ph-juM" firstAttribute="leading" secondItem="R8A-6o-dyF" secondAttribute="leading" constant="30" id="Zap-v6-Loz"/>
+                            <constraint firstItem="HyB-ph-juM" firstAttribute="leading" secondItem="R8A-6o-dyF" secondAttribute="leading" constant="20" id="Zap-v6-Loz"/>
                             <constraint firstItem="DSr-m0-TT7" firstAttribute="leading" secondItem="u3P-xB-QI1" secondAttribute="leading" constant="10" id="a8d-PV-I15"/>
                             <constraint firstItem="R8A-6o-dyF" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kyA-Qe-dhO" secondAttribute="trailing" symbolic="YES" id="bTf-bM-gBQ"/>
                             <constraint firstItem="Kac-tA-fLz" firstAttribute="leading" secondItem="ZPA-h3-iFp" secondAttribute="trailing" constant="8" id="bqz-aL-3jg"/>
@@ -1019,19 +1019,19 @@
         </scene>
     </scenes>
     <resources>
-        <image name="accept_exchange_button" width="57" height="39"/>
+        <image name="accept_exchange_button" width="57.5" height="39.5"/>
         <image name="background_grid" width="26" height="26"/>
         <image name="fancy_popup" width="128" height="115"/>
         <image name="globe" width="330" height="330"/>
         <image name="italyFlag" width="120" height="120"/>
-        <image name="leaderboard_title" width="57" height="39"/>
-        <image name="neutral_full_pop_up" width="57" height="39"/>
-        <image name="notif-box" width="57" height="39"/>
-        <image name="reject_exchange_button" width="57" height="39"/>
-        <image name="spy_logo" width="415" height="402"/>
-        <image name="start-button" width="57" height="39"/>
-        <image name="target_status_bar_border" width="57" height="39"/>
-        <image name="time_status_bar_border" width="57" height="39"/>
+        <image name="leaderboard_title" width="57.5" height="39.5"/>
+        <image name="neutral_full_pop_up" width="57.5" height="39.5"/>
+        <image name="notif-box" width="57.5" height="39.5"/>
+        <image name="reject_exchange_button" width="57.5" height="39.5"/>
+        <image name="spy_logo" width="311.25" height="301.5"/>
+        <image name="start-button" width="57.5" height="39.5"/>
+        <image name="target_status_bar_border" width="57" height="39.5"/>
+        <image name="time_status_bar_border" width="57" height="39.5"/>
         <image name="title" width="707" height="689"/>
         <image name="unitedNations" width="1915" height="1915"/>
     </resources>
