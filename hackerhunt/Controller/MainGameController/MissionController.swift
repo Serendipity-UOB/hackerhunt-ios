@@ -64,6 +64,7 @@ extension MainGameViewController {
                 } catch {}
             case 203:
                 self.missionTimer.invalidate()
+                self.onMission = false
                 guard let responsedata = data else { return }
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
@@ -105,9 +106,10 @@ extension MainGameViewController {
                 } catch {}
                 // TODO decrement timer
             case 400:
+                self.onMission = false
                 print("mission something went wrong from client")
             default:
-                print("mission updated received clienterror")  
+                print("mission updated received clienterror")
             }
             }.resume()
     }

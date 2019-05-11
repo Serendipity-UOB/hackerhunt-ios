@@ -268,8 +268,6 @@ class PlayerTableCell: UITableViewCell {
         
         setInteractionLabels()
         
-        playerName = player.realName
-        
         updateFlag(zoneId: player.zone)
         
         checkForGreyOut()
@@ -334,6 +332,7 @@ class PlayerTableCell: UITableViewCell {
             displayedEvidenceValue = player.evidence
             evidencePercent.text = String(format: "%.f%%", displayedEvidenceValue)
         }
+        playerName = player.realName
     }
     
     func setInteractionLabels() {
