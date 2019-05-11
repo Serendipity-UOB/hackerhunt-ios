@@ -24,7 +24,7 @@ extension MainGameViewController {
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 DispatchQueue.main.async {
-                    self.logVC.setMessage(networkError: true)
+                    self.logVC.setMessage(networkError: "game over")
                     self.showLog()
                 }
                 return

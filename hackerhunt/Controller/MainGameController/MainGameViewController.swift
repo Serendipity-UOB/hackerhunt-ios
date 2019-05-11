@@ -88,7 +88,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 DispatchQueue.main.async {
-                    self.logVC.setMessage(networkError: true)
+                    self.logVC.setMessage(networkError: "home beacon")
                     self.showLog()
                 }
                 return
@@ -137,7 +137,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse else {
                 DispatchQueue.main.async {
-                    self.logVC.setMessage(networkError: true)
+                    self.logVC.setMessage(networkError: "start info")
                     self.showLog()
                 }
                 print("getStartInfo failed, trying again in 2 seconds")
@@ -222,7 +222,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
                     DispatchQueue.main.async {
-                        self.logVC.setMessage(networkError: true)
+                        self.logVC.setMessage(networkError: "player update")
                         self.showLog()
                     }
                     return
@@ -455,8 +455,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             guard let httpResponse = response as? HTTPURLResponse else {
-                DispatchQueue.main.async {
-                    self.logVC.setMessage(networkError: true)
+                DispatchQueue.main.async {n
+                    self.logVC.setMessage(networkError: "new target")
                     self.showLog()
                 }
                 return

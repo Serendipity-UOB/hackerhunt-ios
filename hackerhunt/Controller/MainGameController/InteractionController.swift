@@ -52,7 +52,7 @@ extension MainGameViewController {
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 DispatchQueue.main.async {
-                    self.logVC.setMessage(networkError: true)
+                    self.logVC.setMessage(networkError: "exchange request")
                     self.showLog()
                 }
                 return
@@ -197,7 +197,7 @@ extension MainGameViewController {
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 DispatchQueue.main.async {
-                    self.logVC.setMessage(networkError: true)
+                    self.logVC.setMessage(networkError: "exchange response")
                     self.showLog()
                 }
                 return
@@ -339,7 +339,7 @@ extension MainGameViewController {
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 DispatchQueue.main.async {
-                    self.logVC.setMessage(networkError: true)
+                    self.logVC.setMessage(networkError: "intercept")
                     self.showLog()
                 }
                 return
@@ -506,7 +506,7 @@ extension MainGameViewController {
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 DispatchQueue.main.async {
-                    self.logVC.setMessage(networkError: true)
+                    self.logVC.setMessage(networkError: "expose")
                     self.showLog()
                 }
                 return

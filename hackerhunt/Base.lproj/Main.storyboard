@@ -645,7 +645,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="   " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyA-Qe-dhO">
-                                <rect key="frame" x="145" y="72.5" width="16.5" height="24"/>
+                                <rect key="frame" x="137" y="72.5" width="16.5" height="24"/>
                                 <fontDescription key="fontDescription" name="ShareTech-Regular" family="Share Tech" pointSize="21"/>
                                 <color key="textColor" red="0.95686274509803915" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -725,7 +725,7 @@
                             <constraint firstItem="v1u-HZ-wkY" firstAttribute="leading" secondItem="DSr-m0-TT7" secondAttribute="leading" constant="10" id="0wb-I8-mra"/>
                             <constraint firstItem="fL8-lV-ARG" firstAttribute="trailing" secondItem="u3P-xB-QI1" secondAttribute="centerX" constant="-1" id="1Ol-S8-weD"/>
                             <constraint firstItem="v2w-Ni-Khy" firstAttribute="centerX" secondItem="4Zd-MZ-4WL" secondAttribute="centerX" id="1XI-Nm-kFC"/>
-                            <constraint firstItem="kyA-Qe-dhO" firstAttribute="leading" secondItem="R8A-6o-dyF" secondAttribute="leading" constant="135" id="5jx-qV-3uD"/>
+                            <constraint firstItem="kyA-Qe-dhO" firstAttribute="leading" secondItem="HyB-ph-juM" secondAttribute="trailing" constant="10" id="5jx-qV-3uD"/>
                             <constraint firstItem="DSr-m0-TT7" firstAttribute="bottom" secondItem="u3P-xB-QI1" secondAttribute="bottom" constant="-10" id="5pT-vQ-cEv"/>
                             <constraint firstItem="HyB-ph-juM" firstAttribute="centerY" secondItem="R8A-6o-dyF" secondAttribute="centerY" id="7K6-L9-yKh"/>
                             <constraint firstItem="DSr-m0-TT7" firstAttribute="trailing" secondItem="u3P-xB-QI1" secondAttribute="trailing" constant="-10" id="8AN-4f-MCC"/>
