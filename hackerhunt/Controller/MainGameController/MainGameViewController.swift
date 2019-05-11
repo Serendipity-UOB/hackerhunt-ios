@@ -481,6 +481,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.gameState.currentTarget = self.gameState.getPlayerById(newTarget)
                         
                         self.targetName.text = self.gameState.currentTarget?.codeName
+                        self.alertVC.setMessage(newTarget: self.gameState.currentTarget?.codeName ?? "error")
+                        self.showAlert()
                         self.reloadTable()
                     }
                     
