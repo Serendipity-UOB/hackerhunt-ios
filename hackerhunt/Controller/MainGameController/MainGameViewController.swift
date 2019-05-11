@@ -87,8 +87,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             
             guard let httpResponse = response as? HTTPURLResponse else {
-                self.logVC.setMessage(networkError: true)
-                self.showLog()
+                DispatchQueue.main.async {
+                    self.logVC.setMessage(networkError: true)
+                    self.showLog()
+                }
                 return
             }
             
@@ -134,8 +136,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse else {
-                self.logVC.setMessage(networkError: true)
-                self.showLog()
+                DispatchQueue.main.async {
+                    self.logVC.setMessage(networkError: true)
+                    self.showLog()
+                }
                 print("getStartInfo failed, trying again in 2 seconds")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.getStartInfo()
@@ -217,8 +221,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             URLSession.shared.dataTask(with: request) { (data, response, error) in
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
-                    self.logVC.setMessage(networkError: true)
-                    self.showLog()
+                    DispatchQueue.main.async {
+                        self.logVC.setMessage(networkError: true)
+                        self.showLog()
+                    }
                     return
                 }
                 
@@ -449,8 +455,10 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             guard let httpResponse = response as? HTTPURLResponse else {
-                self.logVC.setMessage(networkError: true)
-                self.showLog()
+                DispatchQueue.main.async {
+                    self.logVC.setMessage(networkError: true)
+                    self.showLog()
+                }
                 return
             }
             
