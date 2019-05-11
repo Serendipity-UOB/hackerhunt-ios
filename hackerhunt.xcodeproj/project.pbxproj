@@ -37,7 +37,6 @@
 		BF6F9F8821F7AA0000924174 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F9F8721F7AA0000924174 /* GameState.swift */; };
 		BF6F9F8A21F7AED600924174 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F9F8921F7AED600924174 /* Player.swift */; };
 		BF6F9F8F21F7B54000924174 /* ServerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F9F8E21F7B54000924174 /* ServerUtils.swift */; };
-		BF86B5552287134B003B2B83 /* CardState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF86B5542287134B003B2B83 /* CardState.swift */; };
 		BF90D7A12254BB630053052D /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF90D7A02254BB630053052D /* TutorialViewController.swift */; };
 		BF9A7FE921EF6CC100C30261 /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9A7FE821EF6CC100C30261 /* Gif.swift */; };
 		BF9A7FED21EF720C00C30261 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF9A7FEC21EF720C00C30261 /* Assets.xcassets */; };
@@ -112,7 +111,6 @@
 		BF6F9F8721F7AA0000924174 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		BF6F9F8921F7AED600924174 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		BF6F9F8E21F7B54000924174 /* ServerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerUtils.swift; sourceTree = "<group>"; };
-		BF86B5542287134B003B2B83 /* CardState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardState.swift; sourceTree = "<group>"; };
 		BF90D7A02254BB630053052D /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		BF9A7FE821EF6CC100C30261 /* Gif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
 		BF9A7FEC21EF720C00C30261 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -220,7 +218,6 @@
 			isa = PBXGroup;
 			children = (
 				BF6F9F8721F7AA0000924174 /* GameState.swift */,
-				BF86B5542287134B003B2B83 /* CardState.swift */,
 				BF6F9F8921F7AED600924174 /* Player.swift */,
 				BE25F73421FBAF11008FBAF4 /* Time.swift */,
 				BEFBAC6422872EBE0090EA7B /* CardState.swift */,
@@ -448,11 +445,7 @@
 				BF6F9F8A21F7AED600924174 /* Player.swift in Sources */,
 				BE25F73521FBAF11008FBAF4 /* Time.swift in Sources */,
 				BFFC0CD621FA12C200F71ABB /* LeaderboardViewController.swift in Sources */,
-<<<<<<< HEAD
-				BF86B5552287134B003B2B83 /* CardState.swift in Sources */,
-=======
 				BEFBAC6522872EBE0090EA7B /* CardState.swift in Sources */,
->>>>>>> 2dab7d8eb4bc3a4fde32330132a00356596b30c8
 				BE062B962232AA8B00EC5578 /* ModelIdentifier.swift in Sources */,
 				BF9A7FEF21EF883500C30261 /* RegisterViewController.swift in Sources */,
 			);
