@@ -143,6 +143,8 @@ class LeaderBoardTableCell: UITableViewCell {
             crownImage.image = UIImage(named: "silver_crown")
         } else if (position == 3) {
             crownImage.image = UIImage(named: "bronze_crown")
+        } else {
+            crownImage.image = nil
         }
         
         drawCircle()
