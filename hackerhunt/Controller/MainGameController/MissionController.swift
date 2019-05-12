@@ -41,6 +41,7 @@ extension MainGameViewController {
             
             switch statusCode {
             case 200:
+                print("/missionUpdate 200: Mission success")
                 self.missionTimer.invalidate()
                 self.onMission = false
                 guard let responsedata = data else { return }
@@ -49,11 +50,11 @@ extension MainGameViewController {
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
                     guard let evidence = bodyDict["evidence"] as? [[String: Int]] else {
-                        print("no evidence in mission success")
+                        print("Error: no evidence in mission success")
                         return
                     }
                     guard let description = bodyDict["success_description"] as? String else {
-                        print("no description in mission success")
+                        print("Error: no description in mission success")
                         return
                     }
                     
@@ -67,6 +68,7 @@ extension MainGameViewController {
                     self.reloadTable()
                 } catch {}
             case 203:
+                print("/missionUpdate 203: Mission failed")
                 self.missionTimer.invalidate()
                 self.onMission = false
                 guard let responsedata = data else { return }
@@ -75,7 +77,7 @@ extension MainGameViewController {
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
                     guard let description = bodyDict["failure_description"] as? String else {
-                        print("no description in mission success")
+                        print("Error: no description in mission success")
                         return
                     }
                     
@@ -86,8 +88,9 @@ extension MainGameViewController {
                     self.reloadTable()
                 } catch {}
             case 204:
-                print("you are on your start mission")
+                print("/missionUpdate 204: You are on your start mission")
             case 205:
+                print("/missionUpdate 205: Mission cancelled due to target takedown")
                 self.missionTimer.invalidate()
                 self.onMission = false
                 DispatchQueue.main.async {
@@ -100,7 +103,7 @@ extension MainGameViewController {
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
                     guard let timeRemaining = bodyDict["time_remaining"] as? Int else {
-                        print("time remaining failed in mission update")
+                        print("Error: time remaining failed in mission update")
                         return
                     }
                     
@@ -112,9 +115,9 @@ extension MainGameViewController {
             case 400:
                 self.missionTimer.invalidate()
                 self.onMission = false
-                print("mission something went wrong from client")
+                print("/missionUpdate 400: Bad request")
             default:
-                print("mission updated received clienterror")
+                print("/missionUpdate \(statusCode): Unexpected response")
             }
         }.resume()
     }

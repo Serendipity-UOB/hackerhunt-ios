@@ -74,7 +74,7 @@ extension MainGameViewController {
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
                     
                     guard let bodyDict = bodyJson as? [String: Any] else {
-                        print("/exchangeRequest couldn't parse bodyJson 202")
+                        print("Error: /exchangeRequest couldn't parse bodyJson 202")
                         return
                     }
                     guard let evidence = bodyDict["evidence"] as? [[String:Any]] else {
@@ -96,7 +96,6 @@ extension MainGameViewController {
                     
                     DispatchQueue.main.async {
                         self.setNoLongerExchanging(with: player, true)
-                        print("Exchange accepted")
                     }
                 } catch {}
             case 204: // rejected
@@ -107,7 +106,7 @@ extension MainGameViewController {
                 }
             case 206:
                 self.reloadTable()
-                print("/exchangeRequest 206: keep polling")
+                print("/exchangeRequest 206: Keep polling")
             case 400: // error
                 self.exchangeTimer.invalidate()
                 
@@ -260,7 +259,7 @@ extension MainGameViewController {
             case 400:
                 self.exchangeRequestTimer.invalidate()
                 self.exchangeResponse = 0
-                print("/exchangeResponse 400: bad request")
+                print("/exchangeResponse 400: Bad request")
                 DispatchQueue.main.async {
                     self.hideExchangeRequested()
                 }
@@ -314,7 +313,7 @@ extension MainGameViewController {
     
     @objc func interceptRequest() {
         let requestdata: [String:Any] = interceptTimer.userInfo as! [String:Any]
-        print("\tintercept target \(requestdata["target_id"] ?? "??")")
+        //print("\tintercept target \(requestdata["target_id"] ?? "??")")
         
         let request = ServerUtils.post(to: "/intercept", with: requestdata)
         
@@ -367,33 +366,33 @@ extension MainGameViewController {
                     
                     DispatchQueue.main.async {
                         self.setNoLongerIntercepting(target, true)
-                        print("/intercept 200: intercept on \(target.realName) successful")
+                        print("/intercept 200: Intercept on \(target.realName) successful")
                     }
                 } catch {}
             case 201:
-                print("/intercept 201: intercept created")
+                print("/intercept 201: Intercept created")
             case 204:
-                print("/intercept 204: intercept fail")
+                print("/intercept 204: Intercept fail")
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerIntercepting(target, false)
                 }
             case 206:
-                print("/intercept 206: /intercept polling for result")
+                print("/intercept 206: Keep polling")
             case 400:
-                print("/intercept 400: intercept fail")
+                print("/intercept 400: Intercept fail")
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerIntercepting(target, false)
                 }
             case 404:
-                print("/intercept 404: already intercepting someone")
+                print("/intercept 404: Already intercepting someone")
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerIntercepting(target, false)
                 }
             default:
-                print("/intercept \(statusCode): unexpected response")
+                print("/intercept \(statusCode): Unexpected response")
             }
         }.resume()
     }
@@ -506,7 +505,7 @@ extension MainGameViewController {
                 
                 guard let responseData = data else { return }
                 do {
-                    print("/expose 200: success")
+                    print("/expose 200: Success")
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
@@ -525,7 +524,7 @@ extension MainGameViewController {
             } else {
                 DispatchQueue.main.async {
                     // small popup here
-                    print("/expose \(statusCode): unexpected response")
+                    print("/expose \(statusCode): Unexpected response")
                 }
             }
             }.resume()

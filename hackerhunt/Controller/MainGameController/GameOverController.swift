@@ -37,18 +37,19 @@ extension MainGameViewController {
             let statusCode: Int = httpResponse.statusCode
             
             if (statusCode == 200) {
+                print("/endInfo 200")
                 guard let responseData = data else {
-                    print("couldn't parse responseData /endInfo")
+                    print("Error: couldn't parse responseData /endInfo")
                     return
                 }
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
                     guard let bodyDict = bodyJson as? [String:[[String: Any]]] else {
-                        print("couldn't parse /endInfo body json")
+                        print("Error: couldn't parse /endInfo body json")
                         return
                     }
                     guard let leaderboard : [[String: Any]] = bodyDict["leaderboard"] else {
-                        print("leaderboard missing from /endInfo")
+                        print("Error: leaderboard missing from /endInfo")
                         return
                     }
                     self.gameState.assignScores(scoreList: leaderboard)
@@ -57,7 +58,7 @@ extension MainGameViewController {
                     }
                 } catch {}
             } else {
-                print("/endInfo status code \(statusCode)")
+                print("/endInfo \(statusCode): Unexpected response")
             }
             }.resume()
     }
