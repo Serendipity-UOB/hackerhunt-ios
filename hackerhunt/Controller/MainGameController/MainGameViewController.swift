@@ -357,7 +357,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             self.onMission = true
             if (tableCardSelected) { // deselect selected player if a mission is popping up
                 tableCardSelected = false
-                ungreyOutAllCells()
+                DispatchQueue.main.async {
+                    self.ungreyOutAllCells()
+                }
             }
             guard let missionType: Int = bodyDict["mission_type"] as? Int else {
                 print("mission_type missing")
