@@ -45,7 +45,7 @@ class LogViewController : UIViewController {
     
     func setMessage(networkError: String) {
         self.image = UIImage(named: "bad_full_pop_up")
-        self.message = "Network error on request response \(networkError)"
+        self.message = "Network error on \(networkError)"
     }
     
     /* animations */

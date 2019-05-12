@@ -137,27 +137,24 @@ extension MainGameViewController {
                     self.setNoLongerExchanging(with: player, false)
                 }
             }
-            }.resume()
+        }.resume()
     }
     
     func setCurrentlyExchanging(with player: Player) {
-        let p = gameState.getPlayerById(player.id)
-        p!.exchangeRequested = true
-        p!.interceptDisabled = true
+        player.exchangeRequested = true
+        player.interceptDisabled = true
         for p in self.gameState.allPlayers {
             p.exchangeDisabled = true
         }
     }
     
     func setNoLongerExchanging(with player: Player, _ success: Bool) {
-        var p = gameState.getPlayerById(player.id)
-        p!.exchangeRequested = false
-        p!.interactionResult = success ? 1 : 2
+        player.exchangeRequested = false
+        player.interactionResult = success ? 1 : 2
         enableEnableableButtons()
-        self.reloadTable()
+        self.reloadTableSync()
         self.playerTableView.layoutIfNeeded()
-        p = gameState.getPlayerById(player.id)!
-        p!.interactionResult = 0
+        player.interactionResult = 0
     }
     
     func exchangeResponse(_ requesterId: Int) {
@@ -286,7 +283,7 @@ extension MainGameViewController {
                     self.hideExchangeRequested()
                 }
             }
-            }.resume()
+        }.resume()
     }
     
     
@@ -407,23 +404,20 @@ extension MainGameViewController {
     }
     
     func setCurrentlyIntercepting(_ player: Player) {
-        let p = self.gameState.getPlayerById(player.id)
-        p!.exchangeDisabled = true
-        p!.interceptRequested = true
+        player.exchangeDisabled = true
+        player.interceptRequested = true
         for p in self.gameState.allPlayers {
             p.interceptDisabled = true
         }
     }
     
     func setNoLongerIntercepting(_ player: Player, _ success: Bool) {
-        var p = self.gameState.getPlayerById(player.id)
-        p!.interceptRequested = false
-        p!.interactionResult = success ? 1 : 2
+        player.interceptRequested = false
+        player.interactionResult = success ? 1 : 2
         enableEnableableButtons()
-        self.reloadTable()
+        self.reloadTableSync()
         self.playerTableView.layoutIfNeeded()
-        p = self.gameState.getPlayerById(player.id)!
-        p!.interactionResult = 0
+        player.interactionResult = 0
     }
     
     func enableEnableableButtons() {
