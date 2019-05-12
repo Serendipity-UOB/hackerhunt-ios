@@ -59,19 +59,22 @@ extension MainGameViewController {
             }
             
             let statusCode: Int = httpResponse.statusCode
-            print("exchange code " + String(statusCode))
             
             switch statusCode {
             case 201: // created
-                print("Exchange requested")
+                print("201 Exchange requested")
             case 202: // accepted
+                print("202 Exchange accepted")
                 guard let responseData = data else { return }
                 do {
                     self.exchangeTimer.invalidate()
                     
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
                     
-                    guard let bodyDict = bodyJson as? [String: Any] else { return }
+                    guard let bodyDict = bodyJson as? [String: Any] else {
+                        print("/exchangeRequest couldn't parse bodyJson 202")
+                        return
+                    }
                     guard let evidence = bodyDict["evidence"] as? [[String:Any]] else {
                         print("evidence missing")
                         return
@@ -95,37 +98,37 @@ extension MainGameViewController {
                     }
                 } catch {}
             case 204: // rejected
+                print("204 Exchange rejected")
                 self.exchangeTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerExchanging(with: player, false)
-                    print("Exchange rejected, put small popup here")
                 }
             case 206:
                 self.reloadTable()
-                print("EXCHANGE REQUEST keep polling")
+                print("206 /exchangeRequest keep polling")
             case 400: // error
                 self.exchangeTimer.invalidate()
                 
                 DispatchQueue.main.async {
                     self.setNoLongerExchanging(with: player, false)
                 }
-                print("You did a bad exchange")
+                print("400 You did a bad exchange")
             case 404: // exchange already pending
                 self.exchangeTimer.invalidate()
                 
                 DispatchQueue.main.async {
                     self.setNoLongerExchanging(with: player, false)
                 }
-                print("Exchange already pending")
+                print("404 Exchange already pending")
             case 408: // timeout
                 self.exchangeTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerExchanging(with: player, false)
-                    print("Exchange timed out, put small popup here")
+                    print("408 Exchange timed out")
                 }
             default:
                 self.exchangeTimer.invalidate()
-                print("/exchangeRequest unexpected \(statusCode)")
+                print("\(statusCode) /exchangeRequest unexpected code")
                 DispatchQueue.main.async {
                     self.setNoLongerExchanging(with: player, false)
                 }
@@ -147,22 +150,6 @@ extension MainGameViewController {
         p!.exchangeRequested = false
         p!.interactionResult = success ? 1 : 2
         enableEnableableButtons()
-//        var interceptCurrentlyPending = false
-//        for player in self.gameState.allPlayers {
-//            if (player.interceptRequested) {
-//                interceptCurrentlyPending = true
-//            }
-//        }
-//        for player in self.gameState.allPlayers {
-//            // enable all exchanges apart from for a player who is being intercepted
-//            if (!player.interceptRequested) {
-//                player.exchangeDisabled = false
-//            }
-//            // enable all intercepts IF no intercept is pending
-//            if (!interceptCurrentlyPending) {
-//                player.interceptDisabled = false
-//            }
-//        }
         self.reloadTable()
         self.playerTableView.layoutIfNeeded()
         p = gameState.getPlayerById(player.id)!
@@ -207,7 +194,7 @@ extension MainGameViewController {
             
             switch statusCode {
             case 202:
-                print("exchange request accepted")
+                print("202 Exchange request accepted")
                 self.exchangeRequestTimer.invalidate()
                 self.exchangeResponse = 0
                 guard let responseData = data else { return }
@@ -241,14 +228,14 @@ extension MainGameViewController {
                     self.reloadTable()
                 } catch {}
             case 205:
+                print("205 Exchange request successfully rejected")
                 self.exchangeRequestTimer.invalidate()
                 self.exchangeResponse = 0
-                print("exchange request successfully rejected")
                 DispatchQueue.main.async {
                     self.hideExchangeRequested()
                 }
             case 206:
-                print("EXCHANGE RESPONSE keep polling")
+                print("206 /exchangeResponse keep polling")
                 guard let responseData = data else { return }
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
@@ -272,21 +259,21 @@ extension MainGameViewController {
             case 400:
                 self.exchangeRequestTimer.invalidate()
                 self.exchangeResponse = 0
-                print("something we did was wrong in exchange response")
+                print("400 /exchangeResponse")
                 DispatchQueue.main.async {
                     self.hideExchangeRequested()
                 }
             case 408:
                 self.exchangeRequestTimer.invalidate()
                 self.exchangeResponse = 0
-                print("exchange response timed out")
+                print("408 Exchange response timed out")
                 DispatchQueue.main.async {
                     self.hideExchangeRequested()
                 }
             default:
                 self.exchangeRequestTimer.invalidate()
                 self.exchangeResponse = 0
-                print("something went wrong in exchange response with code \(statusCode)")
+                print("\(statusCode) /exchangeResponse something went wrong")
                 DispatchQueue.main.async {
                     self.hideExchangeRequested()
                 }
@@ -327,8 +314,8 @@ extension MainGameViewController {
     
     @objc func interceptRequest() {
         let requestdata: [String:Any] = interceptTimer.userInfo as! [String:Any]
-        print("intercept requested")
-        print(requestdata)
+        print("intercept requested \(requestdata)")
+        
         let request = ServerUtils.post(to: "/intercept", with: requestdata)
         
         let target = self.gameState.getPlayerById(requestdata["target_id"]! as! Int)!
@@ -376,33 +363,33 @@ extension MainGameViewController {
                     
                     DispatchQueue.main.async {
                         self.setNoLongerIntercepting(target, true)
-                        print("intercept on \(target.realName) successful")
+                        print("200 intercept on \(target.realName) successful")
                     }
                 } catch {}
             case 201:
-                print("intercept created")
+                print("201 intercept created")
             case 204:
+                print("204 intercept fail")
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerIntercepting(target, false)
-                    print("no exchange happened for \(statusCode)")
                 }
             case 206:
-                print("INTERCEPT waiting for response, keep polling")
+                print("206 /intercept polling for result")
             case 400:
+                print("400 intercept fail")
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerIntercepting(target, false)
-                    print("no exchange happened for \(statusCode)")
                 }
             case 404:
+                print("404 already intercepting someone")
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerIntercepting(target, false)
-                    print("already intercepting someone")
                 }
             default:
-                print("something weird has happened in intercept with status code \(statusCode)")
+                print("\(statusCode) /intercept did something weird")
             }
         }.resume()
     }
