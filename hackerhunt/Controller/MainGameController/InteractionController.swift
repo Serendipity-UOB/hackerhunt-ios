@@ -50,11 +50,15 @@ extension MainGameViewController {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
-            guard let httpResponse = response as? HTTPURLResponse else {
+            if (error != nil) {
                 DispatchQueue.main.async {
                     self.logVC.setMessage(networkError: "exchange request")
                     self.showLog()
                 }
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
                 return
             }
             
@@ -180,11 +184,15 @@ extension MainGameViewController {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
-            guard let httpResponse = response as? HTTPURLResponse else {
+            if (error != nil) {
                 DispatchQueue.main.async {
                     self.logVC.setMessage(networkError: "exchange response")
                     self.showLog()
                 }
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
                 return
             }
             
@@ -322,11 +330,15 @@ extension MainGameViewController {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
-            guard let httpResponse = response as? HTTPURLResponse else {
+            if (error != nil) {
                 DispatchQueue.main.async {
                     self.logVC.setMessage(networkError: "intercept")
                     self.showLog()
                 }
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
                 return
             }
             
@@ -395,7 +407,6 @@ extension MainGameViewController {
     }
     
     func setCurrentlyIntercepting(_ player: Player) {
-        //player.currentlyIntercepting = true
         let p = self.gameState.getPlayerById(player.id)
         p!.exchangeDisabled = true
         p!.interceptRequested = true
@@ -489,11 +500,15 @@ extension MainGameViewController {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
-            guard let httpResponse = response as? HTTPURLResponse else {
+            if (error != nil) {
                 DispatchQueue.main.async {
                     self.logVC.setMessage(networkError: "expose")
                     self.showLog()
                 }
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
                 return
             }
             

@@ -86,11 +86,15 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                 return
             }
             
-            guard let httpResponse = response as? HTTPURLResponse else {
+            if (error != nil) {
                 DispatchQueue.main.async {
                     self.logVC.setMessage(networkError: "home beacon")
                     self.showLog()
                 }
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
                 return
             }
             
@@ -135,11 +139,17 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         let request = ServerUtils.post(to: "/startInfo", with: data)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let httpResponse = response as? HTTPURLResponse else {
+            
+            if (error != nil) {
                 DispatchQueue.main.async {
                     self.logVC.setMessage(networkError: "start info")
                     self.showLog()
                 }
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+
                 print("getStartInfo failed, trying again in 2 seconds")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.getStartInfo()
@@ -219,12 +229,16 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             let request = ServerUtils.post(to: "/playerUpdate", with: data)
             
             URLSession.shared.dataTask(with: request) { (data, response, error) in
-                
-                guard let httpResponse = response as? HTTPURLResponse else {
+
+                if (error != nil) {
                     DispatchQueue.main.async {
                         self.logVC.setMessage(networkError: "player update")
                         self.showLog()
                     }
+                    return
+                }
+                
+                guard let httpResponse = response as? HTTPURLResponse else {
                     return
                 }
                 
@@ -451,11 +465,15 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
-            guard let httpResponse = response as? HTTPURLResponse else {
+            if (error != nil) {
                 DispatchQueue.main.async {
                     self.logVC.setMessage(networkError: "new target")
                     self.showLog()
                 }
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
                 return
             }
             

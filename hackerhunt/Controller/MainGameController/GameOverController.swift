@@ -22,11 +22,15 @@ extension MainGameViewController {
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
-            guard let httpResponse = response as? HTTPURLResponse else {
+            if (error != nil) {
                 DispatchQueue.main.async {
-                    self.logVC.setMessage(networkError: "game over")
+                    self.logVC.setMessage(networkError: "end info")
                     self.showLog()
                 }
+                return
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
                 return
             }
             
