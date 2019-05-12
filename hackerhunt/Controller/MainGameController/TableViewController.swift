@@ -22,7 +22,7 @@ extension MainGameViewController {
         let contentOffset = playerTableView.contentOffset
         DispatchQueue.main.async {
             self.playerTableView.reloadData()
-            self.playerTableView.layoutIfNeeded()
+//            self.playerTableView.layoutIfNeeded()
             self.playerTableView.setContentOffset(contentOffset, animated: false)
         }
     }
@@ -30,7 +30,7 @@ extension MainGameViewController {
     func reloadTableSync() {
         let contentOffset = playerTableView.contentOffset
         self.playerTableView.reloadData()
-        self.playerTableView.layoutIfNeeded()
+//        self.playerTableView.layoutIfNeeded()
         self.playerTableView.setContentOffset(contentOffset, animated: false)
     }
     
