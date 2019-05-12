@@ -22,8 +22,8 @@ extension MainGameViewController {
         if (gameState.playerIsNearby(interacteeId)) {
             DispatchQueue.main.async {
                 self.setCurrentlyExchanging(with: player)
-                self.reloadTable()
             }
+            self.reloadTable()
             
             let validContacts: [[String: Int]] = self.gameState.allPlayers
                 .filter({ $0.evidence > 0 })
@@ -101,9 +101,7 @@ extension MainGameViewController {
                     print("Exchange rejected, put small popup here")
                 }
             case 206:
-                DispatchQueue.main.async {
-                    self.reloadTable()
-                }
+                self.reloadTable()
                 print("EXCHANGE REQUEST keep polling")
             case 400: // error
                 self.exchangeTimer.invalidate()
@@ -238,9 +236,9 @@ extension MainGameViewController {
                     }
                     
                     DispatchQueue.main.async {
-                        self.reloadTable()
                         self.hideExchangeRequested()
                     }
+                    self.reloadTable()
                 } catch {}
             case 205:
                 self.exchangeRequestTimer.invalidate()
@@ -313,8 +311,8 @@ extension MainGameViewController {
         
         DispatchQueue.main.async {
             self.setCurrentlyIntercepting(player)
-            self.reloadTable()
         }
+        self.reloadTable()
         
         let data: [String:Any] = [
             "player_id": self.gameState.player!.id,
@@ -533,9 +531,9 @@ extension MainGameViewController {
                         print("expose successful")
                         self.alertVC.setMessage(successfulExpose: true, reputation: reputation)
                         self.showAlert()
-                        self.reloadTable()
                         self.startCheckingForHomeBeacon(withCallback: self.requestNewTarget)
                     }
+                    self.reloadTable()
                 } catch {}
             } else {
                 DispatchQueue.main.async {

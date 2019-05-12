@@ -20,9 +20,11 @@ extension MainGameViewController {
     
     func reloadTable() {
         let contentOffset = playerTableView.contentOffset
-        playerTableView.reloadData()
-        playerTableView.layoutIfNeeded()
-        playerTableView.setContentOffset(contentOffset, animated: false)
+        DispatchQueue.main.async {
+            self.playerTableView.reloadData()
+            self.playerTableView.layoutIfNeeded()
+            self.playerTableView.setContentOffset(contentOffset, animated: false)
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

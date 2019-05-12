@@ -187,9 +187,9 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                     
                     DispatchQueue.main.async {
                         self.startGameOverCountdown()
-                        self.reloadTable()
                         self.startPollingForUpdates()
                     }
+                    self.reloadTable()
                 } catch {}
             } else {
                 print("/startInfo failed")
@@ -293,11 +293,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                             self.gameOver()
                         }
                         
-                        DispatchQueue.main.async {
-//                            if (self.tapToCloseLabel.alpha != 1.0) {
-                                self.reloadTable()
-//                            }
-                        }
+                        self.reloadTable() // this calls main thread
                     } catch {}
                 } else {
                     print("/playerUpdate failed with status code \(statusCode)")
@@ -484,8 +480,8 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.targetName.text = self.gameState.currentTarget?.codeName
                         self.alertVC.setMessage(newTarget: self.gameState.currentTarget?.codeName ?? "error")
                         self.showAlert()
-                        self.reloadTable()
                     }
+                    self.reloadTable()
                     
                 } catch {}
             }

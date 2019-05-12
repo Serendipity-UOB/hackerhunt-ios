@@ -57,10 +57,10 @@ extension MainGameViewController {
                         self.gameState.incrementEvidence(player: element["player_id"]!, evidence: element["amount"]!)
                     }
                     DispatchQueue.main.async {
-                        self.reloadTable()
                         self.alertVC.setMessage(missionSuccess: true, missionString: description)
                         self.showAlert()
                     }
+                    self.reloadTable()
                 } catch {}
             case 203:
                 self.missionTimer.invalidate()
@@ -76,10 +76,10 @@ extension MainGameViewController {
                     }
                     
                     DispatchQueue.main.async {
-                        self.reloadTable()
                         self.alertVC.setMessage(missionFailure: true, missionString: description)
                         self.showAlert()
                     }
+                    self.reloadTable()
                 } catch {}
             case 204:
                 print("you are on your start mission")

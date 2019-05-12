@@ -239,40 +239,38 @@ class PlayerTableCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        DispatchQueue.main.async {
-            self.realName.text = self.player.realName
-            
-            if (self.player.codeNameDiscovered) {
-                self.codeName.text = self.player.codeName
-                self.codeName.backgroundColor = (self.isTarget) ? UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7) : UIColor(red:0.00, green:0.65, blue:0.93, alpha:0.54)
-                self.codeName.alpha = 1
-            } else {
-                self.codeName.alpha = 0
-            }
-            
-            // evidence text positioning
-            if (self.player.evidence == 100.0) {
-                self.percentagePositionConstraint.constant = -9
-            } else if (self.player.evidence >= 10.0){
-                self.percentagePositionConstraint.constant = -12
-            } else {
-                self.percentagePositionConstraint.constant = -15
-            }
-            
-            self.setColoursNearbyOrFar()
-            
-            self.checkForCompleteEvidence()
-            
-            self.drawEvidenceBar()
-            
-            self.checkForPlusFiveAnimation()
-            
-            self.setInteractionLabels()
-            
-            self.updateFlag(zoneId: self.player.zone)
-            
-            self.checkForGreyOut()
+        realName.text = player.realName
+        
+        if (player.codeNameDiscovered) {
+            codeName.text = player.codeName
+            codeName.backgroundColor = (isTarget) ? UIColor(red:0.88, green:0.40, blue:0.40, alpha:0.7) : UIColor(red:0.00, green:0.65, blue:0.93, alpha:0.54)
+            codeName.alpha = 1
+        } else {
+            codeName.alpha = 0
         }
+        
+        // evidence text positioning
+        if (player.evidence == 100.0) {
+            percentagePositionConstraint.constant = -9
+        } else if (player.evidence >= 10.0){
+            percentagePositionConstraint.constant = -12
+        } else {
+            percentagePositionConstraint.constant = -15
+        }
+        
+        setColoursNearbyOrFar()
+        
+        checkForCompleteEvidence()
+        
+        drawEvidenceBar()
+        
+        checkForPlusFiveAnimation()
+        
+        setInteractionLabels()
+        
+        updateFlag(zoneId: player.zone)
+        
+        checkForGreyOut()
     }
     
     func checkForGreyOut() {
