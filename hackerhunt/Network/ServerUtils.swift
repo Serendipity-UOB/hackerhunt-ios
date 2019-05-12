@@ -27,7 +27,7 @@ class ServerUtils {
         request.httpMethod = "POST"
         request.httpBody = httpBody
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+        request.timeoutInterval = 2.0
         return request
     }
     
@@ -43,6 +43,7 @@ class ServerUtils {
         
         var request = URLRequest(url: urlObj!)
         request.httpMethod = "GET"
+        request.timeoutInterval = 2.0
         
         return request
     }

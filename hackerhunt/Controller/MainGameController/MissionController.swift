@@ -106,12 +106,13 @@ extension MainGameViewController {
                 } catch {}
                 // TODO decrement timer
             case 400:
+                self.missionTimer.invalidate()
                 self.onMission = false
                 print("mission something went wrong from client")
             default:
                 print("mission updated received clienterror")
             }
-            }.resume()
+        }.resume()
     }
     
 }
