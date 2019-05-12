@@ -17,8 +17,6 @@ extension MainGameViewController {
         let interacteeId = sender.tag
         let player = self.gameState.getPlayerById(interacteeId)!
         
-        
-        
         if (gameState.playerIsNearby(interacteeId)) {
             DispatchQueue.main.async {
                 self.setCurrentlyExchanging(with: player)
@@ -66,9 +64,9 @@ extension MainGameViewController {
             
             switch statusCode {
             case 201: // created
-                print("201 Exchange requested")
+                print("/exchangeRequest 201: Exchange requested")
             case 202: // accepted
-                print("202 Exchange accepted")
+                print("/exchangeRequest 202: Exchange accepted")
                 guard let responseData = data else { return }
                 do {
                     self.exchangeTimer.invalidate()
@@ -80,7 +78,7 @@ extension MainGameViewController {
                         return
                     }
                     guard let evidence = bodyDict["evidence"] as? [[String:Any]] else {
-                        print("evidence missing")
+                        print("Error: evidence missing")
                         return
                     }
                     var players: [String] = []
@@ -91,7 +89,7 @@ extension MainGameViewController {
                             let amount: Int = e["amount"] as! Int
                             self.gameState.incrementEvidence(player: playerId, evidence: amount)
                         } else {
-                            print("couldn't find player \(playerId)")
+                            print("Error: /exchangeRequest couldn't find player \(playerId)")
                             return
                         }
                     }
@@ -102,37 +100,37 @@ extension MainGameViewController {
                     }
                 } catch {}
             case 204: // rejected
-                print("204 Exchange rejected")
+                print("/exchangeRequest 204: Exchange rejected")
                 self.exchangeTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerExchanging(with: player, false)
                 }
             case 206:
                 self.reloadTable()
-                print("206 /exchangeRequest keep polling")
+                print("/exchangeRequest 206: keep polling")
             case 400: // error
                 self.exchangeTimer.invalidate()
                 
                 DispatchQueue.main.async {
                     self.setNoLongerExchanging(with: player, false)
                 }
-                print("400 You did a bad exchange")
+                print("/exchangeRequest 400: You did a bad exchange")
             case 404: // exchange already pending
                 self.exchangeTimer.invalidate()
                 
                 DispatchQueue.main.async {
                     self.setNoLongerExchanging(with: player, false)
                 }
-                print("404 Exchange already pending")
+                print("/exchangeRequest 404: Exchange already pending")
             case 408: // timeout
                 self.exchangeTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerExchanging(with: player, false)
-                    print("408 Exchange timed out")
+                    print("/exchangeRequest 408: Exchange timed out")
                 }
             default:
                 self.exchangeTimer.invalidate()
-                print("\(statusCode) /exchangeRequest unexpected code")
+                print("/exchangeRequest \(statusCode): Unexpected response")
                 DispatchQueue.main.async {
                     self.setNoLongerExchanging(with: player, false)
                 }
@@ -198,22 +196,20 @@ extension MainGameViewController {
             
             let statusCode: Int = httpResponse.statusCode
             
-            print("exchange response status code \(statusCode)")
-            
             switch statusCode {
             case 202:
-                print("202 Exchange request accepted")
+                print("/exchangeResponse 202: Exchange request accepted")
                 self.exchangeRequestTimer.invalidate()
                 self.exchangeResponse = 0
                 guard let responseData = data else { return }
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
                     guard let bodyDict = bodyJson as? [String: Any] else {
-                        print("something went wrong accessing 202 response data exchange request")
+                        print("Error: something went wrong accessing 202 response data exchange request")
                         return
                     }
                     guard let evidence = bodyDict["evidence"] as? [[String:Any]] else {
-                        print("evidence missing for exchange request")
+                        print("Error: evidence missing for exchange request")
                         return
                     }
                     
@@ -225,7 +221,7 @@ extension MainGameViewController {
                             let amount: Int = e["amount"] as! Int
                             self.gameState.incrementEvidence(player: playerId, evidence: amount)
                         } else {
-                            print("couldn't find player \(playerId)")
+                            print("Error: couldn't find player \(playerId)")
                             return
                         }
                     }
@@ -236,23 +232,23 @@ extension MainGameViewController {
                     self.reloadTable()
                 } catch {}
             case 205:
-                print("205 Exchange request successfully rejected")
+                print("/exchangeResponse 205: Request rejected")
                 self.exchangeRequestTimer.invalidate()
                 self.exchangeResponse = 0
                 DispatchQueue.main.async {
                     self.hideExchangeRequested()
                 }
             case 206:
-                print("206 /exchangeResponse keep polling")
+                print("/exchangeResponse 206: Keep polling")
                 guard let responseData = data else { return }
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
                     guard let bodyDict = bodyJson as? [String: Any] else {
-                        print("something went wrong accessing 206 response data exchange request")
+                        print("Error: something went wrong accessing 206 response data exchange request")
                         return
                     }
                     guard let timeRemaining = bodyDict["time_remaining"] as? Int else {
-                        print("time remaining missing in exchange response")
+                        print("Error: time remaining missing in exchange response")
                         return
                     }
                     
@@ -267,21 +263,21 @@ extension MainGameViewController {
             case 400:
                 self.exchangeRequestTimer.invalidate()
                 self.exchangeResponse = 0
-                print("400 /exchangeResponse")
+                print("/exchangeResponse 400: bad request")
                 DispatchQueue.main.async {
                     self.hideExchangeRequested()
                 }
             case 408:
                 self.exchangeRequestTimer.invalidate()
                 self.exchangeResponse = 0
-                print("408 Exchange response timed out")
+                print("/exchangeResponse 408: Exchange response timed out")
                 DispatchQueue.main.async {
                     self.hideExchangeRequested()
                 }
             default:
                 self.exchangeRequestTimer.invalidate()
                 self.exchangeResponse = 0
-                print("\(statusCode) /exchangeResponse something went wrong")
+                print("/exchangeResponse \(statusCode): Unexpected response")
                 DispatchQueue.main.async {
                     self.hideExchangeRequested()
                 }
@@ -297,7 +293,6 @@ extension MainGameViewController {
         
         let targetId = sender.tag
         let player : Player = gameState.getPlayerById(targetId)!
-        print("intercepting \(player.realName) with id \(player.id) where targetid \(targetId)")
         
         if (!gameState.playerIsNearby(targetId)) {
             print("player not nearby")
@@ -322,7 +317,7 @@ extension MainGameViewController {
     
     @objc func interceptRequest() {
         let requestdata: [String:Any] = interceptTimer.userInfo as! [String:Any]
-        print("intercept requested \(requestdata)")
+        print("\tintercept target \(requestdata["target_id"] ?? "??")")
         
         let request = ServerUtils.post(to: "/intercept", with: requestdata)
         
@@ -351,11 +346,11 @@ extension MainGameViewController {
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
                     guard let bodyDict = bodyJson as? [String: Any] else {
-                        print("something went wrong accessing 200 response data intercept")
+                        print("Error: something went wrong accessing 200 response data intercept")
                         return
                     }
                     guard let evidence = bodyDict["evidence"] as? [[String:Any]] else {
-                        print("evidence missing for intercept")
+                        print("Error: evidence missing for intercept")
                         return
                     }
                     
@@ -368,40 +363,40 @@ extension MainGameViewController {
                             self.gameState.incrementEvidence(player: playerId, evidence: amount)
                             playerNames.append(p.realName)
                         } else {
-                            print("couldn't find player \(playerId)")
+                            print("Error: couldn't find player \(playerId)")
                             return
                         }
                     }
                     
                     DispatchQueue.main.async {
                         self.setNoLongerIntercepting(target, true)
-                        print("200 intercept on \(target.realName) successful")
+                        print("/intercept 200: intercept on \(target.realName) successful")
                     }
                 } catch {}
             case 201:
-                print("201 intercept created")
+                print("/intercept 201: intercept created")
             case 204:
-                print("204 intercept fail")
+                print("/intercept 204: intercept fail")
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerIntercepting(target, false)
                 }
             case 206:
-                print("206 /intercept polling for result")
+                print("/intercept 206: /intercept polling for result")
             case 400:
-                print("400 intercept fail")
+                print("/intercept 400: intercept fail")
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerIntercepting(target, false)
                 }
             case 404:
-                print("404 already intercepting someone")
+                print("/intercept 404: already intercepting someone")
                 self.interceptTimer.invalidate()
                 DispatchQueue.main.async {
                     self.setNoLongerIntercepting(target, false)
                 }
             default:
-                print("\(statusCode) /intercept did something weird")
+                print("/intercept \(statusCode): unexpected response")
             }
         }.resume()
     }
@@ -462,12 +457,11 @@ extension MainGameViewController {
         self.ungreyOutAllCells()
         let target: Int = sender.tag
         let player : Player = gameState.getPlayerById(target)!
-        print("expose button tapped for player \(player.realName)")
         
         // attempt to expose far away person
         if (player.nearby == false) {
             DispatchQueue.main.async {
-                print("player wasn't nearby")
+                print("Expose error: player wasn't nearby")
             }
             return
         }
@@ -484,12 +478,12 @@ extension MainGameViewController {
             DispatchQueue.main.async {
                 self.logVC.setMessage(exposeFailedWithWrongPerson: player.realName)
                 self.showLog()
-                print("not your target")
+                print("Expose error: not your target")
             }
             return
         }
         
-        
+        print("exposing \(player.realName)")
         // create data
         let data: [String: Int] = [
             "player_id": self.gameState.player!.id,
@@ -514,13 +508,11 @@ extension MainGameViewController {
             
             let statusCode: Int = httpResponse.statusCode
             
-            print("taken down status code " + String(statusCode))
-            
             if (statusCode == 200) {
                 
                 guard let responseData = data else { return }
                 do {
-                    
+                    print("/expose 200: success")
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
                     
                     guard let bodyDict = bodyJson as? [String: Any] else { return }
@@ -530,7 +522,6 @@ extension MainGameViewController {
                     p!.evidence = 0
                     DispatchQueue.main.async {
                         self.pointsValue.text = String(self.gameState.points) + " rep /"
-                        print("expose successful")
                         self.alertVC.setMessage(successfulExpose: true, reputation: reputation)
                         self.showAlert()
                         self.startCheckingForHomeBeacon(withCallback: self.requestNewTarget)
@@ -540,7 +531,7 @@ extension MainGameViewController {
             } else {
                 DispatchQueue.main.async {
                     // small popup here
-                    print("take down failed \(statusCode)\n\n\(String(describing: response))")
+                    print("/expose \(statusCode): unexpected response")
                 }
             }
             }.resume()
