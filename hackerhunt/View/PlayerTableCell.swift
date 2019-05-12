@@ -354,7 +354,6 @@ class PlayerTableCell: UITableViewCell {
         }
         else {
             if (player.interactionResult == 1) {
-                print("interaction successful")
                 interactionRequested.text = interactionRequested.text.components(separatedBy: " ")[0] + " success"
                 interactionRequested.textColor = UIColor(red:0.18, green:0.75, blue:0.32, alpha:1.0)
                 interactionRequested.alpha = 1
@@ -367,7 +366,6 @@ class PlayerTableCell: UITableViewCell {
                 }
             }
             else if (player.interactionResult == 2) {
-                print("interaction failed")
                 interactionRequested.text = interactionRequested.text.components(separatedBy: " ")[0] + " fail"
                 interactionRequested.textColor = UIColor(red:0.83, green:0.42, blue:0.42, alpha:1.0)
                 interactionRequested.alpha = 1
@@ -381,15 +379,12 @@ class PlayerTableCell: UITableViewCell {
             }
             /* me thinks this is why the text disappears prematurely. left in for testing */
             else if (player.interactionResult == 0 && !waitingForAnimation) {
-                print("manually removing animation")
                 interactionRequested.alpha = 0
                 interactionIcon.alpha = 0
             }
             if (player.interactionResult != 0) {
-                print("starting remove animation")
                 waitingForAnimation = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    print("doing remove animation")
                     self.waitingForAnimation = false
                     self.interactionRequested.alpha = 0
                     self.interactionIcon.alpha = 0
