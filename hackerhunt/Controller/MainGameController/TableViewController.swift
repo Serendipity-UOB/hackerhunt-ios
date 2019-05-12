@@ -27,6 +27,13 @@ extension MainGameViewController {
         }
     }
     
+    func reloadTableSync() {
+        let contentOffset = playerTableView.contentOffset
+        self.playerTableView.reloadData()
+        self.playerTableView.layoutIfNeeded()
+        self.playerTableView.setContentOffset(contentOffset, animated: false)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = playerTableView.dequeueReusableCell(withIdentifier: "playerTableCell") as! PlayerTableCell
         while (gameState.sorting) {
@@ -110,7 +117,7 @@ extension MainGameViewController {
             let cell = c as! PlayerTableCell
             cell.hideButtons() // not every cell needs to call this
         }
-        reloadTable()
+        reloadTableSync()
     }
     
     func greyOutAllCellsBut(_ cellToShow: PlayerTableCell) {
@@ -124,7 +131,7 @@ extension MainGameViewController {
             p.card.isGreyedOut = p.id != cellToShow.player.id
         }
         cellToShow.showButtons()
-        reloadTable()
+        reloadTableSync()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
