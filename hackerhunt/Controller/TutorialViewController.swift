@@ -95,8 +95,7 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBAction func screenTapped(_ sender: Any) {
         if tutorialStage == 0 {
-            let nuhaCell = getPlayerCell("Nuha")
-            nuhaCell.ungreyOut()
+            ungreyOutCell(withName: "Nuha")
             changeMessageText("This is another agent. The flag shows their current location.")
             moveMessage(newY: 190, newHeight: 90)
             tapToContinue.alpha = 1
@@ -107,19 +106,21 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
             nuhaCell.layoutSubviews()
             changeMessageText("If you have full evidence on the agent's activities their codename will be revealed.")
         } else if tutorialStage == 2 {
-            getPlayerCell("Louis").ungreyOut()
-            getPlayerCell("Tilly").ungreyOut()
+            ungreyOutCell(withName: "Louis")
+            ungreyOutCell(withName: "Tilly")
             changeMessageText("These agents are nearby.\nTap Tilly to interact.")
             moveMessage(newY: 330, newHeight: 80)
             tapToContinue.alpha = 0
         } else if tutorialStage == 3 {
-            getPlayerCell("Nuha").greyOut()
-            getPlayerCell("Louis").greyOut()
+            greyOutCell(withName: "Nuha")
+            greyOutCell(withName: "Louis")
             let tillyCell = getPlayerCell("Tilly")
+            tillyCell.player.card.isGreyedOut = false
             tillyCell.cellY = playerTableView.frame.origin.y + tillyCell.frame.origin.y
             tillyCell.showButtons()
             tillyCell.interceptBtn.isHidden = true
             tillyCell.exposeBtn.isHidden = true
+            tillyCell.layoutSubviews()
             changeMessageText("Press exchange to exchange evidence with this agent.")
         } else if tutorialStage == 5 {
             scoreAndRep.text = "#1 / 1 rep /"
@@ -130,7 +131,7 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
             tillyCell.player.interactionResult = 1
             tillyCell.layoutSubviews()
             let louisCell = getPlayerCell("Louis")
-            louisCell.ungreyOut()
+            louisCell.player.card.isGreyedOut = false
             louisCell.player.evidence += 10
             louisCell.layoutSubviews()
             changeMessageText("You gained evidence on Tilly from your exchange. Tilly also gave you evidence on Louis.")
@@ -143,7 +144,9 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
             moveMessage(newY: 330, newHeight: 80)
             tapToContinue.alpha = 0
         } else if tutorialStage == 8 {
-            getPlayerCell("Louis").greyOut()
+            let louisCell = getPlayerCell("Louis")
+            louisCell.player.card.isGreyedOut = true
+            louisCell.layoutSubviews()
             let tillyCell = getPlayerCell("Tilly")
             tillyCell.cellY = playerTableView.frame.origin.y + tillyCell.frame.origin.y
             tillyCell.showButtons()
@@ -154,7 +157,7 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
         } else if tutorialStage == 10 {
             scoreAndRep.text = "#1 / 4 rep /"
             let louisCell = getPlayerCell("Louis")
-            louisCell.ungreyOut()
+            louisCell.player.card.isGreyedOut = false
             louisCell.player.evidence += 10
             louisCell.layoutSubviews()
             let tillyCell = getPlayerCell("Tilly")
@@ -168,11 +171,13 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
             moveMessage(newY: 330, newHeight: 90)
         } else if tutorialStage == 11 {
             getPlayerCell("Tilly").player.interactionResult = 0
-            changeMessageText("Tilly is your your target!\nTap on her card to expose her identity.")
-            moveMessage(newY: 330, newHeight: 90)
+            changeMessageText("You have discovered Tilly's codename, and she is your target!\nTap on Tilly to expose her identity.")
+            moveMessage(newY: 330, newHeight: 130)
             tapToContinue.alpha = 0
         } else if tutorialStage == 12 {
-            getPlayerCell("Louis").greyOut()
+            let louisCell = getPlayerCell("Louis")
+            louisCell.player.card.isGreyedOut = true
+            louisCell.layoutSubviews()
             let tillyCell = getPlayerCell("Tilly")
             tillyCell.cellY = playerTableView.frame.origin.y + tillyCell.frame.origin.y
             tillyCell.showButtons()
@@ -181,9 +186,15 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
             changeMessageText("Tap to expose.")
             moveMessage(newY: 330, newHeight: 70)
         } else if tutorialStage == 14 {
-            getPlayerCell("Nuha").greyOut()
-            getPlayerCell("Louis").greyOut()
-            getPlayerCell("Tilly").greyOut()
+            let nuhaCell = getPlayerCell("Nuha")
+            nuhaCell.player.card.isGreyedOut = true
+            nuhaCell.layoutSubviews()
+            let louisCell = getPlayerCell("Louis")
+            louisCell.player.card.isGreyedOut = true
+            louisCell.layoutSubviews()
+            let tillyCell = getPlayerCell("Tilly")
+            tillyCell.player.card.isGreyedOut = true
+            tillyCell.layoutSubviews()
             changeMessageText("The safety of the world is in your hands. Good luck!")
             moveMessage(newY: 250, newHeight: 80)
             tapToContinue.alpha = 1
@@ -194,6 +205,20 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
             return
         } else { return }
         tutorialStage += 1
+    }
+    
+    func greyOutCell(withName name: String) {
+        let cell = getPlayerCell(name)
+        cell.player.card.isGreyedOut = true
+        cell.greyOut()
+        cell.layoutSubviews()
+    }
+    
+    func ungreyOutCell(withName name: String) {
+        let cell = getPlayerCell(name)
+        cell.player.card.isGreyedOut = false
+        cell.ungreyOut()
+        cell.layoutSubviews()
     }
     
     @objc func exchangeButtonAction(sender: UIButton!) {
@@ -224,8 +249,12 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
     @objc func exposeButtonAction(sender: UIButton!) {
         if tutorialStage == 13 {
             scoreAndRep.text = "#1 / 14 rep /"
-            getPlayerCell("Nuha").ungreyOut()
-            getPlayerCell("Louis").ungreyOut()
+            let nuhaCell = getPlayerCell("Nuha")
+            nuhaCell.player.card.isGreyedOut = false
+            nuhaCell.layoutSubviews()
+            let louisCell = getPlayerCell("Louis")
+            louisCell.player.card.isGreyedOut = false
+            louisCell.layoutSubviews()
             let tillyCell = getPlayerCell("Tilly")
             tillyCell.player.evidence = 0
             tillyCell.isTarget = false
@@ -326,6 +355,13 @@ class TutorialViewController: UIViewController, UITableViewDataSource, UITableVi
         self.players[4].zone = 2
         self.players[5].zone = 3
         self.players[6].zone = 3
+        self.players[0].card = CardState(isGreyedOut: true)
+        self.players[1].card = CardState(isGreyedOut: true)
+        self.players[2].card = CardState(isGreyedOut: true)
+        self.players[3].card = CardState(isGreyedOut: true)
+        self.players[4].card = CardState(isGreyedOut: true)
+        self.players[5].card = CardState(isGreyedOut: true)
+        self.players[6].card = CardState(isGreyedOut: true)
     }
 
     func setupPlayerTable() {

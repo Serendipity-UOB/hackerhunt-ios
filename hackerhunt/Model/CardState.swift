@@ -10,6 +10,10 @@ class CardState {
     
     init() {}
     
+    init(isGreyedOut: Bool) {
+        self.isGreyedOut = isGreyedOut
+    }
+    
     var isGreyedOut: Bool = false
     var buttonsEnabled: Bool = false
 }
