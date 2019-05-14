@@ -83,6 +83,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             if (!self.homeBeaconTimer.isValid) {
+                print("Error: /atHomeBeacon timer is not valid")
                 return
             }
             
@@ -95,6 +96,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             
             guard let httpResponse = response as? HTTPURLResponse else {
+                print("Error: /atHomeBeacon could not parse http response")
                 return
             }
             
@@ -457,6 +459,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
         let data: [String:Int] = [
             "player_id": (self.gameState.player?.id)!
         ]
+        print("calling /newTarget with data \(data)")
         
         let request = ServerUtils.post(to: "/newTarget", with: data)
         
@@ -471,6 +474,7 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             
             guard let httpResponse = response as? HTTPURLResponse else {
+                print("Error: /newTarget could not parse http response")
                 return
             }
             
@@ -478,29 +482,37 @@ class MainGameViewController: UIViewController, UITableViewDataSource, UITableVi
             
             if (statusCode == 200) {
                 print("/newTarget 200")
-                guard let responsedata = data else { return }
+                guard let responsedata = data else {
+                    print("Error: /newTarget 200 could not parse data")
+                    return
+                }
                 
                 do {
                     let bodyJson = try JSONSerialization.jsonObject(with: responsedata, options: [])
                     
-                    guard let bodyDict = bodyJson as? [String: Any] else { return }
+                    guard let bodyDict = bodyJson as? [String: Any] else {
+                        print("Error: /newTarget body json could not be parsed")
+                        return
+                    }
                     guard let newTarget = bodyDict["target_player_id"] as? Int else {
                         print("Error: target_player_id missing")
                         return
                     }
                     
                     DispatchQueue.main.async {
-                        self.gameState.currentTarget = self.gameState.getPlayerById(newTarget)
-                        
-                        self.targetName.text = self.gameState.currentTarget?.codeName
-                        self.alertVC.setMessage(newTarget: self.gameState.currentTarget?.codeName ?? "error")
+                        let target: Player = self.gameState.getPlayerById(newTarget)!
+                        self.gameState.currentTarget = target
+                        self.targetName.text = target.codeName
+                        self.alertVC.setMessage(newTarget: target.codeName)
                         self.showAlert()
+                        print("Got new target \(target.codeName) with id \(newTarget)")
                     }
                     self.reloadTable()
                     
-                } catch {}
-            }
-            else {
+                } catch {
+                    print("Error: /newTarget do/catch block")
+                }
+            } else {
                 print("/newTarget \(statusCode) couldn't retrieve new target")
             }
         }.resume()

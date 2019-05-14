@@ -111,15 +111,12 @@ class GameState {
         while (sorting) {
             print("waiting for sort to end")
         }
-        // print("searching for player \(id)")
         for p in self.allPlayers {
-            // print("\t\(p.realName) has id \(p.id)")
             if (p.id == id) {
                 return p
             }
         }
         print("Failed to find player with id \(id)\n")
-        // printAllPlayers()
         return nil
     }
     

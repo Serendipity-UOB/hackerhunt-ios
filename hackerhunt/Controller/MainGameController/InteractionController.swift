@@ -453,13 +453,12 @@ extension MainGameViewController {
         
         // attempt to expose far away person
         if (player.nearby == false) {
-            DispatchQueue.main.async {
-                print("Expose error: player wasn't nearby")
-            }
+            print("Expose error: player wasn't nearby")
             return
         }
         // attempt to expose with insufficient intel
         if (player.evidence < 100) {
+            print("Expose error: insufficient evidence")
             DispatchQueue.main.async {
                 self.logVC.setMessage(exposeFailedWithInsufficientIntel: player.realName)
                 self.showLog()
@@ -476,12 +475,13 @@ extension MainGameViewController {
             return
         }
         
-        print("exposing \(player.realName)")
         // create data
         let data: [String: Int] = [
             "player_id": self.gameState.player!.id,
             "target_id": player.id
         ]
+        
+        print("exposing \(player.realName) with id \(data["target_id"] ?? -1)\n\tbutton tag used \(target). Own id \(data["player_id"] ?? -1)")
         
         let request = ServerUtils.post(to: "/expose", with: data)
         
@@ -496,20 +496,29 @@ extension MainGameViewController {
             }
             
             guard let httpResponse = response as? HTTPURLResponse else {
+                print("Error: /expose could not parse http response")
                 return
             }
             
             let statusCode: Int = httpResponse.statusCode
             
             if (statusCode == 200) {
-                
-                guard let responseData = data else { return }
+                print("/expose 200: Success")
+                guard let responseData = data else {
+                    print("Error: /expose could not parse response data")
+                    return
+                }
                 do {
-                    print("/expose 200: Success")
                     let bodyJson = try JSONSerialization.jsonObject(with: responseData, options: [])
                     
-                    guard let bodyDict = bodyJson as? [String: Any] else { return }
-                    guard let reputation = bodyDict["reputation"] as? Int else { return }
+                    guard let bodyDict = bodyJson as? [String: Any] else {
+                        print("Error: /expose could not parse body json")
+                        return
+                    }
+                    guard let reputation = bodyDict["reputation"] as? Int else {
+                        print("Error: /expose could not parse reputation")
+                        return
+                    }
                     self.gameState!.points += reputation
                     let p = self.gameState.getPlayerById(player.id)
                     p!.evidence = 0
@@ -520,12 +529,11 @@ extension MainGameViewController {
                         self.startCheckingForHomeBeacon(withCallback: self.requestNewTarget)
                     }
                     self.reloadTable()
-                } catch {}
-            } else {
-                DispatchQueue.main.async {
-                    // small popup here
-                    print("/expose \(statusCode): Unexpected response")
+                } catch {
+                    print("Error: /expose do/catch block")
                 }
+            } else {
+                print("/expose \(statusCode): Unexpected response")
             }
             }.resume()
     }
